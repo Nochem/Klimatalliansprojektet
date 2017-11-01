@@ -1,0 +1,23 @@
+HTML:
+
+<input type="text" id="box" style="width: 100px;" />
+
+
+
+
+jquery:  (80% stulet från internet)
+
+$('#box').focus(function()
+{
+    /*to make this flexible, I'm storing the current width in an attribute*/
+    $(this).attr('data-default-width', $(this).width());
+    $(this).attr('data-default-height', $(this).height());
+    $(this).animate({ width: 110, height: 20 }, 'slow');
+}).blur(function()
+{
+    /* lookup the original width */
+    var w = $(this).attr('data-default-width');
+    var h = $(this).attr('data-default-height');
+    $(this).animate({ width: w }, 'slow');
+    $(this).animate({ height: h}, 'slow');
+});
