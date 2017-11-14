@@ -1,6 +1,8 @@
 body{
 	background-repeat: repeat-x;
 	background-color: #E0E0E0;
+	margin: 0px; 
+	display: grid;
 }
 li,p,h1,h2,h3,td,th,option,form{
 	font-family: 'Barlow',sans-serif;
@@ -9,20 +11,20 @@ li,p,h1,h2,h3,td,th,option,form{
 	background-image: url("../res/gradient.png");
 	background-repeat: repeat-x;
 	background-color: white;
-	margin-left: 10%;
-	margin-right: 10%;
 	height: 2000px;
-	width:1600px:
+	width:	auto:
 	}
 #logo{
 	background-image: url("../res/logo.png");
 	background-repeat: no-repeat;
-	width:1600px;
+	margin-left:2%;
+	margin-top:2%;
+	width:auto;
 	height:100px;
 }
 #menu{
 	width:1600px;
-	height: 120px;
+	height: 3%;
 }
 #menu ul{
 	list-style-type: none;
