@@ -5,17 +5,29 @@ $(document).ready(function(){
 });
 
 function validateForm() {
-    var newpass = document.forms["passwchange"]["newpass"].value;
+    
     var newPassconf = document.forms["passwchange"]["newpassconf"].value;
-    if(newpass != "" && newpassconf != ""){
+    var newpass = document.forms["passwchange"]["newpass"].value;
+    var num=6;
+
+    if(newPassconf != "" &&  newpass!= ""){
         if (newpass != newPassconf) {
             document.getElementById("nomatch").innerHTML = "Passwords don't match";
+            consol(newpass + " " + newpassconf);
             return false;
-        }else{
-            alert("Password changed");
         }
+        if(newpass.length < 6 && newPassconf.length < 6){
+             document.getElementById("nomatch").innerHTML = "Password must be longer than " + num + " characters.";
+             return false;
+        }
+        alert("Password change");
+        return true;
+
+    }else{
+        document.getElementById("nomatch").innerHTML = "Fill in both feilds";
+        return false;
     }
-    var num=6;
-    document.getElementById("nomatch").innerHTML = "Password must be longer than " + num + " characters.";
-    return false
+            
+
+       
 };
