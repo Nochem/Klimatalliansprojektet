@@ -69,9 +69,7 @@ $query = "SELECT YEAR(birth_date) FROM student";
 // Svar från databasen genom att skicka anslutningen och queryn
 $response = @mysqli_query($dbc, $query);
 
-// If the query executed properly proceed ~~~~~~~~~~ ÖVERSÄTT BÄTTRE
-
-// Om queryn fick ett korrekt svar, fortsätt, annars 
+// Om queryn fick ett korrekt svar, fortsätt
 if($response){
 echo '<select id="yeardrop">';
 	
