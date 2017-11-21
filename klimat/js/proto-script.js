@@ -7,15 +7,18 @@ $(document).ready(function(){
         /*
         Tar fram outputboxen
         */
-        var output=$(this).find('input.inputbox').eq(1);
+        var output=$(this).find('p.output');
 
         /*
         Hanterar avfokusering på inputboxen
         */
-        $(this).find('input.inputbox').eq(0).focusout(function(event) {
+        $(this).find('input.inputbox').focusout(function(event) {
             var val=parseInt($(this).val());
+
+            console.log(val);
             if(!isNaN(val)){
-                output.val(val.toFixed(2));
+                var out=$(this).val();
+                output.text(out);
             }
             else{
                 output.val("");
@@ -33,7 +36,7 @@ $(document).ready(function(){
 		cell2.innerHTML = "<input type='text' class='inputbox'/>";
 		cell3.innerHTML = "<input type='text' class='inputbox'/>";
 		cell4.innerHTML = "<input type='text' class='inputbox'/>";
-
+        window.scrollBy(0,50);
 	});
 	$("#logout").click(function(){
 		var r = confirm("är du säker på att du vill logga ut?")
