@@ -1,25 +1,25 @@
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			Klimat allians Lund - Mina Sidor
-		</title>
+<head>
+	<meta charset="UTF-8">
+	<title>
+		Klimat allians Lund - Mina Sidor
+	</title>
 
-		<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
-		<link rel="stylesheet" type="text/css" href="../css/minasidor-style.css">
-		<link rel="icon" href="../res/icon.png">
-	</head>
-	<body>
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+	<link rel="stylesheet" type="text/css" href="../css/minasidor-style.css">
+	<link rel="icon" href="../res/icon.png">
+</head>
+<body>
+	<div id="wrapper">
 		<div id="wrapper">
-			<div id="wrapper">
-				<div style="float:right" style="padding:5px 5px" >
-					<form id="logout" align="right" name="form1" method="post" action="mina_sidor.html">
-						<label class="logoutLblPos">
-							<input name="submit2" type="submit" id="submit2" value="Log out">
-						</label>
-					</form>
-				</div>
+			<div style="float:right" style="padding:5px 5px" >
+				<form id="logout" align="right" name="form1" method="post" action="mina_sidor.html">
+					<label class="logoutLblPos">
+						<input name="submit2" type="submit" id="submit2" value="Log out">
+					</label>
+				</form>
+			</div>
 			<a href="rapport.html"></a>
 			<div id="logo">
 			</div>
@@ -49,33 +49,33 @@
 			</div>
 			<div id="content">
 				<h2>
-				Ändra Lösenord
+					Ändra Lösenord
 				</h2>
-				  <form id="passwchange" onsubmit="return validateForm()">
-					  	<p>
-						  Befintligt Lösenord:
-					  	</p>
-					  	<input id="oldpass" type="password" name="oldPass" value="">
-					  	<p>
-							Nytt Lösenord:
-						</p>
-						<input id="newpass" type="password" name="newPass" value="">
-						<p>
-							Bekräfta nytt lösenord:
-						</p>
-						<input id="newpassconf" type="password" name="newPassconfirm" value="">
-						<p id="nomatch">
+				<form id="passwchange" onsubmit="return validateForm()">
+					<p>
+						Befintligt Lösenord:
+					</p>
+					<input id="oldpass" type="password" name="oldPass" value="">
+					<p>
+						Nytt Lösenord:
+					</p>
+					<input id="newpass" type="password" name="newPass" value="">
+					<p>
+						Bekräfta nytt lösenord:
+					</p>
+					<input id="newpassconf" type="password" name="newPassconfirm" value="">
+					<p id="nomatch">
 
-						</p>
+					</p>
+					<br>
+					<input class="flatbutton"id="change" type="submit"value="Ändra Lösenord">
+					<br>
+					<br>
+					<p>
+						Det nya lösenordet måste vara mellan 6-20 tecken långt.
 						<br>
-						<input id="change" type="submit"value="Ändra Lösenord">
-						<br>
-						<br>
-						<p>
-							Det nya lösenordet måste vara mellan 6-20 tecken långt.
-							<br>
-							(Tillåtna tecken är A-Z, a-z och 0-9)
-						</p>
+						(Tillåtna tecken är A-Z, a-z och 0-9)
+					</p>
 
 				</form>
 			</div>
@@ -84,4 +84,4 @@
 		<script type="text/javascript" src="../js/minasidor-script.js"></script>
 		<script type="text/javascript" src="../js/proto-script.js"></script>
 	</body>
-</html>
+	</html>
