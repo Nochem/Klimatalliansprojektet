@@ -17,6 +17,9 @@ $(document).ready(function(){
             if(!isNaN(val)){
                 output.val(val.toFixed(2));
             }
+            else{
+                output.val("");
+            }
         });
     });
 	$("#addrow").click(function(){
@@ -30,7 +33,7 @@ $(document).ready(function(){
 		cell2.innerHTML = "<input type='text' class='inputbox'/>";
 		cell3.innerHTML = "<input type='text' class='inputbox'/>";
 		cell4.innerHTML = "<input type='text' class='inputbox'/>";
-		
+
 	});
 	$("#logout").click(function(){
 		var r = confirm("är du säker på att du vill logga ut?")
@@ -39,5 +42,3 @@ $(document).ready(function(){
 		}
 	})
 });
-
-
