@@ -45,4 +45,16 @@ $(document).ready(function(){
 			document.getElementById("logout").action = "inloggning.html";
 		}
 	})
+
+    $(".rensa").click(function(){
+        var r = confirm("Rensa inmatad data?")
+        if(r){
+            $('.inputbox').val('');
+
+        }
+    })
+
+
 });
+
+
