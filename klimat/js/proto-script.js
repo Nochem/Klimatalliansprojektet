@@ -27,7 +27,8 @@ $(document).ready(function(){
     });
 	$("#addrow").click(function(){
 		var table = document.getElementById("reportTable");
-		var row = table.insertRow(table.length);
+		var placement = table.length;
+		var row = table.insertRow(placement);
 		var cell1 = row.insertCell(0);
 		var cell2 = row.insertCell(1);
 		var cell3 = row.insertCell(2);

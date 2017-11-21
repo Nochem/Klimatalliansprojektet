@@ -40,11 +40,11 @@
 }
 .menubutton{
 	position: relative;
-	left: 500px;
+	left: 430px;
 	padding: 10px;
 	font-family: 'Barlow',sans-serif;
 	font-size:18px;
-	background-color: #4CAF50;
+	background-color: #87CEFA;
 	color: white;
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
