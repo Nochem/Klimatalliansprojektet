@@ -16,9 +16,9 @@
 			</div>
 		</a>
 
-		<div id="menu">
+		<div id="menu" ;>
 			<ul>
-				<li class="menuitem currentpage">
+				<li class="menuitem currentpage" ">
 					<a href="rapport.html">
 						Rapport
 					</a>
@@ -38,11 +38,15 @@
 						Mina Sidor
 					</a>
 				</li>
+				<li>
+					<form style="float:right" id="logout" align="right" name="form1" method="post" action="rapport.html">
+						<label>
+							<input class="menuitem" name="submit2" type="submit" id="submit2" value="Log out">
+						</label>
+					</form>
+				</li>
 
 			</ul>
-			<button class="flatbutton" style="float:right">
-				Logga ut
-			</button>
 		</div>
 		<div id="content">
 			<h1>
@@ -390,6 +394,15 @@
 				</a>
 			</h1>
 			<table id="reportTable">
+				
+				<thead>
+					<tr>
+						<th>Totala flygutsläpp</th>
+						<th><input type="text" class="inputbox"/> kg Co2</th>
+
+					</tr>
+					
+				</thead>
 				<thead>
 					<tr>
 						<th>Från</th>
@@ -397,23 +410,31 @@
 						<th>Längd km</th>
 						<th>kg C02</th>
 					</tr>
+					
 				</thead>
+				<tbody>
+					
 				<tr>
 					<td><input type="text" class="inputbox"/></td>
 					<td><input type="text" class="inputbox"/></td>
 					<td><input type="text" class="inputbox"/></td>
 					<td><input type="text" class="inputbox"/></td>
 				</tr>
+			
 			</tbody>
+				
+			
 		</table>
 		<button id="addrow">
 			Ny resa
-		</button>
+				</button>
+
+		
 		<br>
-		<button class = "menubutton flatbutton" style="float: left" onclick = "alert('Rapport sparad')">
+		<button class = "menubutton flatbutton" style="left:530px"  onclick = "alert('Rapport sparad')">
 			Spara
 		</button>
-		<button class = "menubutton flatbutton" style="float:left" onclick = "alert('Rapport sparad')">
+		<button class = "menubutton flatbutton" style="left:530px" onclick = "alert('Rapport sparad')">
 			Rensa
 		</button>
 

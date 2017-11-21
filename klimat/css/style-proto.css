@@ -68,9 +68,14 @@ a{
 	background-color: #5DBCFF;
 }
 .menuitem {
-	padding:2px;
-	color:black;
-	text-decoration:none;
+	position: relative;
+	padding: 10px;
+	font-family: 'Barlow',sans-serif;
+	font-size:18px;
+	background-color: #87CEFA;
+	color: white;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
 }
 .menuitem a:hover{
 	color:#26EBFF;
@@ -89,6 +94,13 @@ a{
 	display: block;
 	padding:2px;
 	background-color: #5DBCFF;
+	position: relative;
+	padding: 10px;
+	font-family: 'Barlow',sans-serif;
+	font-size:18px;
+	color: white;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
 }
 .currentpage a{
 	color:white;
