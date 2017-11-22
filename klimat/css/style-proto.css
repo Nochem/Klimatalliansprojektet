@@ -62,7 +62,7 @@ a{
 }
 .flatbutton:hover{
 	background-color: #5DBCFF;
-
+	border-color:#5DBCFF;
 }
 .menuitem {
 	height: 40px;
