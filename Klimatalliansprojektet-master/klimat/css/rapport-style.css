@@ -1,0 +1,73 @@
+#content p{
+	margin-left:3em;
+}
+#content table{
+	margin-top: 5px;
+	margin-bottom: 5em;
+}
+#content tr{
+	clear:right;
+}
+#content select{
+	float: left;
+	height:30px;
+}
+#content input{
+}
+#content th,td{
+	padding-top:10px;
+	margin-left:0;
+	text-align: left;
+	height:10px;
+}
+#inputbox{
+	float: left;
+	width:120px;
+	height:30px;
+}
+#addrow{
+	height:50px;
+	font-family: 'Barlow',sans-serif;
+	background-color: #5DBCFF;
+	border:1px solid white;
+	border-radius: 4px;
+	font-size: 20px;
+	color:white;
+	margin-bottom: 10px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+}
+#addrow:hover{
+	background-color: #468DFF;
+	border: 1px solid gray;
+}
+.menubutton{
+	position: relative;
+	left: 430px;
+	font-family: 'Barlow',sans-serif;
+	font-size:18px;
+	background-color: #87CEFA;
+	color: white;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+}
+.comments{
+	text-align: left;
+	padding:10px;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+#comment{
+		display: -webkit-box;
+		margin-top: 5px;
+}
+#raidobutton{
+		margin-left: 10px;
+		width: 13px;
+		height: 13px;
+}
+#text{
+	font-family: 'Barlow',sans-serif;
+	font-size:18px;
+}
