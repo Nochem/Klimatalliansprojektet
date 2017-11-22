@@ -38,6 +38,11 @@
 						Mina Sidor
 					</a>
 				</li>
+					<li class="menuitem">
+						<a href="kontakt.html">
+							Kontakt
+						</a>
+					</li>
 				<li>
 					<form  id="logout" name="form1" method="post" action="rapport.html">
 						<label>
@@ -82,6 +87,9 @@
 								<option>
 									m<sup>3</sup>
 								</option>
+								<option>
+									L
+								</option>
 							</select>
 						</td>
 						<td>
@@ -96,6 +104,9 @@
 								<option>
 									m<sup>3</sup>
 								</option>
+								<option>
+									L
+								</option>
 							</select>
 						</td>
 						<td><p class="output"></p></td>
@@ -107,6 +118,9 @@
 							<select>
 								<option>
 									m<sup>3</sup>
+								</option>
+								<option>
+									L
 								</option>
 							</select>
 						</td>
@@ -122,6 +136,9 @@
 								<option>
 									m<sup>3</sup>
 								</option>
+								<option>
+									L
+								</option>
 							</select>
 						</td>
 						<td><p class="output"></p></td>
@@ -133,6 +150,9 @@
 							<select>
 								<option>
 									m<sup>3</sup>
+								</option>
+								<option>
+									L
 								</option>
 							</select>
 						</td>
@@ -146,6 +166,9 @@
 								<option>
 									m<sup>3</sup>
 								</option>
+								<option>
+									L
+								</option>
 							</select>
 						</td>
 						<td><p class="output"></p></td>
@@ -157,6 +180,9 @@
 							<select>
 								<option>
 									m<sup>3</sup>
+								</option>
+								<option>
+									L
 								</option>
 							</select>
 						</td>
@@ -170,6 +196,9 @@
 								<option>
 									m<sup>3</sup>
 								</option>
+								<option>
+									L
+								</option>
 							</select>
 						</td>
 						<td><p class="output"></p></td>
@@ -180,7 +209,7 @@
 							<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 							<select>
 								<option>
-									m<sup>3</sup>
+									MWh
 								</option>
 							</select>
 						</td>
@@ -192,19 +221,22 @@
 							<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 							<select>
 								<option>
-									m<sup>3</sup>
+									MWh
 								</option>
 							</select>
 						</td>
 						<td><p class="output"></p></td>
 					</tr>
 					<tr id="else">
-						<td>Övrigt drivmedel, ange vad</td>
+						<td>Övrigt drivmedel, ange vad </td>
 						<td>
 							<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 							<select>
 								<option>
 									m<sup>3</sup>
+								</option>
+								<option>
+									L
 								</option>
 							</select>
 						</td>
@@ -218,6 +250,12 @@
 								<option>
 									m<sup>3</sup>
 								</option>
+								<option>
+									L
+								</option>
+								<option>
+									MWh
+								</option>
 							</select>
 						</td>
 						<td><p class="output"></p></td>
@@ -230,13 +268,21 @@
 								<option>
 									m<sup>3</sup>
 								</option>
+								<option>
+									L
+								</option>
+								<option>
+									MWh
+								</option>
 							</select>
 						</td>
 						<td><p class="output"></p></td>
 					</tr>
 				</tbody>
 			</table>
-
+			<h3>Övriga kommentarer</h3>
+			<textarea class="comments" rows="8" cols="50">
+			</textarea>
 			<h1>
 				<a name="lokalaprocesser">
 					Lokala processer
@@ -244,10 +290,7 @@
 			</h1>
 
 			<table>
-
-
 				<thead>
-
 				</thead>
 				<tbody>
 					<tr>
@@ -393,6 +436,10 @@
 					</tr>
 				</tbody>
 			</table>
+
+			<h3>Övriga kommentarer</h3>
+			<textarea class="comments" rows="8" cols="50">
+			</textarea>
 			<h1>
 				<a name="flygresor">
 					Flygresor
@@ -426,31 +473,37 @@
 				</thead>
 				<tbody>
 
-				<tr>
-					<td><input type="text" class="inputbox"/></td>
-					<td><input type="text" class="inputbox"/></td>
-					<td><input type="text" class="inputbox"/></td>
-					<td><input type="text" class="inputbox"/></td>
-				</tr>
+					<tr>
+						<td><input type="text" class="inputbox"/></td>
+						<td><input type="text" class="inputbox"/></td>
+						<td><input type="text" class="inputbox"/></td>
+						<td><input type="text" class="inputbox"/></td>
+					</tr>
 
-			</tbody>
-
-
-		</table>
-		<button id="addrow">
-			Ny resa
-				</button>
+				</tbody>
 
 
-		<br>
-		<button class = "menubutton flatbutton" style="left:530px"  onclick = "alert('Rapport sparad')">
-			Spara
-		</button>
+			</table>
+
+			<button id="addrow">
+				Ny resa
+			</button>
+
+
+			<br>
+
+			<h3>Övriga kommentarer</h3>
+			<textarea class="comments"rows="8" cols="50">
+			</textarea>
+			<br>
+			<button class = "menubutton flatbutton" style="left:530px"  onclick = "alert('Rapport sparad')">
+				Spara
+			</button>
 
 		<button class = "menubutton flatbutton rensa" style="float:left">
 
-			Rensa
-		</button>
+				Rensa
+			</button>
 
 		</div>
 	</div>

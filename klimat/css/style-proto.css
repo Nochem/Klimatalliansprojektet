@@ -30,21 +30,22 @@ a{
 }
 #menu ul{
 	list-style-type: none;
+	display: block;
 }
 #menu li{
 	text-align: center;
 	display:block;
+	margin-left: 1em;
 	width: 100px;
 	float:left;
 }
 #menu li a{
 	font-size: 18px;
-	text-decoration: underline;
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
 }
 #menu li a:hover{
-	color: #26EBFF;
+	color: #FFF;
 }
 .flatbutton{
 	background-color: white;
@@ -73,7 +74,8 @@ a{
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
 }
-.menuitem a:hover{
+.menuitem:hover{
+	background-color: #5DBCFF;
 	color:#26EBFF;
 }
 #content{
