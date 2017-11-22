@@ -252,20 +252,18 @@
 				<tbody>
 					<tr>
 						<td>
-							Lokaler som företaget äger
+							Lokaler som företaget äger (m<sup>2</sup>)
 						</td>
 						<td>
 							<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-							<p style="margin:5px">(m<sup>2</sup>)</p>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							Varav lokaler som hyrs ut
+							Varav lokaler som hyrs ut (m<sup>2</sup>)
 						</td>
 						<td>
 							<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-							<p style="margin:5px">(m<sup>2</sup>)</p>
 						</td>
 					</tr>
 				</tbody>
@@ -379,7 +377,7 @@
 					</tr>
 					<tr>
 						<td>
-							ospecificerad el
+							Ospecificerad el
 						</td>
 						<td>
 							<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
@@ -400,16 +398,29 @@
 					Flygresor
 				</a>
 			</h1>
-			<h2>Totala flygutsläpp</h2>
-						<input type="text" class="inputbox"/> <p style="margin-left: 2em;">kg Co2</p>
+			<table>
+			<thead>
+					<tr>
+						<td>
+							Totalt CO<sub>2</sub>-utsläpp från flyg (Ton)
+						</td>
+						<td>
+							<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						</td>
+						<td>
+							<p class="output"></p>
+						</td>
+					</tr>
+			</thead>
+			</table>
 
-			<table id="reportTable">
+			<table>
 				<thead>
 					<tr>
 						<th>Från</th>
 						<th>Till</th>
 						<th>Längd km</th>
-						<th>kg C02</th>
+						<th>Ton C02</th>
 					</tr>
 
 				</thead>
@@ -436,7 +447,7 @@
 			Spara
 		</button>
 
-		<button class = "menubutton flatbutton rensa" style="left:530px">
+		<button class = "menubutton flatbutton rensa" style="float:left">
 
 			Rensa
 		</button>
