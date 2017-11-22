@@ -1,59 +1,70 @@
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			Klimat allians Lund - Mina Sidor
-		</title>
+<head>
+	<meta charset="UTF-8">
+	<title>
+		Klimat allians Lund - Mina Sidor
+	</title>
 
-		<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
-		<link rel="stylesheet" type="text/css" href="../css/minasidor-style.css">
-		<link rel="icon" href="../res/icon.png">
-	</head>
-	<body>
-		<form id="logout" name="form1" method="post" action="mina_sidor.html">
-			  <label class="logoutLblPos">
-			  <input name="submit2" type="submit" id="submit2" value="Log out">
-			  </label>
-		</form>
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+	<link rel="stylesheet" type="text/css" href="../css/minasidor-style.css">
+	<link rel="icon" href="../res/icon.png">
+</head>
+<body>
+	<div id="wrapper">
 		<div id="wrapper">
-			<a href="rapport.html"></a>
-			<div id="logo">
-			</div>
-			<div id="menu">
-				<ul>
-					<li class="menuitem">
-						<a href="rapport.html">
-							Rapport
-						</a>
-					</li>
-					<li class="menuitem">
-						<a href="historik.html">
-							Historik
-						</a>
-					</li>
-					<li class="menuitem">
-						<a href="statistik.html">
-							Statistik
-						</a>
-					</li>
-					<li class="menuitem currentpage">
-						<a href="mina_sidor.html">
-							Mina Sidor
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div id="content">
-				<h2>
-				Ändra Lösenord
-				</h2>
-				  <form id="passwchange" onsubmit="return validateForm()">
-					  	<p>
-						  Befintligt Lösenord:
-					  	</p>
-					  	<input id="oldpass" type="password" name="oldPass" value="">
-					  	<p>
+			<div id="wrapper">
+				<a href="rapport.html"></a>
+				<div id="logo">
+				</div>
+				<div id="menu">
+					<ul>
+						<li class="menuitem">
+							<a href="rapport.html">
+								Rapport
+							</a>
+						</li>
+						<li class="menuitem">
+							<a href="historik.html">
+								Historik
+							</a>
+						</li>
+						<li class="menuitem">
+							<a href="statistik.html">
+								Statistik
+							</a>
+						</li>
+						<li class="menuitem currentpage">
+							<a href="mina_sidor.html">
+								Mina Sidor
+							</a>
+						</li>
+
+						<li class="menuitem">
+							<a href="kontakt.html">
+								Kontakt
+							</a>
+						</li>
+						<li>
+							<form style="float:right" id="logout" align="right" name="form1" method="post" action="mina_sidor.html">
+								<label>
+									<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+								</label>
+							</form>
+						</li>
+
+					</ul>
+				</div>
+				<div id="content">
+					<h2>
+						Ändra Lösenord
+					</h2>
+					<form id="passwchange" onsubmit="return validateForm()">
+						<p>
+							Befintligt Lösenord:
+						</p>
+						<input id="oldpass" type="password" name="oldPass" value="">
+						<p>
 							Nytt Lösenord:
 						</p>
 						<input id="newpass" type="password" name="newPass" value="">
@@ -65,13 +76,20 @@
 
 						</p>
 						<br>
-						<input id="change" type="submit"value="Ändra Lösenord">
+						<input class="flatbutton"id="change" type="submit"value="Ändra Lösenord">
+						<br>
+						<br>
+						<p>
+							Det nya lösenordet måste vara mellan 6-20 tecken långt.
+							<br>
+							(Tillåtna tecken är A-Z, a-z och 0-9)
+						</p>
 
-				</form>
+					</form>
+				</div>
 			</div>
-		</div>
-		<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
-		<script type="text/javascript" src="../js/minasidor-script.js"></script>
-		<script type="text/javascript" src="../js/proto-script.js"></script>
-	</body>
-</html>
+			<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
+			<script type="text/javascript" src="../js/minasidor-script.js"></script>
+			<script type="text/javascript" src="../js/proto-script.js"></script>
+		</body>
+		</html>
