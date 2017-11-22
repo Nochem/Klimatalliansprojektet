@@ -2,7 +2,6 @@
 	margin-left:3em;
 }
 #content table{
-	border-spacing:10px;
 	margin-top: 5px;
 	margin-bottom: 5em;
 }
@@ -19,29 +18,30 @@
 	height:30px;
 }
 #content th,td{
+	padding-top:10px;
 	margin-left:0;
 	text-align: left;
 	height:10px;
 }
 #addrow{
-	padding:10px;
+	height:50px;
 	font-family: 'Barlow',sans-serif;
-	background-color: white;
-	border:1px solid #5DBCFF;
+	background-color: #5DBCFF;
+	border:1px solid white;
 	border-radius: 4px;
-	font-size: 16px;
+	font-size: 20px;
+	color:white;
 	margin-bottom: 10px;
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
 }
 #addrow:hover{
-	background-color: #5DBCFF;
+	background-color: #468DFF;
 	border: 1px solid gray;
 }
 .menubutton{
 	position: relative;
 	left: 430px;
-	padding: 10px;
 	font-family: 'Barlow',sans-serif;
 	font-size:18px;
 	background-color: #87CEFA;
