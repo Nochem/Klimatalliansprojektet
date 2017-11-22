@@ -16,7 +16,7 @@
 </head>
 <body>
 <?php
-	include_once 'rapport_PHP.php';
+	include_once 'rapport_php.php';
 ?>
 	<form id="logout" name="form1" method="post" action="rapport.html">
 		<label class="logoutLblPos">
@@ -81,11 +81,13 @@
 				</h1>
 				<p>
 					År: <span style="font-weight:bold;"> 2016 </span>
-					<!-- <button class = "menubutton" onclick = "alert('Rapport sparad')">  
-					<button type="submit" class = "menubutton">
+					<button type="submit"  class = "menubutton" onclick = "alert('Rapport sparad')">  
 						Spara
-					</button>-->
-				</p>
+					</button>
+					
+					<form action="rapport.php" method="post">
+					<input type="submit" name="submit" value="Skicka in rapport"/>
+				</p>				
 				<h1>
 					<a name="transport">
 						Transport
@@ -105,14 +107,8 @@
 						<tr>
 							<td>Bensin</td>
 							<td>
-								<form action="rapport.php" method="post">
+								
 									<input type="text" name="bensin" class="inputbox"/>	
-										<input type="submit" name="submit" value="Skicka in rapport"/>
-										
-										<button type="submit" class = "menubutton">
-											Spara
-										</button>
-					
 								</form>
 							</td>
 							<td>
@@ -465,8 +461,6 @@
 			<button id="addrow">
 				Ny resa
 			</button>
-		
-		
 		</div>
 	</div>
 </div>
