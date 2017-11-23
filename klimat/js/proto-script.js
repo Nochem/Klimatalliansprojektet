@@ -21,7 +21,7 @@ $(document).ready(function(){
                 output.text(out);
             }
             else{
-                output.val("");
+                output.text("");
             }
         });
     });
