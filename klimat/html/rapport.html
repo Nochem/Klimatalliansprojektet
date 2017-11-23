@@ -46,7 +46,7 @@
 				<li>
 					<form  id="logout" name="form1" method="post" action="rapport.html">
 						<label>
-							<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+							<input id="inputbox" class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
 						</label>
 					</form>
 				</li>
@@ -82,7 +82,7 @@
 				<tr>
 					<td>Bensin</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -99,7 +99,7 @@
 				<tr>
 					<td>Diesel</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -114,7 +114,7 @@
 				<tr>
 					<td>Diesel 24% förnybar</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -131,7 +131,7 @@
 				<tr>
 					<td>Diesel Preem Evolution</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -146,7 +146,7 @@
 				<tr>
 					<td>RME</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -161,7 +161,7 @@
 				<tr>
 					<td>Etanol</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -176,7 +176,7 @@
 				<tr>
 					<td>Biogas</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -191,7 +191,7 @@
 				<tr id="hvo">
 					<td>HVO</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -206,7 +206,7 @@
 				<tr id="miljo">
 					<td>Miljömärkt el till fordon</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								MWh
@@ -218,7 +218,7 @@
 				<tr id="ospec">
 					<td>Ospecificerad el till fordon</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								MWh
@@ -230,7 +230,7 @@
 				<tr id="else">
 					<td>Övrigt drivmedel, ange vad </td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -245,7 +245,7 @@
 				<tr id="privat">
 					<td>Privatbil (körning i tjänsten)</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -263,7 +263,7 @@
 				<tr id="rental">
 					<td>Hyrbil</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								m<sup>3</sup>
@@ -278,11 +278,81 @@
 					</td>
 					<td><p class="output"></p></td>
 				</tr>
-			</tbody>
+				</tbody>
+				</table>
+				<table>
+				<tr>
+					<th>Ställs miljökrav vid inköp av fordon</th>
+				</tr>
+				<td>
+					<input id="raidobutton" type="radio" name="YesOrNo" value="Yes"> Ja
+					<input id="raidobutton" type="radio" name="YesOrNo" value="No"> Nej
+				<td>
+				<tr>
+					<td>Om ja beskriv krav:</td>
+				</tr>
+				<tr>
+					<td><textarea class="comments" rows="4" cols="50" name="comment" form="usrform"></textarea></td>
+				</tr>
+				<tr>
+					<th>Biodrivmedel i köpta transporttjänster</th>
+				</tr>
+				<tr>
+					<td>Andel %</td>
+				</tr>
+				<tr>
+					<td><input id="inputbox" type="text" class="inputbox"></td>
+				</tr>
+				<tr>
+					<td>Krav Ja/Nej</td>
+				</tr>
+				<td>
+					<input id="raidobutton" type="radio" name="YesOrNo" value="Yes"> Ja
+					<input id="raidobutton" type="radio" name="YesOrNo" value="No" style="margin-bottom: 20px"> Nej
+				<td>
+				<tr>
+					<th>Andra miljökrav på  transporttjänster (t.ex. sparsamkörning eller energieffektivitet)</th>
+				</tr>
+				<tr>
+					<td>Krav Ja/Nej</td>
+				</tr>
+				<td>
+					<input id="raidobutton" type="radio" name="YesOrNo" value="Yes"> Ja
+					<input id="raidobutton" type="radio" name="YesOrNo" value="No"> Nej
+				<td>
+				<tr>
+					<td>Om ja beskriv krav:</td>
+				</tr>
+				<tr>
+					<td><textarea class="comments" rows="4" cols="50" name="comment" form="usrform" style="margin-bottom: 20px"></textarea></td>
+				</tr>
+				<tr>
+					<th>Inköps- och resepolicy</th>
+				</tr>
+				<tr>
+					<td>Tillämpas inköpspolicyn för fordon</td>
+				</tr>
+				<td>
+					<input id="raidobutton" type="radio" name="YesOrNo" value="Yes"> Ja
+					<input id="raidobutton" type="radio" name="YesOrNo" value="No" style="margin-bottom: 20px"> Nej
+				<td>
+				<tr>
+					<td>Tillämpas resepolicy </td>
+				</tr>
+				<td>
+					<input id="raidobutton" type="radio" name="YesOrNo" value="Yes"> Ja
+					<input id="raidobutton" type="radio" name="YesOrNo" value="No" style="margin-bottom: 20px"> Nej
+				<td>
+				<tr>
+					<th>Eventuellla kommentarer</th>
+				</tr>
+				<tr>
+					<td><textarea class="comments" rows="8" cols="50"></textarea></td>
+				</tr>
 		</table>
-		<h3>Övriga kommentarer</h3>
-		<textarea class="comments" rows="8" cols="50">
-		</textarea>
+		
+		
+		
 		<h1>
 			<a name="lokalaprocesser">
 				Lokala processer
@@ -298,7 +368,7 @@
 						Lokaler som företaget äger
 					</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<p style="margin:5px">(m<sup>2</sup>)</p>
 					</td>
 				</tr>
@@ -325,7 +395,7 @@
 						Olja
 					</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								<sup>m3</sup>
@@ -342,7 +412,7 @@
 						Gasol
 					</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								<sup>MWh</sup>
@@ -359,7 +429,7 @@
 						Fjärrvärme EF Kristianstad 2015
 					</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								<sup>MWh</sup>
@@ -376,7 +446,7 @@
 						Halm
 					</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								<sup>MWh</sup>
@@ -393,7 +463,7 @@
 						Pellets
 					</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								<sup>MWh</sup>
@@ -409,7 +479,7 @@
 						Miljömärkt el
 					</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								<sup>MWh</sup>
@@ -425,7 +495,7 @@
 						ospecificerad el
 					</td>
 					<td>
-						<input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
+						<input id="inputbox" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
 						<select>
 							<option>
 								<sup>MWh</sup>
@@ -438,17 +508,37 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<h3>Övriga kommentarer</h3>
-		<textarea class="comments" rows="8" cols="50">
-		</textarea>
+		<table>
+			<tr>
+				<th>Produktion av förnybar energi</th>
+			</tr>
+			<tr>
+				<td>Produktion av solvärme</td>
+			</tr>
+			<tr>
+				<td><input id="inputbox" type="text" class="inputbox">MWh</td>
+			</tr>
+			<tr>
+				<td>Produktion av solel</td>
+			</tr>
+			<tr>
+				<td><input id="inputbox" type="text" class="inputbox">MWh</td>
+			</tr>
+			<tr>
+				<th>Övriga kommentarer</th>
+			</tr>
+			<tr>
+				<td><textarea class="comments" rows="8" cols="50">Beskriv vidtagna åtgärder under året, vad som väntas genomföras och förklara förändringar...</textarea></td>
+			</tr>
+		<table>
+		
 		<h1>
 			<a name="flygresor">
 				Flygresor
 			</a>
 		</h1>
 		<h2>Totala flygutsläpp</h2>
-		<input type="text" class="inputbox"/> <p style="margin-left: 2em;">kg Co2</p>
+		<input id="inputbox" type="text" class="inputbox"/> <p style="margin-left: 2em;">kg Co2</p>
 
 		<table id="reportTable">
 			<thead>
@@ -463,10 +553,10 @@
 			<tbody>
 
 				<tr>
-					<td><input type="text" class="inputbox"/></td>
-					<td><input type="text" class="inputbox"/></td>
-					<td><input type="text" class="inputbox"/></td>
-					<td><input type="text" class="inputbox"/></td>
+					<td><input id="inputbox" type="text" class="inputbox"/></td>
+					<td><input id="inputbox" type="text" class="inputbox"/></td>
+					<td><input id="inputbox" type="text" class="inputbox"/></td>
+					<td><input id="inputbox" type="text" class="inputbox"/></td>
 				</tr>
 
 			</tbody>
