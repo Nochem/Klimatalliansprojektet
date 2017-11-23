@@ -50,6 +50,8 @@ $(document).ready(function(){
         var r = confirm("Rensa inmatad data?")
         if(r){
             $('.inputbox').val('');
+            $( ".output" ).empty();
+
 
         }
     })

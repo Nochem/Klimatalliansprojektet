@@ -13,15 +13,17 @@
 	height:30px;
 }
 #content input{
-	float: left;
-	width:120px;
-	height:30px;
 }
 #content th,td{
 	padding-top:10px;
 	margin-left:0;
 	text-align: left;
 	height:10px;
+}
+#inputbox{
+	float: left;
+	width:120px;
+	height:30px;
 }
 #addrow{
 	height:50px;
@@ -54,4 +56,18 @@
 	padding:10px;
 	font-size: 16px;
 	margin-bottom: 10px;
+}
+
+#comment{
+		display: -webkit-box;
+		margin-top: 5px;
+}
+#raidobutton{
+		margin-left: 10px;
+		width: 13px;
+		height: 13px;
+}
+#text{
+	font-family: 'Barlow',sans-serif;
+	font-size:18px;
 }
