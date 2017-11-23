@@ -25,6 +25,10 @@ $(document).ready(function(){
             }
         });
     });
+
+    /*
+    skapar nytt fält för flygresor
+    */
 	$("#addrow").click(function(){
 		var table = document.getElementById("reportTable");
 		var placement = table.length;
@@ -48,8 +52,10 @@ $(document).ready(function(){
 
     $(".rensa").click(function(){
         var r = confirm("Rensa inmatad data?")
+         var output=$(this).find('p.output');
         if(r){
             $('.inputbox').val('');
+            document.getElementById("outputbox").innerHTML = ""
 
         }
     })
