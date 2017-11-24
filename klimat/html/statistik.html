@@ -10,6 +10,21 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
+	<div id="User">	
+		<ul>
+			<a id="Username">
+				User: Företag
+			</a>
+			<a>
+				<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+					<label>
+						<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+					</label>
+				</form>
+			</a>
+		</ul>
+	</div>
+	  
 	<div id="wrapper">
 		<a href="rapport.html"></a>
 		<div id="logo">
@@ -41,62 +56,25 @@
 						Kontakt
 					</li>
 				</a>
-					<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
-						<label>
-							<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-						</label>
-					</form>
-				</li>
 
 			</ul>
 
 		</div>
 
 		<div class="chart-container">
-				Se statistik mellan
-				<select id="yearselectfrom" class="yearselectfrom">
-				<option value="2015">2015</option>
-				<option value="2016">2016</option>
-				<option value="2017">2017</option>
-				</select>
-				och
-				<select id="yearselectto" class="yearselectto">
-				
-				<option value="2017">2019</option>
-				</select>
-				
-
-
-
-
 			<div id="chart">
+				<form name="hej">
+					2014<input type="checkbox" checked="true" name="Transport">
+					2015<input type="checkbox" checked="true" name="Lokala processer">
+					2016<input type="checkbox" checked="true" name="Flygresor">
+				</form>
 				<canvas id="myChart" styles="width=100px height=100px"></canvas>
 			</div>
 		</div>
 	</div>
-	<script>
-		$(."yearselectfrom").click(function()){
-			$sql=mysql_query("SELECT id,name FROM table");
-			if(mysql_num_rows($sql)){
-				$select= '<select name="select">';
-				while($rs=mysql_fetch_array($sql)){
-					$select.='<option value="'.$rs['id'].'">'.$rs['name'].'</option>';
-				}
-			}
-		$select.='</select>';
-		echo $select;
-		}
-	
-	</script>
-
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
 	<script type="text/javascript" src="../js/statistik-script.js"></script>
 	<script type="text/javascript" src="../js/chartjs_min.js"></script>
 	<script type="text/javascript" src="../js/proto-script.js"></script>
-	<script type="text/javascript" src="../js/year-select.js"></script>
-
-
-
-
 </body>
 </html>
