@@ -48,11 +48,11 @@
 			</div>
 			<div id="content">
 				<div id="stat">
-					<h1>
+					<h1 id="header">
 						Inventering av CO<sub>2</sub> utsläpp från transporter
 					</h1>
 					
-					<form action="#" method="post" name="histDrop">
+					<form action="#" method="get" name="histDrop">
 					
 <?php
 // Skapar en anslutning till databasen
@@ -70,7 +70,7 @@ if($response){
 
 echo '<select id="yeardrop" name="yeardrop" onchange="histDrop.popHist()">';
 echo '&nbsp';
-echo "<option value = '9'> Välj ett år </option>";
+echo "<option value = '0'> Välj ett år </option>";
 	
 // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
 while($row = mysqli_fetch_array($response)){
@@ -110,14 +110,16 @@ echo mysqli_error($dbc);
 	<script>
 	 function popHist(){
 		 
+		 
+		 
 		
 		
 		
 	
     <?php
-   $selectedYear = isset($_POST['yeardrop']) ? $_POST['yeardrop'] : false;
+   $selectedYear = isset($_GET['yeardrop']) ? $_GET['yeardrop'] : false;
    
-   if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,TonCO2,convFactor,EmissionMwh FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Date) =?")) {
+   if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),convFactor,EmissionMwh,TonCO2 FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Date) =?")) {
    $LokalSql->bind_param("s", $selectedYear);
 
     /* execute query */
@@ -132,7 +134,23 @@ echo mysqli_error($dbc);
 	   
    }
    
-   if ($TransportSql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,TonCO2,convFactor,EnergyMwh,EmissionMwh FROM Transport, Report where Transport.Id = Report.Id AND YEAR(Report.Date) = ?")) {
+   
+   if ($OtherLokalSql = mysqli_prepare($dbc, "SELECT PlacesOwned,PlacesRentedOut,ProducedSolarElectricity,ProducedSolarHeat,Comment FROM OtherPlacesAndProcesses, Report where OtherPlacesAndProcesses.Id = Report.Id AND YEAR(Report.Date) = ?")) {
+   $OtherLokalSql->bind_param("s", $selectedYear);
+
+    /* execute query */
+    $OtherLokalSql->execute();
+
+    /* instead of bind_result: */
+    $OtherPlacesRes = $OtherLokalSql->get_result();
+
+    /* now you can fetch the results into an array - NICE */
+	
+   }else{
+	   
+   }
+   
+   if ($TransportSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),TonCO2,convFactor,EnergyMwh,EmissionMwh FROM Transport, Report where Transport.Id = Report.Id AND YEAR(Report.Date) = ?")) {
    $TransportSql->bind_param("s", $selectedYear);
 
     /* execute query */
@@ -140,6 +158,20 @@ echo mysqli_error($dbc);
 
     /* instead of bind_result: */
     $TransportRes = $TransportSql->get_result();
+
+    /* now you can fetch the results into an array - NICE */
+	
+   }else{
+	   
+   }
+   if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforementTravelPolicy,EnviormentReqOtherTransport,EnviormentReqOtherTransportDescription,EnviormentReqPurchased,EnviormentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Date) = ?")) {
+   $OtherTransportSql->bind_param("s", $selectedYear);
+
+    /* execute query */
+    $OtherTransportSql->execute();
+
+    /* instead of bind_result: */
+    $OtherTransportRes = $OtherTransportSql->get_result();
 
     /* now you can fetch the results into an array - NICE */
 	
@@ -162,30 +194,7 @@ echo mysqli_error($dbc);
 	   
    }
   
-	
-	
-	
-	
-	
-	
-   
-   
-   
-   
-   
-   
-
-
-   
-   
-   
-   
-   
-  
-	
-		
-		
-		?>
+?>
 		
 
 
@@ -203,18 +212,81 @@ echo mysqli_error($dbc);
 	 
 	
 	
-	<?php
-	while ($myrow = $PlacesRes->fetch_assoc()) {
-		if(!empty($myrow)){
-			echo '<h2 align= "center"> Lokaler och Proccesser </h2>'; 
-			echo '<table align= "center">';
-	echo '<tr>';
+	<?php 
+	
+		
+	
+	if($selectedYear != 0){
+		
+		echo '<h2 align= "center">  Lokaler och Proccesser </h2>'; 
+		
+		echo '<table align= "center">';
+		echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
+	echo '<th> Mått </th>';
 	echo '<th> Enhet </th>';
-	echo '<th> TonCO2 </th>';
+	echo '<th> Energi i MWh </th>';
 	echo '<th> Omräkningsfaktor </th>';
 	echo '<th> Utsläpp i Mwh </th>';
+	echo '<th> TonCO22 </th>';
 	echo '</tr>';
+	}
+
+		
+		
+	
+	
+	
+	
+	while ($myrow = $PlacesRes->fetch_assoc()) {
+	
+	
+	
+	if(!empty($myrow)){
+			
+		
+	echo '<tr>';
+    foreach($myrow as $field) {
+		if(empty($field)){
+		echo '<td align="center"> - </td>';
+		}else{
+        echo '<td align="center">' . htmlspecialchars($field) . '</td>';
+		}
+		
+    }
+	echo '</tr>';
+    
+
+        // use your $myrow array as you would with any other fetch
+       
+
+		}
+	}
+	echo '</table>';
+	echo '<br>';
+	
+		
+	
+		
+		
+	
+	if($selectedYear != 0){
+	echo '<h3 align= "center"> Övrigt Lokaler och Proccesser </h3>'; 
+	echo '<table align= "center">';
+	echo '<tr>';
+	echo '<th> Lokaler som företaget äger (m2)  </th>';
+	echo '<th> Lokaler som hyrs ut </th>';
+	echo '<th> Produktion av solel </th>';
+	echo '<th> Produktion av solvärme </th>';
+	echo '<th> Kommentar </th>';
+	echo '</tr>';
+		
+		
+	}
+	
+	while ($myrow = $OtherPlacesRes->fetch_assoc()) {
+		if(!empty($myrow)){
+		
 			
 		
 		 echo '<tr>';
@@ -230,22 +302,31 @@ echo mysqli_error($dbc);
         // use your $myrow array as you would with any other fetch
        
 
-    echo '</table>';}
+    }
 		
 	}
+	echo '</table>';
+	echo '<br>';
 	
-	while ($myrow = $TransportRes->fetch_assoc()) {
-		if(!empty($myrow)){
-			echo '<h2 align= "center"> Transport </h2>'; 
-			echo '<table align= "center">';
+	if($selectedYear != 0){
+	echo '<h2 align= "center"> Transport </h2>'; 
+	echo '<table align= "center">';
 	echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
+	echo '<th> Utsläppskälla </th>';
 	echo '<th> Enhet </th>';
+	echo '<th> Energi i MWh </th>';
 	echo '<th> TonCO2 </th>';
 	echo '<th> Omräkningsfaktor </th>';
 	echo '<th> Energi i Mwh </th>';
 	echo '<th> Utsläpp i Mwh </th>';
 	echo '</tr>';
+	}
+	
+	while ($myrow = $TransportRes->fetch_assoc()) {
+		
+		if(!empty($myrow)){
+	
 			
 		
 		 echo '<tr>';
@@ -261,12 +342,11 @@ echo mysqli_error($dbc);
         // use your $myrow array as you would with any other fetch
        
 
-    echo '</table>';}
+    }
 		
 	}
-	while ($myrow = $FlightRes->fetch_assoc()) {
-		if(!empty($myrow)){
-			echo '<h2 align= "center"> Flygresor </h2>'; 
+	echo '</table>';
+	if($selectedYear != 0){	echo '<h2 align= "center"> Flygresor </h2>'; 
 			echo '<table align= "center">';
 	echo '<tr>';
 	echo '<th> Från </th>';
@@ -274,6 +354,11 @@ echo mysqli_error($dbc);
 	echo '<th> Längd i KM</th>';
 	echo '<th> Kg CO2 </th>';
 	echo '</tr>';
+	}
+	
+	while ($myrow = $FlightRes->fetch_assoc()) {
+		if(!empty($myrow)){
+		
 			
 		
 		 echo '<tr>';
@@ -289,9 +374,14 @@ echo mysqli_error($dbc);
         // use your $myrow array as you would with any other fetch
        
 
-    echo '</table>';}
+   }
 		
 	}
+	 echo '</table>';
+	 echo '<br>';
+	 
+	 
+	 
 	
 	 
 	
@@ -300,6 +390,7 @@ echo mysqli_error($dbc);
 	
 	
 	?>
+	
 	
 	
 	
