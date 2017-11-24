@@ -21,7 +21,7 @@ $(document).ready(function(){
                 output.text(out);
             }
             else{
-                output.val("");
+                output.text("");
             }
         });
     });
@@ -50,6 +50,8 @@ $(document).ready(function(){
         var r = confirm("Rensa inmatad data?")
         if(r){
             $('.inputbox').val('');
+            $( ".output" ).empty();
+
 
         }
     })

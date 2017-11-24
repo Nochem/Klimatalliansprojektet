@@ -2,3 +2,28 @@
     width:45px;
     size:5;
 }
+#content p{
+	margin-left:3em;
+}
+#content input{
+    height:30px;
+    width:120px;
+}
+#content th,td{
+    text-align: left;
+}
+#addrow{
+	padding:10px;
+	font-family: 'Barlow',sans-serif;
+	background-color: white;
+	border:1px solid #5DBCFF;
+	border-radius: 4px;
+	font-size: 16px;
+	margin-bottom: 10px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+}
+#addrow:hover{
+	background-color: #5DBCFF;
+	border: 1px solid gray;
+}
