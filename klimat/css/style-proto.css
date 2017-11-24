@@ -69,7 +69,7 @@ a{
 	position: relative;
 
 	background-color: #87CEFA;
-	color: white;
+	color: black;
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
 }

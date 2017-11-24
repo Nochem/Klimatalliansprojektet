@@ -41,15 +41,25 @@
 	background-color: #468DFF;
 	border: 1px solid gray;
 }
+.savebutton{
+	background-color: #00ff00;
+
+}
+.savebutton:hover{
+	background-color: #04d600;
+	border-color: #04d600;
+}
+.resetbutton{
+	background-color: #ff2f00;
+}
+.resetbutton:hover{
+	background-color: #de2c00;
+	border-color: #de2c00;
+}
 .menubutton{
 	position: relative;
 	left: 430px;
-	font-family: 'Barlow',sans-serif;
-	font-size:18px;
-	background-color: #87CEFA;
 	color: white;
-	-webkit-transition-duration: 0.4s; /* Safari */
-	transition-duration: 0.4s;
 }
 .comments{
 	text-align: left;

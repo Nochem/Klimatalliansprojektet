@@ -4,18 +4,8 @@
 		<title>
 			Klimatallians - Inloggning 
 		</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script>
-			function gofurther(){
-				<!-- alert($("#user").val()); -->
-				if($("#user").val()==="admin"){
-					window.location.href="statistik_admin.html";
-				} else {
-					window.location.href="rapport.html";
-				}
-    			}
-		</script>		
-		<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
 		<style>
 			#wrapperL{
 				text-align:center;
@@ -34,15 +24,20 @@
 		<div id="wrapperL">
 			<div id="logo"></div>
 			<div id="content">
+			<form onsubmit="something()" id="#forma">
 			Användarnamn
 			<br>
-			<input id="user" type="text" class="inputbox"/>
+			<input type="text" id="user" name="name"/><br/>
 			<br><br>
+
 			Lösenord
 			<br>
-			<input type="text" class="inputbox"/>
+			<input type="password" name="password"/><br/>
 			<br><br>
- 			<p><button type="login" onclick="gofurther()">Logga in</button></p> 
+
+			<input type="submit" value="Logga in" onclick="something()"/>
+			</form>
+ 			</p>
 			<br>
 			<a href="glomt_losenord.html"  
 				onclick="window.open('glomt_losenord.html', 
@@ -57,7 +52,18 @@
                          'width=600,height=300'); 
               return false;"
 			>Hjälp</a>
+
 			</div>
 		</div>
-	</body>
+                <script>
+                        document.getElementById("#forma").addEventListener('submit', function(evt) {
+                                evt.preventDefault();
+                        })
+                        function something() {
+                                location.replace('./rapport.html');
+                      
+                        }
+                </script>
+
+</body>
 </html>
