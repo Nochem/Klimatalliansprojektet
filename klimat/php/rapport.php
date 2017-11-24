@@ -488,9 +488,7 @@
 		<button name="submit" form="rapport" class = "menubutton flatbutton" style="left:530px"  onclick = "alert('Rapport sparad')">
 			Spara
 		</button>
-
 		<button class = "menubutton flatbutton rensa" style="left:530px">
-
 			Rensa
 		</button>
 		</form>
