@@ -69,6 +69,8 @@ $response = @mysqli_query($dbc, $query);
 if($response){
 
 echo '<select id="yeardrop" name="yeardrop" onchange="histDrop.popHist()">';
+echo '&nbsp';
+echo "<option value = '9'> Välj ett år </option>";
 	
 // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
 while($row = mysqli_fetch_array($response)){
@@ -88,7 +90,9 @@ echo "Förfrågan till databasen misslyckades <br/>";
 echo mysqli_error($dbc);
 }
 ?>
+
 <input type="submit" name="submit" value="Välj" />
+
 </form>
 
 				
@@ -113,14 +117,44 @@ echo mysqli_error($dbc);
     <?php
    $selectedYear = isset($_POST['yeardrop']) ? $_POST['yeardrop'] : false;
    
-   if ($stmt = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,TonCO2,convFactor,EmissionMwh FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Date) =?")) {
-   $stmt->bind_param("s", $selectedYear);
+   if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,TonCO2,convFactor,EmissionMwh FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Date) =?")) {
+   $LokalSql->bind_param("s", $selectedYear);
 
     /* execute query */
-    $stmt->execute();
+    $LokalSql->execute();
 
     /* instead of bind_result: */
-    $result = $stmt->get_result();
+    $PlacesRes = $LokalSql->get_result();
+
+    /* now you can fetch the results into an array - NICE */
+	
+   }else{
+	   
+   }
+   
+   if ($TransportSql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,TonCO2,convFactor,EnergyMwh,EmissionMwh FROM Transport, Report where Transport.Id = Report.Id AND YEAR(Report.Date) = ?")) {
+   $TransportSql->bind_param("s", $selectedYear);
+
+    /* execute query */
+    $TransportSql->execute();
+
+    /* instead of bind_result: */
+    $TransportRes = $TransportSql->get_result();
+
+    /* now you can fetch the results into an array - NICE */
+	
+   }else{
+	   
+   }
+   
+   if ($FlightSql = mysqli_prepare($dbc, "SELECT Departure,Destination,LengthKM,KGCO2 FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Date) =?")) {
+   $FlightSql->bind_param("s", $selectedYear);
+
+    /* execute query */
+    $FlightSql->execute();
+
+    /* instead of bind_result: */
+    $FlightRes = $FlightSql->get_result();
 
     /* now you can fetch the results into an array - NICE */
 	
@@ -170,15 +204,75 @@ echo mysqli_error($dbc);
 	
 	
 	<?php
-	while ($myrow = $result->fetch_assoc()) {
+	while ($myrow = $PlacesRes->fetch_assoc()) {
 		if(!empty($myrow)){
-			echo '<table>';
+			echo '<h2 align= "center"> Lokaler och Proccesser </h2>'; 
+			echo '<table align= "center">';
 	echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
 	echo '<th> Enhet </th>';
 	echo '<th> TonCO2 </th>';
 	echo '<th> Omräkningsfaktor </th>';
 	echo '<th> Utsläpp i Mwh </th>';
+	echo '</tr>';
+			
+		
+		 echo '<tr>';
+    foreach($myrow as $field) {
+		if(empty($field)){
+		echo '<td align="center"> - </td>';
+		}else{
+        echo '<td align="center">' . htmlspecialchars($field) . '</td>';
+		}
+    }
+    echo '</tr>';
+
+        // use your $myrow array as you would with any other fetch
+       
+
+    echo '</table>';}
+		
+	}
+	
+	while ($myrow = $TransportRes->fetch_assoc()) {
+		if(!empty($myrow)){
+			echo '<h2 align= "center"> Transport </h2>'; 
+			echo '<table align= "center">';
+	echo '<tr>';
+	echo '<th> Utsläppskälla </th>';
+	echo '<th> Enhet </th>';
+	echo '<th> TonCO2 </th>';
+	echo '<th> Omräkningsfaktor </th>';
+	echo '<th> Energi i Mwh </th>';
+	echo '<th> Utsläpp i Mwh </th>';
+	echo '</tr>';
+			
+		
+		 echo '<tr>';
+    foreach($myrow as $field) {
+		if(empty($field)){
+		echo '<td align="center"> - </td>';
+		}else{
+        echo '<td align="center">' . htmlspecialchars($field) . '</td>';
+		}
+    }
+    echo '</tr>';
+
+        // use your $myrow array as you would with any other fetch
+       
+
+    echo '</table>';}
+		
+	}
+	while ($myrow = $FlightRes->fetch_assoc()) {
+		if(!empty($myrow)){
+			echo '<h2 align= "center"> Flygresor </h2>'; 
+			echo '<table align= "center">';
+	echo '<tr>';
+	echo '<th> Från </th>';
+	echo '<th> Till </th>';
+	echo '<th> Längd i KM</th>';
+	echo '<th> Kg CO2 </th>';
 	echo '</tr>';
 			
 		
