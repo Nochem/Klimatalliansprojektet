@@ -93,13 +93,8 @@ echo mysqli_error($dbc);
 
 <input type="submit" name="submit" value="Välj" />
 
-</form>
-
-				
-						
-
-					
-				</div>
+</form>		
+			</div>
 			</div>
 		</div>
 		<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
@@ -110,12 +105,6 @@ echo mysqli_error($dbc);
 	<script>
 	 function popHist(){
 		 
-		 
-		 
-		
-		
-		
-	
     <?php
    $selectedYear = isset($_GET['yeardrop']) ? $_GET['yeardrop'] : false;
    
@@ -195,22 +184,10 @@ echo mysqli_error($dbc);
    }
   
 ?>
-		
-
-
-		
-		
-	
-	
 	}
 	
 	
 	</script>
-	
-	
-	
-	 
-	
 	
 	<?php 
 	
@@ -301,7 +278,6 @@ echo mysqli_error($dbc);
 
         // use your $myrow array as you would with any other fetch
        
-
     }
 		
 	}
@@ -340,8 +316,7 @@ echo mysqli_error($dbc);
     echo '</tr>';
 
         // use your $myrow array as you would with any other fetch
-       
-
+      
     }
 		
 	}
@@ -379,37 +354,7 @@ echo mysqli_error($dbc);
 	}
 	 echo '</table>';
 	 echo '<br>';
-	 
-	 
-	 
-	
-	 
-	
-	
-	
-	
-	
 	?>
 	
-	
-	
-	
-	
-	
-			
-			
-		
-		
-	
-	
-	
-	
-	
-	
-
-
-		
-
-
 	</body>
 </html>
