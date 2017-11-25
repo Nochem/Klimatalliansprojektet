@@ -10,6 +10,20 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
+	<div id="User">	
+		<ul>
+			<a id="Username">
+				User: Admin
+			</a>
+			<a>
+				<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+					<label>
+						<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+					</label>
+				</form>
+			</a>
+		</ul>
+	</div>
 	<div id="wrapper">
 		<div id="logo">
 		</div>
@@ -36,13 +50,7 @@
 					</li>
 				</a>
 
-				<li>
-					<form style="float:right" id="logout" align="right" name="form1" method="post" action="historik.html">
-						<label>
-							<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-						</label>
-					</form>
-				</li>
+				
 			</ul>
 		</div>
 		<div id="content">
@@ -53,15 +61,15 @@
 			<form action="/action_page.php">
 				Namn :
 				<input type="text" name="Name" value="Karl Erik">
-				<input type="submit" value="Spara">
+				<input class="flatbutton" type="submit" value="Spara">
 				<br><br>
 				Epost:
 				<input type="text" name="email" value="KarlErik@hotmail.com">
-				<input type="submit" value="Spara">
+				<input class="flatbutton" type="submit" value="Spara">
 				<br><br>
 				Telefon :
 				<input type="text" name="telenmr" value="0123456789">
-				<input type="submit" value="Spara">
+				<input class="flatbutton" type="submit" value="Spara">
 				<br><br>
 			</form>
 

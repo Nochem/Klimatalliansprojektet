@@ -3,8 +3,20 @@ body{
 	background-repeat: repeat-x;
 	display: grid;
 }
-li,p,h1,h2,h3,td,th,select,option,form{
+#User,li,p,h1,h2,h3,td,th,select,option,form{
 	font-family: 'Barlow',sans-serif;
+}
+#User{
+	position: absolute;
+    top: 5;
+    right: 5;
+    text-align: right;
+}
+#Username{
+	margin-right: 10px;
+	font-size: 18px;
+	border-style: solid;
+	border-color: #87CEFA;
 }
 a{
 	text-decoration: none;
@@ -49,12 +61,12 @@ a{
 	color: #FFF;
 }
 .flatbutton{
-	border: 1px solid white;
+	border: 0px solid white;
 	border-radius: 5px;
 	font-family: 'Barlow',sans-serif;
 	text-align:center;
 	text-decoration: none;
-	font-size: 20px;
+	font-size: 18px;
 	display: inline-block;
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
@@ -65,7 +77,6 @@ a{
 	border-color:#5DBCFF;
 }
 .menuitem {
-	height: 40px;
 	position: relative;
 
 	background-color: #87CEFA;

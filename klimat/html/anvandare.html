@@ -10,6 +10,20 @@
 		<link rel="icon" href="../res/icon.png">
 	</head>
 	<body>
+		<div id="User">	
+		<ul>
+			<a id="Username">
+				User: Admin
+			</a>
+			<a>
+				<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+					<label>
+						<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+					</label>
+				</form>
+			</a>
+		</ul>
+	</div>
 		<div id="wrapper">
 			<div id="logo">
 			</div>
@@ -36,13 +50,6 @@
 						</li>
 					</a>
 
-					<li>
-						<form style="float:right" id="logout" align="right" name="form1" method="post" action="historik.html">
-							<label>
-								<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-							</label>
-						</form>
-					</li>
 				</ul>
 			</div>
 			<div id="sidebar">
@@ -52,7 +59,7 @@
 					<h1>
 						Användare
 					</h1>
-					<button type="addMemberButton">Lägg till medlem</button>
+					<button class="flatbutton" type="addMemberButton">Lägg till medlem</button>
 					<table>
 						<tr style="font-size:21px;">
 							<th style="text-align:left">Namn</th>
@@ -63,13 +70,13 @@
 							<td style="text-align:left">Företag 1</td>
 							<td style="text-align:left">Företag1@hotmail.com</td>
 							<td style="text-align:left">abc123</td>
-							<td style="text-align:left"><button type="editMemberButton">Redigera medlem</button></td>
+							<td style="text-align:left"><button class="flatbutton" type="editMemberButton">Redigera medlem</button></td>
 						</tr>
 						<tr>
 							<td style="text-align:left">Företag 2</td>
 							<td style="text-align:left">Företag2@hotmail.com</td>
 							<td style="text-align:left">abc123</td>
-							<td style="text-align:left"><button type="editMemberButton">Redigera medlem</button></td>
+							<td style="text-align:left"><button class="flatbutton" type="editMemberButton">Redigera medlem</button></td>
 						</tr>
 				</div>
 			</div>
