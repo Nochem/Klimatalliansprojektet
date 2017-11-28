@@ -3,18 +3,23 @@ body{
 	background-repeat: repeat-x;
 	display: grid;
 }
-li,p,h1,h2,h3,td,th,select,option,form,#user{
+#User,li,p,h1,h2,h3,h4,td,th,select,option,form, .help{
 	font-family: 'Barlow',sans-serif;
 }
-#user{
+.help{
+	color: #5DBCFF;
+}
+.help:hover{
+	color: #87CEFA;
+}
+#User{
 	position: absolute;
     top: 5px;
     right: 5px;
     text-align: right;
 }
-#username{
+#Username{
 	margin-right: 10px;
-	font-family:
 	font-size: 18px;
 	border-style: solid;
 	border-color: #87CEFA;
