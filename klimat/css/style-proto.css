@@ -3,17 +3,18 @@ body{
 	background-repeat: repeat-x;
 	display: grid;
 }
-#User,li,p,h1,h2,h3,td,th,select,option,form{
+li,p,h1,h2,h3,td,th,select,option,form,#user{
 	font-family: 'Barlow',sans-serif;
 }
-#User{
+#user{
 	position: absolute;
-    top: 5;
-    right: 5;
+    top: 5px;
+    right: 5px;
     text-align: right;
 }
-#Username{
+#username{
 	margin-right: 10px;
+	font-family:
 	font-size: 18px;
 	border-style: solid;
 	border-color: #87CEFA;
