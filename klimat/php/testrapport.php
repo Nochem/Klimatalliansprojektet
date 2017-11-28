@@ -26,7 +26,7 @@ $emissionsqlresult = NULL;
 		
 		
 		
-		 if ($emissionsql = mysqli_prepare($dbc,"SELECT EmissionSource from ConversionFactors where Category = ?")) {
+		 if ($emissionsql = mysqli_prepare($dbc,"SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
    $emissionsql->bind_param("s", $category);
     /* execute query */
     $emissionsql->execute();
@@ -37,24 +37,106 @@ $emissionsqlresult = NULL;
 		echo '<h1>';
 echo $category ;
 echo '</h1>';
-		echo '<br>';
-		echo '<table>';
+		echo '<table cellspacing="10">';
+		// Skapar rubriker till table
+			echo '<th> Utsläppskälla </th>';
+			echo '<th> Inköpt mängd</th>';
+			echo '<th> Mått </th>';
+			echo '<th> Omräknings Faktor </th>';
+			// echo '<th> Energi i MWh </th>';
+			echo '<th> Utsläpp CO2 per MWh </th>';
+			// echo '<th> Ton CO2 </th>';
 		while ($myrow = $emissionsqlresult->fetch_assoc()) {
 			if(!empty($myrow)){
-			echo '<tr>';
-			echo '<td>' .$myrow['EmissionSource']. '</td>';
-			echo '<td>';
-			echo '<input type="text" name='.$myrow['EmissionSource'].'>';
-			echo '</td>';
-			echo '</tr>';	
 				
+			
+			
+			// Skapar innehåll i table
+				
+			echo '<tr>';
+			// Utsläppskälla
+			echo '<td>' .$myrow['EmissionSource']. '</td>';
+			
+			// Mått
+			echo '<td>';
+			echo '<input type="text" name='.$myrow['EmissionSource'].' >'; // onChange funktion behövs för att räkna ut enrgi i mwh
+			echo '</td>';
+			// Enhet
+			echo '<td>';
+			echo '<select id="unitdrop" >';
+			echo '<option 
+	value =' .$myrow['Unit'] . '>' .$myrow['Unit'].
+	'</option>';
+	echo '</select>';
+	
+			echo '</td>';
+			// Omräkningsfaktor 
+			echo '<td>' .$myrow['convFactor']. '</td>';
+			
+			// echo '<script>';
+			// echo energiFunction(){} 
+			// echo '</script>'
+			echo '<td>' .$myrow['EmissionCO2perMWh']. '</td>';
+			// echo '<script>';
+			// echo tonCO2Function(){} 
+			// echo '</script>'
+			
+			echo '</tr>';
+						
+				
+					
+					
+					
 			}
 			
 		}
 		echo '</table>';
 		
 		
+		
+		
 	}
+	
+	
+
+	
+	
+	
+
+	
+    
+
+
+	
+	
+	
+	echo '<h1> Flygresor </h1>';
+	
+	echo '<table cellspacing ="10">';
+		echo '<tr>';
+		echo '<th> Från </th>';
+		echo '<th> Till </th>';
+		echo '<th> Längd i km </th>';
+		echo '<th> KG CO2 </th>';
+		echo '</tr>';
+		echo '<td>';
+			echo '<input type="text" name="Från" >'; 
+			echo '</td>';
+			echo '<td>';
+			echo '<input type="text" name="Till" >'; 
+			echo '</td>';
+			echo '<td>';
+			echo '<input type="text" name="Längd i KM" >'; 
+			echo '</td>';
+			echo '<td>';
+			echo '<input type="text" name="KGCO2" >'; 
+			echo '</td>';
+		
+		
+		echo '</table>';
+		?>
+
+		
 	
 	
 	
@@ -65,23 +147,8 @@ echo '</h1>';
 			
 	
 	
-	       // $query2 = "INSERT INTO Transport(EmissionSource, Id) VALUES (?, 1)";
-        // $stmt = mysqli_prepare($dbc, $query);
-		// /*	
-			// i Integers
-			// d Doubles
-			// b Blobs
-			// s Everything Else  
-		// */
-	
-		// mysqli_stmt_bind_param($stmt, "si" , $text , $bensin);
-		
-		// $text = "Bensin";
-        
-		// mysqli_stmt_execute($stmt);
-        
-        // $affected_rows = mysqli_stmt_affected_rows($stmt);
-?>
+	    
+
 
 </table>
 </body>
