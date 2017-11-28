@@ -3,7 +3,7 @@ body{
 	background-repeat: repeat-x;
 	display: grid;
 }
-#User,li,p,h1,h2,h3,h4,td,th,select,option,form, .help{
+#user,li,p,h1,h2,h3,h4,td,th,select,option,form, .help{
 	font-family: 'Barlow',sans-serif;
 }
 .help{
@@ -12,13 +12,13 @@ body{
 .help:hover{
 	color: #87CEFA;
 }
-#User{
+#user{
 	position: absolute;
-    top: 5;
-    right: 5;
+    top: 5px;
+    right: 5px;
     text-align: right;
 }
-#Username{
+#username{
 	margin-right: 10px;
 	font-size: 18px;
 	border-style: solid;
