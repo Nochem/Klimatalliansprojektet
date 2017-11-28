@@ -10,7 +10,7 @@
 		$count = mysqli_num_rows($result);
 		if($count == 1){
 $_SESSION['login_user'] = $myusername;
-header("location: rapport.html");
+header("location: welcome.php");
 			session_register("myusername"); //Får ej ligga över header
 			
 			
