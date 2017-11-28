@@ -57,17 +57,12 @@
 <?php
 // Skapar en anslutning till databasen
 require_once('mysqli_connect.php');
-
 // Queryn som skickas till databasen
-$query = "SELECT YEAR(Date) FROM Report";
-
+$query = "SELECT Year FROM Report";
 // Svar från databasen genom att skicka anslutningen och queryn
 $response = @mysqli_query($dbc, $query);
-
-
 // Om queryn fick ett korrekt svar, fortsätt
 if($response){
-
 echo '<select id="yeardrop" name="yeardrop" onchange="histDrop.popHist()">';
 echo '&nbsp';
 echo "<option value = '0'> Välj ett år </option>";
@@ -75,18 +70,13 @@ echo "<option value = '0'> Välj ett år </option>";
 // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
 while($row = mysqli_fetch_array($response)){
 echo '<option 
-	value =' .$row['YEAR(Date)'] . '>' .$row['YEAR(Date)'].
+	value =' .$row['Year'] . '>' .$row['Year'].
 	'</option>';
 	 
 }
-
 echo '</select>';
-
-
 } else {
-
 echo "Förfrågan till databasen misslyckades <br/>";
-
 echo mysqli_error($dbc);
 }
 ?>
@@ -95,8 +85,8 @@ echo mysqli_error($dbc);
 
 </form>		
 			</div>
-			</div>
-		</div>
+			
+		
 		<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
 		<script type="text/javascript" src="../js/proto-script.js"></script>
 		<script type="text/javascript" src="../js/historik-script.js"></script>
@@ -108,15 +98,12 @@ echo mysqli_error($dbc);
     <?php
    $selectedYear = isset($_GET['yeardrop']) ? $_GET['yeardrop'] : false;
    
-   if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),convFactor,EmissionMwh,TonCO2 FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Date) =?")) {
+   if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),convFactor,EmissionMwh,TonCO2 FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) =?")) {
    $LokalSql->bind_param("s", $selectedYear);
-
     /* execute query */
     $LokalSql->execute();
-
     /* instead of bind_result: */
     $PlacesRes = $LokalSql->get_result();
-
     /* now you can fetch the results into an array - NICE */
 	
    }else{
@@ -124,59 +111,47 @@ echo mysqli_error($dbc);
    }
    
    
-   if ($OtherLokalSql = mysqli_prepare($dbc, "SELECT PlacesOwned,PlacesRentedOut,ProducedSolarElectricity,ProducedSolarHeat,Comment FROM OtherPlacesAndProcesses, Report where OtherPlacesAndProcesses.Id = Report.Id AND YEAR(Report.Date) = ?")) {
+   if ($OtherLokalSql = mysqli_prepare($dbc, "SELECT PlacesOwned,PlacesRentedOut,ProducedSolarElectricity,ProducedSolarHeat,Comment FROM OtherPlacesAndProcesses, Report where OtherPlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ?")) {
    $OtherLokalSql->bind_param("s", $selectedYear);
-
     /* execute query */
     $OtherLokalSql->execute();
-
     /* instead of bind_result: */
     $OtherPlacesRes = $OtherLokalSql->get_result();
-
     /* now you can fetch the results into an array - NICE */
 	
    }else{
 	   
    }
    
-   if ($TransportSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),TonCO2,convFactor,EnergyMwh,EmissionMwh FROM Transport, Report where Transport.Id = Report.Id AND YEAR(Report.Date) = ?")) {
+   if ($TransportSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),TonCO2,convFactor,EnergyMwh,EmissionMwh FROM Transport, Report where Transport.Id = Report.Id AND YEAR(Report.Year) = ?")) {
    $TransportSql->bind_param("s", $selectedYear);
-
     /* execute query */
     $TransportSql->execute();
-
     /* instead of bind_result: */
     $TransportRes = $TransportSql->get_result();
-
     /* now you can fetch the results into an array - NICE */
 	
    }else{
 	   
    }
-   if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforementTravelPolicy,EnviormentReqOtherTransport,EnviormentReqOtherTransportDescription,EnviormentReqPurchased,EnviormentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Date) = ?")) {
+   if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforementTravelPolicy,EnviormentReqOtherTransport,EnviormentReqOtherTransportDescription,EnviormentReqPurchased,EnviormentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ?")) {
    $OtherTransportSql->bind_param("s", $selectedYear);
-
     /* execute query */
     $OtherTransportSql->execute();
-
     /* instead of bind_result: */
     $OtherTransportRes = $OtherTransportSql->get_result();
-
     /* now you can fetch the results into an array - NICE */
 	
    }else{
 	   
    }
    
-   if ($FlightSql = mysqli_prepare($dbc, "SELECT Departure,Destination,LengthKM,KGCO2 FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Date) =?")) {
+   if ($FlightSql = mysqli_prepare($dbc, "SELECT Departure,Destination,LengthKM,KGCO2 FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Year) =?")) {
    $FlightSql->bind_param("s", $selectedYear);
-
     /* execute query */
     $FlightSql->execute();
-
     /* instead of bind_result: */
     $FlightRes = $FlightSql->get_result();
-
     /* now you can fetch the results into an array - NICE */
 	
    }else{
@@ -208,7 +183,6 @@ echo mysqli_error($dbc);
 	echo '<th> TonCO22 </th>';
 	echo '</tr>';
 	}
-
 		
 		
 	
@@ -233,14 +207,12 @@ echo mysqli_error($dbc);
     }
 	echo '</tr>';
     
-
         // use your $myrow array as you would with any other fetch
        
-
 		}
 	}
 	echo '</table>';
-	echo '<br>';
+	
 	
 		
 	
@@ -275,14 +247,13 @@ echo mysqli_error($dbc);
 		}
     }
     echo '</tr>';
-
         // use your $myrow array as you would with any other fetch
        
     }
 		
 	}
 	echo '</table>';
-	echo '<br>';
+	
 	
 	if($selectedYear != 0){
 	echo '<h2 align= "center"> Transport </h2>'; 
@@ -314,7 +285,6 @@ echo mysqli_error($dbc);
 		}
     }
     echo '</tr>';
-
         // use your $myrow array as you would with any other fetch
       
     }
@@ -345,16 +315,15 @@ echo mysqli_error($dbc);
 		}
     }
     echo '</tr>';
-
         // use your $myrow array as you would with any other fetch
        
-
    }
 		
 	}
 	 echo '</table>';
-	 echo '<br>';
+	 
 	?>
-	
+	</div>
+	</div>
 	</body>
 </html>
