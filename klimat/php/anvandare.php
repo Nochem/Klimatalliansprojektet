@@ -15,16 +15,16 @@ include('session.php');
 </head>
 <body>
     <div id="user">
-        <a id="username">
-            User: Admin
-        </a>
-        <form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
-            <label>
-                <input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-            </label>
-        </form>
+		<p id="username">
+			Användare: <?php echo $row['Name']; ?>
 
-    </div>
+			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+	</div>
     <div id="wrapper">
         <div id="logo">
         </div>
