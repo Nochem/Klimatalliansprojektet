@@ -19,7 +19,7 @@ header("location: rapport.php");
 			
 			
 		}else{
-			$error = "AnvÃ¤ndarnamn eller LÃ¶senord felaktigt";
+			$error = "AnvÃ¤ndarnamn eller Lösenord felaktigt";
 		}
 	}?>
 	<html>
@@ -49,10 +49,10 @@ header("location: rapport.php");
 			<div id="logo"></div>
 			<div id="content">
 			<form action = "" method = "post">
-				<label>AnvÃ¤ndarnamn</label>
+				<label>Användarnamn</label>
 				<br>
 					<input type = "text" name = "username"/><br/><br/>
-				<label>LÃ¶senord</label>
+				<label>Lösenord</label>
 				<br>
 					<input type = "password" name = "password"/><br/><br/>
 					
@@ -62,9 +62,9 @@ header("location: rapport.php");
 			</form><div style = "font-size:14px; color:#cc0000; maargin-top:10px">
 			<?php echo $error; ?>
 			<br/><br/>
-			<a class="help" href="glomt_losenord.html"onclick="window.open('glomt_losenord.html','newwindow','width=600,height=300');return false;">GlÃƒÂ¶mt lÃƒÂ¶senord?</a>
+			<a class="help" href="glomt_losenord.html"onclick="window.open('glomt_losenord.html','newwindow','width=600,height=300');return false;">Glömt lösenord?</a>
 			<br>
-			<a class="help" href="hjalp_inloggningssida.html" onclick="window.open('hjalp_inloggningssida.html', 'newwindow', 'width=600,height=300');return false;">HjÃƒÂ¤lp</a>
+			<a class="help" href="hjalp_inloggningssida.html" onclick="window.open('hjalp_inloggningssida.html', 'newwindow', 'width=600,height=300');return false;">Hjälp</a>
 			<br>
 			
 		</div>
