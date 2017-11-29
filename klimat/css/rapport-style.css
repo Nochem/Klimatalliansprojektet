@@ -12,15 +12,20 @@
 	float: left;
 	height:30px;
 }
-#content input{
-}
 #content th,td{
 	padding-top:10px;
 	margin-left:0;
 	text-align: left;
 	height:10px;
 }
-#inputbox{
+#content p{
+	text-align: left;
+}
+#content h3{
+	font-size: 18px;
+	font-weight: normal;
+}
+.inputbox{
 	float: left;
 	width:120px;
 	height:30px;
@@ -71,11 +76,6 @@
 #comment{
 		display: -webkit-box;
 		margin-top: 5px;
-}
-#raidobutton{
-		margin-left: 10px;
-		width: 13px;
-		height: 13px;
 }
 #text{
 	font-family: 'Barlow',sans-serif;

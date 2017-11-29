@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -10,6 +11,20 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
+	<div id="User">
+
+		<p id="Username">
+			User: Admin
+
+
+			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+
+	</div>
 	<div id="wrapper">
 		<div id="logo">
 		</div>
@@ -26,7 +41,7 @@
 					</li>
 				</a>
 				<a href="anvandare.html">
-					<li class="menuitem">				
+					<li class="menuitem">
 						Användare
 					</li>
 				</a>
@@ -36,13 +51,7 @@
 					</li>
 				</a>
 
-				<li>
-					<form style="float:right" id="logout" align="right" name="form1" method="post" action="historik.html">
-						<label>
-							<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-						</label>
-					</form>
-				</li>
+
 			</ul>
 		</div>
 		<div id="content">
@@ -53,39 +62,39 @@
 			<form action="/action_page.php">
 				Namn :
 				<input type="text" name="Name" value="Karl Erik">
-				<input type="submit" value="Spara">
+				<input class="flatbutton" type="submit" value="Spara">
 				<br><br>
 				Epost:
 				<input type="text" name="email" value="KarlErik@hotmail.com">
-				<input type="submit" value="Spara">
+				<input class="flatbutton" type="submit" value="Spara">
 				<br><br>
 				Telefon :
 				<input type="text" name="telenmr" value="0123456789">
-				<input type="submit" value="Spara">
+				<input class="flatbutton" type="submit" value="Spara">
 				<br><br>
 			</form>
 
 			<h2>
 				Ändra Lösenord
 			</h2> <form id="passwchange" onsubmit="return validateForm()">
-				   <p>
-					 Befintligt Lösenord:
-				   </p>
-				   <input id="oldpass" type="password" name="oldPass" value="">
-				   <p>
-					   Nytt Lösenord:
-				   </p>
-				   <input id="newpass" type="password" name="newPass" value="">
-				   <p>
-					   Bekräfta nytt lösenord:
-				   </p>
-				   <input id="newpassconf" type="password" name="newPassconfirm" value="">
-				   <p id="nomatch">
+				<p>
+					Befintligt Lösenord:
+				</p>
+				<input id="oldpass" type="password" name="oldPass" value="">
+				<p>
+					Nytt Lösenord:
+				</p>
+				<input id="newpass" type="password" name="newPass" value="">
+				<p>
+					Bekräfta nytt lösenord:
+				</p>
+				<input id="newpassconf" type="password" name="newPassconfirm" value="">
+				<p id="nomatch">
 
-				   </p>
-				   <br>
-				   <input id="change" type="submit"value="Ändra Lösenord">
-		   </form>
+				</p>
+				<br>
+				<input id="change" type="submit"value="Ändra Lösenord">
+			</form>
 			<p>
 				Senaste inloggning: 2017-11-01
 			</p>
