@@ -16,6 +16,8 @@ $categorySQL = "SELECT Distinct Category from ConversionFactors";
 
 $response = @mysqli_query($dbc, $categorySQL);
 $emissionsqlresult = NULL;
+$lokalcount = 0;
+$transportcount = 0;
 
 
 // While rader finns i frågan
@@ -38,7 +40,7 @@ $emissionsqlresult = NULL;
 		echo '<h1>';
 		echo $category ;
 		echo '</h1>';
-		echo  '<form action="#" method="get">';
+		echo  '<form action="#" method="get" name="form">';
 		echo '<table name= '.htmlspecialchars($category).' cellspacing="10">';
 		// Skapar rubriker till table
 			echo '<th> Utsläppskälla </th>';
@@ -47,6 +49,7 @@ $emissionsqlresult = NULL;
 			echo '<th> Omräknings Faktor </th>';
 			// echo '<th> Energi i MWh </th>';
 			echo '<th> Utsläpp CO2 per MWh </th>';
+			echo '<th> Ton CO2 </th>';
 			// echo '<th> Ton CO2 </th>';
 		while ($myrow = $emissionsqlresult->fetch_assoc()) {
 			if(!empty($myrow)){
@@ -55,17 +58,29 @@ $emissionsqlresult = NULL;
 			
 			// Skapar innehåll i table
 				
-			echo '<tr>';
+			echo '<tr name="row[]">';
+			if($category == "Lokaler och Processer"){
+				$lokalcount++;
+			}
+			if($category == "Transport"){
+				$transportcount++;
+			}
 			// Utsläppskälla
-			echo '<td>' .$myrow['EmissionSource']. '</td>';
-			
-			// Mått
-			echo '<td>';
-			echo '<input type="text" name='.$myrow['EmissionSource'].'  >'; // onChange funktion behövs för att räkna ut enrgi i mwh
+			echo '<td >';
+			echo $myrow['EmissionSource'];
 			echo '</td>';
+			
+			 echo '<input type="hidden" name="emissionSource[]" value='.$myrow['EmissionSource'].'>';
+			
+			
+			// Mått name='.$myrow['EmissionSource'].'
+			echo '<td>';
+			echo '<input type="text" name= "amount[]"/>'; // onChange funktion behövs för att räkna ut enrgi i mwh
+			echo '</td>';
+			
 			// Enhet
 			echo '<td>';
-			echo '<select id="unitdrop" >';
+			echo '<select name="unit[]">';
 			echo '<option 
 	value =' .$myrow['Unit'] . '>' .$myrow['Unit'].
 	'</option>';
@@ -73,15 +88,22 @@ $emissionsqlresult = NULL;
 	
 			echo '</td>';
 			// Omräkningsfaktor 
-			echo '<td>' .$myrow['convFactor']. '</td>';
+			echo '<td id= convfactor[]>' .$myrow['convFactor']. '</td>';
+			 echo '<input type="hidden" name="convFactor[]" value='.$myrow['convFactor'].'>';
 			
 			// echo '<script>';
 			// echo energiFunction(){} 
 			// echo '</script>'
-			echo '<td>' .$myrow['EmissionCO2perMWh']. '</td>';
+			echo '<td id= >' .$myrow['EmissionCO2perMWh']. '</td>';
+			echo '<input type="hidden" name="emissionCO2[]" value='.$myrow['EmissionCO2perMWh'].'>';
 			// echo '<script>';
 			// echo tonCO2Function(){} 
 			// echo '</script>'
+			echo '<td>';
+			echo 0 ;
+			echo '</td>'; // behövs matt
+			echo '<input type="hidden" name="ton[]" value="0">';
+			
 			
 			echo '</tr>';
 						
@@ -122,14 +144,68 @@ $emissionsqlresult = NULL;
 		echo '<input type="text" name="KGCO2" >'; 
 		echo '</td>';
 		echo '</table>';
-		echo '<input type="submit" value = "spara">';
+		echo '<input type="submit" value = "spara" name ="Spara">';
 		
 		
 		echo '</form>';
 		
 		
-		echo '<p>'
-		 
+		
+		 if(isset($_GET['Spara'])){
+			 
+			 for($i = 0; $i <= 1; $i++){ 
+			 $emissionSource = $_GET['emissionSource'][$i];
+			// $amount = $_GET['amount'][$i];
+			 $unit = $_GET['unit'][$i];
+			 $convFactor = $_GET['convFactor'][$i];
+			 $emissionCO2 = $_GET['emissionCO2'][$i];
+			 $Ton = $_GET['ton'][$i];
+			 $id = "101";
+			/*  echo "<script type='text/javascript'>alert('$emissionSource');</script>";
+			  echo "<script type='text/javascript'>alert('$unit');</script>";
+			   echo "<script type='text/javascript'>alert('$convFactor');</script>";
+			    echo "<script type='text/javascript'>alert('$emissionCO2');</script>";
+				 echo "<script type='text/javascript'>alert('$Ton');</script>"; */
+				  
+			
+			 
+			 
+			 
+			
+			 
+			
+			
+
+					if ($insertTransportsql = mysqli_prepare($dbc,"INSERT INTO Transport (EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
+						echo "<script type='text/javascript'>alert('$Ton');</script>";
+						$insertTransportsql->bind_param("ssdddi", $emissionSource, $unit,$convFactor, $emissionCO2,$Ton,$id);
+						$insertTransportsql->execute();
+						$transportqlresult = $insertTransportsql->get_result();
+						$insertTransportsql->close();
+
+	
+				  
+			  
+			  
+			  				  			 
+
+			  
+			  
+			  
+		
+			
+			 }
+		 }
+		  
+		 }
+		
+				 
+				 
+				 
+				 
+				 
+		
+ 
 		
 		
 			
@@ -138,6 +214,7 @@ $emissionsqlresult = NULL;
 			
 			
 			
+		
 		
 		
 		
