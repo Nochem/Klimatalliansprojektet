@@ -26,6 +26,7 @@ $emissionsqlresult = NULL;
 		
 		
 		
+		
 		 if ($emissionsql = mysqli_prepare($dbc,"SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
    $emissionsql->bind_param("s", $category);
     /* execute query */
@@ -35,9 +36,10 @@ $emissionsqlresult = NULL;
 	/* now you can fetch the results into an array - NICE */
 		}
 		echo '<h1>';
-echo $category ;
-echo '</h1>';
-		echo '<table cellspacing="10">';
+		echo $category ;
+		echo '</h1>';
+		echo  '<form action="#" method="get">';
+		echo '<table name= '.htmlspecialchars($category).' cellspacing="10">';
 		// Skapar rubriker till table
 			echo '<th> Utsläppskälla </th>';
 			echo '<th> Inköpt mängd</th>';
@@ -59,7 +61,7 @@ echo '</h1>';
 			
 			// Mått
 			echo '<td>';
-			echo '<input type="text" name='.$myrow['EmissionSource'].' >'; // onChange funktion behövs för att räkna ut enrgi i mwh
+			echo '<input type="text" name='.$myrow['EmissionSource'].'  >'; // onChange funktion behövs för att räkna ut enrgi i mwh
 			echo '</td>';
 			// Enhet
 			echo '<td>';
@@ -95,24 +97,12 @@ echo '</h1>';
 		
 		
 		
+		
 	}
-	
-	
-
-	
-	
-	
-
-	
-    
-
-
-	
-	
 	
 	echo '<h1> Flygresor </h1>';
 	
-	echo '<table cellspacing ="10">';
+	echo '<table name ="Flygresor" cellspacing ="10">';
 		echo '<tr>';
 		echo '<th> Från </th>';
 		echo '<th> Till </th>';
@@ -120,20 +110,44 @@ echo '</h1>';
 		echo '<th> KG CO2 </th>';
 		echo '</tr>';
 		echo '<td>';
-			echo '<input type="text" name="Från" >'; 
-			echo '</td>';
-			echo '<td>';
-			echo '<input type="text" name="Till" >'; 
-			echo '</td>';
-			echo '<td>';
-			echo '<input type="text" name="Längd i KM" >'; 
-			echo '</td>';
-			echo '<td>';
-			echo '<input type="text" name="KGCO2" >'; 
-			echo '</td>';
-		
-		
+		echo '<input type="text" name="Från" >'; 
+		echo '</td>';
+		echo '<td>';
+		echo '<input type="text" name="Till" >'; 
+		echo '</td>';
+		echo '<td>';
+		echo '<input type="text" name="Längd i KM" >'; 
+		echo '</td>';
+		echo '<td>';
+		echo '<input type="text" name="KGCO2" >'; 
+		echo '</td>';
 		echo '</table>';
+		echo '<input type="submit" value = "spara">';
+		
+		
+		echo '</form>';
+		
+		
+		echo '<p>'
+		 
+		
+		
+			
+			
+			
+			
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		?>
 
 		
