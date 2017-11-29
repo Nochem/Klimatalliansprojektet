@@ -2,7 +2,7 @@ $(document).ready(function(){
     /*
     För rapport.html
     */
-    $("#stattable > tr").each(function() {
+    $(".stattable > tr").each(function() {
 
         /*
         Tar fram outputboxen
@@ -58,5 +58,3 @@ $(document).ready(function(){
 
 
 });
-
-
