@@ -14,11 +14,9 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
-	<div id="User">
-
-		<p id="Username">
-			User: Admin
-
+	<div id="user">
+		<p id="username">
+			Användare: <?php echo $row['Name']; ?>
 
 			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
 				<label>
@@ -26,7 +24,6 @@
 				</label>
 			</form>
 		</p>
-
 	</div>
 	<div id="wrapper">
 		<div id="logo">
