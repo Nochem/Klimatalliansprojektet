@@ -16,11 +16,10 @@ $response = @mysqli_query($dbc, $categorySQL);
 $emissionsqlresult = NULL;
 $lokalcount = 0;
 $transportcount = 0;
+$arrayindex = 0;
 // While rader finns i frågan
 while ($row = mysqli_fetch_assoc($response)) {
     $category = $row['Category'];
-
-
     if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
         $emissionsql->bind_param("s", $category);
         /* execute query */
@@ -45,10 +44,7 @@ while ($row = mysqli_fetch_assoc($response)) {
     // echo '<th> Ton CO2 </th>';
     while ($myrow = $emissionsqlresult->fetch_assoc()) {
         if (!empty($myrow)) {
-
-
             // Skapar innehåll i table
-
             echo '<tr name="row[]">';
             if ($category == "Lokaler och Processer") {
                 $lokalcount++;
@@ -57,18 +53,15 @@ while ($row = mysqli_fetch_assoc($response)) {
                 $transportcount++;
             }
             // Utsläppskälla
+			
             echo '<td >';
             echo $myrow['EmissionSource'];
             echo '</td>';
-
             echo '<input type="hidden" name="emissionSource[]" value=' . $myrow['EmissionSource'] . '>';
-
-
             // Mått name='.$myrow['EmissionSource'].'
             echo '<td>';
-            echo '<input type="text" name= "amount[]"/>'; // onChange funktion behövs för att räkna ut enrgi i mwh
+            echo '<input type="text" name="amount[]" onChange = "tonCO2('.$arrayindex.')"/>'; // onChange funktion behövs för att räkna ut enrgi i mwh
             echo '</td>';
-
             // Enhet
             echo '<td>';
             echo '<select name="unit[]">';
@@ -76,12 +69,10 @@ while ($row = mysqli_fetch_assoc($response)) {
 	value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .
                 '</option>';
             echo '</select>';
-
             echo '</td>';
             // Omräkningsfaktor
             echo '<td id= convfactor[]>' . $myrow['convFactor'] . '</td>';
             echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
-
             // echo '<script>';
             // echo energiFunction(){}
             // echo '</script>'
@@ -90,25 +81,17 @@ while ($row = mysqli_fetch_assoc($response)) {
             // echo '<script>';
             // echo tonCO2Function(){}
             // echo '</script>'
-            echo '<td>';
-            echo 0;
+            echo '<td name=ton[]>';
+           
             echo '</td>'; // behövs matt
             echo '<input type="hidden" name="ton[]" value="0">';
-
-
             echo '</tr>';
-
-
+			$arrayindex++;
         }
-
     }
     echo '</table>';
-
-
 }
-
 echo '<h1> Flygresor </h1>';
-
 echo '<table name ="Flygresor" cellspacing ="10">';
 echo '<tr>';
 echo '<th> Från </th>';
@@ -130,13 +113,8 @@ echo '<input type="text" name="KGCO2" >';
 echo '</td>';
 echo '</table>';
 echo '<input type="submit" value = "spara" name ="Spara">';
-
-
 echo '</form>';
-
-
 if (isset($_GET['Spara'])) {
-
     for ($i = 0; $i <= 1; $i++) {
         $emissionSource = $_GET['emissionSource'][$i];
         $amount = $_GET['amount'][$i];
@@ -150,34 +128,45 @@ if (isset($_GET['Spara'])) {
            echo "<script type='text/javascript'>alert('$convFactor');</script>";
             echo "<script type='text/javascript'>alert('$emissionCO2');</script>";
              echo "<script type='text/javascript'>alert('$Ton');</script>"; */
-
         if(!empty($amount)){
         if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport (EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
             $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
             $insertTransportsql->execute();
             $transportqlresult = $insertTransportsql->get_result();
             $insertTransportsql->close();
-
-
         }
     }}
-
-
 }
 echo '<form method="get" action="#">';
 echo '<input type="submit" name="delete" value="ta bort test data från databas" />';
 echo '</form>';
-
 if (isset($_GET['delete'])) {
     $deleteSQL = "DELETE FROM Transport where Id = 101";
     @mysqli_query($dbc, $deleteSQL);
-
 }
-
-
 ?>
 
 
+
 </table>
+<script>
+function tonCO2(nbr){
+	
+	var amount = document.getElementsByName("amount[nbr]"); 
+	for(var value of amount.values()) { 
+  window.alert(value);
+}
+	
+	
+	
+	var convFac = document.getElementById("convFac[nbr]");
+	var emission = document.getElementById("emissionCO2[nbr]");
+	
+	document.getElementByName("ton[nbr]").innerHTML = amount * convFac * emission;
+	
+	}
+	
+</script>
+
 </body>
 </html>
