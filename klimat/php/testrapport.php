@@ -15,13 +15,17 @@ $categorySQL = "SELECT Distinct Category from ConversionFactors";
 // Skickar frågan till DB
 $response = @mysqli_query($dbc, $categorySQL);
 $emissionsqlresult = NULL;
-
 $data = array();
+$enVarArray = array();
+$category = NULL;
+$catArray = array();
 
 // While rader finns i frågan
 	while($row = mysqli_fetch_assoc($response)){
 		$category = $row['Category'];
-			
+		$catArray[] = $row['Category'];
+		
+					echo '<form name="rapport2" method="post" id="rapport2">';
 		 if ($emissionsql = mysqli_prepare($dbc,"SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
 				$emissionsql->bind_param("s", $category);
 				/* execute query */
@@ -34,7 +38,7 @@ $data = array();
 			echo $category ;
 			echo '</h1>';
 			echo '<table cellspacing="10">';
-			// Skapar rubriker till table
+		// Skapar rubriker till table
 			echo '<th> Utsläppskälla </th>';
 			echo '<th> Inköpt mängd</th>';
 			echo '<th> Mått </th>';
@@ -44,12 +48,13 @@ $data = array();
 			// echo '<th> Ton CO2 </th>';
 			
 			
-			echo '<form name="rapport2" method="post" id="rapport2">';
+
 			
 		while ($myrow = $emissionsqlresult->fetch_assoc()) {
 			if(!empty($myrow)){
-			//Lägger in alla utsläppskällor från databasen i en array 
-			$data[] = $myrow['EmissionSource'];
+				$enVarArray[] = $myrow['EmissionSource'];
+				
+				$data[] = $myrow['EmissionSource'];
 		
 			// Skapar innehåll i table
 				
@@ -83,10 +88,11 @@ $data = array();
 											
 			}
 		}
-		
-		echo '</form>';
-		echo '</table>';	
+		echo '</table>';
 	}
+	echo '</form>';
+			
+	
 	echo '<h1> Flygresor </h1>';
 	
 	echo '<table cellspacing ="10">';
@@ -117,45 +123,73 @@ $data = array();
 		
 		//om spara knappen har blivit klickad på
 		if(isset($_POST['submit'])){
-			//beroende på vilken kategori , kör en viss queryn
 			
-			/*
-			if($category == "Lokaler och processer"){
-				$query = mysqli_prepare($dbc, 
-				"INSERT INTO PlacesAndProcesses(EmissionSource, Unit, TonCO2, ConvFactor,  EmissionMWh, Id) VALUES (?,?,?,?,?,?)");
+			
+			foreach($enVarArray as $utslapp){
+				foreach($catArray as $cat){
+				if($cat == "Transport"){
+					echo 'T ';
+					$query = mysqli_prepare($dbc, 
+					"REPLACE INTO enVarTest(utslapp, tonCo2) VALUES (?,?)");
+					
+					$query->bind_param("ss", $utslapp, $var);
 				
+					$var = $_POST[$utslapp];
+			
+					$query->execute();
 				
-			}else if($category == "Transport"){
-				$query = mysqli_prepare($dbc, 
-				"INSERT INTO Transport(EmissionSource, Unit, TonCO2, ConvFactor, EmissionMWh, Id) VALUES (?,?,?,?,?,?)");
+				}else if($cat == "Lokaler och Processer"){
+					echo 'L o P ';
+					
+					$query = mysqli_prepare($dbc, 
+					"REPLACE INTO enVarTest2(utslapp, tonCo2) VALUES (?,?)");
+					
+					$query->bind_param("ss", $utslapp, $var);
 				
-				
-			}else if($category == "Flygresor"){
-				$query = mysqli_prepare($dbc, 
-				"INSERT INTO Flights(Departure, Destination, LenghtKM , KgCO2, Id) VALUES (?,?,?,?,?)");
-				
-				
+					$var = $_POST[$utslapp];
+			
+					$query->execute();
+					
+				}else {
+					echo 'H';
+				}
+				}
 			}
+			/*												//~~OCH~~ PlacesAndProcesses						  Category = Transport eller Lokaler och Processer
+			$query = mysqli_prepare($dbc, 
+			"INSERT INTO Transport(EmissionSource, Unit, TonCO2, ConvFactor,EmissionMWh, Id) VALUES (?,?,?,?,?,?)");
+			/*
+			INSERT INTO Transport(EmissionSource, Unit, TonCO2, ConvFactor, EnergyMWh, EmissionMWh, Id) VALUES ('Tes', 'mwh', 1 , 7.7 , 5.4 , 0.23, 1)
 			*/
-				$query = mysqli_prepare($dbc, 
-				"INSERT INTO Transport(EmissionSource, Unit, TonCO2, ConvFactor, EmissionMWh, Id) VALUES (?,?,?,?,?,?)");
-				
+	/*
 					foreach($data as $emissionSource){
-						
-						$query->bind_param("ssddddi", $emissionSource, $unit , $tonCO2 ,$ConvFactor ,$EmissionMWh, $Id);
-						
-						$unit = "MWh"; // ska in från användaren
-						
-						$tonCO2 = 2; //Från användaren						// trim($_POST['$myrow['EmissionSource']'];  
-						
-						$ConvFactor = 7.7; 
-						
-						$EmissionMWh = 0.23; 
-						
-						$Id =  1; //Från sessionen
+						$query->bind_param("ssddddi", $emissionSource, $unit , $tonCO2 ,$ConvFactor,$EnergyMWh ,$EmissionMWh, $Id);
+						$unit = "MWh";
+						$tonCO2 = 2; // trim($_POST['$myrow['EmissionSource']'];  //Från fältet med namnet EmissionSource från databasen
+						$ConvFactor = 7.7;
+						$EnergyMWh = 5.4;
+						$EmissionMWh = 0.23;
+						$Id =  1;
 					
 						$query->execute();
-					}
+					}*/
+					//$emissionSource = "Tes11t";
+					
+			/*
+			while ($myrow2 = $emissionsqlresult->fetch_assoc()) {
+				if(!empty($myrow2)){
+					$emissionSource = trim($_POST['$myrow2['EmissionSource']'];
+					$unit = trim($_POST['$myrow2['Unit']'];
+					$tonCO2 = trim($_POST['$myrow2['TonCO2']'];
+					$ConvFactor = trim($_POST['$myrow2['ConvFactor']'];
+					$EnergyMWh = trim($_POST['$myrow2['EnergyMWh']'];
+					$EmissionMWh = trim($_POST['$myrow2['EmissionMWh']'];
+					$Id =  1;
+					
+					$query->execute();
+				}
+			}
+			*/
 	 	}
 		//$emissionsql->close();
 ?>
