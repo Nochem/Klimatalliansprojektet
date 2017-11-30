@@ -62,9 +62,9 @@ header("location: rapport.php");
 			</form><div style = "font-size:14px; color:#cc0000; maargin-top:10px">
 			<?php echo $error; ?>
 			<br/><br/>
-			<a class="help" href="glomt_losenord.html"onclick="window.open('glomt_losenord.html','newwindow','width=600,height=300');return false;">GlÃ¶mt lÃ¶senord?</a>
+			<a class="help" href=../html/"glomt_losenord.html"onclick="window.open(href,'newwindow','width=600,height=300');return false;">GlÃ¶mt lÃ¶senord?</a>
 			<br>
-			<a class="help" href="hjalp_inloggningssida.html" onclick="window.open('hjalp_inloggningssida.html', 'newwindow', 'width=600,height=300');return false;">HjÃ¤lp</a>
+			<a class="help" href=../html/"hjalp_inloggningssida.html" onclick="window.open(href, 'newwindow', 'width=600,height=300');return false;">HjÃ¤lp</a>
 			<br>
 			
 		</div>
