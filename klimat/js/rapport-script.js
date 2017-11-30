@@ -37,11 +37,13 @@ $(document).ready(function(){
 	})
 	// kontrollerar så att året består av 4 tecken
 	$("#saveCheck").click(function(){
+			var d = new Date();
+			var n = d.getFullYear();
 			var year = $("#modalInputYear");
 			var reportName = $("#modalInputReportName");
 			var name = $("#modalInputName");
 			
-			if(year.val()<2050 && year.val()>1999){
+			if(year.val()<=n && year.val()>1999){
 				confirm("Rapport sparad");
 				
 			return true;
