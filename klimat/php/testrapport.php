@@ -139,7 +139,7 @@ if (isset($_GET['Spara'])) {
 
     for ($i = 0; $i <= 1; $i++) {
         $emissionSource = $_GET['emissionSource'][$i];
-        // $amount = $_GET['amount'][$i];
+        $amount = $_GET['amount'][$i];
         $unit = $_GET['unit'][$i];
         $convFactor = $_GET['convFactor'][$i];
         $emissionCO2 = $_GET['emissionCO2'][$i];
@@ -151,7 +151,7 @@ if (isset($_GET['Spara'])) {
             echo "<script type='text/javascript'>alert('$emissionCO2');</script>";
              echo "<script type='text/javascript'>alert('$Ton');</script>"; */
 
-
+        if(!empty($amount)){
         if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport (EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
             $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
             $insertTransportsql->execute();
@@ -160,7 +160,7 @@ if (isset($_GET['Spara'])) {
 
 
         }
-    }
+    }}
 
 
 }
