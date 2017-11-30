@@ -59,16 +59,43 @@
 				</a>
 			</ul>
 		</div>
+		
+		<div id="myModal" class="modal">
+  			<!-- Modal content -->
+  			<div class="modal-content">
+   				<span class="close">&times;</span>
+   				<form>
+					<input id="modalInputReportName" required='' type='text'>
+ 					<label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
+ 					<br>
+ 					<input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+ 					<label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
+ 					<br>
+ 					<input id="modalInputName" required='' type='text'>
+ 					<label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
+ 					<input type="checkbox" name="vehicle" value="FärdigRapport" unchecked> Färdig Rapport
+ 					<br>
+ 					<br>
+ 					<button id = "saveCheck" class = "menubutton flatbutton savebutton" style="left: 5px">
+						Spara
+					</button>
+ 				
+				</form>
+  			</div>
+		</div>
+
 		<div id="content">
 			<h1>
 				Inventering av CO<sub>2</sub> utsläpp
 			</h1>
 			<p>
 				År: <span style="font-weight:bold;"> 2016 </span>
-				<button class = "menubutton flatbutton" onclick = "alert('Rapport sparad')">
-					Spara
-				</button>
-				<button class = "menubutton flatbutton rensa">
+				<button  class = "modalSave menubutton flatbutton savebutton">
+						Spara
+					</button>
+
+
+				<button class = "menubutton flatbutton" style="color:#f40000">
 					Rensa
 				</button>
 			</p>
@@ -536,10 +563,10 @@
 					<textarea class="comments"rows="8" cols="50">
 					</textarea>
 					<br>
-					<button class = "menubutton flatbutton savebutton" onclick = "alert('Rapport sparad')">
+					<button class = "modalSave menubutton flatbutton savebutton">
 						Spara
 					</button>
-					<button class = "menubutton flatbutton rensa">
+					<button class = "menubutton flatbutton">
 						Rensa
 					</button>
 				</div>
