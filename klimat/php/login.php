@@ -10,47 +10,66 @@
 		$count = mysqli_num_rows($result);
 		if($count == 1){
 $_SESSION['login_user'] = $myusername;
-header("location: rapport.html");
+if($myusername == "testadmin"){
+	header("Location: anvandare.php");
+}else{
+header("location: rapport.php");
+}
 			session_register("myusername"); //Får ej ligga över header
 			
 			
 		}else{
-			$error = "Your Login Name or Password is invalid";
+			$error = "Användarnamn eller Lösenord felaktigt";
 		}
 	}?>
-<html>
+	<html>
 	<head>
-		<title>Login Page</title>
-		<style type = "text/css">
-		body{
-			font-family:Arial, Helvetica, sans-serif;font-size:
-			14px;
-		}label{
-			font-weight:bold;
-			width:100px;
-			font-size:14px;
-		}.box{border:#666666 solid 1px;
-		}
+		<meta charset="UTF-8">
+		<title>
+			Klimatallians - Inloggning
+		</title>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+		<style>
+			#wrapperL{
+				text-align:center;
+				width:500px;
+				height:500px;
+			}
+			#contentT{
+				text-align:center;
+				width:300px;
+				height:300px;
+			}
 		</style>
+	<link rel="icon" href="../res/icon.png">
 	</head>
-	<body bgcolor = "#FFFFFF">
-		<div align = "center">
-		<div style = "width:300px; border: solid 1px #333333; " align = "left">
-		<div style = "background-color:#333333; color:#FFFFFF; padding:3px;">
-			<b>Login</b>
-		</div>
-		<div style = "margin:30px">
+	<body>
+			<div id="wrapperL">
+			<div id="logo"></div>
+			<div id="content">
 			<form action = "" method = "post">
-				<label>UserName  :</label>
-					<input type = "text" name = "username" class = "box"/><br/><br/>
-				<label>Password  :</label>
-					<input type = "password" name = "password" class = "box"/><br/><br/>
-					<input type = "submit" value = " Submit "/><br />
-			</form><div style = "font-size:11px; color:#cc0000; maargin-top:10px">
+				<label>Användarnamn</label>
+				<br>
+					<input type = "text" name = "username"/><br/><br/>
+				<label>Lösenord</label>
+				<br>
+					<input type = "password" name = "password"/><br/><br/>
+					
+					<input type = "submit" value = " Logga in "/><br/>
+					
+					
+			</form><div style = "font-size:14px; color:#cc0000; maargin-top:10px">
 			<?php echo $error; ?>
-		</div>
+			<br/><br/>
+			<a class="help" href="glomt_losenord.html"onclick="window.open('glomt_losenord.html','newwindow','width=600,height=300');return false;">GlÃ¶mt lÃ¶senord?</a>
+			<br>
+			<a class="help" href="hjalp_inloggningssida.html" onclick="window.open('hjalp_inloggningssida.html', 'newwindow', 'width=600,height=300');return false;">HjÃ¤lp</a>
+			<br>
+			
 		</div>
 		</div>
 		</div>
 	</body>
 </html>
+	
