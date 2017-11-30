@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -10,25 +11,23 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
-	<div id="User">	
-		<ul>
-			<a id="Username">
-				User: Företag
-			</a>
-			<a>
-				<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
-					<label>
-						<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-					</label>
-				</form>
-			</a>
-		</ul>
+	<div id="user">
+		<p id="username">
+			User: Företag
+
+			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
 	</div>
-	  
+
 	<div id="wrapper">
-		<a href="rapport.html"></a>
-		<div id="logo">
-		</div>
+		<a href="rapport.html">
+			<div id="logo">
+			</div>
+		</a>
 		<div id="menu">
 			<ul>
 				<a href="rapport.html">
@@ -63,17 +62,17 @@
 
 		<div class="chart-container">
 			Se statistik mellan
-				<select id="yearselectfrom" class="yearselectfrom">
+			<select id="yearselectfrom" class="yearselectfrom">
 				<option value="2015">2015</option>
-				
-				</select>
-				och
-				<select id="yearselectto" class="yearselectto">
-				
+
+			</select>
+			och
+			<select id="yearselectto" class="yearselectto">
+
 				<option value="2019">2019</option>
-				</select>
+			</select>
 			<div id="chart">
-				
+
 				<canvas id="myChart" styles="width=100px height=100px"></canvas>
 			</div>
 		</div>

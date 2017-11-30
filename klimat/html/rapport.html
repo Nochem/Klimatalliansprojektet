@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -10,19 +11,14 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
-	<div id="User">
-		<ul>
-			<a id="Username">
-				User: Företag
-			</a>
-			<a>
-				<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
-					<label>
-						<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-					</label>
-				</form>
-			</a>
-		</ul>
+	<div id="user">
+		<p>	User: Företag
+			<form id="logout" align="right" style="float:right"name="form1" method="post" action="statistik.html">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
 	</div>
 	<div id="wrapper">
 		<a href="rapport.html">
@@ -59,7 +55,7 @@
 				</a>
 			</ul>
 		</div>
-		
+
 		<div id="myModal" class="modal">
   			<!-- Modal content -->
   			<div class="modal-content">
@@ -79,7 +75,7 @@
  					<button id = "saveCheck" class = "menubutton flatbutton savebutton" style="left: 5px">
 						Spara
 					</button>
- 				
+
 				</form>
   			</div>
 		</div>
@@ -89,13 +85,11 @@
 				Inventering av CO<sub>2</sub> utsläpp
 			</h1>
 			<p>
-				År: <span style="font-weight:bold;"> 2016 </span>
-				<button  class = "modalSave menubutton flatbutton savebutton">
-						Spara
-					</button>
-
-
-				<button class = "menubutton flatbutton" style="color:#f40000">
+				År: <input type="text" name="Year" class="inputbox" style="float: none">
+				<button class = "menubutton flatbutton" onclick = "alert('Rapport sparad')">
+					Spara
+				</button>
+				<button class = "menubutton flatbutton rensa">
 					Rensa
 				</button>
 			</p>
@@ -557,9 +551,6 @@
 
 				<div id="flygresor_comments">
 					<h3>Övriga kommentarer</h3>
-
-
-
 					<textarea class="comments"rows="8" cols="50">
 					</textarea>
 					<br>
