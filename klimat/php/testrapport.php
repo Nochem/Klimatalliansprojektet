@@ -71,7 +71,7 @@ while ($row = mysqli_fetch_assoc($response)) {
             echo '</select>';
             echo '</td>';
             // Omräkningsfaktor
-            echo '<td id= convfactor[]>' . $myrow['convFactor'] . '</td>';
+            echo '<td>' . $myrow['convFactor'] . '</td>';
             echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
             // echo '<script>';
             // echo energiFunction(){}
@@ -81,9 +81,9 @@ while ($row = mysqli_fetch_assoc($response)) {
             // echo '<script>';
             // echo tonCO2Function(){}
             // echo '</script>'
-            echo '<td name=ton[]>';
+            echo '<td name=tonCO[]>';
            
-            echo '</td>'; // behövs matt
+            echo '</td>'; // behövs matte
             echo '<input type="hidden" name="ton[]" value="0">';
             echo '</tr>';
 			$arrayindex++;
@@ -149,24 +149,28 @@ if (isset($_GET['delete'])) {
 
 
 </table>
+
+
+</body>
 <script>
 function tonCO2(nbr){
+	var amount = document.getElementsByName("amount[]")[nbr].value;
+	var convFac = document.getElementsByName("convFactor[]")[nbr].value;
+	var emission = document.getElementsByName("emissionCO2[]")[nbr].value;
+	var ton = amount * emission * convFac;
+	document.getElementsByName("tonCO[]")[nbr].innerHTML = ton;
 	
-	var amount = document.getElementsByName("amount[nbr]"); 
-	for(var value of amount.values()) { 
-  window.alert(value);
 }
 	
 	
 	
-	var convFac = document.getElementById("convFac[nbr]");
-	var emission = document.getElementById("emissionCO2[nbr]");
 	
-	document.getElementByName("ton[nbr]").innerHTML = amount * convFac * emission;
 	
-	}
+		
+	
+	
+	
+	
 	
 </script>
-
-</body>
 </html>
