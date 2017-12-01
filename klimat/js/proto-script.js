@@ -42,7 +42,7 @@ $(document).ready(function(){
 	$("#logout").click(function(){
 		var r = confirm("är du säker på att du vill logga ut?")
 		if(r){
-			document.getElementById("logout").action = "inloggning.html";
+			document.getElementById("logout").action = "login.php";
 		}
 	})
 
