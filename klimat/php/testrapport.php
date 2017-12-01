@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
 </head>
 <body>
-
 <?php
 require_once('mysqli_connect.php');
 // Hämtar alla unika kategorier
@@ -53,14 +52,13 @@ while ($row = mysqli_fetch_assoc($response)) {
                 $transportcount++;
             }
             // Utsläppskälla
-			
             echo '<td >';
             echo $myrow['EmissionSource'];
             echo '</td>';
             echo '<input type="hidden" name="emissionSource[]" value=' . $myrow['EmissionSource'] . '>';
             // Mått name='.$myrow['EmissionSource'].'
             echo '<td>';
-            echo '<input type="text" name="amount[]" onChange = "tonCO2('.$arrayindex.')"/>'; // onChange funktion behövs för att räkna ut enrgi i mwh
+            echo '<input type="text" name="amount[]" onkeyup="tonCO2('.$arrayindex.')"/>'; // onChange funktion behövs för att räkna ut enrgi i mwh
             echo '</td>';
             // Enhet
             echo '<td>';
@@ -82,7 +80,6 @@ while ($row = mysqli_fetch_assoc($response)) {
             // echo tonCO2Function(){}
             // echo '</script>'
             echo '<td name=tonCO[]>';
-           
             echo '</td>'; // behövs matte
             echo '<input type="hidden" name="ton[]" value="0">';
             echo '</tr>';
@@ -145,32 +142,34 @@ if (isset($_GET['delete'])) {
     @mysqli_query($dbc, $deleteSQL);
 }
 ?>
-
-
-
 </table>
-
-
 </body>
 <script>
 function tonCO2(nbr){
 	var amount = document.getElementsByName("amount[]")[nbr].value;
+	amount = amount.replace(/[^0-9,.]/,'');
+	if(amount.charAt(0) == '.' || amount.charAt(0) == ',' ){
+		amount = setCharAt(amount,0,"");
+	}
+	
+	
+	document.getElementsByName("amount[]")[nbr].value = amount;
+	amount1 = amount.replace(',','.');
 	var convFac = document.getElementsByName("convFactor[]")[nbr].value;
 	var emission = document.getElementsByName("emissionCO2[]")[nbr].value;
-	var ton = amount * emission * convFac;
-	document.getElementsByName("tonCO[]")[nbr].innerHTML = ton;
-	
+	var ton = amount1 * emission * convFac;
+	if(!isNaN(ton)){
+	document.getElementsByName("tonCO[]")[nbr].innerHTML = round(ton,2);
+	}else{
+		document.getElementsByName("tonCO[]")[nbr].innerHTML = "";
+	}
 }
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
+function setCharAt(str,index,chr) {
+	if(index > str.length-1) return str;
+	return str.substr(0,index) + chr + str.substr(index+1);
+}
+function round(value, decimals) {
+  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
 </script>
 </html>
