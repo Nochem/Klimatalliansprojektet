@@ -1,3 +1,7 @@
+<?php
+   include('session.php');
+?>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -10,49 +14,48 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
-<?php
-	include_once('rapport_php.php');
-?>
+	<div id="user">
+		<p>	User: Företag
+			<form id="logout" align="right" style="float:right"name="form1" method="post" action="statistik.php">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+	</div>
 	<div id="wrapper">
-		<a href="rapport.html">
+		<a href="rapport.php">
 			<div id="logo">
 			</div>
 		</a>
 
 		<div id="menu">
 			<ul>
-				<li class="menuitem currentpage" >
-					<a href="rapport.html">
+				<a href="rapport.php">
+					<li class="menuitem currentpage" >
 						Rapport
-					</a>
-				</li>
-				<li class="menuitem">
-					<a href="historik.html">
+					</li>
+				</a>
+				<a href="historik.php">
+					<li class="menuitem">
 						Historik
-					</a>
-				</li>
-				<li class="menuitem">
-					<a href="statistik.html">
+					</li>
+				</a>
+				<a href="statistik.php">
+					<li class="menuitem">
 						Statistik
-					</a>
-				</li>
-				<li class="menuitem">
-					<a href="mina_sidor.html">
+					</li>
+				</a>
+				<a href="mina_sidor.php">
+					<li class="menuitem">
 						Mina Sidor
-					</a>
-				</li>
-				<li class="menuitem">
-					<a href="kontakt.html">
+					</li>
+				</a>
+				<a href="kontakt.php">
+					<li class="menuitem">
 						Kontakt
-					</a>
-				</li>
-				<li>
-					<form  id="logout" name="form1" method="post" action="rapport.html">
-						<label>
-							<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-						</label>
-					</form>
-				</li>
+					</li>
+				</a>
 			</ul>
 		</div>
 		<div id="content">
@@ -60,441 +63,287 @@
 				Inventering av CO<sub>2</sub> utsläpp
 			</h1>
 			<p>
-				År: <span style="font-weight:bold;"> 2016 </span>
-				
-				<button name="submit" form="rapport" class = "menubutton flatbutton" onclick = "alert('Rapport sparad')">
+				År: <input type="text" name="Year" class="inputbox" style="float: none">
+				<button class = "menubutton flatbutton" onclick = "alert('Rapport sparad')">
 					Spara
 				</button>
 				<button class = "menubutton flatbutton rensa">
 					Rensa
 				</button>
 			</p>
-			<h1>
-				<a name="transport">
+			
+
+<?php 
+require_once('mysqli_connect.php');  
+
+$categoryTransport = "Transport";
+$categoryLokalerProcesser = "Lokaler och processer";
+
+$transport = array();
+$placesAndProcesses = array();
+
+
+echo '<form name="rapport2" method="post" id="rapport2">';
+
+// --- TRANSPORT ---
+		if ($emissionsql = mysqli_prepare($dbc,"SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
+				$emissionsql->bind_param("s", $categoryTransport);
+				$emissionsql->execute();
+				$emissionsqlresult = $emissionsql->get_result();
+		}
+		
+		echo '<h1>
+				<a name="Transport">
 					Transport
 				</a>
-			</h1>
-			<table>
-			<thead>
-				<tr>
-					<th>Utsläppskälla</th>
-					<th>Inköpt mängd</th>
-					<th>Ton CO<sub>2</sub></th>
-				</tr>
-			</thead>
-			<tbody id="stattable">
-				<tr>
-					<td>Bensin</td>
-					<td>
-					<form name="rapport" action="rapport.php" method="post" id="rapport">
-						<input type="text" name="bensin" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-						</select>
-					</td>
-					<td>
-						<p class="output"></p>
-					</td>
-				</tr>
-				<tr>
-					<td>Diesel</td>
-					<td>
-						<input type="text" name="diesel" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr>
-					<td>Diesel 24% förnybar</td>
-					<td>
-						<input type="text" name="diesel24" nameonkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-						</select>
-					</td>
-					<td>
-						<p class="output"></p>
-					</td>
-				</tr>
-				<tr>
-					<td>Diesel Preem Evolution</td>
-					<td>
-						<input type="text" name="dieselPreemEvo" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr>
-					<td>RME</td>
-					<td>
-						<input type="text" name ="rme" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr>
-					<td>Etanol</td>
-					<td>
-						<input type="text" name="etanol" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr>
-					<td>Biogas</td>
-					<td>
-						<input type="text" name="biogas" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr id="hvo">
-					<td>HVO</td>
-					<td>
-						<input type="text" name="hvo" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr id="miljo">
-					<td>Miljömärkt el till fordon</td>
-					<td>
-						<input type="text" name="miljoMarktElFordon" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								MWh
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr id="ospec">
-					<td>Ospecificerad el till fordon</td>
-					<td>
-						<input type="text" name="ospecElFordon" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								MWh
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr id="else">
-					<td>Övrigt drivmedel, ange vad </td>
-					<td>
-						<input type="text" name="ovrigtDrivmedel" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr id="privat">
-					<td>Privatbil (körning i tjänsten)</td>
-					<td>
-						<input type="text" name="bilTjanst" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-							<option>
-								MWh
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-				<tr id="rental">
-					<td>Hyrbil</td>
-					<td>
-						<input type="text" name="hyrbil" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								m<sup>3</sup>
-							</option>
-							<option>
-								L
-							</option>
-							<option>
-								MWh
-							</option>
-						</select>
-					</td>
-					<td><p class="output"></p></td>
-				</tr>
-			</tbody>
-		</table>
-		<h3>Övriga kommentarer</h3>
-		<textarea class="comments" rows="8" cols="50">
-		</textarea>
-		<h1>
-			<a name="lokalaprocesser">
-				Lokala processer
-			</a>
-		</h1>
-		<table>
-			<thead>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						Lokaler som företaget äger
-					</td>
-					<td>
-						<input type="text" name="lokalerAgare" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<p style="margin:5px">(m<sup>2</sup>)</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Varav lokaler som hyrs ut
-					</td>
-					<td>
-						<input type="text" name="lokalerHyrUt" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<p style="margin:5px">(m<sup>2</sup>)</p>
-					</td>
-				</tr>
-			</tbody>
-			<thead>
-				<tr>
-					<th>Utsläppskälla</th>
-					<th>Inköpt mängd</th>
-					<th>Ton CO<sub>2</sub></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						Olja
-					</td>
-					<td>
-						<input type="text" name="olja" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								<sup>m3</sup>
-							</option>
-						</select>
+			</h1>';
+		
+		echo '<table>';
+		echo '<thead>
+					<tr>
+						<th>Utsläppskälla</th>
+						<th>Inköpt mängd</th>
+						<th>Omräkningsfaktor</th>
+						<th>Utsläpp per MWh, ton CO<sub>2<sub></th>
+						<th>Ton CO<sub>2</sub></th>
+					</tr>
+				</thead>
+				<tbody id="stattableTransport">';
+		while ($myrow = $emissionsqlresult->fetch_assoc()) {
+			if(!empty($myrow)){
+				$transport[] = $myrow['EmissionSource'];
+				echo '
+					<tr>
+						<td>'.$myrow['EmissionSource'].'</td>
+						<td>
+							<input type="text" name="'.$myrow['EmissionSource'].'" onkeypress=\'return event.charCode >= 48 && event.charCode <= 57\' class="inputbox"/>
+							<select>
+								<option>
+									m<sup>3</sup>
+								</option>
+								<option>
+									L
+								</option>
+							</select>
+						</td>
+						<td> '.$myrow['convFactor'].' </td>
+						<td> '.$myrow['EmissionCO2perMWh'].' </td>
+						<td>
+							<p id="outputbox" class="output"></p>
+						</td>
+					</tr>
+					';		
+			}	
+		}
+		echo '</tbody>';
+		echo '</table>';
+		
+		echo'<div id="m_krav">
+				<h3>Ställs miljökrav vid inköp av fordon</h3>
+					<p>
+						<input class="radiobutton" type="radio" name="YesOrNo" value="Yes"> Ja
+						<input class="radiobutton" type="radio" name="YesOrNo" value="No" style="margin-bottom: 20px"> Nej
+					</p>
 
-					</td>
-					<td>
-						<p class="output"></p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Gasol
-					</td>
-					<td>
-						<input type="text" name="gasol" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								<sup>MWh</sup>
-							</option>
-						</select>
+					<p>Om ja beskriv krav:</p>
 
-					</td>
-					<td>
-						<p class="output"></p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Fjärrvärme (EF i Kristianstad 2015)
-					</td>
-					<td>
-						<input type="text" name="fjarrvarmeEfKristianstad2015" name="fjarrvarmeonkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								<sup>MWh</sup>
-							</option>
-						</select>
+					<textarea class="comments" rows="4" cols="50" name="comment1" form="usrform"></textarea></td>
+			</div>
+			<div id="bio_krav">
+				<h3>
+					Biodrivmedel i köpta transporttjänster
+				</h3>
 
-					</td>
-					<td>
-						<p class="output"></p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Halm
-					</td>
-					<td>
-						<input type="text" name="halm" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								<sup>MWh</sup>
-							</option>
-						</select>
+				<p>Andel %
+					<input  type="text" class="inputbox"/></p>
+					<br>
 
-					</td>
-					<td>
-						<p class="output"></p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Pellets
-					</td>
-					<td>
-						<input type="text" name="pellets" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								<sup>MWh</sup>
-							</option>
-						</select>
-					</td>
-					<td>
-						<p class="output"></p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Miljömärkt el
-					</td>
-					<td>
-						<input type="text" name="miljoMarktEl" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								<sup>MWh</sup>
-							</option>
-						</select>
-					</td>
-					<td>
-						<p class="output"></p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Ospecificerad el
-					</td>
-					<td>
-						<input type="text" name="ospecEl" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="inputbox"/>
-						<select>
-							<option>
-								<sup>MWh</sup>
-							</option>
-						</select>
-					</td>
-					<td>
-						<p class="output"></p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+					<p>Krav Ja/Nej</p>
+					<p>
+						<input class="radiobutton" type="radio" name="YesOrNo2" value="Yes"> Ja
+						<input class="radiobutton" type="radio" name="YesOrNo2" value="No" style="margin-bottom: 20px"> Nej
+					</p>
+			</div>
+			<div id="etc_krav">
+				<h3>
+					Andra miljökrav på  transporttjänster (t.ex. sparsamkörning eller energieffektivitet)
+				</h3>
+				
+				<p>
+					Krav Ja/Nej
+				</p>
+				
+				<p>
+					<input class="radiobutton" type="radio" name="YesOrNo3" value="Yes"> Ja
+					<input class="radiobutton" type="radio" name="YesOrNo3" value="No" style="margin-bottom: 20px"> Nej
+				</p>
+				
+				<p>
+					Om ja beskriv krav:
+				</p>
+					<textarea class="comments" rows="4" cols="50" name="comment2" form="usrform" style="margin-bottom: 20px"></textarea>
+				</div>
+				
+				<div id="inkops_rese">
+					<h3>
+						Inköps- och resepolicy
+					</h3>
+					<p>
+						Tillämpas inköpspolicyn för fordon
+					</p>
+					<p>
+						<input class="radiobutton" type="radio" name="YesOrNo4" value="Yes"> Ja
+						<input class="radiobutton" type="radio" name="YesOrNo4" value="No" style="margin-bottom: 20px"> Nej
+					</p>
+					<p>
+						Tillämpas resepolicy
+					</p>
+					<p>
+						<input class="radiobutton" type="radio" name="YesOrNo5" value="Yes"> Ja
+						<input class="radiobutton" type="radio" name="YesOrNo5" value="No" style="margin-bottom: 20px"> Nej
+					</p>
+					<p>
+						Eventuella kommentarer
+					</p>
+					<textarea class="comments" name="comment2" rows="8" cols="50"></textarea>
+				</div>';
 
-		<h3>Övriga kommentarer</h3>
-		<textarea class="comments" rows="8" cols="50">
-		</textarea>
-		<h1>
-			<a name="flygresor">
-				Flygresor
-			</a>
-		</h1>
-		<h2>Totala flygutsläpp</h2>
-		<input type="text" name="totFlygutslapp" class="inputbox"/> <p style="margin-left: 2em;">kg Co2</p>
-	
-		<table id="reportTable">
-			<thead>
-				<tr>
-					<th>Från</th>
-					<th>Till</th>
-					<th>Längd km</th>
-					<th>kg C02</th>
-				</tr>
+// --- LOKALER OCH PROCESSER --		
+		if ($emissionsql2 = mysqli_prepare($dbc,"SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
+				$emissionsql2->bind_param("s", $categoryLokalerProcesser);
+				$emissionsql2->execute();
+				$emissionsqlresult2 = $emissionsql2->get_result();
+		}
+		
+		echo '<h1>
+				<a name="LokalerProcesser">
+					Lokaler och processer
+				</a>
+			</h1>';
+		
+		
+		echo' <table>
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								Lokaler som företaget äger
+							</td>
+							<td>
+								<input  type="text" onkeypress=\'return event.charCode >= 48 && event.charCode <= 57\' class="inputbox"/>
+								<p style="margin:5px">(m<sup>2</sup>)</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Varav lokaler som hyrs ut
+							</td>
+							<td>
+								<input type="text" onkeypress=\'return event.charCode >= 48 && event.charCode <= 57\' class="inputbox"/>
+								<p style="margin:5px">(m<sup>2</sup>)</p>
+							</td>
+						</tr>
+					</tbody>';
+		
+		echo '<thead>
+					<tr>
+						<th>Utsläppskälla</th>
+						<th>Inköpt mängd</th>
+						<th>Omräkningsfaktor</th>
+						<th>Utsläpp per MWh, ton CO<sub>2<sub></th>
+						<th>Ton CO<sub>2</sub></th>
+					</tr>
+				</thead>
+				<tbody id="stattableLokalerProcesser">';
+				
+		while ($myrow2 = $emissionsqlresult2->fetch_assoc()) {
+			if(!empty($myrow2)){
+				$placesAndProcesses[] = $myrow2['EmissionSource'];
+				echo '
+					<tr>
+						<td>'.$myrow2['EmissionSource'].'</td>
+						<td>
+							<input type="text" name="'.$myrow2['EmissionSource'].'" onkeypress=\'return event.charCode >= 48 && event.charCode <= 57\' class="inputbox"/>
+							<select>
+								<option>
+									m<sup>3</sup>
+								</option>
+								<option>
+									L
+								</option>
+							</select>
+						</td>
+						<td> '.$myrow2['convFactor'].' </td>
+						<td> '.$myrow2['EmissionCO2perMWh'].' </td>
+						<td>
+							<p id="outputbox" class="output"></p>
+						</td>
+					</tr>';		
+			}
+		}
+		echo '</tbody>';
+		echo '</table>';
+		
+		echo' <h3>Övriga kommentarer</h3>
+				<textarea class="comments" rows="8" cols="50">
+				</textarea>';
+		
+// --- FLYGRESOR ---
+		echo '<h1>
+					<a name="flygresor">
+						Flygresor
+					</a>
+				</h1>
+				<h2>Totala flygutsläpp</h2>
+				<input type="text" class="inputbox"/> <p style="margin-left: 2em;">kg Co2</p>
 
-			</thead>
-			<tbody>
+				<table id="reportTable">
+					<thead>
+						<tr>
+							<th>Från</th>
+							<th>Till</th>
+							<th>Längd km</th>
+							<th>kg C02</th>
+						</tr>
 
-				<tr>
-					<td><input type="text" class="inputbox"/></td>
-					<td><input type="text" class="inputbox"/></td>
-					<td><input type="text" class="inputbox"/></td>
-					<td><input type="text" name="flygresorKgCO2" class="inputbox"/></td>
-				</tr>
+					</thead>
+					<tbody>
 
-			</tbody>
-		</table>
+						<tr>
+							<td><input name="from"type="text" class="inputbox"/></td>
+							<td><input type="to" class="inputbox"/></td>
+							<td><input type="lengthKM" class="inputbox"/></td>
+							<td><input type="kgCO2" class="inputbox"/></td>
+						</tr>
+					</tbody>
+				</table>
 
-		<button id="addrow">
-			Ny resa
-		</button>
-		<br>
+				<button id="addrow">
+					Ny resa
+				</button>
 
-		<h3>Övriga kommentarer</h3>
-		<textarea class="comments"rows="8" cols="50">
-		</textarea>
-		<br>
-		<button name="submit" form="rapport" class = "menubutton flatbutton" style="left:530px"  onclick = "alert('Rapport sparad')">
-			Spara
-		</button>
-		<button class = "menubutton flatbutton rensa" style="left:530px">
-			Rensa
-		</button>
-		</form>
+				<div id="flygresor_comments">
+					<h3>Övriga kommentarer</h3>
+
+					<textarea class="comments"rows="8" cols="50">
+					</textarea>
+					<br>
+					<button class = "menubutton flatbutton savebutton" onclick = "alert(\'Rapport sparad\')">
+						Spara
+					</button>
+					<button class = "menubutton flatbutton rensa">
+						Rensa
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
-<script type="text/javascript" src="../js/proto-script.js"></script>
+	
+	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
+	<script type="text/javascript" src="../js/proto-script.js"></script>
+	<script type="text/javascript" src="../js/rapport-script.js"></script>
 </body>
-</html>
+</html>';
+?>
+		
