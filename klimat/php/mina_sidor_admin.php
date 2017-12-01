@@ -17,7 +17,7 @@
 	<div id="User">
 
 		<p id="Username">
-			User: Admin
+			User: <?php echo $row['Name']; ?>
 
 
 			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">

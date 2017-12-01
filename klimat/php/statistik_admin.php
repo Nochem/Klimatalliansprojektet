@@ -22,7 +22,7 @@
 <body>
 	<div id="user">
 		<p id="username">
-			User: Admin
+			User: <?php echo $row['Name']; ?>
 			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">

@@ -16,7 +16,7 @@
 <body>
 	<div id="user">
 		<a id="username">
-			User: Admin
+			User: <?php echo $row['Name']; ?>
 		</a>
 		<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
 			<label>
@@ -37,12 +37,12 @@
 				</a>
 				<a href="admin_redigera.php">
 					<li class="menuitem">
-						Redigera fält
+						Redigera fÃ¤lt
 					</li>
 				</a>
 				<a href="anvandare.php">
 					<li class="menuitem currentpage">
-						Användare
+						AnvÃ¤ndare
 					</li>
 				</a>
 				<a href="mina_sidor_admin.php">
@@ -58,24 +58,24 @@
 		<div id="content">
 			<div id="stat">
 				<h1>
-					Användare
+					AnvÃ¤ndare
 				</h1>
-				<button class="flatbutton" type="addMemberButton">Lägg till medlem</button>
+				<button class="flatbutton" type="addMemberButton">LÃ¤gg till medlem</button>
 				<table>
 					<tr style="font-size:21px;">
 						<th style="text-align:left">Namn</th>
 						<th style="text-align:left">Mejl</th>
-						<th style="text-align:left">Lösenord</th>
+						<th style="text-align:left">LÃ¶senord</th>
 					</tr>
 					<tr>
-						<td style="text-align:left">Företag 1</td>
-						<td style="text-align:left">Företag1@hotmail.com</td>
+						<td style="text-align:left">FÃ¶retag 1</td>
+						<td style="text-align:left">FÃ¶retag1@hotmail.com</td>
 						<td style="text-align:left">abc123</td>
 						<td style="text-align:left"><button class="flatbutton" type="editMemberButton">Redigera medlem</button></td>
 					</tr>
 					<tr>
-						<td style="text-align:left">Företag 2</td>
-						<td style="text-align:left">Företag2@hotmail.com</td>
+						<td style="text-align:left">FÃ¶retag 2</td>
+						<td style="text-align:left">FÃ¶retag2@hotmail.com</td>
 						<td style="text-align:left">abc123</td>
 						<td style="text-align:left"><button class="flatbutton" type="editMemberButton">Redigera medlem</button></td>
 					</tr>
@@ -86,4 +86,3 @@
 		<script type="text/javascript" src="../js/proto-script.js"></script>
 	</body>
 	</html>
-
