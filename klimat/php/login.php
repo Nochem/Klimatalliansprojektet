@@ -31,19 +31,19 @@
 	<title>
 		Klimatallians - Inloggning
 	</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
 	<style>
-		#wrapperL{
-			text-align:center;
-			width:500px;
-			height:500px;
-		}
-		#contentT{
-			text-align:center;
-			width:300px;
-			height:300px;
-		}
+	#wrapperL{
+		text-align:center;
+		width:500px;
+		height:500px;
+	}
+	#contentT{
+		text-align:center;
+		width:300px;
+		height:300px;
+	}
 	</style>
 	<link rel="icon" href="../res/icon.png">
 </head>
