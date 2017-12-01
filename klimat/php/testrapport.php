@@ -147,14 +147,11 @@ if (isset($_GET['delete'])) {
 <script>
 function tonCO2(nbr){
 	var amount = document.getElementsByName("amount[]")[nbr].value;
-	if(amount.match(/,/gi).length > 1){
-		window.alert("två komma")
-		amount = setCharAt(amount,amount.length-1,'');
-	}
 	amount = amount.replace(/[^0-9,.]/,'');
 	if(amount.charAt(0) == '.' || amount.charAt(0) == ',' ){
 		amount = setCharAt(amount,0,"");
 	}
+	
 	
 	
 	document.getElementsByName("amount[]")[nbr].value = amount;
@@ -162,7 +159,13 @@ function tonCO2(nbr){
 	var convFac = document.getElementsByName("convFactor[]")[nbr].value;
 	var emission = document.getElementsByName("emissionCO2[]")[nbr].value;
 	var ton = amount1 * emission * convFac;
+	if(!isNaN(ton) && ton > 0){
+		
 	document.getElementsByName("tonCO[]")[nbr].innerHTML = round(ton,2);
+	} else {
+		
+	document.getElementsByName("tonCO[]")[nbr].innerHTML = "";
+	}
 	
 }
 function setCharAt(str,index,chr) {
