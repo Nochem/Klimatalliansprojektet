@@ -58,7 +58,7 @@ while ($row = mysqli_fetch_assoc($response)) {
             echo '<input type="hidden" name="emissionSource[]" value=' . $myrow['EmissionSource'] . '>';
             // Mått name='.$myrow['EmissionSource'].'
             echo '<td>';
-            echo '<input type="text" name="amount[]" onkeyup="tonCO2('.$arrayindex.')"/>'; // onChange funktion behövs för att räkna ut enrgi i mwh
+            echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" onchange ="tonCO2(' . $arrayindex . ')"/>'; // onChange funktion behövs för att räkna ut enrgi i mwh
             echo '</td>';
             // Enhet
             echo '<td>';
@@ -83,7 +83,7 @@ while ($row = mysqli_fetch_assoc($response)) {
             echo '</td>'; // behövs matte
             echo '<input type="hidden" name="ton[]" value="0">';
             echo '</tr>';
-			$arrayindex++;
+            $arrayindex++;
         }
     }
     echo '</table>';
@@ -125,14 +125,15 @@ if (isset($_GET['Spara'])) {
            echo "<script type='text/javascript'>alert('$convFactor');</script>";
             echo "<script type='text/javascript'>alert('$emissionCO2');</script>";
              echo "<script type='text/javascript'>alert('$Ton');</script>"; */
-        if(!empty($amount)){
-        if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport (EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
-            $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
-            $insertTransportsql->execute();
-            $transportqlresult = $insertTransportsql->get_result();
-            $insertTransportsql->close();
+        if (!empty($amount)) {
+            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport (EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
+                $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                $insertTransportsql->execute();
+                $transportqlresult = $insertTransportsql->get_result();
+                $insertTransportsql->close();
+            }
         }
-    }}
+    }
 }
 echo '<form method="get" action="#">';
 echo '<input type="submit" name="delete" value="ta bort test data från databas" />';
@@ -145,35 +146,77 @@ if (isset($_GET['delete'])) {
 </table>
 </body>
 <script>
-function tonCO2(nbr){
-	var amount = document.getElementsByName("amount[]")[nbr].value;
-	amount = amount.replace(/[^0-9,.]/,'');
-	if(amount.charAt(0) == '.' || amount.charAt(0) == ',' ){
-		amount = setCharAt(amount,0,"");
-	}
-	
-	
-	
-	document.getElementsByName("amount[]")[nbr].value = amount;
-	amount1 = amount.replace(',','.');
-	var convFac = document.getElementsByName("convFactor[]")[nbr].value;
-	var emission = document.getElementsByName("emissionCO2[]")[nbr].value;
-	var ton = amount1 * emission * convFac;
-	if(!isNaN(ton) && ton > 0){
-		
-	document.getElementsByName("tonCO[]")[nbr].innerHTML = round(ton,2);
-	} else {
-		
-	document.getElementsByName("tonCO[]")[nbr].innerHTML = "";
-	}
-	
-}
-function setCharAt(str,index,chr) {
-	if(index > str.length-1) return str;
-	return str.substr(0,index) + chr + str.substr(index+1);
-}
-function round(value, decimals) {
-  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
-}
+    function tonCO2(nbr) {
+        var amount = document.getElementsByName("amount[]")[nbr].value;
+        var convFac = document.getElementsByName("convFactor[]")[nbr].value;
+        var emission = document.getElementsByName("emissionCO2[]")[nbr].value;
+        amount = noLetters(amount);
+        update(nbr, amount, emission, convFac);
+        amount = noPeriodFirst(amount);
+        update(nbr, amount, emission, convFac);
+        amount = checkTwoDot(amount);
+        update(nbr, amount, emission, convFac);
+
+
+        document.getElementsByName("amount[]")[nbr].value = amount;
+
+
+    }
+
+    function update(nbr, amount, emission, convFac) {
+        var amount1 = amount.replace(',', '.');
+        document.getElementsByName("amount[]")[nbr].value = amount;
+
+        var ton = amount1 * emission * convFac;
+        if (!isNaN(ton) && ton > 0) {
+
+            document.getElementsByName("tonCO[]")[nbr].innerHTML = round(ton, 2);
+        } else {
+
+            document.getElementsByName("tonCO[]")[nbr].innerHTML = "";
+        }
+
+    }
+
+
+    function noLetters(str) {
+        
+        str = str.replace(/[^0-9,.]/gi, '');
+        return str;
+
+    }
+
+    function noPeriodFirst(str) {
+
+
+        if (str.charAt(0) == '.') {
+            str = setCharAt(str, 0, "");
+        }
+        if (str.charAt(0) == ',') {
+            str = setCharAt(str, 0, "");
+        }
+        return str;
+    }
+
+    function checkTwoDot(str) {
+
+
+        if (str.match(/[.,]/gi).length > 1) {
+
+            str = setCharAt(str, str.length - 1, '');
+            return str;
+        }
+        return str;
+    }
+
+    function setCharAt(str, index, chr) {
+        if (index > str.length - 1) return str;
+        return str.substr(0, index) + chr + str.substr(index + 1);
+    }
+
+    function round(value, decimals) {
+        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    }
+
 </script>
 </html>
