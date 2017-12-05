@@ -32,7 +32,7 @@ $(document).ready(function(){
 		var cell1 = row.insertCell(0);
 		var cell2 = row.insertCell(1);
 		var cell3 = row.insertCell(2);
-		var cell4 = row.insertCell(3);
+		var cell4 = row.insertCell(3);http://none/
 		cell1.innerHTML = "<input type='text' class='inputbox'/>";
 		cell2.innerHTML = "<input type='text' class='inputbox'/>";
 		cell3.innerHTML = "<input type='text' class='inputbox'/>";
@@ -42,7 +42,9 @@ $(document).ready(function(){
 	$("#logout").click(function(){
 		var r = confirm("är du säker på att du vill logga ut?")
 		if(r){
-			document.getElementById("logout").action = "inloggning.html";
+
+			document.getElementById("logout").action = "logout.php";
+
 		}
 	})
 
