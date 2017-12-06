@@ -66,7 +66,9 @@
 			<div id="sidebar">
 			</div>
 			<div id="content">
+			<h1 name= "Rubrik"> Historik </h1>
 				<div id="stat">
+				
 					
 					
 					<form action="#" method="get" name="histDrop">
@@ -83,7 +85,7 @@
 if(isset($yearSQLresult)){
 echo '<select id="yeardrop" name="yeardrop" onchange= "this.form.submit()">';
 echo '&nbsp';
-echo "<option value = 'väljettår'> Välj ett år </option>";
+echo "<option value = '-1'> Välj ett år </option>";
 	
 // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
 while( $myrow = $yearSQLresult->fetch_assoc()){
@@ -104,6 +106,10 @@ echo '<h1> Du har inga raporter <h1>';
 
 
 </form>		
+					<h1>
+					Inventering av CO<sub>2</sub> utsläpp från transporter
+				</h1>
+				<br>
 			</div>
 			
 		
@@ -117,11 +123,12 @@ echo '<h1> Du har inga raporter <h1>';
 		 
     <?php
 	if (isset($_GET['yeardrop'])){
+		$runsql = false;
 		
 		
    $selectedYear = $_GET['yeardrop'];
    
-   if($selectedYear != "väljettår"){
+   if($selectedYear != -1){
    if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),convFactor,EmissionMwh,TonCO2 FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) =?")) {
    $LokalSql->bind_param("s", $selectedYear);
     /* execute query */
@@ -178,14 +185,16 @@ echo '<h1> Du har inga raporter <h1>';
     $FlightRes = $FlightSql->get_result();
     /* now you can fetch the results into an array - NICE */
 	
-   }else{
+		}else{
 	   
-	}}else{
+		}
+	}else{
 		
 	echo "På denna sida kan du se alla dina rapporter, välj ett år";
 		
 		
-	}}
+	}
+	$runsql = true;}
   
 ?>
 	
@@ -196,8 +205,10 @@ echo '<h1> Du har inga raporter <h1>';
 	<?php 
 	
 	if(isset($_GET['yeardrop'])){
+		
+		
 	
-	if($selectedYear != "väljettår"){
+	if($selectedYear != -1 && !mysqli_num_rows($PlacesRes) == 0){
 		
 		echo '<h2 align= "center">  Lokaler och Proccesser </h2>'; 
 		
@@ -211,8 +222,8 @@ echo '<h1> Du har inga raporter <h1>';
 	echo '<th> Utsläpp i Mwh </th>';
 	echo '<th> TonCO22 </th>';
 	echo '</tr>';
+	
 	}
-		
 		
 	
 	
@@ -243,12 +254,13 @@ echo '<h1> Du har inga raporter <h1>';
 	echo '</table>';
 	
 	
+	
 		
 	
 		
-		
-	
-	if($selectedYear != "väljettår"){
+			
+										
+	if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes)==0){
 	echo '<h3 align= "center"> Övrigt Lokaler och Proccesser </h3>'; 
 	echo '<table align= "center">';
 	echo '<tr>';
@@ -284,7 +296,7 @@ echo '<h1> Du har inga raporter <h1>';
 	echo '</table>';
 	
 	
-	if($selectedYear != "väljettår"){
+	if($selectedYear != -1 && !mysqli_num_rows($TransportRes)==0){
 	echo '<h2 align= "center"> Transport </h2>'; 
 	echo '<table align= "center">';
 	echo '<tr>';
@@ -320,7 +332,8 @@ echo '<h1> Du har inga raporter <h1>';
 		
 	}
 	echo '</table>';
-	if($selectedYear != "väljettår"){	echo '<h2 align= "center"> Flygresor </h2>'; 
+	if($selectedYear != -1 && !mysqli_num_rows($FlightRes)==0){	
+	echo '<h2 align= "center"> Flygresor </h2>'; 
 			echo '<table align= "center">';
 	echo '<tr>';
 	echo '<th> Från </th>';
