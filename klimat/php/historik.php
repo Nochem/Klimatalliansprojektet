@@ -1,3 +1,7 @@
+<?php
+   include('session.php');
+?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -11,77 +15,93 @@
 	</head>
 	<body>
 
-		<form id="logout" align="right" name="form1" method="post" action="historik.html">
-			  <label class="logoutLblPos">
-			  <input name="submit2" type="submit" id="submit2" value="Log out">
-			  </label>
-		</form>
+		<div id="user">
+			<p id="username">
+			
+				User: <?php 
+				echo $login_session;
+					?>
+
+				<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
+					<label>
+						<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+					</label>
+				</form>
+			</p>
+	</div>
 		<div id="wrapper">
 			<a href="rapport.html"></a>
 			<div id="logo">
 			</div>
 			<div id="menu">
 				<ul>
-					<li class="menuitem">
-						<a href="rapport.html">
-							Rapport
-						</a>
+				<a href="rapport.php">
+					<li class="menuitem" >
+						Rapport
 					</li>
+				</a>
+				<a href="historik.php">
 					<li class="menuitem currentpage">
-						<a href="historik.html">
-							Historik
-						</a>
+						Historik
 					</li>
+				</a>
+				<a href="statistik.php">
 					<li class="menuitem">
-						<a href="statistik.html">
-							Statistik
-						</a>
+						Statistik
 					</li>
+				</a>
+				<a href="mina_sidor.php">
 					<li class="menuitem">
-						<a href="mina_sidor.html">
-							Mina Sidor
-						</a>
+						Mina Sidor
 					</li>
-				</ul>
+				</a>
+				<a href="kontakt.php">
+					<li class="menuitem">
+						Kontakt
+					</li>
+				</a>
+
+			</ul>
 			</div>
 			<div id="sidebar">
 			</div>
 			<div id="content">
 				<div id="stat">
-					<h1 id="header">
-						Inventering av CO<sub>2</sub> utsläpp från transporter
-					</h1>
+					
 					
 					<form action="#" method="get" name="histDrop">
 					
 <?php
-// Skapar en anslutning till databasen
-require_once('mysqli_connect.php');
-// Queryn som skickas till databasen
-$query = "SELECT Year FROM Report";
-// Svar från databasen genom att skicka anslutningen och queryn
-$response = @mysqli_query($dbc, $query);
-// Om queryn fick ett korrekt svar, fortsätt
-if($response){
-echo '<select id="yeardrop" name="yeardrop" onchange="histDrop.popHist()">';
+ if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
+        $yearSQL->bind_param("s", $login_session);
+        /* execute query */
+        $yearSQL->execute();
+        /* instead of bind_result: */
+        $yearSQLresult = $yearSQL->get_result();
+        /* now you can fetch the results into an array - NICE */
+    }
+if(isset($yearSQLresult)){
+echo '<select id="yeardrop" name="yeardrop" onchange= "this.form.submit()">';
 echo '&nbsp';
-echo "<option value = '0'> Välj ett år </option>";
+echo "<option value = 'väljettår'> Välj ett år </option>";
 	
 // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
-while($row = mysqli_fetch_array($response)){
+while( $myrow = $yearSQLresult->fetch_assoc()){
 echo '<option 
-	value =' .$row['Year'] . '>' .$row['Year'].
+	value =' .$myrow['Year'] . '>' .$myrow['Year'].
 	'</option>';
 	 
 }
 echo '</select>';
+//echo '<input type="submit" name="submit" value="Välj" />';
 } else {
-echo "Förfrågan till databasen misslyckades <br/>";
-echo mysqli_error($dbc);
+	
+echo '<h1> Du har inga raporter <h1>';
+
 }
 ?>
 
-<input type="submit" name="submit" value="Välj" />
+
 
 </form>		
 			</div>
@@ -92,12 +112,16 @@ echo mysqli_error($dbc);
 		<script type="text/javascript" src="../js/historik-script.js"></script>
 		
 		
-	<script>
-	 function popHist(){
+	
+	 
 		 
     <?php
-   $selectedYear = isset($_GET['yeardrop']) ? $_GET['yeardrop'] : false;
+	if (isset($_GET['yeardrop'])){
+		
+		
+   $selectedYear = $_GET['yeardrop'];
    
+   if($selectedYear != "väljettår"){
    if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),convFactor,EmissionMwh,TonCO2 FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) =?")) {
    $LokalSql->bind_param("s", $selectedYear);
     /* execute query */
@@ -156,19 +180,24 @@ echo mysqli_error($dbc);
 	
    }else{
 	   
-   }
+	}}else{
+		
+	echo "På denna sida kan du se alla dina rapporter, välj ett år";
+		
+		
+	}}
   
 ?>
-	}
 	
 	
-	</script>
+	
+	
 	
 	<?php 
 	
-		
+	if(isset($_GET['yeardrop'])){
 	
-	if($selectedYear != 0){
+	if($selectedYear != "väljettår"){
 		
 		echo '<h2 align= "center">  Lokaler och Proccesser </h2>'; 
 		
@@ -219,7 +248,7 @@ echo mysqli_error($dbc);
 		
 		
 	
-	if($selectedYear != 0){
+	if($selectedYear != "väljettår"){
 	echo '<h3 align= "center"> Övrigt Lokaler och Proccesser </h3>'; 
 	echo '<table align= "center">';
 	echo '<tr>';
@@ -255,7 +284,7 @@ echo mysqli_error($dbc);
 	echo '</table>';
 	
 	
-	if($selectedYear != 0){
+	if($selectedYear != "väljettår"){
 	echo '<h2 align= "center"> Transport </h2>'; 
 	echo '<table align= "center">';
 	echo '<tr>';
@@ -291,7 +320,7 @@ echo mysqli_error($dbc);
 		
 	}
 	echo '</table>';
-	if($selectedYear != 0){	echo '<h2 align= "center"> Flygresor </h2>'; 
+	if($selectedYear != "väljettår"){	echo '<h2 align= "center"> Flygresor </h2>'; 
 			echo '<table align= "center">';
 	echo '<tr>';
 	echo '<th> Från </th>';
@@ -321,7 +350,7 @@ echo mysqli_error($dbc);
 		
 	}
 	 echo '</table>';
-	 
+	}
 	?>
 	</div>
 	</div>
