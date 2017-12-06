@@ -66,7 +66,7 @@
 			<div id="sidebar">
 			</div>
 			<div id="content">
-			<h1 name= "Rubrik"> Historik </h1>
+			<h1 name= "Rubrik" align= "Center"> Historik </h1>
 				<div id="stat">
 				
 					
@@ -83,7 +83,7 @@
         /* now you can fetch the results into an array - NICE */
     }
 if(isset($yearSQLresult)){
-echo '<select id="yeardrop" name="yeardrop" onchange= "this.form.submit()">';
+echo '<select id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
 echo '&nbsp';
 echo "<option value = '-1'> Välj ett år </option>";
 	
@@ -106,11 +106,9 @@ echo '<h1> Du har inga raporter <h1>';
 
 
 </form>		
-					<h1>
-					Inventering av CO<sub>2</sub> utsläpp från transporter
-				</h1>
+					
 				<br>
-			</div>
+			
 			
 		
 		<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
@@ -123,14 +121,14 @@ echo '<h1> Du har inga raporter <h1>';
 		 
     <?php
 	if (isset($_GET['yeardrop'])){
-		$runsql = false;
+		
 		
 		
    $selectedYear = $_GET['yeardrop'];
    
    if($selectedYear != -1){
-   if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),convFactor,EmissionMwh,TonCO2 FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) =?")) {
-   $LokalSql->bind_param("s", $selectedYear);
+   if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,convFactor,Round(TonCO2/EmissionMwh,2),EmissionMwh,TonCO2 FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
+   $LokalSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
     $LokalSql->execute();
     /* instead of bind_result: */
@@ -142,8 +140,8 @@ echo '<h1> Du har inga raporter <h1>';
    }
    
    
-   if ($OtherLokalSql = mysqli_prepare($dbc, "SELECT PlacesOwned,PlacesRentedOut,ProducedSolarElectricity,ProducedSolarHeat,Comment FROM OtherPlacesAndProcesses, Report where OtherPlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ?")) {
-   $OtherLokalSql->bind_param("s", $selectedYear);
+   if ($OtherLokalSql = mysqli_prepare($dbc, "SELECT PlacesOwned,PlacesRentedOut,ProducedSolarElectricity,ProducedSolarHeat,Comment FROM OtherPlacesAndProcesses, Report where OtherPlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
+   $OtherLokalSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
     $OtherLokalSql->execute();
     /* instead of bind_result: */
@@ -154,8 +152,8 @@ echo '<h1> Du har inga raporter <h1>';
 	   
    }
    
-   if ($TransportSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,Round(TonCO2/EmissionMwh,2),TonCO2,convFactor,EnergyMwh,EmissionMwh FROM Transport, Report where Transport.Id = Report.Id AND YEAR(Report.Year) = ?")) {
-   $TransportSql->bind_param("s", $selectedYear);
+   if ($TransportSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,convFactor,Round(TonCO2/EmissionMwh,2),EmissionMwh,TonCO2 FROM Transport, Report where Transport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
+   $TransportSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
     $TransportSql->execute();
     /* instead of bind_result: */
@@ -165,8 +163,8 @@ echo '<h1> Du har inga raporter <h1>';
    }else{
 	   
    }
-   if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforementTravelPolicy,EnviormentReqOtherTransport,EnviormentReqOtherTransportDescription,EnviormentReqPurchased,EnviormentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ?")) {
-   $OtherTransportSql->bind_param("s", $selectedYear);
+   if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforementTravelPolicy,EnviormentReqOtherTransport,EnviormentReqOtherTransportDescription,EnviormentReqPurchased,EnviormentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
+   $OtherTransportSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
     $OtherTransportSql->execute();
     /* instead of bind_result: */
@@ -177,8 +175,8 @@ echo '<h1> Du har inga raporter <h1>';
 	   
    }
    
-   if ($FlightSql = mysqli_prepare($dbc, "SELECT Departure,Destination,LengthKM,KGCO2 FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Year) =?")) {
-   $FlightSql->bind_param("s", $selectedYear);
+   if ($FlightSql = mysqli_prepare($dbc, "SELECT Departure,Destination,LengthKM,KGCO2 FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
+   $FlightSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
     $FlightSql->execute();
     /* instead of bind_result: */
@@ -190,11 +188,11 @@ echo '<h1> Du har inga raporter <h1>';
 		}
 	}else{
 		
-	echo "På denna sida kan du se alla dina rapporter, välj ett år";
+	
 		
 		
 	}
-	$runsql = true;}
+	}
   
 ?>
 	
@@ -207,18 +205,19 @@ echo '<h1> Du har inga raporter <h1>';
 	if(isset($_GET['yeardrop'])){
 		
 		
+		
 	
 	if($selectedYear != -1 && !mysqli_num_rows($PlacesRes) == 0){
 		
-		echo '<h2 align= "center">  Lokaler och Proccesser </h2>'; 
+		echo '<h2>  Lokaler och Proccesser </h2>'; 
 		
-		echo '<table align= "center">';
+		echo '<table>';
 		echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
-	echo '<th> Mått </th>';
+	echo '<th> Mått</th>';
 	echo '<th> Enhet </th>';
-	echo '<th> Energi i MWh </th>';
 	echo '<th> Omräkningsfaktor </th>';
+	echo '<th> Energi i MWh </th>';	
 	echo '<th> Utsläpp i Mwh </th>';
 	echo '<th> TonCO22 </th>';
 	echo '</tr>';
@@ -238,11 +237,9 @@ echo '<h1> Du har inga raporter <h1>';
 		
 	echo '<tr>';
     foreach($myrow as $field) {
-		if(empty($field)){
-		echo '<td align="center"> - </td>';
-		}else{
-        echo '<td align="center">' . htmlspecialchars($field) . '</td>';
-		}
+		
+        echo '<td >' . htmlspecialchars($field) . '</td>';
+		
 		
     }
 	echo '</tr>';
@@ -261,10 +258,10 @@ echo '<h1> Du har inga raporter <h1>';
 			
 										
 	if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes)==0){
-	echo '<h3 align= "center"> Övrigt Lokaler och Proccesser </h3>'; 
+	echo '<h3> Övrigt Lokaler och Proccesser </h3>'; 
 	echo '<table align= "center">';
 	echo '<tr>';
-	echo '<th> Lokaler som företaget äger (m2)  </th>';
+	echo '<th> Lokaler som företaget äger (m2)</th>';
 	echo '<th> Lokaler som hyrs ut </th>';
 	echo '<th> Produktion av solel </th>';
 	echo '<th> Produktion av solvärme </th>';
@@ -282,9 +279,9 @@ echo '<h1> Du har inga raporter <h1>';
 		 echo '<tr>';
     foreach($myrow as $field) {
 		if(empty($field)){
-		echo '<td align="center"> - </td>';
+		echo '<td > - </td>';
 		}else{
-        echo '<td align="center">' . htmlspecialchars($field) . '</td>';
+        echo '<td >' . htmlspecialchars($field) . '</td>';
 		}
     }
     echo '</tr>';
@@ -296,18 +293,19 @@ echo '<h1> Du har inga raporter <h1>';
 	echo '</table>';
 	
 	
-	if($selectedYear != -1 && !mysqli_num_rows($TransportRes)==0){
-	echo '<h2 align= "center"> Transport </h2>'; 
+	if($selectedYear !=-1 && !mysqli_num_rows($TransportRes)==0){
+	echo '<h2> Transport </h2>'; 
 	echo '<table align= "center">';
 	echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
-	echo '<th> Utsläppskälla </th>';
+	echo '<th> Inköpt Mängd </th>';
 	echo '<th> Enhet </th>';
-	echo '<th> Energi i MWh </th>';
-	echo '<th> TonCO2 </th>';
 	echo '<th> Omräkningsfaktor </th>';
 	echo '<th> Energi i Mwh </th>';
-	echo '<th> Utsläpp i Mwh </th>';
+	echo '<th> Utsläpp CO2 per Mwh </th>';
+	echo '<th> Ton CO2 </th>';
+	
+	
 	echo '</tr>';
 	}
 	
@@ -320,9 +318,9 @@ echo '<h1> Du har inga raporter <h1>';
 		 echo '<tr>';
     foreach($myrow as $field) {
 		if(empty($field)){
-		echo '<td align="center"> - </td>';
+		echo '<td > - </td>';
 		}else{
-        echo '<td align="center">' . htmlspecialchars($field) . '</td>';
+        echo '<td >' . htmlspecialchars($field) . '</td>';
 		}
     }
     echo '</tr>';
@@ -333,8 +331,9 @@ echo '<h1> Du har inga raporter <h1>';
 	}
 	echo '</table>';
 	if($selectedYear != -1 && !mysqli_num_rows($FlightRes)==0){	
-	echo '<h2 align= "center"> Flygresor </h2>'; 
-			echo '<table align= "center">';
+	
+	echo '<h2> Flygresor </h2>'; 
+	echo '<table>';
 	echo '<tr>';
 	echo '<th> Från </th>';
 	echo '<th> Till </th>';
@@ -351,9 +350,9 @@ echo '<h1> Du har inga raporter <h1>';
 		 echo '<tr>';
     foreach($myrow as $field) {
 		if(empty($field)){
-		echo '<td align="center"> - </td>';
+		echo '<td > - </td>';
 		}else{
-        echo '<td align="center">' . htmlspecialchars($field) . '</td>';
+        echo '<td >' . htmlspecialchars($field) . '</td>';
 		}
     }
     echo '</tr>';
@@ -367,5 +366,7 @@ echo '<h1> Du har inga raporter <h1>';
 	?>
 	</div>
 	</div>
+	</div>
 	</body>
+	
 </html>
