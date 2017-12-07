@@ -14,7 +14,7 @@
       $newName = $oldName;
     }
 
-    $changeUserMySQL = "UPDATE users SET Name='$newName', Password='$newPassword', Email='$newEmail', Telephone='$newTelephone', Active='$active' WHERE Name='$oldName'";
+    $changeUserMySQL = "UPDATE Users SET Name='$newName', Password='$newPassword', Email='$newEmail', Telephone='$newTelephone', Active='$active' WHERE Name='$oldName'";
     mysqli_query($dbc, $changeUserMySQL);
     header('Location: anvandare.php');
   }
