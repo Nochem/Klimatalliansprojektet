@@ -74,7 +74,7 @@
 					<form action="#" method="get" name="histDrop">
 					
 <?php
- if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
+ if ($yearSQL = mysqli_prepare($dbc, "SELECT Distinct Year from Report where User = ?")) {
         $yearSQL->bind_param("s", $login_session);
         /* execute query */
         $yearSQL->execute();
