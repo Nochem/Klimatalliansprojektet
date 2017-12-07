@@ -65,9 +65,9 @@
 			</form><div style = "font-size:14px; color:#cc0000; maargin-top:10px">
 			<?php echo $error; ?>
 			<br/><br/>
-			<a class="help" href="glomt_losenord.php"onclick="window.open('glomt_losenord.php','newwindow','width=600,height=300');return false;">Glömt lösenord?</a>
+			<a class="help" href="../html/glomt_losenord.html"onclick="window.open(href,'newwindow','width=600,height=300');return false;">Glömt lösenord?</a>
 			<br>
-			<a class="help" href="hjalp_inloggningssida.php" onclick="window.open('hjalp_inloggningssida.php', 'newwindow', 'width=600,height=300');return false;">Hjälp</a>
+			<a class="help" href="../html/hjalp_inloggningssida.html" onclick="window.open(href, 'newwindow', 'width=600,height=300');return false;">Hjälp</a>
 			<br>
 
 		</div>
