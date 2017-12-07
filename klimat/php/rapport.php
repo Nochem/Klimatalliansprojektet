@@ -90,7 +90,7 @@ include('session.php');
             </h1>
             <p>
                 År: <input type="text" name="Year" class="inputbox" style="float: none">
-                <button class = "menubutton flatbutton" onclick = "alert('Rapport sparad')">
+                <button class = "menubutton flatbutton modalSave">
                     Spara
                 </button>
                 <button class = "menubutton flatbutton rensa">
