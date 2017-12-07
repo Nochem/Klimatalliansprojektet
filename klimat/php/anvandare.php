@@ -121,7 +121,6 @@
 						<th style="text-align:left">Lösenord</th>
             <th style="text-align:left">Mejl</th>
             <th style="text-align:left">Telefon</th>
-            <th style="text-align:left">Admin</th>
             <th style="text-align:left">Senast inloggad</th>
             <th style="text-align:left">IP adress</th>
             <th style="text-align:left">Registrerad</th>
@@ -132,24 +131,30 @@
               $query = mysqli_query($dbc, "SELECT * FROM users ORDER by Name");
               while($row = mysqli_fetch_array($query)){
                 $a++;
-                $_SESSION['name'][$a] = $row['Name'];
-                echo "<tr id=".$row['Name'].">";
-                echo "<td id=".$a."-active>".$row['Active']."</td>";
-                echo "<td id=".$a."-name>".$row['Name']."</td>";
-                echo "<td id=".$a."-password>".$row['Password']."</td>";
-                echo "<td id=".$a."-email>".$row['Email']."</td>";
-                echo "<td id=".$a."-telephone>".$row['Telephone']."</td>";
-                echo "<td>".$row['Admin']."</td>";
-                echo "<td>".$row['LastLogIn']."</td>";
-                echo "<td>".$row['IpAddress']."</td>";
-                echo "<td>".$row['RegisterDate']."</td>";
-                echo "<td style='text-align:left'>
-                      <button id=change-".$row['Name']."
-                      class='flatbutton'
-                      type='editMemberButton'
-                      onclick='changeUser(\"".$a."\")'>Redigera medlem
-                      </button></td>";
-                echo "</tr>";
+                if(!$row['Admin']){
+                  $_SESSION['name'][$a] = $row['Name'];
+                  if($row['Active']){
+                    $active = 'Ja';
+                  } else {
+                    $active = 'Nej';
+                  }
+                  echo "<tr id=".$row['Name'].">";
+                  echo "<td id=".$a."-active>".$active."</td>";
+                  echo "<td id=".$a."-name>".$row['Name']."</td>";
+                  echo "<td id=".$a."-password>".$row['Password']."</td>";
+                  echo "<td id=".$a."-email>".$row['Email']."</td>";
+                  echo "<td id=".$a."-telephone>".$row['Telephone']."</td>";
+                  echo "<td>".$row['LastLogIn']."</td>";
+                  echo "<td>".$row['IpAddress']."</td>";
+                  echo "<td>".$row['RegisterDate']."</td>";
+                  echo "<td style='text-align:left'>
+                        <button id=change-".$row['Name']."
+                        class='flatbutton'
+                        type='editMemberButton'
+                        onclick='changeUser(\"".$a."\")'>Redigera medlem
+                        </button></td>";
+                  echo "</tr>";
+                }
               }
             ?>
 				</div>
