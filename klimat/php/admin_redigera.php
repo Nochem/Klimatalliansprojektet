@@ -30,6 +30,11 @@
 		</div>
 		<div id="menu">
 			<ul>
+				<a href="anvandare.php">
+					<li class="menuitem">
+						Användare
+					</li>
+				</a>
 				<a href="statistik_admin.php">
 					<li class="menuitem">
 						Statistik
@@ -38,11 +43,6 @@
 				<a href="admin_redigera.php">
 					<li class="menuitem currentpage">
 						Redigera fält
-					</li>
-				</a>
-				<a href="anvandare.php">
-					<li class="menuitem">
-						Användare
 					</li>
 				</a>
 				<a href="mina_sidor_admin.php">
