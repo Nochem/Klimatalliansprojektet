@@ -26,34 +26,34 @@ include('session.php');
         </p>
     </div>
     <div id="wrapper">
-        <a href="rapport.php">
+        <a href="#">
             <div id="logo">
             </div>
         </a>
 
         <div id="menu">
             <ul>
-                <a href="rapport.php">
+                <a href="#">
                     <li class="menuitem currentpage" >
                         Rapport
                     </li>
                 </a>
-                <a href="historik.php">
+                <a href="historik.php" class="changeSite">
                     <li class="menuitem">
                         Historik
                     </li>
                 </a>
-                <a href="statistik.php">
+                <a href="statistik.php" class="changeSite">
                     <li class="menuitem">
                         Statistik
                     </li>
                 </a>
-                <a href="mina_sidor.php">
+                <a href="mina_sidor.php" class="changeSite">
                     <li class="menuitem">
                         Mina Sidor
                     </li>
                 </a>
-                <a href="kontakt.php">
+                <a href="kontakt.php" class="changeSite">
                     <li class="menuitem">
                         Kontakt
                     </li>
@@ -90,7 +90,7 @@ include('session.php');
             </h1>
             <p>
                 År: <input type="text" name="Year" class="inputbox" style="float: none">
-                <button class = "menubutton flatbutton" onclick = "alert('Rapport sparad')">
+                <button class = "menubutton flatbutton modalSave">
                     Spara
                 </button>
                 <button class = "menubutton flatbutton rensa">
@@ -561,7 +561,7 @@ include('session.php');
                     <textarea class="comments"rows="8" cols="50">
                     </textarea>
                     <br>
-                    <button class = "menubutton flatbutton savebutton" onclick = "alert('Rapport sparad')">
+                    <button class = "menubutton flatbutton savebutton modalSave">
                         Spara
                     </button>
                     <button class = "menubutton flatbutton rensa">
@@ -572,7 +572,7 @@ include('session.php');
         </div>
     </div>
     <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
-    <script type="text/javascript" src="../js/proto-script.js"></script>
+   
     <script type="text/javascript" src="../js/rapport-script.js"></script>
 </body>
 </html>

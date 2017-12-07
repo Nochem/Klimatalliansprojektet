@@ -24,32 +24,32 @@
 			</label>
 		</form>
 
-	</div>
-	<div id="wrapper">
-		<div id="logo">
-		</div>
-		<div id="menu">
-			<ul>
-				<a href="statistik_admin.php">
-					<li class="menuitem">
-						Statistik
-					</li>
-				</a>
-				<a href="admin_redigera.php">
-					<li class="menuitem">
-						Redigera fält
-					</li>
-				</a>
-				<a href="anvandare.php">
-					<li class="menuitem currentpage">
-						Användare
-					</li>
-				</a>
-				<a href="mina_sidor_admin.php">
-					<li class="menuitem">
-						Mina Sidor
-					</li>
-				</a>
+    </div>
+    <div id="wrapper">
+        <div id="logo">
+        </div>
+        <div id="menu">
+            <ul>
+			     <a href="anvandare.php">
+                    <li class="menuitem currentpage">
+                        Användare
+                    </li>
+                </a>
+                <a href="statistik_admin.php">
+                    <li class="menuitem">
+                        Statistik
+                    </li>
+                </a>
+                <a href="admin_redigera.php">
+                    <li class="menuitem">
+                        Redigera fält
+                    </li>
+                </a>
+                <a href="mina_sidor_admin.php">
+                    <li class="menuitem">
+                        Mina Sidor
+                    </li>
+                </a>
 
 			</ul>
 		</div>

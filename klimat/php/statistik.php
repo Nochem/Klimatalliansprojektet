@@ -63,16 +63,7 @@
 		</div>
 
 		<div class="chart-container">
-			Se statistik mellan
-			<select id="yearselectfrom" class="yearselectfrom">
-				<option value="2015">2015</option>
-
-			</select>
-			och
-			<select id="yearselectto" class="yearselectto">
-
-				<option value="2019">2019</option>
-			</select>
+			
 			<div id="chart">
 
 				<canvas id="myChart" styles="width=100px height=100px"></canvas>
@@ -80,7 +71,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
-	<script type="text/javascript" src="../js/statistik-script.js"></script>
+	<script type="text/javascript" src="../php/statistikscript.php"></script>
 	<script type="text/javascript" src="../js/chartjs_min.js"></script>
 	<script type="text/javascript" src="../js/proto-script.js"></script>
 </body>
