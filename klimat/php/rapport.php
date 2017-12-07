@@ -533,16 +533,9 @@ for ($i = 0; $i <$flygresorcount; $i++) {
     }
 }}
 if (isset($_GET['delete'])) {
-    $deleteSQL = "DELETE FROM Transport where Id = 101";
+    $deleteSQL = "DELETE FROM Report where User = test";
     @mysqli_query($dbc, $deleteSQL);
-	$deleteSQL = "DELETE FROM PlacesAndProcesses where Id = 101";
-	@mysqli_query($dbc, $deleteSQL);
-	$deleteSQL = "DELETE FROM Flights where Id = 101";
-	@mysqli_query($dbc, $deleteSQL);
-	$deleteSQL = "DELETE FROM OtherPlacesAndProcesses where Id = 101";
-	@mysqli_query($dbc, $deleteSQL);
-	$deleteSQL = "DELETE FROM OtherTransport where Id = 101";
-	@mysqli_query($dbc, $deleteSQL);
+	
 	
 }
 ?>
