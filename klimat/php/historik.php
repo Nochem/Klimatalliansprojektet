@@ -204,14 +204,48 @@ echo '<h1> Du har inga raporter <h1>';
 	
 	if(isset($_GET['yeardrop'])){
 		
+		if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes) == 0){
+			echo '<h2>  Lokaler och Proccesser </h2>'; 
+			echo '<table>';
+			
+			while ($myrow = $OtherPlacesRes->fetch_assoc()) {
+				
+				echo '<tr>';
+				echo '<td> Lokaler som företaget äger :  </td>' ;
+				echo '<td>';
+				echo $myrow['PlacesOwned'];
+				echo '</td>';
+				echo '<td> m2 </td>';
+				echo '</tr>';
+				echo '<tr>';
+				echo '<td> Varav lokaler som hyrs ut  :  </td>' ;
+				echo '<td>';
+				echo $myrow['PlacesRentedOut'];
+				echo '</td>';
+				echo '<td> m2 </td>';
+				echo '</tr>';
+				
+				
+				
+			}
+			mysqli_data_seek($OtherPlacesRes, 0);
+			echo '</table>';
+			echo '<br>';
+			
+			
+		}
+		
+	
+			
+		
+		
+	if($selectedYear != -1 && !mysqli_num_rows($PlacesRes) == 0){
+		
 		
 		
 	
-	if($selectedYear != -1 && !mysqli_num_rows($PlacesRes) == 0){
-		
-		echo '<h2>  Lokaler och Proccesser </h2>'; 
-		
 		echo '<table>';
+		
 		echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
 	echo '<th> Mått</th>';
@@ -249,6 +283,7 @@ echo '<h1> Du har inga raporter <h1>';
 		}
 	}
 	echo '</table>';
+	echo '<br>';
 	
 	
 	
@@ -258,39 +293,36 @@ echo '<h1> Du har inga raporter <h1>';
 			
 										
 	if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes)==0){
-	echo '<h3> Övrigt Lokaler och Proccesser </h3>'; 
-	echo '<table align= "center">';
-	echo '<tr>';
-	echo '<th> Lokaler som företaget äger (m2)</th>';
-	echo '<th> Lokaler som hyrs ut </th>';
-	echo '<th> Produktion av solel </th>';
-	echo '<th> Produktion av solvärme </th>';
-	echo '<th> Kommentar </th>';
-	echo '</tr>';
-		
-		
-	}
-	
-	while ($myrow = $OtherPlacesRes->fetch_assoc()) {
-		if(!empty($myrow)){
-		
+			echo '<table>';
 			
-		
-		 echo '<tr>';
-    foreach($myrow as $field) {
-		if(empty($field)){
-		echo '<td > - </td>';
-		}else{
-        echo '<td >' . htmlspecialchars($field) . '</td>';
+			while ($myrow = $OtherPlacesRes->fetch_assoc()) {
+				echo '<tr>';
+				echo '<th> Produktion av förnybar energi  </th>' ;
+				echo '</tr>';
+				echo '<tr>';
+				echo '<td> Produktion av solvärme  :  </td>' ;
+				echo '<td>';
+				echo $myrow['ProducedSolarHeat'];
+				echo '</td>';
+				echo '<td> MWh </td>';
+				echo '</tr>';
+				echo '<tr>';
+				echo '<td> Produktion av solel   :  </td>' ;
+				echo '<td>';
+				echo $myrow['ProducedSolarElectricity'];
+				echo '</td>';
+				echo '<td> MWh </td>';
+				echo '</tr>';
+				
+				
+			}
+			echo '</table>';
+			echo '<br>';
+			
+			
 		}
-    }
-    echo '</tr>';
-        // use your $myrow array as you would with any other fetch
-       
-    }
-		
-	}
-	echo '</table>';
+
+	
 	
 	
 	if($selectedYear !=-1 && !mysqli_num_rows($TransportRes)==0){
