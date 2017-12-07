@@ -1,7 +1,7 @@
+<!DOCTYPE html>
 <?php
    include('session.php');
 ?>
-<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -16,9 +16,9 @@
 <body>
 <body>
 <div id="user">
-		<p>	<?php 
-		echo $login_session;
-		?>
+		<p>	User: <?php 
+				echo $login_session;
+					?>
 			<form id="logout" align="right" style="float:right"name="form1" method="post" action="statistik.php">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
@@ -62,11 +62,11 @@
 			</ul>
 		</div>
 		<div id="content">
+		<form method="get" name="form" id="form">
 			<h1>
 				Inventering av CO<sub>2</sub> utsläpp
 			</h1>
 			<p>
-			<form method="get" name="form" id="form">
 				År: <input type="text" name="Year" class="inputbox" style="float: none">
 				<button name="Spara" form="form" class = "menubutton flatbutton" onclick = "alert('Rapport sparad')">
 					Spara
@@ -86,9 +86,9 @@ $flygresorcount = 0;
 $arrayindex = 0;
 $categoryTransport = "Transport";
 $categoryLokalerProcesser = "Lokaler och processer";
-echo '<form method="get" name ="delete" action="#">';
-echo '<input type="submit" form = "delete" name="delete" value="ta bort test data från databas" />';
-echo '</form>';
+
+echo '<input type="submit" name="delete" value="ta bort test data från databas" />';
+
 // -------------- Transport ------------
     if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
         $emissionsql->bind_param("s", $categoryTransport);
@@ -101,7 +101,7 @@ echo '</form>';
 			</a>';
     echo '</h1>';
     
-	//echo '<form method="get" name="form" id="form">';
+	
     echo '<table name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
    
    // Skapar rubriker till table
@@ -393,18 +393,17 @@ echo '<h1>
 					
 					
 				</div>
+				</form>
 			</div>
 		</div>
-		</form>
+		
 		';
 if (isset($_GET['Spara'])) {
+	
+	// KOD FÖR ATT SKAPA NY RAPPORT
 	$yearinput = $_GET['Year'];
 	
 $message =$yearinput;
-
-	if($yearinput == ""){
-		$yearinput = 2002;
-	}
 	$id = null;
 	
 	
@@ -412,18 +411,14 @@ $message =$yearinput;
 	if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (User,Year) values (?,?)")){
 		
                 $createReportSql->bind_param("ss",$login_session,$yearinput);
-
                 $createReportSql->execute();
-				$id = $createReportSql->insert_id;
-				
-			
-                $createReportSql->close();
+				$id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
+				$createReportSql->close();
 				
             }
-			$message = $id;
-				echo "<script type='text/javascript'>alert('$message');</script>";
-	
-	
+			//SLUT PÅ KOD FÖR ATT SKAPA EN NY RAPPORT
+			
+	if($id != null){
 	// Transport insert
     for ($i = 0; $i < $transportcount; $i++) {
         $emissionSource = $_GET['emissionSource'][$i];
@@ -432,7 +427,7 @@ $message =$yearinput;
         $convFactor = $_GET['convFactor'][$i];
         $emissionCO2 = $_GET['emissionCO2'][$i];
         $Ton = $_GET['ton'][$i];
-       
+        
         /*  echo "<script type='text/javascript'>alert('$emissionSource');</script>";
           echo "<script type='text/javascript'>alert('$unit');</script>";
            echo "<script type='text/javascript'>alert('$convFactor');</script>";
@@ -536,7 +531,7 @@ for ($i = 0; $i <$flygresorcount; $i++) {
             }
         }
     }
-}
+}}
 if (isset($_GET['delete'])) {
     $deleteSQL = "DELETE FROM Transport where Id = 101";
     @mysqli_query($dbc, $deleteSQL);
@@ -610,4 +605,4 @@ if (isset($_GET['delete'])) {
         return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
     }
 </script>
-</html
+</html>
