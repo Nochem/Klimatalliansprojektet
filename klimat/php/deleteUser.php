@@ -5,7 +5,6 @@
   $oldName = $_SESSION['name'][$nbr];
 
   $deleteUserMySQL = "DELETE FROM users WHERE Name='$oldName'";
-  if(mysqli_query($dbc, $deleteUserMySQL)){
-    header('Location: anvandare.php');
-  }
+  mysqli_query($dbc, $deleteUserMySQL);
+  header('Location: anvandare.php');
 ?>
