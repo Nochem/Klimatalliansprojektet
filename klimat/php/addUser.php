@@ -10,7 +10,7 @@
     if($newName == ''){
       header('Location: anvandare.php');
     } else {
-      $addUserMySQL = "INSERT INTO users (Name, Password, Email, Telephone) VALUES ('$newName', '$newPassword', '$newEmail', '$newTelephone')";
+      $addUserMySQL = "INSERT INTO Users (Name, Password, Email, Telephone) VALUES ('$newName', '$newPassword', '$newEmail', '$newTelephone')";
       mysqli_query($dbc, $addUserMySQL);
       header('Location: anvandare.php');
     }
