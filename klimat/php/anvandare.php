@@ -30,6 +30,11 @@ include('session.php');
         </div>
         <div id="menu">
             <ul>
+			     <a href="anvandare.php">
+                    <li class="menuitem currentpage">
+                        Användare
+                    </li>
+                </a>
                 <a href="statistik_admin.php">
                     <li class="menuitem">
                         Statistik
@@ -38,11 +43,6 @@ include('session.php');
                 <a href="admin_redigera.php">
                     <li class="menuitem">
                         Redigera fält
-                    </li>
-                </a>
-                <a href="anvandare.php">
-                    <li class="menuitem currentpage">
-                        Användare
                     </li>
                 </a>
                 <a href="mina_sidor_admin.php">
