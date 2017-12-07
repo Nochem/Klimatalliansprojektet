@@ -561,7 +561,7 @@ include('session.php');
                     <textarea class="comments"rows="8" cols="50">
                     </textarea>
                     <br>
-                    <button class = "menubutton flatbutton savebutton" onclick = "alert('Rapport sparad')">
+                    <button class = "menubutton flatbutton savebutton modalSave">
                         Spara
                     </button>
                     <button class = "menubutton flatbutton rensa">
@@ -572,7 +572,7 @@ include('session.php');
         </div>
     </div>
     <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
-    <script type="text/javascript" src="../js/proto-script.js"></script>
+   
     <script type="text/javascript" src="../js/rapport-script.js"></script>
 </body>
 </html>
