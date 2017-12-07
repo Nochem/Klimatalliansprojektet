@@ -26,34 +26,34 @@ include('session.php');
         </p>
     </div>
     <div id="wrapper">
-        <a href="rapport.php">
+        <a href="#">
             <div id="logo">
             </div>
         </a>
 
         <div id="menu">
             <ul>
-                <a href="rapport.php">
+                <a href="#">
                     <li class="menuitem currentpage" >
                         Rapport
                     </li>
                 </a>
-                <a href="historik.php">
+                <a href="historik.php" class="changeSite">
                     <li class="menuitem">
                         Historik
                     </li>
                 </a>
-                <a href="statistik.php">
+                <a href="statistik.php" class="changeSite">
                     <li class="menuitem">
                         Statistik
                     </li>
                 </a>
-                <a href="mina_sidor.php">
+                <a href="mina_sidor.php" class="changeSite">
                     <li class="menuitem">
                         Mina Sidor
                     </li>
                 </a>
-                <a href="kontakt.php">
+                <a href="kontakt.php" class="changeSite">
                     <li class="menuitem">
                         Kontakt
                     </li>
