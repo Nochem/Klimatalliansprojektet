@@ -31,7 +31,7 @@
         header('Location: mina_sidor.php');
     } else {
         $thisName = $row['Name'];
-        $changePassMySQL = "UPDATE users SET Password='$passwordNew' WHERE Name='$thisName'";
+        $changePassMySQL = "UPDATE Users SET Password='$passwordNew' WHERE Name='$thisName'";
         mysqli_query($dbc, $changePassMySQL);
         $_SESSION['message']['passChanged'] = 'Lösenordet är nu ändrat.';
         header('Location: mina_sidor.php');
