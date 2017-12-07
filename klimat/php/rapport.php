@@ -533,7 +533,7 @@ for ($i = 0; $i <$flygresorcount; $i++) {
     }
 }}
 if (isset($_GET['delete'])) {
-    $deleteSQL = "DELETE FROM Report where User = test";
+    $deleteSQL = "DELETE FROM Report where User = 'test'";
     @mysqli_query($dbc, $deleteSQL);
 	
 	

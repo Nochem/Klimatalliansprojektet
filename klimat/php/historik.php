@@ -313,11 +313,33 @@ echo '<h1> Du har inga raporter <h1>';
 				echo '</td>';
 				echo '<td> MWh </td>';
 				echo '</tr>';
+				echo '</table>';
+			echo '<br>';
+			
+			
+				echo '<h3>Kommentar</h3>'; 
+				
+				
+				
+				
+				if(!empty($myrow['Comment'])){
+					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
+					echo $myrow['Comment'];
+					echo '</textarea>';
+					
+				}else{
+					echo '<textarea width = "500px" height = "100px" class="field left" readonly>';
+					echo "Ingen kommentar given";
+					echo '</textarea>';
+				}
+				
+				
+				
+				
 				
 				
 			}
-			echo '</table>';
-			echo '<br>';
+			
 			
 			
 		}
@@ -327,7 +349,7 @@ echo '<h1> Du har inga raporter <h1>';
 	
 	if($selectedYear !=-1 && !mysqli_num_rows($TransportRes)==0){
 	echo '<h2> Transport </h2>'; 
-	echo '<table align= "center">';
+	echo '<table>';
 	echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
 	echo '<th> Inköpt Mängd </th>';
