@@ -203,15 +203,17 @@ echo '<h1> Du har inga raporter <h1>';
 	<?php 
 	
 	if(isset($_GET['yeardrop'])){
+		if($selectedYear != -1){
+			echo '<h1>  Lokaler och Proccesser </h1>'; 
 		
 		if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes) == 0){
-			echo '<h2>  Lokaler och Proccesser </h2>'; 
+			
 			echo '<table>';
 			
 			while ($myrow = $OtherPlacesRes->fetch_assoc()) {
 				
 				echo '<tr>';
-				echo '<td> Lokaler som företaget äger :  </td>' ;
+				echo '<td> Lokaler som företaget äger:  </td>' ;
 				echo '<td>';
 				echo $myrow['PlacesOwned'];
 				echo '</td>';
@@ -317,7 +319,7 @@ echo '<h1> Du har inga raporter <h1>';
 			echo '<br>';
 			
 			
-				echo '<h3>Kommentar</h3>'; 
+				/* echo '<h3> Övriga Kommentarer</h3>'; 
 				
 				
 				
@@ -328,11 +330,9 @@ echo '<h1> Du har inga raporter <h1>';
 					echo '</textarea>';
 					
 				}else{
-					echo '<textarea width = "500px" height = "100px" class="field left" readonly>';
 					echo "Ingen kommentar given";
-					echo '</textarea>';
 				}
-				
+				 */
 				
 				
 				
@@ -348,7 +348,7 @@ echo '<h1> Du har inga raporter <h1>';
 	
 	
 	if($selectedYear !=-1 && !mysqli_num_rows($TransportRes)==0){
-	echo '<h2> Transport </h2>'; 
+	echo '<h1> Transport </h1>'; 
 	echo '<table>';
 	echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
@@ -384,9 +384,86 @@ echo '<h1> Du har inga raporter <h1>';
 		
 	}
 	echo '</table>';
+	
+	echo '<h1>Övrigt Transport</h1>'; 
+	if(!mysqli_num_rows($OtherTransportRes)==0){
+		 while($myrow = $OtherTransportRes->fetch_assoc()){
+
+			echo '<h3>Biodrivmedel i köpta transporttjänster </h3>'; 
+			echo '<h4> Krav Ja/Nej </h4>';
+			echo $myrow['EnviormentReqPurchased'] ? "Ja" : "Nej"; 
+		
+	
+		
+			echo '<h4> Om ja beskriv krav: </h4>';
+			if(!empty($myrow['EnviormentReqPurchasedDescription'])){
+					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
+					echo $myrow['EnviormentReqPurchasedDescription'];
+					echo '</textarea>';
+					
+				}else{
+					echo "Ingen beskrivning given";
+				}
+		
+		
+		echo '<h3>Biodrivmedel i köpta transporttjänster </h3>'; 
+		echo '<table>';
+		echo '<td>';
+		echo $myrow['BioTransportAmount'];
+		echo '</td>';
+		echo '<td>';
+		echo "Andel i %" ;
+		echo '</td>';
+		echo '</table>';
+		echo '<h4> Krav Ja/Nej </h4>';
+		echo $myrow['EnviormentReqOtherTransport'] ? "Ja" : "Nej"; 
+		echo '<h4> Om ja beskriv krav: </h4>';
+			if(!empty($myrow['EnviormentReqOtherTransportDescription'])){
+					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
+					echo $myrow['EnviormentReqOtherTransportDescription'];
+					echo '</textarea>';
+					
+				}else{
+					echo "Ingen beskrivning given";
+				}
+				
+		echo '<h3> Inköps- och resepolicy  </h3>'; 
+		echo '<h4> Tillämpas inköpspolicyn för fordon  </h4>';
+		echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej"; 
+		echo '<h4> Tillämpas resepolicy </h4>';
+		echo $myrow['EnforementTravelPolicy'] ? "Ja" : "Nej"; 
+		
+		
+		
+		
+		
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/* BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforementTravelPolicy,
+		EnviormentReqOtherTransport,EnviormentReqOtherTransportDescription,
+		EnviormentReqPurchased,EnviormentReqPurchasedDescription,Comment */
+		
+		
+		
+		
+		 }
+	}
+	echo '<br>';
+	
+	
+	echo '<h1> Flygresor </h1>';
 	if($selectedYear != -1 && !mysqli_num_rows($FlightRes)==0){	
 	
-	echo '<h2> Flygresor </h2>'; 
+	 
 	echo '<table>';
 	echo '<tr>';
 	echo '<th> Från </th>';
@@ -416,11 +493,37 @@ echo '<h1> Du har inga raporter <h1>';
 		
 	}
 	 echo '</table>';
+	 echo '<br>';
+	 echo "Placeholder för kommentarer";
+	 echo '<br>';
+	 
+	 
 	}
+	
+	}
+	
+	
+	
 	?>
 	</div>
 	</div>
 	</div>
+	<div>
+	<?php 
+	if($selectedYear != -1){
+	echo '<table>';
+	 echo '<td>';
+	 echo '<input class="menuitem flatbutton" name="EditReport" type="submit" id="EditReport" value="Ändra Rapport">';
+	 echo '</td>';
+	 echo '<td>';
+	 echo '<input class="menuitem flatbutton" name="EditReport" type="submit" id="EditReport" value="Ta bort Rapport">';
+	 echo '</td>';
+	 echo '</table>';
+	}
+	?> 
+	</div>
+	
+	
 	</body>
 	
 </html>
