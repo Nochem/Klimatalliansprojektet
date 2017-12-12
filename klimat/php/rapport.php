@@ -495,11 +495,7 @@ for ($i = 0; $i <$flygresorcount; $i++) {
         $lengthKM = $_GET['lengthKM'][$i];
         $KgCO2 = $_GET['kgCO2'][$i];
         $id = "101";
-        /*  echo "<script type='text/javascript'>alert('$emissionSource');</script>";
-          echo "<script type='text/javascript'>alert('$unit');</script>";
-           echo "<script type='text/javascript'>alert('$convFactor');</script>";
-            echo "<script type='text/javascript'>alert('$emissionCO2');</script>";
-             echo "<script type='text/javascript'>alert('$Ton');</script>"; */
+        
         if (!empty($departure) && !empty($destination)) {
             if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
                 $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
