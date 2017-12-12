@@ -1,40 +1,31 @@
 $(document).ready(function(){
 	var edited = false;
-	$("#stattable > tr").each(function() {
-
-        /*
-        Tar fram outputboxen
-        */
-        var output=$(this).find('p.output');
-
-        /*
-        Hanterar avfokusering på inputboxen
-        */
-        $(this).find('input.inputbox').focusout(function(event) {
-            var val=parseInt($(this).val());
-
-            console.log(val);
-            if(!isNaN(val)){
-                var out=$(this).val();
-                output.text(out);
-                edited = true;
-            }
-            else{
-                output.text("");
-            }
-        });
-    });
+	
+	var edited = false;
+	
+	
 
      $(".rensa").click(function(){
         var r = confirm("Rensa inmatad data?")
         if(r){
             edited = false;
             $('.inputbox').val('');
-            $( ".output" ).empty();
+            $('.outputbox').val('');
+			var x = document.getElementsByName("tonCO[]");
+			for(i = 0; i< x.length; i++){
+			document.getElementsByName("tonCO[]")[i].innerHTML = "";
+            document.getElementsByName("ton[]")[i].innerHTML = "";
+			}
 
 
         }
     })
+	
+	$(".inputbox").keypress(function(){
+            edited = true;
+    })
+	
+	
     
 	// window.onbeforeunload = function(){
 	// 	return "";
@@ -71,7 +62,7 @@ $(document).ready(function(){
 	        modal.style.display = "none";
 	    }
 	})
-	// kontrollerar så att året består av 4 tecken
+	// kontrollerar sÃ¥ att Ã¥ret bestÃ¥r av 4 tecken
 	$("#saveCheck").click(function(){
 			var d = new Date();
 			var n = d.getFullYear();
@@ -84,7 +75,7 @@ $(document).ready(function(){
 				edited = false;
 			return true;
 			}else{
-				confirm("kontrollera år");
+				confirm("kontrollera Ã¥r");
 			return false;
 
 			}
@@ -94,12 +85,12 @@ $(document).ready(function(){
 
 	$("#logout").click(function(){
 		if(edited){
-			var r = confirm("Du har inte sparat rapporten! Vill du logga ut ändå?")
+			var r = confirm("Du har inte sparat rapporten! Vill du logga ut Ã¤ndÃ¥?")
 		}else{
-		var r = confirm("är du säker på att du vill logga ut?")
+		var r = confirm("Ã¤r du sÃ¤ker pÃ¥ att du vill logga ut?")
 		}
 		if(r){
-			document.getElementById("logout").action = "login.php";
+			document.getElementById("logout").action = "logout.php";
 		}else{
 			return false;
 		}
