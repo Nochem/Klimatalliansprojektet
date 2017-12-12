@@ -10,10 +10,12 @@ function changeUser(row) {
   document.getElementById("userNbr").value = row;
   document.getElementById("userNbrD").value = row;
 
-  if (active == 1) {
-    document.getElementById("mInputActiveYes").checked = active;
+  if (active == "Ja") {
+    document.getElementById("mInputActiveYes").checked = true;
+    document.getElementById("mInputActiveNo").checked = false;
   } else {
     document.getElementById("mInputActiveNo").checked = true;
+    document.getElementById("mInputActiveYes").checked = false;
   }
   document.getElementById("mInputName").value = name;
   document.getElementById("mInputPassword").value = password;
