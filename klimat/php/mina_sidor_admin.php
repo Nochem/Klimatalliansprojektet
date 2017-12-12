@@ -1,5 +1,6 @@
 <?php
    include('session.php');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,42 +60,97 @@
 				Kontaktinformation
 				<br>
 			</h2>
-			<form action="/action_page.php">
-				Namn :
-				<input type="text" name="Name" value="Karl Erik">
-				<input class="flatbutton" type="submit" value="Spara">
-				<br><br>
-				Epost:
-				<input type="text" name="email" value="KarlErik@hotmail.com">
-				<input class="flatbutton" type="submit" value="Spara">
-				<br><br>
-				Telefon :
-				<input type="text" name="telenmr" value="0123456789">
-				<input class="flatbutton" type="submit" value="Spara">
-				<br><br>
+			<form action="changeAdminInfo.php" method="post">
+        <?php
+          ob_start();
+          $query = mysqli_query($dbc, "SELECT * FROM users WHERE Admin = '1'");
+          $admin = mysqli_fetch_array($query);
+  				echo 'Namn:';
+  				echo '<input type="text" name="realName" value="'.$admin['realName'].'">';
+  				echo '<br><br>';
+  				echo 'Epost:';
+  				echo '<input type="text" name="email" value="'.$admin['Email'].'">';
+  				echo '<br><br>';
+  				echo 'Telefon :';
+  				echo '<input type="text" name="telefon" value="'.$admin['Telephone'].'">';
+          echo '<br><br>';
+  				echo '<input class="flatbutton" type="submit" value="Spara">';
+  				echo '<br><br>';
+        ?>
 			</form>
 
-			<h2>
-				Ändra Lösenord
-			</h2> <form id="passwchange" onsubmit="return validateForm()">
-				<p>
-					Befintligt Lösenord:
-				</p>
-				<input id="oldpass" type="password" name="oldPass" value="">
-				<p>
-					Nytt Lösenord:
-				</p>
-				<input id="newpass" type="password" name="newPass" value="">
-				<p>
-					Bekräfta nytt lösenord:
-				</p>
-				<input id="newpassconf" type="password" name="newPassconfirm" value="">
-				<p id="nomatch">
+      <h2>
+        Ändra Lösenord
+      </h2>
+      <p>
+        <?php
+          if(!empty($_SESSION['message']['passChanged'])){
+            echo '<font color="green" size="2" style="margin-left:10px">'.$_SESSION['message']['passChanged'].'</font>';
+            unset($_SESSION['message']['passChanged']);
+          }
+        ?>
+      </p>
+      <form action="changePassword.php" id="passwchange" method="post">
+        <p>
+          Befintligt Lösenord:
+        </p>
+        <p>
+          <?php
+            if(!empty($_SESSION['message']['fillOldPass'])){
+              echo '<font color="red" size="2" style="margin-left:10px">'.$_SESSION['message']['fillOldPass'].'</font>';
+              unset($_SESSION['message']['fillOldPass']);
+              //unset($_SESSION['message']['oldPassDontMatch']);
+            } else if(!empty($_SESSION['message']['oldPassDontMatch'])){
+              echo '<font color="red" size="2" style="margin-left:10px">'.$_SESSION['message']['oldPassDontMatch'].'</font>';
+              unset($_SESSION['message']['oldPassDontMatch']);
+            }
+          ?>
+        </p>
+        <input id="oldpass" type="password" name="oldPass" value="">
+        <p>
+          Nytt Lösenord:
+        </p>
+        <p>
+          <?php
+            if(!empty($_SESSION['message']['fillNewPass'])){
+              echo '<font color="red" size="2" style="margin-left:10px">'.$_SESSION['message']['fillNewPass'].'</font>';
+              unset($_SESSION['message']['fillNewPass']);
+              //unset($_SESSION['message']['wrongSize']);
+            } else if(!empty($_SESSION['message']['wrongSize'])){
+              echo '<font color="red" size="2" style="margin-left:10px">'.$_SESSION['message']['wrongSize'].'</font>';
+              unset($_SESSION['message']['wrongSize']);
+            }
+          ?>
+        </p>
+        <input id="newpass" type="password" name="newPass" value="">
+        <p>
+          Bekräfta nytt lösenord:
+        </p>
+        <p>
+          <?php
+            if(!empty($_SESSION['message']['fillConNewPass'])){
+              echo '<font color="red" size="2" style="margin-left:10px">'.$_SESSION['message']['fillConNewPass'].'</font>';
+              unset($_SESSION['message']['fillConNewPass']);
+            } else if(!empty($_SESSION['message']['passDontMatch'])){
+              echo '<font color="red" size="2" style="margin-left:10px">'.$_SESSION['message']['passDontMatch'].'</font>';
+              unset($_SESSION['message']['passDontMatch']);
+            }
+          ?>
+        </p>
+        <input id="newpassconf" type="password" name="newPassconfirm" value="">
+        <p id="nomatch">
+        </p>
+        <br>
+        <input class="flatbutton"id="change" type="submit"value="Ändra Lösenord">
+        <br>
+        <br>
+        <p>
+          Det nya lösenordet måste vara mellan 6-20 tecken långt.
+          <br>
+          (Tillåtna tecken är A-Z, a-z och 0-9)
+        </p>
 
-				</p>
-				<br>
-				<input id="change" type="submit"value="Ändra Lösenord">
-			</form>
+      </form>
 			<p>
 				Senaste inloggning: 2017-11-01
 			</p>
