@@ -153,7 +153,7 @@
       </form>
       <?php
         ob_start();
-        $query = mysqli_query($dbc, "SELECT LastLogIn, IpAddress FROM users WHERE Admin = '1'");
+        $query = mysqli_query($dbc, "SELECT LastLogIn, IpAddress FROM Users WHERE Admin = '1'");
         $admin = mysqli_fetch_array($query);
         echo '<p>';
         echo 'Senaste inloggning: '.$admin['LastLogIn'];
