@@ -63,7 +63,7 @@
 			<form action="changeAdminInfo.php" method="post">
         <?php
           ob_start();
-          $query = mysqli_query($dbc, "SELECT * FROM users WHERE Admin = '1'");
+          $query = mysqli_query($dbc, "SELECT realName, Email, Telephone FROM users WHERE Admin = '1'");
           $admin = mysqli_fetch_array($query);
   				echo 'Namn:';
   				echo '<input type="text" name="realName" value="'.$admin['realName'].'">';
@@ -151,10 +151,17 @@
         </p>
 
       </form>
-			<p>
-				Senaste inloggning: 2017-11-01
-			</p>
-			<p> Från ip : 192.168.0.1 </p>
+      <?php
+        ob_start();
+        $query = mysqli_query($dbc, "SELECT LastLogIn, IpAddress FROM users WHERE Admin = '1'");
+        $admin = mysqli_fetch_array($query);
+        echo '<p>';
+        echo 'Senaste inloggning: '.$admin['LastLogIn'];
+        echo '</p>';
+        echo '<p>';
+        echo 'Från ip: '.$admin['IpAddress'];
+        echo '</p>';
+      ?>
 		</div>
 	</div>
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
