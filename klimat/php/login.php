@@ -6,7 +6,7 @@
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$myusername = mysqli_real_escape_string($dbc,$_POST['username']);
 			$mypassword = mysqli_real_escape_string($dbc,$_POST['password']);
-			$sql = "SELECT Name, Password FROM Users WHERE Name = '$myusername' and password = '$mypassword'";
+			$sql = "SELECT Name, Password FROM Users WHERE Name = '$myusername' and password = '$mypassword' and active = 1";
 			$result = mysqli_query($dbc,$sql);
 			$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 			$active = $row['active'];
