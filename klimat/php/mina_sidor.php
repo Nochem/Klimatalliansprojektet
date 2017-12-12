@@ -136,7 +136,7 @@
 					</form>
           <?php
             ob_start();
-            $query = mysqli_query($dbc, "SELECT LastLogIn, IpAddress FROM users WHERE Name='$login_session'");
+            $query = mysqli_query($dbc, "SELECT LastLogIn, IpAddress FROM Users WHERE Name='$login_session'");
             $Date_Time_Ip = mysqli_fetch_array($query);
             echo '<p>';
             echo 'Senaste inloggning: '.$Date_Time_Ip['LastLogIn'];
