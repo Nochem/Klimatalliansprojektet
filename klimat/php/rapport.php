@@ -19,42 +19,44 @@
 		<p>	User: <?php 
 				echo $login_session;
 					?>
-			<form id="logout" align="right" style="float:right"name="form1" method="post" action="statistik.php">
+			<form id="logout" align="right" style="float:right"name="form1" method="post" 
+action="rapport.php">
 				<label>
-					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" 
+value="Log out">
 				</label>
 			</form>
 		</p>
 	</div>
 	<div id="wrapper">
-		<a href="rapport.php">
+		<a href="#">
 			<div id="logo">
 			</div>
 		</a>
 
 		<div id="menu">
 			<ul>
-				<a href="rapport.php">
+				<a href="#">
 					<li class="menuitem currentpage" >
 						Rapport
 					</li>
 				</a>
-				<a href="historik.php">
+				<a href="historik.php" class="changeSite">
 					<li class="menuitem">
 						Historik
 					</li>
 				</a>
-				<a href="statistik.php">
+				<a href="statistik.php" class="changeSite">
 					<li class="menuitem">
 						Statistik
 					</li>
 				</a>
-				<a href="mina_sidor.php">
+				<a href="mina_sidor.php" class="changeSite">
 					<li class="menuitem">
 						Mina Sidor
 					</li>
 				</a>
-				<a href="kontakt.php">
+				<a href="kontakt.php" class="changeSite">
 					<li class="menuitem">
 						Kontakt
 					</li>
@@ -71,15 +73,18 @@
                     <input id="modalInputReportName" name="reportName" required='' type='text'>
                     <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
                     <br>
-                    <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                    <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
+                    <input id="modalInputYear" name="theYear" required='' type='text' 
+maxlength="4"onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                    <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'>
+</label>
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
                     <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
                     <input type="checkbox" name="finished" value="FärdigRapport" unchecked> Färdig Rapport
                     <br>
                     <br>
-                    <button id = "saveCheck" name="Spara" form="form"  class = "menubutton flatbutton savebutton" style="left: 5px">
+                    <button id = "saveCheck" name="Spara" form="form"  class = "menubutton flatbutton 
+savebutton" style="left: 5px">
                         Spara
                     </button>
             </div>
@@ -112,7 +117,8 @@ $categoryLokalerProcesser = "Lokaler och processer";
 echo '<input type="submit" name="delete" value="ta bort test data från databas" />';
 
 // -------------- Transport ------------
-    if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
+    if ($emissionsql = mysqli_prepare($dbc, "SELECT 
+EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
         $emissionsql->bind_param("s", $categoryTransport);
         $emissionsql->execute();
         $emissionsqlresult = $emissionsql->get_result();
@@ -144,7 +150,7 @@ echo '<input type="submit" name="delete" value="ta bort test data från databas"
             echo '<input type="hidden" name="emissionSource[]" value=' . $myrow['EmissionSource'] . '>';
           
             echo '<td>';
-				echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" 
+				echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . '); fieldEdited()" 
 				onchange ="tonCO2(' . $arrayindex . ')" 
 				class="inputbox"/>'; 
             
@@ -163,7 +169,7 @@ echo '<input type="submit" name="delete" value="ta bort test data från databas"
   
             echo '<td name=tonCO[]>';
             echo '</td>'; // behövs matte
-            echo '<input type="hidden" name="ton[]">';
+            echo '<input type="hidden" name="ton[]" class="outputbox">';
             echo '</tr>';
             $arrayindex++;
         }
@@ -174,10 +180,12 @@ echo '<input type="submit" name="delete" value="ta bort test data från databas"
 				<h3>Ställs miljökrav vid inköp av fordon</h3>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo" value="0" style="margin-bottom: 20px"> Nej
+						<input class="radiobutton" type="radio" name="YesOrNo" value="0" 
+style="margin-bottom: 20px"> Nej
 					</p>
 					<p>Om ja beskriv krav:</p>
-					<textarea class="comments" rows="4" cols="50" name="comment1" form="form"></textarea></td>
+					<textarea class="comments" rows="4" cols="50" name="comment1" 
+form="form"></textarea></td>
 			</div>
 			<div id="bio_krav">
 				<h3>
@@ -189,7 +197,8 @@ echo '<input type="submit" name="delete" value="ta bort test data från databas"
 					<p>Krav Ja/Nej</p>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo2" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo2" value="0" style="margin-bottom: 20px"> Nej
+						<input class="radiobutton" type="radio" name="YesOrNo2" value="0" 
+style="margin-bottom: 20px"> Nej
 					</p>
 			</div>
 			<div id="etc_krav">
@@ -203,13 +212,15 @@ echo '<input type="submit" name="delete" value="ta bort test data från databas"
 				
 				<p>
 					<input class="radiobutton" type="radio" name="YesOrNo3" value="1"> Ja
-					<input class="radiobutton" type="radio" name="YesOrNo3" value="0" style="margin-bottom: 20px"> Nej
+					<input class="radiobutton" type="radio" name="YesOrNo3" value="0" 
+style="margin-bottom: 20px"> Nej
 				</p>
 				
 				<p>
 					Om ja beskriv krav:
 				</p>
-					<textarea class="comments" rows="4" cols="50" name="comment2" form="form" style="margin-bottom:20px"></textarea>
+					<textarea class="comments" rows="4" cols="50" name="comment2" form="form" 
+style="margin-bottom:20px"></textarea>
 				</div>
 				
 				<div id="inkops_rese">
@@ -221,14 +232,16 @@ echo '<input type="submit" name="delete" value="ta bort test data från databas"
 					</p>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo4" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo4" value="0" style="margin-bottom: 20px"> Nej
+						<input class="radiobutton" type="radio" name="YesOrNo4" value="0" 
+style="margin-bottom: 20px"> Nej
 					</p>
 					<p>
 						Tillämpas resepolicy
 					</p>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo5" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo5" value="0" style="margin-bottom: 20px"> Nej
+						<input class="radiobutton" type="radio" name="YesOrNo5" value="0" 
+style="margin-bottom: 20px"> Nej
 					</p>
 					<p>
 						Eventuella kommentarer
@@ -240,7 +253,8 @@ echo '<input type="submit" name="delete" value="ta bort test data från databas"
 				
 	
 // ----------- Lokaler och processer ---------------
-if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
+if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh 
+from ConversionFactors where Category = ?")) {
         $emissionsql->bind_param("s", $categoryLokalerProcesser);
         $emissionsql->execute();
         $emissionsqlresult = $emissionsql->get_result();
@@ -304,7 +318,8 @@ if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,E
             echo '<input type="hidden" name="emissionSource[]" value=' . $myrow['EmissionSource'] . '>';
           
             echo '<td>';
-				echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" onchange ="tonCO2(' . $arrayindex . ')" 
+				echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" 
+onchange ="tonCO2(' . $arrayindex . ')" 
 				class="inputbox"/>';
             echo '</td>';
             echo '<td>';
@@ -355,7 +370,8 @@ if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,E
     echo '</table>';
 	
 	echo'<h3>Övriga kommentarer</h3>
-				<textarea name="placesProcessesComment" class="comments" rows="8" cols="50"></textarea>';
+				<textarea name="placesProcessesComment" class="comments" rows="8" cols="50">
+</textarea>';
 			
 // ---------- Flygresor ----------
 $flygresorcount = 1;
@@ -403,9 +419,11 @@ echo '<h1>
 				</button>
 				<div id="flygresor_comments">
 					<h3>Övriga kommentarer</h3>
-					<textarea name="flightsComment" class="comments" rows="8" cols="50"></textarea>
+					<textarea name="flightsComment" class="comments" rows="8" cols="50">
+</textarea>
 					<br>
-					<button name="Spara" form="form" class = "menubutton flatbutton savebutton modalSave">
+					<button name="Spara" form="form" class = "menubutton flatbutton savebutton 
+modalSave">
 						Spara
 					</button>
 					
@@ -439,7 +457,8 @@ $message =$yearinput;
 	
 	
 	
-	if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (User,Year,NameofReport,FirstName,finished) values (?,?,?,?,?)")){
+	if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report 
+(User,Year,NameofReport,FirstName,finished) values (?,?,?,?,?)")){
 		
                 $createReportSql->bind_param("ssssi",$login_session,$yearinput,$name,$repname,$finished);
                 $createReportSql->execute();
@@ -465,8 +484,10 @@ $message =$yearinput;
             echo "<script type='text/javascript'>alert('$emissionCO2');</script>";
              echo "<script type='text/javascript'>alert('$Ton');</script>"; */
         if (!empty($amount)) {
-            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
-                $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
+            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO 
+Transport(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
+                $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, 
+$emissionCO2, $Ton, $id);
                 $insertTransportsql->execute();
                 $transportqlresult = $insertTransportsql->get_result();
                 $insertTransportsql->close();
@@ -490,12 +511,15 @@ $message =$yearinput;
 	$travelPolicy = $_GET['YesOrNo5'];
 	$comment = $_GET['comment3'];
 	if ($insertOtherTransportsql = mysqli_prepare($dbc, 
-	"INSERT INTO OtherTransport(EnviormentReqPurchased, EnviormentReqPurchasedDescription,BioTransport, BioTransportAmount, 
-	EnviormentReqOtherTransportDescription, EnviormentReqOtherTransport, EnforcementPurchasePolicyVehicle, EnforementTravelPolicy, Comment, Id)
+	"INSERT INTO OtherTransport(EnviormentReqPurchased, 
+EnviormentReqPurchasedDescription,BioTransport, BioTransportAmount, 
+	EnviormentReqOtherTransportDescription, EnviormentReqOtherTransport, 
+EnforcementPurchasePolicyVehicle, EnforementTravelPolicy, Comment, Id)
 	values (?,?,?,?,?,?,?,?,?,?)")) 
 	{
         $insertOtherTransportsql->bind_param("isidsiiisi", $envReq , $envReqDesc , $bioTransp, 
-		$bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $comment , $id);
+		$bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , 
+$comment , $id);
         $insertOtherTransportsql->execute();
         $otherTransportqlresult = $insertOtherTransportsql->get_result();
         $insertOtherTransportsql->close();
@@ -516,8 +540,10 @@ $message =$yearinput;
             echo "<script type='text/javascript'>alert('$emissionCO2');</script>";
              echo "<script type='text/javascript'>alert('$Ton');</script>"; */
         if (!empty($amount)) {
-            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
-                $insertPlacesProcesses->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
+            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO 
+PlacesAndProcesses(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
+                $insertPlacesProcesses->bind_param("ssdddi", $emissionSource, $unit, $convFactor, 
+$emissionCO2, $Ton, $id);
                 $insertPlacesProcesses->execute();
                 $placesProcessessqlresult = $insertPlacesProcesses->get_result();
                 $insertPlacesProcesses->close();
@@ -533,9 +559,12 @@ $message =$yearinput;
 	$placesOwned = $_GET['placesOwned'];
 	$placesRented = $_GET['placesRented'];
 	 if ($insertOtherPlacesProcesses = mysqli_prepare($dbc, 
-	 "INSERT INTO OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,Comment,Id) values (?,?,?,?,?,?)"))
+	 "INSERT INTO 
+OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,C
+omment,Id) values (?,?,?,?,?,?)"))
 	{
-        $insertOtherPlacesProcesses->bind_param("iiddsi", $placesOwned, $placesRented, $producedSolarHeat,  $producedSolarElectr, $PlacesProcessesComment, $id);
+        $insertOtherPlacesProcesses->bind_param("iiddsi", $placesOwned, $placesRented, 
+$producedSolarHeat,  $producedSolarElectr, $PlacesProcessesComment, $id);
         $insertOtherPlacesProcesses->execute();
         $otherPlacesProcessessqlresult = $insertOtherPlacesProcesses->get_result();
         $insertOtherPlacesProcesses->close();
@@ -554,7 +583,8 @@ for ($i = 0; $i <$flygresorcount; $i++) {
             echo "<script type='text/javascript'>alert('$emissionCO2');</script>";
              echo "<script type='text/javascript'>alert('$Ton');</script>"; */
         if (!empty($departure) && !empty($destination)) {
-            if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
+            if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO 
+Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
                 $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
                 $insertFlightsql->execute();
                 $transportqlresult = $insertFlightsql->get_result();
@@ -572,10 +602,8 @@ if (isset($_GET['delete'])) {
 ?>
 </table>
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
-	<script type="text/javascript" src="../js/proto-script.js"></script>
 	<script type="text/javascript" src="../js/rapport-script.js"></script>
-</body>
-<script>
+	<script>
     function tonCO2(nbr) {
         var amount = document.getElementsByName("amount[]")[nbr].value;
         var convFac = document.getElementsByName("convFactor[]")[nbr].value;
@@ -587,6 +615,7 @@ if (isset($_GET['delete'])) {
         amount = checkTwoDot(amount);
         update(nbr, amount, emission, convFac);
         document.getElementsByName("amount[]")[nbr].value = amount;
+		
     }
     function update(nbr, amount, emission, convFac) {
         var amount1 = amount.replace(',', '.');
@@ -629,4 +658,6 @@ if (isset($_GET['delete'])) {
         return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
     }
 </script>
+</body>
+
 </html>
