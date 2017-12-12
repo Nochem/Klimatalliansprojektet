@@ -109,8 +109,6 @@ $arrayindex = 0;
 $categoryTransport = "Transport";
 $categoryLokalerProcesser = "Lokaler och processer";
 
-   echo '<input type="submit" name="delete" value="ta bort test data från databas" >';
-
 // -------------- Transport ------------
     if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
         $emissionsql->bind_param("s", $categoryTransport);
@@ -232,14 +230,8 @@ $categoryLokalerProcesser = "Lokaler och processer";
 						<input class="radiobutton" type="radio" name="YesOrNo5" value="1"> Ja
 						<input class="radiobutton" type="radio" name="YesOrNo5" value="0" style="margin-bottom: 20px"> Nej
 					</p>
-					<p>
-						Eventuella kommentarer
-					</p>
-					<textarea class="comments" name="comment3" rows="8" cols="50"></textarea>
-		
+					
 				</div>';
-				
-				
 	
 // ----------- Lokaler och processer ---------------
 if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
@@ -358,9 +350,6 @@ if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,E
 	
     echo '</table>';
 	
-	echo'<h3>Övriga kommentarer</h3>
-				<textarea name="placesProcessesComment" class="comments" rows="8" cols="50"></textarea>';
-			
 // ---------- Flygresor ----------
 $flygresorcount = 1;
 echo '<h1>
@@ -377,7 +366,7 @@ echo '<h1>
 					</thead>
 					<tbody>
 						<tr>
-							<td><input type="text" class="inputbox"/> 
+							<td><input name="totalFlightKGCO2" type="text" class="inputbox"/> 
 							</td>
 							<td>
 								<p style="margin-left: 2em;"> kg CO<sub>2</sub></p>
@@ -407,7 +396,7 @@ echo '<h1>
 				</button>
 				<div id="flygresor_comments">
 					<h3>Övriga kommentarer</h3>
-					<textarea name="flightsComment" class="comments" rows="8" cols="50"></textarea>
+					<textarea name="OtherComment" class="comments" rows="8" cols="50"></textarea>
 					<br>
 					<button name="Spara" form="form" class = "menubutton flatbutton savebutton modalSave">
 						Spara
@@ -430,6 +419,8 @@ if (isset($_GET['Spara'])) {
 	$name = $_GET['personName'];
 	$repname = $_GET['reportName'];
 	$finished = $_GET['finished'];
+	$comment = $_GET['OtherComment'];
+	
 	if($finished){
 		$finished = 1;
 	}else{
@@ -438,14 +429,12 @@ if (isset($_GET['Spara'])) {
 
 	$id = null;
 
-	if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (User,Year,NameofReport,FirstName,finished) values (?,?,?,?,?)")){
-		
-                $createReportSql->bind_param("ssssi",$login_session,$yearinput,$repname,$name,$finished);
+	if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (User,Year,NameofReport,NameofUser,finished, Comment) values (?,?,?,?,?,?)")){
+                $createReportSql->bind_param("ssssis",$login_session,$yearinput,$repname,$name,$finished, $comment);
                 $createReportSql->execute();
 				$id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
-				$createReportSql->close();
-				
-            }
+				$createReportSql->close();		
+    }
 			//SLUT PÅ KOD FÖR ATT SKAPA EN NY RAPPORT
 			
 	if($id != null){
@@ -482,14 +471,14 @@ if (isset($_GET['Spara'])) {
 	
 	$VehicPolicy = $_GET['YesOrNo4'];
 	$travelPolicy = $_GET['YesOrNo5'];
-	$comment = $_GET['comment3'];
+	
 	if ($insertOtherTransportsql = mysqli_prepare($dbc, 
-	"INSERT INTO OtherTransport(EnviormentReqPurchased, EnviormentReqPurchasedDescription,BioTransport, BioTransportAmount, 
-	EnviormentReqOtherTransportDescription, EnviormentReqOtherTransport, EnforcementPurchasePolicyVehicle, EnforementTravelPolicy, Comment, Id)
-	values (?,?,?,?,?,?,?,?,?,?)")) 
+	"INSERT INTO OtherTransport(EnvironmentReqPurchased, EnvironmentReqPurchasedDescription,BioTransport, BioTransportAmount, 
+	EnvironmentReqOtherTransportDescription, EnvironmentReqOtherTransport, EnforcementPurchasePolicyVehicle, EnforcementTravelPolicy, Id)
+	values (?,?,?,?,?,?,?,?,?)")) 
 	{
-        $insertOtherTransportsql->bind_param("isidsiiisi", $envReq , $envReqDesc , $bioTransp, 
-		$bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $comment , $id);
+        $insertOtherTransportsql->bind_param("isidsiiii", $envReq , $envReqDesc , $bioTransp, 
+		$bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $id);
         $insertOtherTransportsql->execute();
         $otherTransportqlresult = $insertOtherTransportsql->get_result();
         $insertOtherTransportsql->close();
@@ -516,22 +505,21 @@ if (isset($_GET['Spara'])) {
 	
 	//Övrig lokaler och processer insert
 	$producedSolarHeat = $_GET['producedSolarHeat'];
-	$producedSolarElectr = $_GET['producedSolarElectr'];
-	
-	$PlacesProcessesComment = $_GET['placesProcessesComment'];
+	$producedSolarElectr = $_GET['producedSolarElectricity'];
+
 	$placesOwned = $_GET['placesOwned'];
 	$placesRented = $_GET['placesRented'];
 	 if ($insertOtherPlacesProcesses = mysqli_prepare($dbc, 
-	 "INSERT INTO OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,Comment,Id) values (?,?,?,?,?,?)"))
+	 "INSERT INTO OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,Id) values (?,?,?,?,?)"))
 	{
-        $insertOtherPlacesProcesses->bind_param("iiddsi", $placesOwned, $placesRented, $producedSolarHeat,  $producedSolarElectr, $PlacesProcessesComment, $id);
+        $insertOtherPlacesProcesses->bind_param("iiddi", $placesOwned, $placesRented, $producedSolarHeat, $producedSolarElectr, $id);
         $insertOtherPlacesProcesses->execute();
         $otherPlacesProcessessqlresult = $insertOtherPlacesProcesses->get_result();
         $insertOtherPlacesProcesses->close();
     }
 	
 	// Insert Flygresor
-for ($i = 0; $i <$flygresorcount; $i++) {
+	for ($i = 0; $i <$flygresorcount; $i++) {
         $departure= $_GET['Departure'][$i];
         $destination = $_GET['Destination'][$i];
         $lengthKM = $_GET['lengthKM'][$i];
@@ -546,16 +534,18 @@ for ($i = 0; $i <$flygresorcount; $i++) {
             }
         }
     }
-}}
-if (isset($_GET['delete'])) {
 	
-	$message = "ALERT";
-	echo "<script type='text/javascript'> alert('$message'); </script>";
+	$flightTotKGCO2 = $_GET['totalFlightKGCO2'];
 	
-	/*
-    $deleteSQL = "DELETE FROM Report where User = 'test'";
-    @mysqli_query($dbc, $deleteSQL);
-*/
+	if(!empty($flightTotKGCO2)){
+		if ($insertOtherFlightsql = mysqli_prepare($dbc, "INSERT INTO OtherFlight(TotalAmount, Id) values (?,?)")) {
+			$insertOtherFlightsql->bind_param("di", $flightTotKGCO2, $id);
+			$insertOtherFlightsql->execute();
+			$transportqlresult = $insertOtherFlightsql->get_result();
+			$insertOtherFlightsql->close();
+		}
+	} 
+}
 }
 ?>
 </table>
