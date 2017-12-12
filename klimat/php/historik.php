@@ -64,9 +64,10 @@
 			</ul>
 			</div>
 			<div id="sidebar">
+			<h1 name= "Rubrik" align= "Center"> Historik </h1>
 			</div>
 			<div id="content">
-			<h1 name= "Rubrik" align= "Center"> Historik </h1>
+			
 				<div id="stat">
 				
 					
@@ -74,7 +75,9 @@
 					<form action="#" method="get" name="histDrop">
 					
 <?php
- if ($yearSQL = mysqli_prepare($dbc, "SELECT Distinct Year from Report where User = ?")) {
+$selectedYear = -1;
+$id = null;
+ if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
         $yearSQL->bind_param("s", $login_session);
         /* execute query */
         $yearSQL->execute();
@@ -83,6 +86,7 @@
         /* now you can fetch the results into an array - NICE */
     }
 if(isset($yearSQLresult)){
+	
 echo '<select id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
 echo '&nbsp';
 echo "<option value = '-1'> Välj ett år </option>";
@@ -120,13 +124,30 @@ echo '<h1> Du har inga raporter <h1>';
 	 
 		 
     <?php
+	$id  = null;
 	if (isset($_GET['yeardrop'])){
 		
 		
 		
+		
    $selectedYear = $_GET['yeardrop'];
+  
+  
+
    
    if($selectedYear != -1){
+	   if ($ReportSql = mysqli_prepare($dbc, "SELECT Id,NameofReport,NameOfUser,DATE(ChangeDate) as ChangeDate ,finished,Comment from Report where Year = ? and User = ?")) {
+	$ReportSql ->bind_param("ss", $selectedYear,$login_session);
+    /* execute query */
+   $ReportSql ->execute();
+    /* instead of bind_result: */
+    $ReportSqlres= $ReportSql->get_result();
+    /* now you can fetch the results into an array - NICE */
+	
+   }else{
+	   
+   }
+	   
    if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,convFactor,Round(TonCO2/EmissionMwh,2),EmissionMwh,TonCO2 FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
    $LokalSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
@@ -163,7 +184,7 @@ echo '<h1> Du har inga raporter <h1>';
    }else{
 	   
    }
-   if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforementTravelPolicy,EnviormentReqOtherTransport,EnviormentReqOtherTransportDescription,EnviormentReqPurchased,EnviormentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
+   if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforcementTravelPolicy,EnvironmentReqOtherTransport,EnvironmentReqOtherTransportDescription,EnvironmentReqPurchased,EnvironmentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
    $OtherTransportSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
     $OtherTransportSql->execute();
@@ -186,11 +207,19 @@ echo '<h1> Du har inga raporter <h1>';
 		}else{
 	   
 		}
-	}else{
-		
+		if ($OtherFlightSql = mysqli_prepare($dbc, "SELECT TotalAmount FROM OtherFlight, Report where OtherFlight.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
+   $OtherFlightSql->bind_param("ss", $selectedYear,$login_session);
+    /* execute query */
+    $OtherFlightSql->execute();
+    /* instead of bind_result: */
+    $OtherFlightRes = $OtherFlightSql->get_result();
+    /* now you can fetch the results into an array - NICE */
 	
+		}else{
+	   
+		}
 		
-		
+	}else{
 	}
 	}
   
@@ -202,11 +231,47 @@ echo '<h1> Du har inga raporter <h1>';
 	
 	<?php 
 	
+	
 	if(isset($_GET['yeardrop'])){
 		if($selectedYear != -1){
-			echo '<h1>  Lokaler och Proccesser </h1>'; 
+			echo '<h1>  Rapport för år '.$selectedYear.' </h1>';
+			echo '<table align = "right">';
+	 echo '<td>';
+	 echo '<button name="Ändra"  class = "menubutton flatbutton savebutton modalSave"> Ändra </button>'; // ändra css
+	 echo '</td>';
+	 echo '<td>';
+	 echo '<button name="Ta Bort"  class = "menubutton flatbutton savebutton modalSave"> Ta bort </button>';
+	 echo '</td>';
+	 echo '</table>';
+					echo '<br>';
+			if(!mysqli_num_rows($ReportSqlres) == 0){
+				while ($myrow = $ReportSqlres->fetch_assoc()){
+					echo '<table name="info">';
+					echo '<tr><th align = "left">Namn på rapport:</th>';
+					echo '<td>';
+					echo $myrow['NameofReport'];
+					echo '</td></tr>';
+					echo '<tr><th align = "left">Rapporterad av:</th>';
+					echo '<td>' ;
+					echo $myrow['NameOfUser'];
+					echo '</td></tr>';
+					echo '<tr><th align = "left">Senast ändrad:</th>';
+					echo '<td>';
+					echo $myrow['ChangeDate'];
+					echo '</td></tr>';
+					echo '<tr><th align = "left">Status:</th>';
+					echo '<td>' ;
+					echo $myrow['finished'] ? "Färdig" : "Ej Färdig"; 
+					echo '</td></tr>';
+					echo '</table>';
+					echo'<div name = "Lokaler och Processer">';
+					echo '<h1>  Lokaler och Proccesser </h1>'; 
+				}
+				mysqli_data_seek($ReportSqlres, 0);
+			}
 		
 		if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes) == 0){
+			
 			
 			echo '<table>';
 			
@@ -343,6 +408,9 @@ echo '<h1> Du har inga raporter <h1>';
 			
 			
 		}
+		echo '</div>';
+		
+			echo'<div name = "Transport">';
 
 	
 	
@@ -370,9 +438,9 @@ echo '<h1> Du har inga raporter <h1>';
 			
 		
 		 echo '<tr>';
-    foreach($myrow as $field) {
-		if(empty($field)){
-		echo '<td > - </td>';
+    foreach($myrow as $field) { // borde fixa detta
+		if($field == null){
+		echo '<td > 0 </td>';
 		}else{
         echo '<td >' . htmlspecialchars($field) . '</td>';
 		}
@@ -384,6 +452,7 @@ echo '<h1> Du har inga raporter <h1>';
 		
 	}
 	echo '</table>';
+	echo '</div>';
 	
 	echo '<h1>Övrigt Transport</h1>'; 
 	if(!mysqli_num_rows($OtherTransportRes)==0){
@@ -391,14 +460,14 @@ echo '<h1> Du har inga raporter <h1>';
 
 			echo '<h3>Biodrivmedel i köpta transporttjänster </h3>'; 
 			echo '<h4> Krav Ja/Nej </h4>';
-			echo $myrow['EnviormentReqPurchased'] ? "Ja" : "Nej"; 
+			echo $myrow['EnvironmentReqPurchased'] ? "Ja" : "Nej"; 
 		
 	
 		
 			echo '<h4> Om ja beskriv krav: </h4>';
-			if(!empty($myrow['EnviormentReqPurchasedDescription'])){
+			if(!empty($myrow['EnvironmentReqPurchasedDescription'])){
 					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
-					echo $myrow['EnviormentReqPurchasedDescription'];
+					echo $myrow['EnvironmentReqPurchasedDescription'];
 					echo '</textarea>';
 					
 				}else{
@@ -408,19 +477,23 @@ echo '<h1> Du har inga raporter <h1>';
 		
 		echo '<h3>Biodrivmedel i köpta transporttjänster </h3>'; 
 		echo '<table>';
+		echo '<tr>'; 
+		echo '<th>';
+		echo "Andel i procent:" ;
+		echo '</th>';
+		echo '</tr>';
+		
 		echo '<td>';
-		echo $myrow['BioTransportAmount'];
+		echo $myrow['BioTransportAmount'].' '.  '%';
 		echo '</td>';
-		echo '<td>';
-		echo "Andel i %" ;
-		echo '</td>';
+		
 		echo '</table>';
 		echo '<h4> Krav Ja/Nej </h4>';
-		echo $myrow['EnviormentReqOtherTransport'] ? "Ja" : "Nej"; 
+		echo $myrow['EnvironmentReqOtherTransport'] ? "Ja" : "Nej"; 
 		echo '<h4> Om ja beskriv krav: </h4>';
-			if(!empty($myrow['EnviormentReqOtherTransportDescription'])){
+			if(!empty($myrow['EnvironmentReqOtherTransportDescription'])){
 					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
-					echo $myrow['EnviormentReqOtherTransportDescription'];
+					echo $myrow['EnvironmentReqOtherTransportDescription'];
 					echo '</textarea>';
 					
 				}else{
@@ -431,7 +504,7 @@ echo '<h1> Du har inga raporter <h1>';
 		echo '<h4> Tillämpas inköpspolicyn för fordon  </h4>';
 		echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej"; 
 		echo '<h4> Tillämpas resepolicy </h4>';
-		echo $myrow['EnforementTravelPolicy'] ? "Ja" : "Nej"; 
+		echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej"; 
 		
 		
 		
@@ -461,7 +534,26 @@ echo '<h1> Du har inga raporter <h1>';
 	
 	
 	echo '<h1> Flygresor </h1>';
+	
+	$myrow = $OtherFlightRes->fetch_assoc();
+	echo '<table>';
+	echo '<tr>';
+	echo '<th> Totala flygutsläpp </th>';
+	echo '</tr>';
+	echo '<tr>';
+	echo '<td>';
+	if(!empty($myrow)){
+	echo $myrow['TotalAmount'] .' '.  'kg CO2' ;
+	}else{
+		echo "Inte angivet";
+	}
+	echo'</td>';
+	echo '</tr>';
+	echo '</table>';
 	if($selectedYear != -1 && !mysqli_num_rows($FlightRes)==0){	
+	
+	
+	
 	
 	 
 	echo '<table>';
@@ -494,13 +586,39 @@ echo '<h1> Du har inga raporter <h1>';
 	}
 	 echo '</table>';
 	 echo '<br>';
-	 echo "Placeholder för kommentarer";
+	 $myrow = $ReportSqlres->fetch_assoc();
+	 echo '<h3>Övriga Kommentarer </h3>'; 
+	 if(!empty($myrow['Comment'])){
+					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
+					echo $myrow['Comment'];
+					echo '</textarea>';
+					
+				}else{
+					echo "Ingen kommentar given";
+				}
+	 echo '<br>';
+	 echo '<br>';
 	 echo '<br>';
 	 
 	 
+	 
+	 
+	 echo '<table align = "right">';
+	 echo '<td>';
+	 echo '<button name="Ändra"  class = "menubutton flatbutton savebutton modalSave"> Ändra </button>'; // ändra css
+	 echo '</td>';
+	 echo '<td>';
+	 echo '<button name="Ta Bort"  class = "menubutton flatbutton savebutton modalSave"> Ta bort </button>';
+	 echo '</td>';
+	 echo '</table>';
+	 echo '<br>';
+	 echo '<br>';
+	 echo '<br>';
 	}
 	
+	
 	}
+	
 	
 	
 	
@@ -508,20 +626,7 @@ echo '<h1> Du har inga raporter <h1>';
 	</div>
 	</div>
 	</div>
-	<div>
-	<?php 
-	if($selectedYear != -1){
-	echo '<table>';
-	 echo '<td>';
-	 echo '<input class="menuitem flatbutton" name="EditReport" type="submit" id="EditReport" value="Ändra Rapport">';
-	 echo '</td>';
-	 echo '<td>';
-	 echo '<input class="menuitem flatbutton" name="EditReport" type="submit" id="EditReport" value="Ta bort Rapport">';
-	 echo '</td>';
-	 echo '</table>';
-	}
-	?> 
-	</div>
+	
 	
 	
 	</body>
