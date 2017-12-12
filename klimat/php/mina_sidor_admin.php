@@ -66,7 +66,7 @@
           $query = mysqli_query($dbc, "SELECT * FROM users WHERE Admin = '1'");
           $admin = mysqli_fetch_array($query);
   				echo 'Namn:';
-  				echo '<input type="text" name="realName" value="'.$admin['realName'].'">';
+  				echo '<input type="text" name="RealName" value="'.$admin['RealName'].'">';
   				echo '<br><br>';
   				echo 'Epost:';
   				echo '<input type="text" name="email" value="'.$admin['Email'].'">';
