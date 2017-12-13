@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <?php
-   include('session.php');
+include('session.php');
 ?>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>
-		Klimat allians Lund - Rapport
-	</title>
-	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
-	<link rel="stylesheet" type="text/css" href="../css/rapport-style.css">
-	<link rel="icon" href="../res/icon.png">
+    <meta charset="UTF-8">
+    <title>
+        Klimat allians Lund - Rapport
+    </title>
+    <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+    <link rel="stylesheet" type="text/css" href="../css/rapport-style.css">
+    <link rel="icon" href="../res/icon.png">
 </head>
 <body>
 <body>
 <div id="user">
-		<p>	User: <?php
-				echo $login_session;
-					?>
-			<form id="logout" align="right" style="float:right"name="form1" method="post" action="statistik.php">
-				<label>
-					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-				</label>
-			</form>
-		</p>
-	</div>
-	<div id="wrapper">
-		<a href="rapport.php">
-			<div id="logo">
-			</div>
-		</a>
+    <p>	User: <?php
+        echo $login_session;
+        ?>
+    <form id="logout" align="right" style="float:right"name="form1" method="post" action="statistik.php">
+        <label>
+            <input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+        </label>
+    </form>
+    </p>
+</div>
+<div id="wrapper">
+    <a href="rapport.php">
+        <div id="logo">
+        </div>
+    </a>
 
-		<div id="menu">
-			<ul>
-				<a href="rapport.php">
-					<li class="menuitem currentpage" >
-						Rapport
-					</li>
-				</a>
-				<a href="historik.php">
-					<li class="menuitem">
-						Historik
-					</li>
-				</a>
-				<a href="statistik.php">
-					<li class="menuitem">
-						Statistik
-					</li>
-				</a>
-				<a href="mina_sidor.php">
-					<li class="menuitem">
-						Mina Sidor
-					</li>
-				</a>
-				<a href="kontakt.php">
-					<li class="menuitem">
-						Kontakt
-					</li>
-				</a>
-			</ul>
-		</div>
-		<div id="content">
-		<form method="get" name="form" id="form">
-		 <div id="myModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
+    <div id="menu">
+        <ul>
+            <a href="rapport.php">
+                <li class="menuitem currentpage" >
+                    Rapport
+                </li>
+            </a>
+            <a href="historik.php">
+                <li class="menuitem">
+                    Historik
+                </li>
+            </a>
+            <a href="statistik.php">
+                <li class="menuitem">
+                    Statistik
+                </li>
+            </a>
+            <a href="mina_sidor.php">
+                <li class="menuitem">
+                    Mina Sidor
+                </li>
+            </a>
+            <a href="kontakt.php">
+                <li class="menuitem">
+                    Kontakt
+                </li>
+            </a>
+        </ul>
+    </div>
+    <div id="content">
+        <form method="get" name="form" id="form">
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
 
                     <input id="modalInputReportName" name="reportName" required='' type='text'>
                     <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
@@ -82,113 +82,90 @@
                     <button id = "saveCheck" name="Spara" form="form"  class = "menubutton flatbutton savebutton" style="left: 5px">
                         Spara
                     </button>
+                </div>
             </div>
-        </div>
 
-			<h1>
-				Inventering av CO<sub>2</sub> utsläpp
-			</h1>
-			<p>
+            <h1>
+                Inventering av CO<sub>2</sub> utsläpp
+            </h1>
+            <p>
 
-				<button name="Spara"  class = "menubutton flatbutton modalSave" >
-					Spara
-				</button>
-				<button class = "menubutton flatbutton rensa">
-					Rensa
-				</button>
-			</p>
+                <input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
+                <input type = "button" class = "menubutton flatbutton rensa" value ="Rensa"/>
+            </p>
 
-<?php
-require_once('mysqli_connect.php');
-// Hämtar alla unika kategorier
-$emissionsqlresult = NULL;
-$lokalcount = 0;
-$transportcount = 0;
-$flygresorcount = 0;
-$arrayindex = 0;
-$categoryTransport = "Transport";
-$categoryLokalerProcesser = "Lokaler och processer";
-echo '<form method="get" action="#">';
-echo '<input type="submit" name="delete" value="ta bort test data från databas" />';
-echo '</form>';
-// -------------- Transport ------------
-    if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
-        $emissionsql->bind_param("s", $categoryTransport);
-        $emissionsql->execute();
-        $emissionsqlresult = $emissionsql->get_result();
-    }
-	echo '<h1>';
-		echo '<a name="Transport">
+            <?php
+            require_once('mysqli_connect.php');
+            // Hämtar alla unika kategorier
+            $emissionsqlresult = NULL;
+            $lokalcount = 0;
+            $transportcount = 0;
+            $flygresorcount = 0;
+            $arrayindex = 0;
+            $categoryTransport = "Transport";
+            $categoryLokalerProcesser = "Lokaler och processer";
+            // -------------- Transport ------------
+            if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
+                $emissionsql->bind_param("s", $categoryTransport);
+                $emissionsql->execute();
+                $emissionsqlresult = $emissionsql->get_result();
+            }
+            echo '<h1>';
+            echo '<a name="Transport">
 				Transport
 			</a>';
-    echo '</h1>';
+            echo '</h1>';
 
-	echo '<form method="get" name="form" id="form">';
-    echo '<table name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
+            echo '<table name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
 
-   //Skapar rubriker i Transport table
-		echo '<th> Utsläppskälla </th>';
-		echo '<th> Inköpt mängd</th>';
-		echo '<th> Mått </th>';
-		echo '<th> Omräknings Faktor </th>';
-		echo '<th> Utsläpp CO<sub>2</sub> per MWh </th>';
-		echo '<th> Ton CO<sub>2</sub> </th>';
-		// While det finns rader i resultsetet
-    while ($myrow = $emissionsqlresult->fetch_assoc()) {
-        if (!empty($myrow)) {
-			// Ökar Transportcount för varje utsläppskälla med kategori transport
-			$transportcount++;
-			// Börjar skapa innehåll i table
-			echo '<tr name="row[]">';
-            echo '<td >';
-			//$myrow['emissionsource'] är namnet på utsläppskällan från mysql (den här delen är det som syns för användaren), den sätts in i en <td>
-				echo $myrow['EmissionSource'];
-            echo '</td>';
-			//skapar en hidden input som innehåller namnet på utsläppskällan, det är denna som används för att skicka in namnet på utsläppskällan  till mysql
-            echo '<input type="hidden" name="emissionSource[]" value=' . $myrow['EmissionSource'] . '>';
+            // Skapar rubriker till table
+            echo '<th> Utsläppskälla </th>';
+            echo '<th> Inköpt mängd</th>';
+            echo '<th> Mått </th>';
+            echo '<th> Omräknings Faktor </th>';
+            echo '<th> Utsläpp CO<sub>2</sub> per MWh </th>';
+            echo '<th> Ton CO<sub>2</sub> </th>';
+            while ($myrow = $emissionsqlresult->fetch_assoc()) {
+                if (!empty($myrow)) {
+                    $transportcount++;
+                    // Skapar innehåll i table
+                    echo '<tr name="row[]">';
+                    echo '<td >';
+                    echo $myrow['EmissionSource'];
 
+                    echo '</td>';
 
-			/* skapar en inputbox där användaren skriver in inköpt mängd, inputboxen får namnet amount[] och för varje utsläppskälla ökas vektorns storlek.
-			den får en funktion oninput= tonCO2($arryindex),arrayindex är index för raden. */
-				echo '<td>';
-				echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')"
-				onchange ="tonCO2(' . $arrayindex . ')"
+                    $str = htmlspecialchars($myrow['EmissionSource']);
+                    echo "<input type=\"hidden\" name=\"emissionSource[]\" value=\"$str\">";
+
+                    echo '<td>';
+                    echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" 
+				onchange ="tonCO2(' . $arrayindex . ')" 
 				class="inputbox"/>';
-				echo '</td>';
 
-			//skapar en selectbox som innehåller enheten för utsläppskällan, den får namn unit[]
+                    echo '</td>';
+                    echo '<td>';
+                    echo '<select name="unit[]">';
+                    echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
+                    echo '</select>';
+                    echo '</td>';
 
-				echo '<td>';
-				echo '<select name="unit[]">';
-				echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
-				echo '</select>';
-				echo '</td>';
+                    echo '<td>' . $myrow['convFactor'] . '</td>';
+                    echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
 
-				//Skapar en <td> för omräkningsfaktorn
-				//och en hidden input för att hämta ut datan med namn convFactor[].
+                    echo '<td id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
+                    echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
 
-				echo '<td>' . $myrow['convFactor'] . '</td>';
-				echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
+                    echo '<td name=tonCO[]>';
+                    echo '</td>';
+                    echo '<input type="hidden" name="ton[]">';
+                    echo '</tr>';
+                    $arrayindex++;
+                }
+            }
 
-				//Skapar en <td> för Utsläpp CO2 per MWh
-				//och en hidden input för att hämta ut datan med namn emissionCO2[].
-
-				echo '<td id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
-				echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
-
-				//Skapar en <td> för ton co2 med namn ton[], denna förändras när funktionen tonCO2 i amount[] triggas
-				//och en hidden input för att hämta ut datan med namn ton[].
-
-				echo '<td name=tonCO[]>';
-				echo '</td>';
-				echo '<input type="hidden" name="ton[]">';
-				echo '</tr>';
-				$arrayindex++;
-        }
-    }
-
-    echo '</table>';
-	echo'<div id="m_krav">
+            echo '</table>';
+            echo'<div id="m_krav">
 				<h3>Ställs miljökrav vid inköp av fordon</h3>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo" value="1"> Ja
@@ -214,22 +191,22 @@ echo '</form>';
 				<h3>
 					Andra miljökrav på transporttjänster (t.ex. sparsamkörning eller energieffektivitet)
 				</h3>
-
+				
 				<p>
 					Krav Ja/Nej
 				</p>
-
+				
 				<p>
 					<input class="radiobutton" type="radio" name="YesOrNo3" value="1"> Ja
 					<input class="radiobutton" type="radio" name="YesOrNo3" value="0" style="margin-bottom: 20px"> Nej
 				</p>
-
+				
 				<p>
 					Om ja beskriv krav:
 				</p>
 					<textarea class="comments" rows="4" cols="50" name="comment2" form="form" style="margin-bottom:20px"></textarea>
 				</div>
-
+				
 				<div id="inkops_rese">
 					<h3>
 						Inköps- och resepolicy
@@ -248,22 +225,22 @@ echo '</form>';
 						<input class="radiobutton" type="radio" name="YesOrNo5" value="1"> Ja
 						<input class="radiobutton" type="radio" name="YesOrNo5" value="0" style="margin-bottom: 20px"> Nej
 					</p>
-
+					
 				</div>';
 
-// ----------- Lokaler och processer ---------------
-if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
-        $emissionsql->bind_param("s", $categoryLokalerProcesser);
-        $emissionsql->execute();
-        $emissionsqlresult = $emissionsql->get_result();
-}
-	echo '<h1>';
-		echo '<a name="Lokaler och processer">
+            // ----------- Lokaler och processer ---------------
+            if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
+                $emissionsql->bind_param("s", $categoryLokalerProcesser);
+                $emissionsql->execute();
+                $emissionsqlresult = $emissionsql->get_result();
+            }
+            echo '<h1>';
+            echo '<a name="Lokaler och processer">
 				Lokaler och processer
 			</a>';
-    echo '</h1>';
+            echo '</h1>';
 
-	echo '<table name= ' . htmlspecialchars($categoryLokalerProcesser) . ' cellspacing="10">
+            echo '<table name= ' . htmlspecialchars($categoryLokalerProcesser) . ' cellspacing="10">
 					<thead>
 					</thead>
 					<tbody>
@@ -273,7 +250,7 @@ if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,E
 							</td>
 							<td>
 								<input name="placesOwned" type="text" class="inputbox"/>
-
+								
 							</td>
 							<td>
 								<p style="margin:5px">m<sup>2</sup></p>
@@ -292,124 +269,99 @@ if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,E
 						</tr>
 					</tbody>';
 
-   //Skapar rubriker i Lokaler och Processer table
-	echo '<thead>
+            // Skapar rubriker till table
+            echo '<thead>
 			<tr>';
-		echo '<th> Utsläppskälla </th>';
-		echo '<th> Inköpt mängd</th>';
-		echo '<th> Mått </th>';
-		echo '<th> Omräknings Faktor </th>';
-		echo '<th> Utsläpp CO<sub>2</sub> per MWh </th>';
-		echo '<th> Ton CO<sub>2</sub> </th>';
+            echo '<th> Utsläppskälla </th>';
+            echo '<th> Inköpt mängd</th>';
+            echo '<th> Mått </th>';
+            echo '<th> Omräknings Faktor </th>';
+            echo '<th> Utsläpp CO<sub>2</sub> per MWh </th>';
+            echo '<th> Ton CO<sub>2</sub> </th>';
 
-	echo '</tr>
+            echo '	</tr>
 		</thead>
 	<tbody id="stattableTransport">';
-	// While det finns rader i resultsetet
-    while ($myrow = $emissionsqlresult->fetch_assoc()) {
-        if (!empty($myrow)) {
+            while ($myrow = $emissionsqlresult->fetch_assoc()) {
+                if (!empty($myrow)) {
+                    $lokalcount++;
+                    // Skapar innehåll i table
+                    echo '<tr name="row[]">';
+                    echo '<td >';
+                    echo $myrow['EmissionSource'];
+                    echo '</td>';
 
-				// Ökar $lokalcount för varje utsläppskälla med kategori transport
+                    $str = htmlspecialchars($myrow['EmissionSource']);
+                    echo "<input type=\"hidden\" name=\"emissionSource[]\" value=\"$str\">";
 
-				$lokalcount++;
-
-				// Börjar skapa innehåll i table
-
-				echo '<tr name="row[]">';
-
-				//$myrow['emissionsource'] är namnet på utsläppskällan från mysql (den här delen är det som syns för användaren), den sätts in i en <td>
-
-				echo '<td >';
-				echo $myrow['EmissionSource'];
-				echo '</td>';
-
-				//skapar en hidden input som innehåller namnet på utsläppskällan, det är denna som används för att skicka in namnet på utsläppskällan  till mysql
-
-				echo '<input type="hidden" name="emissionSource[]" value=' . $myrow['EmissionSource'] . '>';
-
-				/* skapar en inputbox där användaren skriver in inköpt mängd, inputboxen får namnet amount[] och för varje utsläppskälla ökas vektorns storlek.
-				den får en funktion oninput= tonCO2($arryindex),arrayindex är index för raden. */
-
-				echo '<td>';
-				echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" onchange ="tonCO2(' . $arrayindex . ')"
+                    echo '<td>';
+                    echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" onchange ="tonCO2(' . $arrayindex . ')" 
 				class="inputbox"/>';
-				echo '</td>';
+                    echo '</td>';
+                    echo '<td>';
+                    echo '<select name="unit[]">';
+                    echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
+                    echo '</select>';
+                    echo '</td>';
 
-				//skapar en selectbox som innehåller enheten för utsläppskällan, den får namn unit[]
+                    echo '<td>' . $myrow['convFactor'] . '</td>';
+                    echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
 
-				echo '<td>';
-				echo '<select name="unit[]">';
-				echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
-				echo '</select>';
-				echo '</td>';
+                    echo '<td id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
+                    echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
 
-				//Skapar en <td> för omräkningsfaktorn
-				//och en hidden input för att hämta ut datan med namn convFactor[].
+                    echo '<td name=tonCO[]>';
+                    echo '</td>';// behövs matte
+                    echo '<input type="hidden" name="ton[]" value="0">';
+                    echo '</tr>';
+                    $arrayindex++;
+                }
+            }
+            echo '</tbody>';
 
-				echo '<td>' . $myrow['convFactor'] . '</td>';
-				echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
-
-				//Skapar en <td> för Utsläpp CO2 per MWh
-				//och en hidden input för att hämta ut datan med namn emissionCO2[].
-
-				echo '<td id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
-				echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
-
-				//Skapar en <td> för ton co2 med namn ton[], denna förändras när funktionen tonCO2 i amount[] triggas
-				//och en hidden input för att hämta ut datan med namn ton[].
-
-				echo '<td name=tonCO[]>';
-				echo '</td>';
-				echo '<input type="hidden" name="ton[]" value="0">';
-				echo '</tr>';
-				$arrayindex++;
-        }
-    }
-	echo '</tbody>';
-
-	echo '<thead>
+            echo '<thead>
 				<th>Produktion av förnybar energi</th>
 		  </thead>
 		<tbody>';
-	echo '<tr>
+            echo '<tr> 
 			<td>
 				Produktion av solvärme
 			</td>';
-	echo '<td> <input class="inputbox" name="producedSolarHeat" type="text"> </td>';
-	echo '<td>
+            echo '<td> <input class="inputbox" name="producedSolarHeat" type="text"> </td>';
+            echo '<td>
 			<p style="margin:5px">MWh</p>
 		 </td>';
-	echo '</tr>';
-	echo '<tr>
+            echo '</tr>';
+            echo '<tr> 
 			<td>
 				Produktion av solel
 			</td>';
-	echo '<td> <input class="inputbox" name="producedSolarElectr" type="text"> </td>';
-	echo '<td>
+            echo '<td> <input class="inputbox" name="producedSolarElectr" type="text"> </td>';
+            echo '<td>
 			<p style="margin:5px">MWh</p>
 		 </td>';
-	echo '</tr>
+            echo '</tr>
 		</tbody>';
 
-    echo '</table>';
+            echo '</table>';
 
-// ---------- Flygresor ----------
-$flygresorcount = 1;
-echo '<h1>
+            // ---------- Flygresor ----------
+            $flygresorcount = 1;
+            echo '<h1>
 					<a name="flygresor">
 						Flygresor
 					</a>
 				</h1>
-
+					
 				<table id="reportTable">
-					<thead>
+					<thead>	
 						<tr>
 							<th>Totala flygutsläpp</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td><input name="totalFlightKGCO2" type="text" class="inputbox"/>
+							<td><input name="totalFlightKGCO2" type="text" class="inputbox"/> 
 							</td>
 							<td>
 								<p style="margin-left: 2em;"> kg CO<sub>2</sub></p>
@@ -425,7 +377,7 @@ echo '<h1>
 						</tr>
 					</thead>
 					<tbody>
-
+					
 						<tr>
 							<td><input name="Departure[]"type="text" class="inputbox"/></td>
 							<td><input name="Destination[]" class="inputbox"/></td>
@@ -434,6 +386,7 @@ echo '<h1>
 						</tr>
 					</tbody>
 				</table>
+				<input type="hidden" name = "nbrofRowsFlight" id="nbrofRowsFlight" value="1" >
 				<button id="addrow">
 					Ny resa
 				</button>
@@ -441,213 +394,150 @@ echo '<h1>
 					<h3>Övriga kommentarer</h3>
 					<textarea name="OtherComment" class="comments" rows="8" cols="50"></textarea>
 					<br>
-					<button name="Spara" form="form" class = "menubutton flatbutton savebutton modalSave">
-						Spara
-					</button>
-
-					<button class = "menubutton flatbutton rensa">
-						Rensa
-					</button>
-
-
+					<input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
+					<input type = "button" class = "menubutton flatbutton rensa" value ="Rensa"/>	
 				</div>
 				</form>
 			</div>
 		</div>';
 
-if (isset($_GET['Spara'])) {
+            if (isset($_GET['Spara'])) {
 
-	// KOD FÖR ATT SKAPA NY RAPPORT
-	$yearinput = $_GET['theYear'];
-	$name = $_GET['personName'];
-	$repname = $_GET['reportName'];
-	$finished = $_GET['finished'];
-	$comment = $_GET['OtherComment'];
+                // KOD FÖR ATT SKAPA NY RAPPORT
+                $yearinput = $_GET['theYear'];
+                $name = $_GET['personName'];
+                $repname = $_GET['reportName'];
+                $finished = $_GET['finished'];
+                $comment = $_GET['OtherComment'];
+                $flygresorcount = $_GET['nbrofRowsFlight'];
+                if($finished){
+                    $finished = 1;
+                }else{
+                    $finsihed = 0;
+                }
+                $id = null;
+                if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (User,Year,NameofReport,NameofUser,finished, Comment) values (?,?,?,?,?,?)")){
+                    $createReportSql->bind_param("ssssis",$login_session,$yearinput,$repname,$name,$finished, $comment);
+                    $createReportSql->execute();
+                    $id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
+                    $createReportSql->close();
+                }
+                //SLUT PÅ KOD FÖR ATT SKAPA EN NY RAPPORT
 
-	if($finished){
-		$finished = 1;
-	}else{
-		$finsihed = 0;
-	}
+                if($id != null){
+                    // Transport insert
+                    for ($i = 0; $i < $transportcount; $i++) {
+                        $emissionSource = $_GET['emissionSource'][$i];
+                        $amount = $_GET['amount'][$i];
+                        $unit = $_GET['unit'][$i];
+                        $convFactor = $_GET['convFactor'][$i];
+                        $emissionCO2 = $_GET['emissionCO2'][$i];
+                        $Ton = $_GET['ton'][$i];
 
-	$id = null;
+                        if (!empty($amount)) {
+                            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
+                                $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                                $insertTransportsql->execute();
+                                $transportqlresult = $insertTransportsql->get_result();
+                                $insertTransportsql->close();
+                            }
+                        }
+                    }
+                    $lokalerstart = $transportcount;
+                    $lokalerlength = $transportcount + $lokalcount;
 
-	if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (User,Year,NameofReport,NameofUser,finished, Comment) values (?,?,?,?,?,?)")){
-                $createReportSql->bind_param("ssssis",$login_session,$yearinput,$repname,$name,$finished, $comment);
-                $createReportSql->execute();
-				$id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
-				$createReportSql->close();
-    }
-			//SLUT PÅ KOD FÖR ATT SKAPA EN NY RAPPORT
+                    //Övrigt Transport insert
+                    $envReq = $_GET['YesOrNo'];
+                    $envReqDesc = $_GET['comment1'];
 
-	if($id != null){
-	// Transport insert
-    for ($i = 0; $i < $transportcount; $i++) {
-        $emissionSource = $_GET['emissionSource'][$i];
-        $amount = $_GET['amount'][$i];
-        $unit = $_GET['unit'][$i];
-        $convFactor = $_GET['convFactor'][$i];
-        $emissionCO2 = $_GET['emissionCO2'][$i];
-        $Ton = $_GET['ton'][$i];
+                    $bioTranspAmount = $_GET['bioTranspAmount'];
+                    $bioTransp = $_GET['YesOrNo2'];
 
-        if (!empty($amount)) {
-            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
-                $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
-                $insertTransportsql->execute();
-                $transportqlresult = $insertTransportsql->get_result();
-                $insertTransportsql->close();
+                    $otherEnvReq = $_GET['YesOrNo3'];
+                    $otherEnvReqDesc = $_GET['comment2'];
+
+                    $VehicPolicy = $_GET['YesOrNo4'];
+                    $travelPolicy = $_GET['YesOrNo5'];
+
+                    if ($insertOtherTransportsql = mysqli_prepare($dbc,
+                        "INSERT INTO OtherTransport(EnvironmentReqPurchased, EnvironmentReqPurchasedDescription,BioTransport, BioTransportAmount, 
+	EnvironmentReqOtherTransportDescription, EnvironmentReqOtherTransport, EnforcementPurchasePolicyVehicle, EnforcementTravelPolicy, Id)
+	values (?,?,?,?,?,?,?,?,?)"))
+                    {
+                        $insertOtherTransportsql->bind_param("isidsiiii", $envReq , $envReqDesc , $bioTransp,
+                            $bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $id);
+                        $insertOtherTransportsql->execute();
+                        $otherTransportqlresult = $insertOtherTransportsql->get_result();
+                        $insertOtherTransportsql->close();
+                    }
+
+                    // Lokaler och Processer insert
+                    for ($i = $lokalerstart; $i < $lokalerlength; $i++) {
+                        $emissionSource = $_GET['emissionSource'][$i];
+                        $amount = $_GET['amount'][$i];
+                        $unit = $_GET['unit'][$i];
+                        $convFactor = $_GET['convFactor'][$i];
+                        $emissionCO2 = $_GET['emissionCO2'][$i];
+                        $Ton = $_GET['ton'][$i];
+
+                        if (!empty($amount)) {
+                            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
+                                $insertPlacesProcesses->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                                $insertPlacesProcesses->execute();
+                                $placesProcessessqlresult = $insertPlacesProcesses->get_result();
+                                $insertPlacesProcesses->close();
+                            }
+                        }
+                    }
+
+                    //Övrig lokaler och processer insert
+                    $producedSolarHeat = $_GET['producedSolarHeat'];
+                    $producedSolarElectr = $_GET['producedSolarElectricity'];
+                    $placesOwned = $_GET['placesOwned'];
+                    $placesRented = $_GET['placesRented'];
+                    if ($insertOtherPlacesProcesses = mysqli_prepare($dbc,
+                        "INSERT INTO OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,Id) values (?,?,?,?,?)"))
+                    {
+                        $insertOtherPlacesProcesses->bind_param("iiddi", $placesOwned, $placesRented, $producedSolarHeat, $producedSolarElectr, $id);
+                        $insertOtherPlacesProcesses->execute();
+                        $otherPlacesProcessessqlresult = $insertOtherPlacesProcesses->get_result();
+                        $insertOtherPlacesProcesses->close();
+                    }
+
+                    // Insert Flygresor
+                    for ($i = 0; $i <$flygresorcount; $i++) {
+                        $departure = $_GET['Departure'][$i];
+                        $destination = $_GET['Destination'][$i];
+                        $lengthKM = $_GET['lengthKM'][$i];
+                        $KgCO2 = $_GET['kgCO2'][$i];
+
+                        if (!empty($departure) && !empty($destination)) {
+                            if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
+                                $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
+                                $insertFlightsql->execute();
+                                $transportqlresult = $insertFlightsql->get_result();
+                                $insertFlightsql->close();
+                            }
+                        }
+                    }
+
+                    $flightTotKGCO2 = $_GET['totalFlightKGCO2'];
+
+                    if(!empty($flightTotKGCO2)){
+                        if ($insertOtherFlightsql = mysqli_prepare($dbc, "INSERT INTO OtherFlight(TotalAmount, Id) values (?,?)")) {
+                            $insertOtherFlightsql->bind_param("di", $flightTotKGCO2, $id);
+                            $insertOtherFlightsql->execute();
+                            $transportqlresult = $insertOtherFlightsql->get_result();
+                            $insertOtherFlightsql->close();
+                        }
+                    }
+                }
             }
-        }
-    }
-	$lokalerstart = $transportcount;
-	$lokalerlength = $transportcount + $lokalcount;
-
-	//Övrigt Transport insert
-	$envReq = $_GET['YesOrNo'];
-	$envReqDesc = $_GET['comment1'];
-
-	$bioTranspAmount = $_GET['bioTranspAmount'];
-	$bioTransp = $_GET['YesOrNo2'];
-
-	$otherEnvReq = $_GET['YesOrNo3'];
-	$otherEnvReqDesc = $_GET['comment2'];
-
-	$VehicPolicy = $_GET['YesOrNo4'];
-	$travelPolicy = $_GET['YesOrNo5'];
-	$comment = $_GET['comment3'];
-	if ($insertOtherTransportsql = mysqli_prepare($dbc,
-	"INSERT INTO OtherTransport(EnviormentReqPurchased, EnviormentReqPurchasedDescription,BioTransport, BioTransportAmount,
-	EnviormentReqOtherTransportDescription, EnviormentReqOtherTransport, EnforcementPurchasePolicyVehicle, EnforementTravelPolicy, Comment, Id)
-	values (?,?,?,?,?,?,?,?,?,?)"))
-	{
-        $insertOtherTransportsql->bind_param("isidsiiisi", $envReq , $envReqDesc , $bioTransp,
-		$bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $comment , $id);
-        $insertOtherTransportsql->execute();
-        $otherTransportqlresult = $insertOtherTransportsql->get_result();
-        $insertOtherTransportsql->close();
-    }
-
-	// Lokaler och Processer insert
-	for ($i = $lokalerstart; $i < $lokalerlength; $i++) {
-        $emissionSource = $_GET['emissionSource'][$i];
-        $amount = $_GET['amount'][$i];
-        $unit = $_GET['unit'][$i];
-        $convFactor = $_GET['convFactor'][$i];
-        $emissionCO2 = $_GET['emissionCO2'][$i];
-        $Ton = $_GET['ton'][$i];
-
-        if (!empty($amount)) {
-            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
-                $insertPlacesProcesses->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
-                $insertPlacesProcesses->execute();
-                $placesProcessessqlresult = $insertPlacesProcesses->get_result();
-                $insertPlacesProcesses->close();
-            }
-        }
-    }
-
-	//Övrig lokaler och processer insert
-	$producedSolarHeat = $_GET['producedSolarHeat'];
-	$producedSolarElectr = $_GET['producedSolarElectricity'];
-
-	$placesOwned = $_GET['placesOwned'];
-	$placesRented = $_GET['placesRented'];
-	 if ($insertOtherPlacesProcesses = mysqli_prepare($dbc,
-	 "INSERT INTO OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,Id) values (?,?,?,?,?)"))
-	{
-        $insertOtherPlacesProcesses->bind_param("iiddi", $placesOwned, $placesRented, $producedSolarHeat, $producedSolarElectr, $id);
-        $insertOtherPlacesProcesses->execute();
-        $otherPlacesProcessessqlresult = $insertOtherPlacesProcesses->get_result();
-        $insertOtherPlacesProcesses->close();
-    }
-
-	// Insert Flygresor
-	for ($i = 0; $i <$flygresorcount; $i++) {
-        $departure= $_GET['Departure'][$i];
-        $destination = $_GET['Destination'][$i];
-        $lengthKM = $_GET['lengthKM'][$i];
-        $KgCO2 = $_GET['kgCO2'][$i];
-
-        if (!empty($departure) && !empty($destination)) {
-            if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
-                $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
-                $insertFlightsql->execute();
-                $transportqlresult = $insertFlightsql->get_result();
-                $insertFlightsql->close();
-            }
-        }
-    }
-
-	$flightTotKGCO2 = $_GET['totalFlightKGCO2'];
-
-	if(!empty($flightTotKGCO2)){
-		if ($insertOtherFlightsql = mysqli_prepare($dbc, "INSERT INTO OtherFlight(TotalAmount, Id) values (?,?)")) {
-			$insertOtherFlightsql->bind_param("di", $flightTotKGCO2, $id);
-			$insertOtherFlightsql->execute();
-			$transportqlresult = $insertOtherFlightsql->get_result();
-			$insertOtherFlightsql->close();
-		}
-	}
-}
-}
-?>
-</table>
-	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
-	<script type="text/javascript" src="../js/proto-script.js"></script>
-	<script type="text/javascript" src="../js/rapport-script.js"></script>
+            ?>
+            </table>
+            <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
+            <script type="text/javascript" src="../js/rapport-script.js"></script>
+            <script type="text/javascript" src="../js/rapport-script-2.js"></script>
+            <script type="text/javascript" src="../js/proto-script.js"></script>
 </body>
-<script>
-    function tonCO2(nbr) {
-        var amount = document.getElementsByName("amount[]")[nbr].value;
-        var convFac = document.getElementsByName("convFactor[]")[nbr].value;
-        var emission = document.getElementsByName("emissionCO2[]")[nbr].value;
-        amount = noLetters(amount);
-        update(nbr, amount, emission, convFac);
-        amount = noPeriodFirst(amount);
-        update(nbr, amount, emission, convFac);
-        amount = checkTwoDot(amount);
-        update(nbr, amount, emission, convFac);
-        document.getElementsByName("amount[]")[nbr].value = amount;
-    }
-    function update(nbr, amount, emission, convFac) {
-        var amount1 = amount.replace(',', '.');
-        document.getElementsByName("amount[]")[nbr].value = amount;
-        var ton = amount1 * emission * convFac;
-        if (!isNaN(ton) && ton > 0) {
-            document.getElementsByName("tonCO[]")[nbr].innerHTML = round(ton, 2);
-            document.getElementsByName("ton[]")[nbr].value = round(ton, 2);
-        } else {
-            document.getElementsByName("tonCO[]")[nbr].innerHTML = "";
-            document.getElementsByName("ton[]")[nbr].innerHTML = "";
-        }
-    }
-    function noLetters(str) {
-
-        str = str.replace(/[^0-9,.]/gi, '');
-        return str;
-    }
-    function noPeriodFirst(str) {
-        if (str.charAt(0) == '.') {
-            str = setCharAt(str, 0, "");
-        }
-        if (str.charAt(0) == ',') {
-            str = setCharAt(str, 0, "");
-        }
-        return str;
-    }
-    function checkTwoDot(str) {
-        if (str.match(/[.,]/gi).length > 1) {
-            str = setCharAt(str, str.length - 1, '');
-            return str;
-        }
-        return str;
-    }
-    function setCharAt(str, index, chr) {
-        if (index > str.length - 1) return str;
-        return str.substr(0, index) + chr + str.substr(index + 1);
-    }
-    function round(value, decimals) {
-        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-    }
-</script>
 </html>
