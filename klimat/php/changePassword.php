@@ -30,11 +30,17 @@
     if (!(empty($_SESSION['message']))){
         header('Location: mina_sidor.php');
     } else {
-        $thisName = $row['Name'];
-        $changePassMySQL = "UPDATE Users SET Password='$passwordNew' WHERE Name='$thisName'";
+        $changePassMySQL = "UPDATE Users SET Password='$passwordNew' WHERE Name='$login_session'";
         mysqli_query($dbc, $changePassMySQL);
         $_SESSION['message']['passChanged'] = 'Lösenordet är nu ändrat.';
-        header('Location: mina_sidor.php');
+
+        $adminCheckMysql = mysqli_query($dbc,"SELECT Admin FROM Users WHERE Name = '$login_session'");
+        $adminCheck = mysqli_fetch_array($adminCheckMysql);
+        if($adminCheck['Admin']){
+          header('Location: mina_sidor_admin.php');
+        } else {
+          header('Location: mina_sidor.php');
+        }
     }
   }
 

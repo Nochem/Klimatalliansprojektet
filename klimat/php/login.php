@@ -6,19 +6,41 @@
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$myusername = mysqli_real_escape_string($dbc,$_POST['username']);
 			$mypassword = mysqli_real_escape_string($dbc,$_POST['password']);
-			$sql = "SELECT Name, Password FROM Users WHERE Name = '$myusername' and password = '$mypassword'";
+			$sql = "SELECT Name, Password, Active FROM Users WHERE Name = '$myusername' and password = '$mypassword' and Active = '1'";
 			$result = mysqli_query($dbc,$sql);
 			$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-			$active = $row['active'];
+			$active = $row['Active'];
 			$count = mysqli_num_rows($result);
 			if($count == 1){
 				$_SESSION['login_user'] = $myusername;
-				if($myusername == "testadmin"){
-					header("Location: anvandare.php");
-				}else{
-					header("location: rapport.php");
+				$date_and_time = date('Y-m-d H:i:s');
+				function get_client_ip() {
+    			$ipaddress = '';
+    			if (isset($_SERVER['HTTP_CLIENT_IP']))
+        		$ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    			else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        		$ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    			else if(isset($_SERVER['HTTP_X_FORWARDED']))
+        		$ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    			else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+        		$ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    			else if(isset($_SERVER['HTTP_FORWARDED']))
+        		$ipaddress = $_SERVER['HTTP_FORWARDED'];
+    			else if(isset($_SERVER['REMOTE_ADDR']))
+        		$ipaddress = $_SERVER['REMOTE_ADDR'];
+    			else
+        		$ipaddress = 'UNKNOWN';
+    			return $ipaddress;
 				}
+				$ip=get_client_ip();
+				mysqli_query($dbc, "UPDATE Users SET LastLogIn='$date_and_time', IpAddress='$ip' WHERE Name='$myusername'");
+				if($myusername == "testadmin"){
+	 					header("Location: anvandare.php");
+	 			}else{
+	 					header("location: rapport.php");
+	 			}
 				session_register("myusername"); //Får ej ligga över header
+
 			}else{
 				$error = "Användarnamn eller Lösenord felaktigt";
 			}
