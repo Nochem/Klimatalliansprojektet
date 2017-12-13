@@ -1,3 +1,6 @@
+<?php
+   include('session.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +20,8 @@
 	<div id="user">
 
 		<p id="username">
-			User: Företag
-			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+			User: <?php echo $row['Name']; ?>
+			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
 				</label>
@@ -26,33 +29,33 @@
 		</p>
 	</div>
 	<div id="wrapper">
-		<a href="rapport.html">
+		<a href="rapport.php">
 			<div id="logo">
 			</div>
 		</a>
 		<div id="menu">
 			<ul>
-				<a href="rapport.html">
+				<a href="rapport.php">
 					<li class="menuitem" >
 						Rapport
 					</li>
 				</a>
-				<a href="historik.html">
+				<a href="historik.php">
 					<li class="menuitem">
 						Historik
 					</li>
 				</a>
-				<a href="statistik.html">
+				<a href="statistik.php">
 					<li class="menuitem">
 						Statistik
 					</li>
 				</a>
-				<a href="mina_sidor.html">
+				<a href="mina_sidor.php">
 					<li class="menuitem">
 						Mina Sidor
 					</li>
 				</a>
-				<a href="kontakt.html">
+				<a href="kontakt.php">
 					<li class="menuitem currentpage">
 						Kontakt
 					</li>

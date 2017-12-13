@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -10,64 +11,68 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
+	<div id="user">
+		<p id="username">
+			User: Företag
+
+			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+	</div>
+
 	<div id="wrapper">
-		<a href="rapport.html"></a>
-		<div id="logo">
-		</div>
+		<a href="rapport.html">
+			<div id="logo">
+			</div>
+		</a>
 		<div id="menu">
 			<ul>
-				<li class="menuitem">
-					<a href="rapport.html">
+				<a href="rapport.html">
+					<li class="menuitem" >
 						Rapport
-					</a>
-				</li>
-				<li class="menuitem">
-					<a href="historik.html">
-						Historik
-					</a>
-				</li>
-				<li class="menuitem currentpage">
-					<a href="statistik.html">
-						Statistik
-					</a>
-				</li>
-				<li class="menuitem">
-					<a href="mina_sidor.html">
-						Mina Sidor
-					</a>
-				</li>
-					<li class="menuitem">
-						<a href="kontakt.html">
-							Kontakt
-						</a>
 					</li>
-				<li>
-					<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
-						<label>
-							<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-						</label>
-					</form>
-				</li>
+				</a>
+				<a href="historik.html">
+					<li class="menuitem">
+						Historik
+					</li>
+				</a>
+				<a href="statistik.html">
+					<li class="menuitem currentpage">
+						Statistik
+					</li>
+				</a>
+				<a href="mina_sidor.html">
+					<li class="menuitem">
+						Mina Sidor
+					</li>
+				</a>
+				<a href="kontakt.html">
+					<li class="menuitem">
+						Kontakt
+					</li>
+				</a>
 
 			</ul>
 
 		</div>
 
-		<style>
-		.chart-container{
-			width:600px;
-			height:600px;
-			float: left;
-			margin-left:20em;
-		}
-		</style>
 		<div class="chart-container">
+			Se statistik mellan
+			<select id="yearselectfrom" class="yearselectfrom">
+				<option value="2015">2015</option>
+
+			</select>
+			och
+			<select id="yearselectto" class="yearselectto">
+
+				<option value="2019">2019</option>
+			</select>
 			<div id="chart">
-				<form name="hej">
-					2014<input type="checkbox" checked="true" name="Transport">
-					2015<input type="checkbox" checked="true" name="Lokala processer">
-					2016<input type="checkbox" checked="true" name="Flygresor">
-				</form>
+
 				<canvas id="myChart" styles="width=100px height=100px"></canvas>
 			</div>
 		</div>

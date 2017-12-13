@@ -1,38 +1,49 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			Klimat allians Lund - Admin redigera fält
-		</title>
-		<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
-		<link rel="icon" href="../res/icon.png">
-	</head>
-	<body>
-		<div id="wrapper">
-			<div id="logo">
-			</div>
-			<div id="menu">
-				<ul>
+<head>
+	<meta charset="UTF-8">
+	<title>
+		Klimat allians Lund - Admin redigera fält
+	</title>
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+	<link rel="icon" href="../res/icon.png">
+</head>
+<body>
+	<div id="user">
+		<p id="username">
+			User: Admin
+
+			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+	</div>
+	<div id="wrapper">
+		<div id="logo">
+		</div>
+		<div id="menu">
+			<ul>
+				<a href="statistik_admin.html">
 					<li class="menuitem">
-						<a href="statistik_admin.html">
-							Statistik
-						</a>
+						Statistik
 					</li>
 					<li class="menuitem currentpage">
 						<a href="admin_redigera.html">
 							Redigera fält
 						</a>
 					</li>
+				</a>
+				<a href="anvandare.html">
 					<li class="menuitem">
-						<a href="anvandare.html">
-							Användare
-						</a>
+						Användare
 					</li>
+				</a>
+				<a href="mina_sidor_admin.html">
 					<li class="menuitem">
-						<a href="mina_sidor_admin.html">
-							Mina Sidor
-						</a>
+						Mina Sidor
 					</li>
 
 					<li>
@@ -71,10 +82,10 @@
 								<p>0</p>
 							</td>
 							<td>
-								<button type="button">Redigera</button>
+								<button class="flatbutton" type="button">Redigera</button>
 							</td>
 							<td>
-								<button type="button">Ta bort</button>
+								<button class="flatbutton" type="button">Ta bort</button>
 							</td>
 						</tr>
 						<tr>
@@ -91,10 +102,10 @@
 								<p>0,271</p>
 							</td>
 							<td>
-								<button type="button">Redigera</button>
+								<button class="flatbutton" type="button">Redigera</button>
 							</td>
 							<td>
-								<button type="button">Ta bort</button>
+								<button class="flatbutton" type="button">Ta bort</button>
 							</td>
 						</tr>
 						<tr>
@@ -111,10 +122,10 @@
 								<p>0</p>
 							</td>
 							<td>
-								<button type="button">Redigera</button>
+								<button class="flatbutton" type="button">Redigera</button>
 							</td>
 							<td>
-								<button type="button">Ta bort</button>
+								<button class="flatbutton" type="button">Ta bort</button>
 							</td>
 						</tr>
 						<tr>
@@ -131,15 +142,15 @@
 								<p>0,2344</p>
 							</td>
 							<td>
-								<button type="button">Redigera</button>
+								<button class="flatbutton" type="button">Redigera</button>
 							</td>
 							<td>
-								<button type="button">Ta bort</button>
+								<button class="flatbutton" type="button">Ta bort</button>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<button type="button">Lägg till fält</button>
+								<button class="flatbutton" type="button">Lägg till fält</button>
 							</td>
 						</tr>
 					</table>
@@ -150,4 +161,4 @@
 		<script type="text/javascript" src="../js/proto-script.js"></script>
 
 	</body>
-</html>
+	</html>

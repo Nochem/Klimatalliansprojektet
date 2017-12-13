@@ -1,3 +1,7 @@
+<?php
+   include('session.php');
+?>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -18,8 +22,8 @@
 <body>
 	<div id="user">
 		<p id="username">
-			User: Admin
-			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+			User: <?php echo $row['Name']; ?>
+			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
 				</label>
@@ -31,22 +35,22 @@
 		</div>
 		<div id="menu">
 			<ul>
-				<a href="statistik_admin.html">
-					<li class="menuitem currentpage">
-						Statistik
-					</li>
-				</a>
-				<a href="admin_redigera.html">
-					<li class="menuitem">
-						Redigera fält
-					</li>
-				</a>
-				<a href="anvandare.html">
+				<a href="anvandare.php">
 					<li class="menuitem">
 						Användare
 					</li>
 				</a>
-				<a href="mina_sidor_admin.html">
+				<a href="statistik_admin.php">
+					<li class="menuitem currentpage">
+						Statistik
+					</li>
+				</a>
+				<a href="admin_redigera.php">
+					<li class="menuitem">
+						Redigera fält
+					</li>
+				</a>
+				<a href="mina_sidor_admin.php">
 					<li class="menuitem">
 						Mina Sidor
 					</li>
