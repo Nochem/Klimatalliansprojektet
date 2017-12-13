@@ -351,8 +351,8 @@ if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,E
     echo '</table>';
 	
 // ---------- Flygresor ----------
-$flygresorcount = 1;
-echo '<h1>
+	$flygresorcount = 1;
+	echo '<h1>
 					<a name="flygresor">
 						Flygresor
 					</a>
@@ -437,7 +437,7 @@ if (isset($_GET['Spara'])) {
     }
 			//SLUT PÅ KOD FÖR ATT SKAPA EN NY RAPPORT
 			
-	if($id != null){
+if($id != null){
 	// Transport insert
     for ($i = 0; $i < $transportcount; $i++) {
         $emissionSource = $_GET['emissionSource'][$i];
@@ -520,7 +520,7 @@ if (isset($_GET['Spara'])) {
 	
 	// Insert Flygresor
 	for ($i = 0; $i <$flygresorcount; $i++) {
-        $departure= $_GET['Departure'][$i];
+        $departure = $_GET['Departure'][$i];
         $destination = $_GET['Destination'][$i];
         $lengthKM = $_GET['lengthKM'][$i];
         $KgCO2 = $_GET['kgCO2'][$i];
@@ -550,61 +550,8 @@ if (isset($_GET['Spara'])) {
 ?>
 </table>
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
-	<script type="text/javascript" src="../js/proto-script.js"></script>
 	<script type="text/javascript" src="../js/rapport-script.js"></script>
+	<script type="text/javascript" src="../js/rapport-script-2.js"></script>
+	<script type="text/javascript" src="../js/proto-script.js"></script>
 </body>
-<script>
-    function tonCO2(nbr) {
-        var amount = document.getElementsByName("amount[]")[nbr].value;
-        var convFac = document.getElementsByName("convFactor[]")[nbr].value;
-        var emission = document.getElementsByName("emissionCO2[]")[nbr].value;
-        amount = noLetters(amount);
-        update(nbr, amount, emission, convFac);
-        amount = noPeriodFirst(amount);
-        update(nbr, amount, emission, convFac);
-        amount = checkTwoDot(amount);
-        update(nbr, amount, emission, convFac);
-        document.getElementsByName("amount[]")[nbr].value = amount;
-    }
-    function update(nbr, amount, emission, convFac) {
-        var amount1 = amount.replace(',', '.');
-        document.getElementsByName("amount[]")[nbr].value = amount;
-        var ton = amount1 * emission * convFac;
-        if (!isNaN(ton) && ton > 0) {
-            document.getElementsByName("tonCO[]")[nbr].innerHTML = round(ton, 2);
-            document.getElementsByName("ton[]")[nbr].value = round(ton, 2);
-        } else {
-            document.getElementsByName("tonCO[]")[nbr].innerHTML = "";
-            document.getElementsByName("ton[]")[nbr].innerHTML = "";
-        }
-    }
-    function noLetters(str) {
-        
-        str = str.replace(/[^0-9,.]/gi, '');
-        return str;
-    }
-    function noPeriodFirst(str) {
-        if (str.charAt(0) == '.') {
-            str = setCharAt(str, 0, "");
-        }
-        if (str.charAt(0) == ',') {
-            str = setCharAt(str, 0, "");
-        }
-        return str;
-    }
-    function checkTwoDot(str) {
-        if (str.match(/[.,]/gi).length > 1) {
-            str = setCharAt(str, str.length - 1, '');
-            return str;
-        }
-        return str;
-    }
-    function setCharAt(str, index, chr) {
-        if (index > str.length - 1) return str;
-        return str.substr(0, index) + chr + str.substr(index + 1);
-    }
-    function round(value, decimals) {
-        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-    }
-</script>
 </html>
