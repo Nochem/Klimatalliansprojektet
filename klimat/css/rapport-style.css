@@ -23,6 +23,18 @@
 	text-align: left;
 	height:10px;
 }
+#content p{
+	text-align: left;
+}
+#content h3{
+	font-size: 18px;
+	font-weight: normal;
+}
+.inputbox{
+	float: left;
+	width:120px;
+	height:30px;
+}
 #addrow{
 	height:50px;
 	font-family: 'Barlow',sans-serif;
@@ -38,6 +50,21 @@
 #addrow:hover{
 	background-color: #468DFF;
 	border: 1px solid gray;
+}
+.savebutton{
+	background-color: #00ff00;
+
+}
+.savebutton:hover{
+	background-color: #04d600;
+	border-color: #04d600;
+}
+.resetbutton{
+	background-color: #f40000;
+}
+.resetbutton:hover{
+	background-color: #f50000;
+	border-color: #de2c00;
 }
 .menubutton{
 	position: relative;
@@ -69,8 +96,7 @@
 #text{
 	font-family: 'Barlow',sans-serif;
 	font-size:18px;
-}
-.modal {
+}.modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
