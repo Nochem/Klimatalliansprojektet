@@ -1,5 +1,8 @@
 <?php
    include('session.php');
+   if($row['Admin'] == 0){
+     header("location: rapport.php");
+   }
 ?>
 <!DOCTYPE html>
 <html>
