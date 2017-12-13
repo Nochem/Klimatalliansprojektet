@@ -1,9 +1,9 @@
 $(document).ready(function(){
 	var edited = false;
-	
+
 	var edited = false;
-	
-	
+
+
 
      $(".rensa").click(function(){
         var r = confirm("Rensa inmatad data?")
@@ -20,13 +20,13 @@ $(document).ready(function(){
 
         }
     })
-	
+
 	$(".inputbox").keypress(function(){
             edited = true;
     })
-	
-	
-    
+
+
+
 	// window.onbeforeunload = function(){
 	// 	return "";
 	// };
@@ -40,9 +40,9 @@ $(document).ready(function(){
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 
-	// When the user clicks the button, open the modal 	
+	// When the user clicks the button, open the modal
 	$(".modalSave").click(function() {
-		
+
 	    modal.style.display = "block";
 
 	})
@@ -69,7 +69,7 @@ $(document).ready(function(){
 			var year = $("#modalInputYear");
 			var reportName = $("#modalInputReportName");
 			var name = $("#modalInputName");
-			
+
 			if(year.val()<=n && year.val()>1999){
 				confirm("Rapport sparad");
 				edited = false;
@@ -101,8 +101,6 @@ $(document).ready(function(){
 			return false;
 		}
 	})
-	
-
 	$("#addrow").click(function(){
 		var table = document.getElementById("reportTable");
 		var placement = table.length;
