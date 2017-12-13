@@ -13,7 +13,6 @@
 	height:30px;
 }
 #content input{
-	float: left;
 	width:120px;
 	height:30px;
 }
@@ -31,7 +30,6 @@
 	font-weight: normal;
 }
 .inputbox{
-	float: left;
 	width:120px;
 	height:30px;
 }
