@@ -134,6 +134,17 @@
 						</p>
 
 					</form>
+          <?php
+            ob_start();
+            $query = mysqli_query($dbc, "SELECT LastLogIn, IpAddress FROM Users WHERE Name='$login_session'");
+            $Date_Time_Ip = mysqli_fetch_array($query);
+            echo '<p>';
+            echo 'Senaste inloggning: '.$Date_Time_Ip['LastLogIn'];
+            echo '</p>';
+            echo '<p>';
+            echo 'Från ip: '.$Date_Time_Ip['IpAddress'];
+            echo '</p>';
+          ?>
 				</div>
 			</div>
 			<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
