@@ -63,7 +63,7 @@ while ($row = mysqli_fetch_assoc($response)) {
             // Enhet
             echo '<td>';
             echo '<select name="unit[]">';
-            echo '<option 
+            echo '<option
 	value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .
                 '</option>';
             echo '</select>';
@@ -180,7 +180,7 @@ if (isset($_GET['delete'])) {
 
 
     function noLetters(str) {
-        
+
         str = str.replace(/[^0-9,.]/gi, '');
         return str;
 

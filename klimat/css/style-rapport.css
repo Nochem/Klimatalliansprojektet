@@ -1,0 +1,6 @@
+#follower{
+    position:fixed;
+}
+#content{
+    overflow: scroll;
+}

@@ -1,95 +1,80 @@
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			Klimat allians Lund -Statistik
-		</title>
-		<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		Klimat allians Lund - Statistik
+	</title>
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+	<link rel="stylesheet" type="text/css" href="../css/statistik-style.css">
+	<link rel="icon" href="../res/icon.png">
+</head>
+<body>
+	<div id="wrapper">
+		<a href="rapport.html"></a>
+		<div id="logo">
+		</div>
+		<div id="menu">
+			<ul>
+				<li class="menuitem">
+					<a href="rapport.html">
+						Rapport
+					</a>
+				</li>
+				<li class="menuitem">
+					<a href="historik.html">
+						Historik
+					</a>
+				</li>
+				<li class="menuitem currentpage">
+					<a href="statistik.html">
+						Statistik
+					</a>
+				</li>
+				<li class="menuitem">
+					<a href="mina_sidor.html">
+						Mina Sidor
+					</a>
+				</li>
+					<li class="menuitem">
+						<a href="kontakt.html">
+							Kontakt
+						</a>
+					</li>
+				<li>
+					<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.html">
+						<label>
+							<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+						</label>
+					</form>
+				</li>
+
+			</ul>
+
+		</div>
+
 		<style>
-			#yeardrop{
-				width:500px;
-				height: 40px;
-			}
+		.chart-container{
+			width:600px;
+			height:600px;
+			float: left;
+			margin-left:20em;
+		}
 		</style>
-		<link rel="icon" href="../res/icon.png">
-	</head>
-	<body>
-		<div id="wrapper">
-			<div id="logo">
-			</div>
-			<div id="menu">
-				<ul>
-					<li class="menuitem">
-						<a href="rapport.html">
-							Rapport
-						</a>
-					</li>
-					<li class="menuitem">
-						<a href="historik.html">
-							Historik
-						</a>
-					</li>
-					<li class="menuitem">
-						<a href="statistik.html">
-							Statistik
-						</a>
-					</li>
-					<li class="menuitem">
-						<a href="mina_sidor.html">
-							Mina Sidor
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div id="content">
-				<form action="">
-					Axis<input type="checkbox" checked="true" name="axis">
-					Volvo<input type="checkbox" checked="true	" name="volvo">
-					Tuna<input type="checkbox" checked="true" name="tuna">
+		<div class="chart-container">
+			<div id="chart">
+				<form name="hej">
+					2014<input type="checkbox" checked="true" name="Transport">
+					2015<input type="checkbox" checked="true" name="Lokala processer">
+					2016<input type="checkbox" checked="true" name="Flygresor">
 				</form>
 				<canvas id="myChart" styles="width=100px height=100px"></canvas>
 			</div>
 		</div>
-		<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
-		<script type="text/javascript" src="../js/proto-script.js"></script>
-		<script type="text/javascript" src="../js/chartjs_min.js"></script>
-<script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-		data: {
-        labels: ["Axis", "Volvo", "tuna", "Georg", "Denada"],
-        datasets: [{
-						label:"Bensin",
-            data: [727, 589, 537, 543, 574],
-            backgroundColor: "rgba(63,103,126,1)",
-            hoverBackgroundColor: "rgba(50,90,100,1)"
-        },{
-						label:"Bla",
-            data: [238, 553, 746, 884, 903],
-            backgroundColor: "rgba(163,103,126,1)",
-            hoverBackgroundColor: "rgba(140,85,100,1)"
-        },{
-
-						label:"Flyg",
-            data: [1238, 553, 746, 884, 903],
-            backgroundColor: "rgba(63,203,226,1)",
-            hoverBackgroundColor: "rgba(46,185,235,1)"
-        }]
-    },
-    options: {
-			responsive:true,
-        scales: {
-			xAxes: [{
-				barThickness:150,
-				stacked:true
-			}],
-            yAxes: [{
-							stacked:true
-            }]
-        }
-    }
-});
-</script>
-	</body>
+	</div>
+	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
+	<script type="text/javascript" src="../js/statistik-script.js"></script>
+	<script type="text/javascript" src="../js/chartjs_min.js"></script>
+	<script type="text/javascript" src="../js/proto-script.js"></script>
+</body>
 </html>

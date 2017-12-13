@@ -17,8 +17,8 @@
 
 		<div id="user">
 			<p id="username">
-			
-				User: <?php 
+
+				User: <?php
 				echo $login_session;
 					?>
 
@@ -67,13 +67,13 @@
 			<h1 name= "Rubrik" align= "Center"> Historik </h1>
 			</div>
 			<div id="content">
-			
+
 				<div id="stat">
-				
-					
-					
+
+
+
 					<form action="#" method="get" name="histDrop">
-					
+
 <?php
 $selectedYear = -1;
 $id = null;
@@ -86,22 +86,22 @@ $id = null;
         /* now you can fetch the results into an array - NICE */
     }
 if(isset($yearSQLresult)){
-	
+
 echo '<select id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
 echo '&nbsp';
 echo "<option value = '-1'> Välj ett år </option>";
-	
+
 // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
 while( $myrow = $yearSQLresult->fetch_assoc()){
-echo '<option 
+echo '<option
 	value =' .$myrow['Year'] . '>' .$myrow['Year'].
 	'</option>';
-	 
+
 }
 echo '</select>';
 //echo '<input type="submit" name="submit" value="Välj" />';
 } else {
-	
+
 echo '<h1> Du har inga raporter <h1>';
 
 }
@@ -109,32 +109,32 @@ echo '<h1> Du har inga raporter <h1>';
 
 
 
-</form>		
-					
+</form>
+
 				<br>
-			
-			
-		
+
+
+
 		<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
 		<script type="text/javascript" src="../js/proto-script.js"></script>
 		<script type="text/javascript" src="../js/historik-script.js"></script>
-		
-		
-	
-	 
-		 
+
+
+
+
+
     <?php
 	$id  = null;
 	if (isset($_GET['yeardrop'])){
-		
-		
-		
-		
-   $selectedYear = $_GET['yeardrop'];
-  
-  
 
-   
+
+
+
+   $selectedYear = $_GET['yeardrop'];
+
+
+
+
    if($selectedYear != -1){
 	   if ($ReportSql = mysqli_prepare($dbc, "SELECT Id,NameofReport,NameOfUser,DATE(ChangeDate) as ChangeDate ,finished,Comment from Report where Year = ? and User = ?")) {
 	$ReportSql ->bind_param("ss", $selectedYear,$login_session);
@@ -143,11 +143,11 @@ echo '<h1> Du har inga raporter <h1>';
     /* instead of bind_result: */
     $ReportSqlres= $ReportSql->get_result();
     /* now you can fetch the results into an array - NICE */
-	
+
    }else{
-	   
+
    }
-	   
+
    if ($LokalSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,convFactor,Round(TonCO2/EmissionMwh,2),EmissionMwh,TonCO2 FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
    $LokalSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
@@ -155,12 +155,12 @@ echo '<h1> Du har inga raporter <h1>';
     /* instead of bind_result: */
     $PlacesRes = $LokalSql->get_result();
     /* now you can fetch the results into an array - NICE */
-	
+
    }else{
-	   
+
    }
-   
-   
+
+
    if ($OtherLokalSql = mysqli_prepare($dbc, "SELECT PlacesOwned,PlacesRentedOut,ProducedSolarElectricity,ProducedSolarHeat,Comment FROM OtherPlacesAndProcesses, Report where OtherPlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
    $OtherLokalSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
@@ -168,11 +168,11 @@ echo '<h1> Du har inga raporter <h1>';
     /* instead of bind_result: */
     $OtherPlacesRes = $OtherLokalSql->get_result();
     /* now you can fetch the results into an array - NICE */
-	
+
    }else{
-	   
+
    }
-   
+
    if ($TransportSql = mysqli_prepare($dbc, "SELECT EmissionSource,Round(TonCO2/(EmissionMwh*convFactor),2),Unit,convFactor,Round(TonCO2/EmissionMwh,2),EmissionMwh,TonCO2 FROM Transport, Report where Transport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
    $TransportSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
@@ -180,9 +180,9 @@ echo '<h1> Du har inga raporter <h1>';
     /* instead of bind_result: */
     $TransportRes = $TransportSql->get_result();
     /* now you can fetch the results into an array - NICE */
-	
+
    }else{
-	   
+
    }
    if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforcementTravelPolicy,EnvironmentReqOtherTransport,EnvironmentReqOtherTransportDescription,EnvironmentReqPurchased,EnvironmentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
    $OtherTransportSql->bind_param("ss", $selectedYear,$login_session);
@@ -191,11 +191,11 @@ echo '<h1> Du har inga raporter <h1>';
     /* instead of bind_result: */
     $OtherTransportRes = $OtherTransportSql->get_result();
     /* now you can fetch the results into an array - NICE */
-	
+
    }else{
-	   
+
    }
-   
+
    if ($FlightSql = mysqli_prepare($dbc, "SELECT Departure,Destination,LengthKM,KGCO2 FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
    $FlightSql->bind_param("ss", $selectedYear,$login_session);
     /* execute query */
@@ -203,9 +203,9 @@ echo '<h1> Du har inga raporter <h1>';
     /* instead of bind_result: */
     $FlightRes = $FlightSql->get_result();
     /* now you can fetch the results into an array - NICE */
-	
+
 		}else{
-	   
+
 		}
 		if ($OtherFlightSql = mysqli_prepare($dbc, "SELECT TotalAmount FROM OtherFlight, Report where OtherFlight.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
    $OtherFlightSql->bind_param("ss", $selectedYear,$login_session);
@@ -214,24 +214,24 @@ echo '<h1> Du har inga raporter <h1>';
     /* instead of bind_result: */
     $OtherFlightRes = $OtherFlightSql->get_result();
     /* now you can fetch the results into an array - NICE */
-	
+
 		}else{
-	   
+
 		}
-		
+
 	}else{
 	}
 	}
-  
+
 ?>
-	
-	
-	
-	
-	
-	<?php 
-	
-	
+
+
+
+
+
+	<?php
+
+
 	if(isset($_GET['yeardrop'])){
 		if($selectedYear != -1){
 			echo '<h1>  Rapport för år '.$selectedYear.' </h1>';
@@ -261,22 +261,22 @@ echo '<h1> Du har inga raporter <h1>';
 					echo '</td></tr>';
 					echo '<tr><th align = "left">Status:</th>';
 					echo '<td>' ;
-					echo $myrow['finished'] ? "Färdig" : "Ej Färdig"; 
+					echo $myrow['finished'] ? "Färdig" : "Ej Färdig";
 					echo '</td></tr>';
 					echo '</table>';
 					echo'<div name = "Lokaler och Processer">';
-					echo '<h1>  Lokaler och Proccesser </h1>'; 
+					echo '<h1>  Lokaler och Proccesser </h1>';
 				}
 				mysqli_data_seek($ReportSqlres, 0);
 			}
-		
+
 		if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes) == 0){
-			
-			
+
+
 			echo '<table>';
-			
+
 			while ($myrow = $OtherPlacesRes->fetch_assoc()) {
-				
+
 				echo '<tr>';
 				echo '<td> Lokaler som företaget äger:  </td>' ;
 				echo '<td>';
@@ -291,77 +291,77 @@ echo '<h1> Du har inga raporter <h1>';
 				echo '</td>';
 				echo '<td> m2 </td>';
 				echo '</tr>';
-				
-				
-				
+
+
+
 			}
 			mysqli_data_seek($OtherPlacesRes, 0);
 			echo '</table>';
 			echo '<br>';
-			
-			
+
+
 		}
-		
-	
-			
-		
-		
+
+
+
+
+
 	if($selectedYear != -1 && !mysqli_num_rows($PlacesRes) == 0){
-		
-		
-		
-	
+
+
+
+
 		echo '<table>';
-		
+
 		echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
 	echo '<th> Mått</th>';
 	echo '<th> Enhet </th>';
 	echo '<th> Omräkningsfaktor </th>';
-	echo '<th> Energi i MWh </th>';	
+	echo '<th> Energi i MWh </th>';
 	echo '<th> Utsläpp i Mwh </th>';
 	echo '<th> TonCO22 </th>';
 	echo '</tr>';
-	
+
 	}
-		
-	
-	
-	
-	
+
+
+
+
+
 	while ($myrow = $PlacesRes->fetch_assoc()) {
-	
-	
-	
+
+
+
 	if(!empty($myrow)){
-			
-		
+
+
 	echo '<tr>';
     foreach($myrow as $field) {
-		
+
         echo '<td >' . htmlspecialchars($field) . '</td>';
-		
-		
+
+
     }
 	echo '</tr>';
-    
+
         // use your $myrow array as you would with any other fetch
-       
+
 		}
 	}
 	echo '</table>';
 	echo '<br>';
-	
-	
-	
-		
-	
-		
-			
-										
+
+
+
+
+
+
+
+
 	if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes)==0){
 			echo '<table>';
-			
+
 			while ($myrow = $OtherPlacesRes->fetch_assoc()) {
 				echo '<tr>';
 				echo '<th> Produktion av förnybar energi  </th>' ;
@@ -382,41 +382,41 @@ echo '<h1> Du har inga raporter <h1>';
 				echo '</tr>';
 				echo '</table>';
 			echo '<br>';
-			
-			
-				/* echo '<h3> Övriga Kommentarer</h3>'; 
-				
-				
-				
-				
+
+
+				/* echo '<h3> Övriga Kommentarer</h3>';
+
+
+
+
 				if(!empty($myrow['Comment'])){
 					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
 					echo $myrow['Comment'];
 					echo '</textarea>';
-					
+
 				}else{
 					echo "Ingen kommentar given";
 				}
 				 */
-				
-				
-				
-				
-				
+
+
+
+
+
 			}
-			
-			
-			
+
+
+
 		}
 		echo '</div>';
-		
+
 			echo'<div name = "Transport">';
 
-	
-	
-	
+
+
+
 	if($selectedYear !=-1 && !mysqli_num_rows($TransportRes)==0){
-	echo '<h1> Transport </h1>'; 
+	echo '<h1> Transport </h1>';
 	echo '<table>';
 	echo '<tr>';
 	echo '<th> Utsläppskälla </th>';
@@ -426,17 +426,17 @@ echo '<h1> Du har inga raporter <h1>';
 	echo '<th> Energi i Mwh </th>';
 	echo '<th> Utsläpp CO2 per Mwh </th>';
 	echo '<th> Ton CO2 </th>';
-	
-	
+
+
 	echo '</tr>';
 	}
-	
+
 	while ($myrow = $TransportRes->fetch_assoc()) {
-		
+
 		if(!empty($myrow)){
-	
-			
-		
+
+
+
 		 echo '<tr>';
     foreach($myrow as $field) { // borde fixa detta
 		if($field == null){
@@ -447,94 +447,94 @@ echo '<h1> Du har inga raporter <h1>';
     }
     echo '</tr>';
         // use your $myrow array as you would with any other fetch
-      
+
     }
-		
+
 	}
 	echo '</table>';
 	echo '</div>';
-	
-	echo '<h1>Övrigt Transport</h1>'; 
+
+	echo '<h1>Övrigt Transport</h1>';
 	if(!mysqli_num_rows($OtherTransportRes)==0){
 		 while($myrow = $OtherTransportRes->fetch_assoc()){
 
-			echo '<h3>Biodrivmedel i köpta transporttjänster </h3>'; 
+			echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
 			echo '<h4> Krav Ja/Nej </h4>';
-			echo $myrow['EnvironmentReqPurchased'] ? "Ja" : "Nej"; 
-		
-	
-		
+			echo $myrow['EnvironmentReqPurchased'] ? "Ja" : "Nej";
+
+
+
 			echo '<h4> Om ja beskriv krav: </h4>';
 			if(!empty($myrow['EnvironmentReqPurchasedDescription'])){
 					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
 					echo $myrow['EnvironmentReqPurchasedDescription'];
 					echo '</textarea>';
-					
+
 				}else{
 					echo "Ingen beskrivning given";
 				}
-		
-		
-		echo '<h3>Biodrivmedel i köpta transporttjänster </h3>'; 
+
+
+		echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
 		echo '<table>';
-		echo '<tr>'; 
+		echo '<tr>';
 		echo '<th>';
 		echo "Andel i procent:" ;
 		echo '</th>';
 		echo '</tr>';
-		
+
 		echo '<td>';
 		echo $myrow['BioTransportAmount'].' '.  '%';
 		echo '</td>';
-		
+
 		echo '</table>';
 		echo '<h4> Krav Ja/Nej </h4>';
-		echo $myrow['EnvironmentReqOtherTransport'] ? "Ja" : "Nej"; 
+		echo $myrow['EnvironmentReqOtherTransport'] ? "Ja" : "Nej";
 		echo '<h4> Om ja beskriv krav: </h4>';
 			if(!empty($myrow['EnvironmentReqOtherTransportDescription'])){
 					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
 					echo $myrow['EnvironmentReqOtherTransportDescription'];
 					echo '</textarea>';
-					
+
 				}else{
 					echo "Ingen beskrivning given";
 				}
-				
-		echo '<h3> Inköps- och resepolicy  </h3>'; 
+
+		echo '<h3> Inköps- och resepolicy  </h3>';
 		echo '<h4> Tillämpas inköpspolicyn för fordon  </h4>';
-		echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej"; 
+		echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej";
 		echo '<h4> Tillämpas resepolicy </h4>';
-		echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej"; 
-		
-		
-		
-		
-		
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		/* BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforementTravelPolicy,
 		EnviormentReqOtherTransport,EnviormentReqOtherTransportDescription,
 		EnviormentReqPurchased,EnviormentReqPurchasedDescription,Comment */
-		
-		
-		
-		
+
+
+
+
 		 }
 	}
 	echo '<br>';
-	
-	
+
+
 	echo '<h1> Flygresor </h1>';
-	
+
 	$myrow = $OtherFlightRes->fetch_assoc();
 	echo '<table>';
 	echo '<tr>';
@@ -550,12 +550,12 @@ echo '<h1> Du har inga raporter <h1>';
 	echo'</td>';
 	echo '</tr>';
 	echo '</table>';
-	if($selectedYear != -1 && !mysqli_num_rows($FlightRes)==0){	
-	
-	
-	
-	
-	 
+	if($selectedYear != -1 && !mysqli_num_rows($FlightRes)==0){
+
+
+
+
+
 	echo '<table>';
 	echo '<tr>';
 	echo '<th> Från </th>';
@@ -564,12 +564,12 @@ echo '<h1> Du har inga raporter <h1>';
 	echo '<th> Kg CO2 </th>';
 	echo '</tr>';
 	}
-	
+
 	while ($myrow = $FlightRes->fetch_assoc()) {
 		if(!empty($myrow)){
-		
-			
-		
+
+
+
 		 echo '<tr>';
     foreach($myrow as $field) {
 		if(empty($field)){
@@ -580,29 +580,29 @@ echo '<h1> Du har inga raporter <h1>';
     }
     echo '</tr>';
         // use your $myrow array as you would with any other fetch
-       
+
    }
-		
+
 	}
 	 echo '</table>';
 	 echo '<br>';
 	 $myrow = $ReportSqlres->fetch_assoc();
-	 echo '<h3>Övriga Kommentarer </h3>'; 
+	 echo '<h3>Övriga Kommentarer </h3>';
 	 if(!empty($myrow['Comment'])){
 					echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
 					echo $myrow['Comment'];
 					echo '</textarea>';
-					
+
 				}else{
 					echo "Ingen kommentar given";
 				}
 	 echo '<br>';
 	 echo '<br>';
 	 echo '<br>';
-	 
-	 
-	 
-	 
+
+
+
+
 	 echo '<table align = "right">';
 	 echo '<td>';
 	 echo '<button name="Ändra"  class = "menubutton flatbutton savebutton modalSave"> Ändra </button>'; // ändra css
@@ -615,20 +615,20 @@ echo '<h1> Du har inga raporter <h1>';
 	 echo '<br>';
 	 echo '<br>';
 	}
-	
-	
+
+
 	}
-	
-	
-	
-	
+
+
+
+
 	?>
 	</div>
 	</div>
 	</div>
-	
-	
-	
+
+
+
 	</body>
-	
+
 </html>
