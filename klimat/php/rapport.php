@@ -69,13 +69,13 @@ include('session.php');
                         <span class="close">&times;</span>
 
                         <input id="modalInputReportName" name="reportName" required='' type='text'>
-                        <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
+                        <label for="reportName" alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
                         <br>
                         <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                        <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
+                        <label for="theYear" id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
                         <br>
                         <input id="modalInputName" name="personName" required='' type='text'>
-                        <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
+                        <label for="personName" alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
                         <input type="checkbox" name="finished" value="FärdigRapport" unchecked> Färdig Rapport
                         <br>
                         <br>
