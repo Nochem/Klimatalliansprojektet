@@ -85,9 +85,9 @@ $(document).ready(function(){
 
     $("#logout").click(function(){
         if(edited){
-            var r = confirm("Du har inte sparat rapporten! Vill du logga ut ÃƒÂ¤ndÃƒÂ¥?")
+            var r = confirm("Du har inte sparat rapporten! Vill du logga ut ändå?")
         }else{
-            var r = confirm("ÃƒÂ¤r du sÃƒÂ¤ker pÃƒÂ¥ att du vill logga ut?")
+            var r = confirm("Är du säker på att du vill logga ut?")
         }
         if(r){
             document.getElementById("logout").action = "logout.php";
