@@ -1,10 +1,6 @@
 $(document).ready(function(){
     var edited = false;
 
-    var edited = false;
-
-
-
     $(".rensa").click(function(){
         var r = confirm("Rensa inmatad data?")
         if(r){
@@ -57,11 +53,12 @@ $(document).ready(function(){
     })
 
     // When the user clicks anywhere outside of sthe modal, close it
-    $("#window").click(function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+    /*$("body").click(function(event) {
+        console.log("Here");
+        if (!$(event.target).closest('#myModal').length && !$(event.target).is('#myModal')) {
+            modal.style.display="none";
         }
-    })
+    })*/
     // kontrollerar sÃƒÂ¥ att ÃƒÂ¥ret bestÃƒÂ¥r av 4 tecken
     $("#saveCheck").click(function(){
         var d = new Date();
