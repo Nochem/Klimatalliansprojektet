@@ -45,17 +45,17 @@ include('session.php');
                 </li>
             </a>
             <a href="statistik.php">
-                <li class="menuitem">
+                <li class="menuitem changeSite">
                     Statistik
                 </li>
             </a>
             <a href="mina_sidor.php">
-                <li class="menuitem">
+                <li class="menuitem changeSite">
                     Mina Sidor
                 </li>
             </a>
             <a href="kontakt.php">
-                <li class="menuitem">
+                <li class="menuitem changeSite">
                     Kontakt
                 </li>
             </a>
