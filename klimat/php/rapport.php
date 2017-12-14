@@ -322,7 +322,7 @@ include('session.php');
 			<td>
 				Produktion av solel
 			</td>';
-            echo '<td> <input class="inputbox" name="producedSolarElectr" type="text"> </td>';
+            echo '<td> <input class="inputbox" name="producedSolarElectrity" type="text"> </td>';
             echo '<td>
 			<p style="margin:5px">MWh</p>
 		 </td>';
@@ -460,7 +460,7 @@ include('session.php');
                     }
                     //övrig lokaler och processer insert
                     $producedSolarHeat = $_GET['producedSolarHeat'];
-                    $producedSolarElectr = $_GET['producedSolarElectricity'];
+                    $producedSolarElectr = $_GET['producedSolarElectrity'];
                     $placesOwned = $_GET['placesOwned'];
                     $placesRented = $_GET['placesRented'];
                     if ($insertOtherPlacesProcesses = mysqli_prepare($dbc,
