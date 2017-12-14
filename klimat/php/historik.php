@@ -1,6 +1,6 @@
 <?php
    include('session.php');
-   session_start();
+  
 ?>
 <!DOCTYPE html>
 <html>
@@ -76,7 +76,7 @@
 					<form action="#" method="get" name="histDrop">
 
 <?php
-
+$selectedYear = -1;
 
 
  if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
@@ -101,9 +101,10 @@ echo '<option
 	'</option>';
 }
 echo '</select>';
+
 //echo '<input type="submit" name="submit" value="Välj" />';
 } else {
-echo '<h1> Du har inga raporter <h1>';
+
 	}}else{
 		echo '<h2> Inga rapporter</h2>';
 		
@@ -204,6 +205,8 @@ echo '<h1> Du har inga raporter <h1>';
 		}else{
 		}
 	}else{
+		echo '<h2> Inget år valt</h2>';
+		
 	}
 	}
 ?>
@@ -231,9 +234,6 @@ echo '<h1> Du har inga raporter <h1>';
 			if(!mysqli_num_rows($ReportSqlres) == 0){
 				while ($myrow = $ReportSqlres->fetch_assoc()){
 					$_SESSION["Id"] = $myrow['Id'];
-					
-					//echo '<input type="hidden" name="id" value="'.$myrow['Id'].'">';
-				
 					echo '<table name="info">';
 					echo '<tr><th align = "left">Namn på rapport:</th>';
 					echo '<td>';
@@ -487,6 +487,7 @@ echo '<h1> Du har inga raporter <h1>';
 	}
 		
 	 if (isset($_GET['Delete'])){
+		 //något som confirmar
 		  
 		if ($DeleteSql = mysqli_prepare($dbc, "Delete from Report where id = ? and user = ?")) {	
 		$id = $_SESSION['Id'];
