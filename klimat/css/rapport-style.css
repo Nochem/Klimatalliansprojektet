@@ -12,9 +12,9 @@
 	float: left;
 	height:30px;
 }
-#content input{
+#content .menubutton{
 	width:120px;
-	height:30px;
+	height:40px;
 }
 #content th,td{
 	padding-top:10px;
