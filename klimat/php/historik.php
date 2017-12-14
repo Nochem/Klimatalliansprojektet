@@ -87,6 +87,7 @@
         $yearSQLresult = $yearSQL->get_result();
         /* now you can fetch the results into an array - NICE */
     }
+	if(mysqli_num_rows($yearSQLresult) > 0){
 if(isset($yearSQLresult)){
 	
 echo '<select id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
@@ -103,7 +104,16 @@ echo '</select>';
 //echo '<input type="submit" name="submit" value="Välj" />';
 } else {
 echo '<h1> Du har inga raporter <h1>';
-}
+	}}else{
+		echo '<h2> Inga rapporter</h2>';
+		
+		echo 'Företaget har inga rapporter om du vill skapa en ny rapport klicka länken nedan eller Rapport högst upp';
+		echo'<br><br>';
+		
+		echo '<a href="rapport.php">Skapa ny rapport</a>';
+
+		
+	}
 ?>
 
 
