@@ -15,17 +15,16 @@ include('session.php');
 </head>
 <body>
 <body>
-<div id="user">
-    <p>	User: <?php
-        echo $login_session;
-        ?>
-    <form id="logout" align="right" style="float:right"name="form1" method="post" action="statistik.php">
-        <label>
-            <input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-        </label>
-    </form>
-    </p>
-</div>
+	<div id="user">
+    		<p id="username">
+			User: <?php echo $login_session; ?>
+			<form id="logout" name="form1" action="logout.php" method="post">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+	</div>
 <div id="wrapper">
     <a href="rapport.php">
         <div id="logo">

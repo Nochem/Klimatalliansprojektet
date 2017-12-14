@@ -16,9 +16,9 @@
 </head>
 <body>
 	<div id="user">
-		<p id="username">
-			User: <?php echo $row['Name']; ?>
-			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
+    		<p id="username">
+			User: <?php echo $login_session; ?>
+			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
 				</label>
