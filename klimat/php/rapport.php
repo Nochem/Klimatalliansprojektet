@@ -11,7 +11,7 @@ include('session.php');
     </title>
     <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
-    <link rel="stylesheet" type="text/css" href="../css/rapport-style.css">
+    <link rel="stylesheet" type="text/css" href="rapport-style.css">
     <link rel="icon" href="../res/icon.png">
 </head>
 <body>
@@ -165,8 +165,13 @@ include('session.php');
                     echo '</tr>';
                     $arrayindex++;
                 }
+
             }
+            echo '<td> <input type = "button" id="addrowTransport" value = "Nytt Fält"/> </td>';
+            echo '<input type="hidden" name = "nbrOfRowsNewTransport" id="nbrofRowsTransport" value="0" >';
+
             echo '</table>';
+
             echo'<div id="m_krav">
 				<h3>Ställs miljökrav vid inköp av fordon</h3>
 					<p>
@@ -254,6 +259,7 @@ include('session.php');
 							</td>
 						</tr>
 					</tbody>';
+            echo '<table>';
             // Skapar rubriker till table
             echo '<thead>
 			<tr>';
@@ -286,12 +292,15 @@ include('session.php');
                     echo '</td>';
                     // Skapar selectboxen för enhet
                     echo '<td>';
-                    echo '<select name="unit[]">';
+                    echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
                     echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
+                    echo '<option value ="Ton"> Ton </option>';
                     echo '</select>';
                     //skapar omräkningsfaktor
                     echo '</td>';
-                    echo '<td>' . $myrow['convFactor'] . '</td>';
+                    echo '<td >';
+                    echo '<p name = "coFactor[]"> ' . $myrow['convFactor'] . '</p>';
+                    echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
                     //skapar utsläpp i mwh
                     echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
@@ -304,7 +313,16 @@ include('session.php');
                     $arrayindex++;
                 }
             }
+            //Knappen nytt fält och hidden value
+            echo '<td> <input type = "button" id="addrowPlaces" value = "Nytt Fält"/> </td>';
+            echo '<input type="hidden" name = "nbrOfRowsNewPlaces" id="nbrofRowsPlaces" value="0" >';
+
             echo '</tbody>';
+            echo'</table>';
+
+
+
+            echo'<table>';
             echo '<thead>
 				<th>Produktion av förnybar energi</th>
 		  </thead>
