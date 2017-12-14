@@ -1,88 +1,124 @@
 #content p{
-	margin-left:3em;
+    margin-left:3em;
 }
 #content table{
-	margin-top: 5px;
-	margin-bottom: 5em;
+    margin-top: 5px;
+    margin-bottom: 5em;
 }
 #content tr{
-	clear:right;
+    clear:right;
 }
 #content select{
-	float: left;
-	height:30px;
+    float: left;
+    height:30px;
 }
-#content input{
-	float: left;
-	width:120px;
-	height:30px;
+#content .menubutton{
+    width:120px;
+    height:40px;
 }
 #content th,td{
-	padding-top:10px;
-	margin-left:0;
-	text-align: left;
-	height:10px;
+    padding-top:10px;
+    margin-left:0;
+    text-align: left;
+    height:10px;
+}
+#content p{
+    text-align: left;
+}
+#content h3{
+    font-size: 18px;
+    font-weight: normal;
+}
+.inputbox{
+    width:120px;
+    height:30px;
 }
 #addrow{
-	height:50px;
-	font-family: 'Barlow',sans-serif;
-	background-color: #5DBCFF;
-	border:1px solid white;
-	border-radius: 4px;
-	font-size: 20px;
-	color:white;
-	margin-bottom: 10px;
-	-webkit-transition-duration: 0.4s; /* Safari */
-	transition-duration: 0.4s;
+    height:50px;
+    font-family: 'Barlow',sans-serif;
+    background-color: #5DBCFF;
+    border:1px solid white;
+    border-radius: 4px;
+    font-size: 20px;
+    color:white;
+    margin-bottom: 10px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
 }
 #addrow:hover{
-	background-color: #468DFF;
-	border: 1px solid gray;
+    background-color: #468DFF;
+    border: 1px solid gray;
+}
+.savebutton{
+    background-color: #00ff00;
+
+}
+.savebutton:hover{
+    background-color: #04d600;
+    border-color: #04d600;
+}
+.resetbutton{
+    background-color: #f40000;
+}
+.resetbutton:hover{
+    background-color: #f50000;
+    border-color: #de2c00;
 }
 .menubutton{
-	position: relative;
-	left: 430px;
-	font-family: 'Barlow',sans-serif;
-	font-size:18px;
-	background-color: #87CEFA;
-	color: white;
-	-webkit-transition-duration: 0.4s; /* Safari */
-	transition-duration: 0.4s;
+    position: relative;
+    left: 430px;
+    font-family: 'Barlow',sans-serif;
+    font-size:18px;
+    background-color: #87CEFA;
+    color: white;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
 }
 .comments{
-	text-align: left;
-	padding:10px;
-	font-size: 16px;
-	margin-bottom: 10px;
+    text-align: left;
+    padding:10px;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 .comments{
-	text-align: left;
-	padding:10px;
-	font-size: 16px;
-	margin-bottom: 10px;
+    text-align: left;
+    padding:10px;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 #comment{
-		display: -webkit-box;
-		margin-top: 5px;
+    display: -webkit-box;
+    margin-top: 5px;
 }
+#close-button{
+    background-color: transparent;
+    border: none;
+    color: grey;
+}
+#close-button:hover{
+    background-color: transparent;
+    border: none;
+    color: rgba(255, 88, 88, 0.92);
+    font-weight:bold;
+}
+
 #text{
-	font-family: 'Barlow',sans-serif;
-	font-size:18px;
-}
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
+    font-family: 'Barlow',sans-serif;
+    font-size:18px;
+}.modal {
+     display: none; /* Hidden by default */
+     position: fixed; /* Stay in place */
+     z-index: 1; /* Sit on top */
+     padding-top: 100px; /* Location of the box */
+     left: 0;
+     top: 0;
+     width: 100%; /* Full width */
+     height: 100%; /* Full height */
+     overflow: auto; /* Enable scroll if needed */
+     background-color: rgb(0,0,0); /* Fallback color */
+     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+ }
 
 /* Modal Content */
 .modal-content {
@@ -111,51 +147,51 @@
 kod till popup-rutan för sparanappen.
 */
 #myModal input[type="text"] {
-  box-sizing: border-box;
-  width: 100%;
-  height: calc(4em + 1px);
-  margin: 0 0 1em;
-  padding: 1em;
-  border: 1px solid #ccc;
-  background: #fff;
-  resize: none;
-  outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(4em + 1px);
+    margin: 0 0 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    background: #fff;
+    resize: none;
+    outline: none;
 }
 
 #myModal input[type="text"][required]:focus {
-  border-color: #00bafa;
+    border-color: #00bafa;
 }
 #myModal input[type="text"][required]:focus + label[placeholder]:before {
-  color: #00bafa;
+    color: #00bafa;
 }
 #myModal input[type="text"][required]:focus + label[placeholder]:before,
 #myModal input[type="text"][required]:valid + label[placeholder]:before {
-  transition-duration: .2s;
-  transform: translate(0, -1.5em) scale(0.9, 0.9);
+    transition-duration: .2s;
+    transform: translate(0, -1.5em) scale(0.9, 0.9);
 }
 
 #myModal input[type="text"][required]:invalid + label[placeholder][alt]:before {
-  content: attr(alt);
+    content: attr(alt);
 }
 
 #myModal input[type="text"][required] + label[placeholder] {
-  display: block;
-  pointer-events: none;
-  line-height: 1em;
-  margin-top: calc(-3em - 2px);
-  margin-bottom: calc((3em - 1em) + 2px);
+    display: block;
+    pointer-events: none;
+    line-height: 1em;
+    margin-top: calc(-3em - 2px);
+    margin-bottom: calc((3em - 1em) + 2px);
 }
 
 #myModal input[type="text"][required] + label[placeholder]:before {
-  content: attr(placeholder);
-  display: inline-block;
-  margin: 0 calc(1em + 2px);
-  padding: 0 2px;
-  color: #898989;
-  white-space: nowrap;
-  transition: 0.3s ease-in-out;
-  background-image: linear-gradient(to bottom, #fff, #fff);
-  background-size: 100% 5px;
-  background-repeat: no-repeat;
-  background-position: center;
+    content: attr(placeholder);
+    display: inline-block;
+    margin: 0 calc(1em + 2px);
+    padding: 0 2px;
+    color: #898989;
+    white-space: nowrap;
+    transition: 0.3s ease-in-out;
+    background-image: linear-gradient(to bottom, #fff, #fff);
+    background-size: 100% 5px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
