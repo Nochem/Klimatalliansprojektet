@@ -729,6 +729,6 @@ include('session.php');
             <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
             <script type="text/javascript" src="../js/rapport-script.js"></script>
             <script type="text/javascript" src="../js/rapport-script-2.js"></script>
-            <script type="text/javascript" src="../js/proto-script.js"></script>
+           <!--// <script type="text/javascript" src="../js/proto-script.js"></script>-->
 </body>
 </html>
