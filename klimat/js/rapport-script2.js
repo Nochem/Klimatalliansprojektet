@@ -65,3 +65,21 @@
     function round(value, decimals) {
         return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
     }
+	
+	function hideElemC1() {
+    document.getElementById("comment1").style.display = "none";
+	}
+	
+	function showElemC1() {
+    document.getElementById("comment1").style.display = "initial"; 
+	}
+	
+		function hideElemC2() {
+    document.getElementById("comment2").style.display = "none";
+	}
+	
+	function showElemC2() {
+    document.getElementById("comment2").style.display = "initial"; 
+	}
+	
+	
