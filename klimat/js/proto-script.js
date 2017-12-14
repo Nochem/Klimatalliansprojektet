@@ -25,12 +25,6 @@ $(document).ready(function(){
             }
         });
     });
-	$("#logout").click(function(){
-		var r = confirm("är du säker på att du vill logga ut?")
-		if(r){
-			document.getElementById("logout").action = "login.php";
-		}
-	})
 
     $(".rensa").click(function(){
         var r = confirm("Rensa inmatad data?")
