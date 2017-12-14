@@ -63,7 +63,7 @@
 		</div>
 		<div id="content">
       <?php
-        $query = mysqli_query($dbc, "SELECT RealName, Email, Telephone FROM users WHERE Admin = '1'");
+        $query = mysqli_query($dbc, "SELECT RealName, Email, Telephone FROM Users WHERE Admin = '1'");
         $admin = mysqli_fetch_array($query);
   			echo '<p style="font-size:22px; text-align:left;">';
   			echo $admin['RealName'];
