@@ -15,16 +15,17 @@ include('session.php');
 </head>
 <body>
 <body>
-	<div id="user">
-    		<p id="username">
-			User: <?php echo $login_session; ?>
-			<form id="logout" name="form1" action="logout.php" method="post">
-				<label>
-					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-				</label>
-			</form>
-		</p>
-	</div>
+<div id="user">
+    <p>	User: <?php
+        echo $login_session;
+        ?>
+    <form id="logout" align="right" style="float:right"name="form1" method="post" action="statistik.php">
+        <label>
+            <input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+        </label>
+    </form>
+    </p>
+</div>
 <div id="wrapper">
     <a href="rapport.php">
         <div id="logo">
@@ -71,7 +72,7 @@ include('session.php');
                     <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
                     <br>
                     <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                    <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
+                    <label id = "modalYear" alt='Ã…r' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
                     <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
@@ -122,7 +123,7 @@ include('session.php');
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
             echo '<th> Omräknings Faktor </th>';
-            echo '<th> Utsläpp CO<sub>2</sub> per MWh </th>';
+            echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
             echo '<th> Ton CO<sub>2</sub> </th>';
             while ($myrow = $emissionsqlresult->fetch_assoc()) {
                 if (!empty($myrow)) {
@@ -155,7 +156,7 @@ include('session.php');
                     echo '<td>' . $myrow['convFactor'] . '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
 					//skapar utsläpp i mwh
-                    echo '<td id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
+                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                    //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
 				   echo '<td name=tonCO[]>';
@@ -169,11 +170,10 @@ include('session.php');
             echo'<div id="m_krav">
 				<h3>Ställs miljökrav vid inköp av fordon</h3>
 					<p>
-						<input class="radiobutton" type="radio" name="YesOrNo" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo" value="0" style="margin-bottom: 20px"> Nej
+						<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/> Ja
+						<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej
 					</p>
-					<p>Om ja beskriv krav:</p>
-					<textarea class="comments" rows="4" cols="50" name="comment1" form="form"></textarea></td>
+					<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea></td>
 			</div>
 			<div id="bio_krav">
 				<h3>
@@ -182,7 +182,7 @@ include('session.php');
 				<p>Andel %
 					<input name="bioTranspAmount" type="text" class="inputbox"/></p>
 					<br>
-                    <!--
+
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo2" value="1"> Ja
 						<input class="radiobutton" type="radio" name="YesOrNo2" value="0" style="margin-bottom: 20px"> Nej
@@ -192,15 +192,12 @@ include('session.php');
 				<h3>
 					Andra miljökrav på transporttjänster (t.ex. sparsamkörning eller energieffektivitet)?
 				</h3>
-				<p>
-					<input class="radiobutton" type="radio" name="YesOrNo3" value="1"> Ja
-					<input class="radiobutton" type="radio" name="YesOrNo3" value="0" style="margin-bottom: 20px"> Nej
-				</p>
 
 				<p>
-					Om ja beskriv krav:
+					<input class="radiobutton" type="radio" name="YesOrNo3" onclick="showElemC2()" value="1"> Ja
+					<input class="radiobutton" type="radio" name="YesOrNo3" value="0" onclick="hideElemC2()" style="margin-bottom: 20px"> Nej
 				</p>
-					<textarea class="comments" rows="4" cols="50" name="comment2" form="form" style="margin-bottom:20px"></textarea>
+					<textarea class="comments" rows="4" cols="50" name="comment2" id="comment2" form="form" style="display: none" style="margin-bottom:20px" placeholder="Beskriv krav..."></textarea>
 				</div>
 
 				<div id="inkops_rese">
@@ -269,7 +266,7 @@ include('session.php');
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
             echo '<th> Omräknings Faktor </th>';
-            echo '<th> Utsläpp CO<sub>2</sub> per MWh </th>';
+            echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
             echo '<th> Ton CO<sub>2</sub> </th>';
             echo '	</tr>
 		</thead>
@@ -302,7 +299,7 @@ include('session.php');
                     echo '<td>' . $myrow['convFactor'] . '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
 					//skapar utsläpp i mwh
-                    echo '<td id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
+                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
 					//skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
                     echo '<td name=tonCO[]>';
@@ -378,11 +375,12 @@ include('session.php');
 						</tr>
 					</tbody>
 				</table>
+
 				<input type="hidden" name = "nbrofRowsFlight" id="nbrofRowsFlight" value="1" >
 				<input type = "button" id="addrow" value = "Ny resa"/>
 
 				<div id="flygresor_comments">
-					<h3>Övriga kommentarer</h3>
+					<h3>Ã–vriga kommentarer</h3>
 					<textarea name="OtherComment" class="comments" rows="8" cols="50"></textarea>
 					<br>
 					<input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
@@ -392,7 +390,7 @@ include('session.php');
 			</div>
 		</div>';
             if (isset($_GET['Spara'])) {
-                // KOD FÖR ATT SKAPA NY RAPPORT
+                // KOD FÃ–R ATT SKAPA NY RAPPORT
                 $yearinput = $_GET['theYear'];
                 $name = $_GET['personName'];
                 $repname = $_GET['reportName'];
@@ -411,7 +409,7 @@ include('session.php');
                     $id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
                     $createReportSql->close();
                 }
-                //SLUT PÅ KOD FÖR ATT SKAPA EN NY RAPPORT
+                //SLUT PÃ… KOD FÃ–R ATT SKAPA EN NY RAPPORT
                 if($id != null){
                     // Transport insert
                     for ($i = 0; $i < $transportcount; $i++) {
@@ -420,11 +418,10 @@ include('session.php');
                         $unit = $_GET['unit'][$i];
                         $convFactor = $_GET['convFactor'][$i];
                         $emissionCO2 = $_GET['emissionCO2'][$i];
-						$Ton = $_GET['ton'][$i];
-
+                        $Ton = $_GET['ton'][$i];
                         if (!empty($amount)) {
-                            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource, Amount, Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
-                                $insertTransportsql->bind_param("sdsdddi", $emissionSource , $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
+                                $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
                                 $insertTransportsql->execute();
                                 $transportqlresult = $insertTransportsql->get_result();
                                 $insertTransportsql->close();
@@ -433,7 +430,7 @@ include('session.php');
                     }
                     $lokalerstart = $transportcount;
                     $lokalerlength = $transportcount + $lokalcount;
-                    //Övrigt Transport insert
+                    //Ã–vrigt Transport insert
                     $envReq = $_GET['YesOrNo'];
                     $envReqDesc = $_GET['comment1'];
                     $bioTranspAmount = $_GET['bioTranspAmount'];
@@ -462,15 +459,15 @@ include('session.php');
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
                         if (!empty($amount)) {
-                            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource, Amount, Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
-                                $insertPlacesProcesses->bind_param("sdsdddi", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
+                                $insertPlacesProcesses->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
                                 $insertPlacesProcesses->execute();
                                 $placesProcessessqlresult = $insertPlacesProcesses->get_result();
                                 $insertPlacesProcesses->close();
                             }
                         }
                     }
-                    //Övrig lokaler och processer insert
+                    //Ã–vrig lokaler och processer insert
                     $producedSolarHeat = $_GET['producedSolarHeat'];
                     $producedSolarElectr = $_GET['producedSolarElectricity'];
                     $placesOwned = $_GET['placesOwned'];
@@ -514,6 +511,6 @@ include('session.php');
             <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
             <script type="text/javascript" src="../js/rapport-script.js"></script>
             <script type="text/javascript" src="../js/rapport-script2.js"></script>
-            <script type="text/javascript" src="../js/proto-script.js"></script>
+           <!--// <script type="text/javascript" src="../js/proto-script.js"></script>-->
 </body>
 </html>
