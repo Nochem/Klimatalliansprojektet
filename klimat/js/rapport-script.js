@@ -75,7 +75,7 @@ $(document).ready(function(){
             edited = false;
             return true;
         }else{
-            confirm("kontrollera ÃƒÂ¥r");
+            confirm("Kontrollera året");
             return false;
 
         }
@@ -85,9 +85,9 @@ $(document).ready(function(){
 
     $("#logout").click(function(){
         if(edited){
-            var r = confirm("Du har inte sparat rapporten! Vill du logga ut ÃƒÂ¤ndÃƒÂ¥?")
+            var r = confirm("Du har inte sparat rapporten! Vill du logga ut ändå?")
         }else{
-            var r = confirm("ÃƒÂ¤r du sÃƒÂ¤ker pÃƒÂ¥ att du vill logga ut?")
+            var r = confirm("Är du säker på att du vill logga ut?")
         }
         if(r){
             document.getElementById("logout").action = "logout.php";
@@ -100,9 +100,7 @@ $(document).ready(function(){
             alert("Du har inte sparat rapporten! Spara rapporten med sparaknappen eller rensa rapporten med rensaknappen om du inte vill spara")
             return false;
         }
-    })
-
-
+    });
     $("#addrow").click(function(){
         var table = document.getElementById("reportTable");
         var nbr = document.getElementById("nbrofRowsFlight").value;
@@ -115,17 +113,22 @@ $(document).ready(function(){
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
         cell1.innerHTML = "<input name='Departure[]'type='text' class='inputbox'/>";
         cell2.innerHTML = "<input name='Destination[]' type='text' class='inputbox'/>";
         cell3.innerHTML = "<input name='lengthKM[]' type='text' class='inputbox'/>";
         cell4.innerHTML = "<input name='kgCO2[]' type='text' class='inputbox'/>";
+        cell5.innerHTML = "<input type='button' value='X' id='close-button'>";
         window.scrollBy(0,50);
     });
+    $("#reportTable").on('click', 'input[type="button"]', function(){
+
+        $(this).closest('tr').remove();
+        var nbr = document.getElementById("nbrofRowsFlight").value;
+        nbr = parseInt(nbr);
+        nbr = nbr - 1;
+        document.getElementById("nbrofRowsFlight").value = nbr;
 
 
-
-
-
-
-
+    })
 });

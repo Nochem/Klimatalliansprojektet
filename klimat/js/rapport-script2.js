@@ -36,8 +36,8 @@ function updateUnitIsTon(nbr, amount) {
         document.getElementsByName("ton[]")[nbr].value = round(ton, 2);
     } else {
 
-        document.getElementsByName("tonCO[]")[nbr].innerHTML = "";
-        document.getElementsByName("ton[]")[nbr].value = "";
+        document.getElementsByName("tonCO[]")[nbr].innerHTML = "0";
+        document.getElementsByName("ton[]")[nbr].value = "0";
     }
 }
 function update(nbr, amount, emission, convFac) {
@@ -51,8 +51,8 @@ function update(nbr, amount, emission, convFac) {
         document.getElementsByName("ton[]")[nbr].value = round(ton, 2);
     } else {
 
-        document.getElementsByName("tonCO[]")[nbr].innerHTML = "";
-        document.getElementsByName("ton[]")[nbr].value = "";
+        document.getElementsByName("tonCO[]")[nbr].innerHTML = "0";
+        document.getElementsByName("ton[]")[nbr].value = "0";
     }
 }
 
@@ -125,4 +125,8 @@ function hideElemC2() {
 
 function showElemC2() {
     document.getElementById("comment2").style.display = "initial";
+}
+function removeRow(place){
+     document.getElementById("reportTable").deleteRow(place);
+
 }
