@@ -76,7 +76,9 @@ include('session.php');
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
                     <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
-                    <input type="checkbox" name="finished" value="FärdigRapport" unchecked> Färdig Rapport
+                    <label for="finCheck">Färdig rapport</label>
+                    <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" unchecked>
+
                     <br>
                     <br>
                     <button id = "saveCheck" name="Spara" form="form"  class = "menubutton flatbutton savebutton" style="left: 5px">
