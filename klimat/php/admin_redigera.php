@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <?php
    include('session.php');
+   if($row['Admin'] == 0){
+     header("location: rapport.php");
+   }
 ?>
 <!DOCTYPE  html>
 <html>
@@ -15,10 +18,9 @@
 </head>
 <body>
 	<div id="user">
-		<p id="username">
-			User: Admin
-
-			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
+    		<p id="username">
+			User: <?php echo $login_session; ?>
+			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
 				</label>
@@ -30,6 +32,11 @@
 		</div>
 		<div id="menu">
 			<ul>
+				<a href="anvandare.php">
+					<li class="menuitem">
+						Användare
+					</li>
+				</a>
 				<a href="statistik_admin.php">
 					<li class="menuitem">
 						Statistik
@@ -38,11 +45,6 @@
 				<a href="admin_redigera.php">
 					<li class="menuitem currentpage">
 						Redigera fält
-					</li>
-				</a>
-				<a href="anvandare.php">
-					<li class="menuitem">
-						Användare
 					</li>
 				</a>
 				<a href="mina_sidor_admin.php">

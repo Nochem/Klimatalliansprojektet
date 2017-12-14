@@ -18,10 +18,9 @@
 </head>
 <body>
 	<div id="user">
-
-		<p id="username">
-			User: Företag
-			<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
+    		<p id="username">
+			User: <?php echo $login_session; ?>
+			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
 				</label>
@@ -63,9 +62,19 @@
 			</ul>
 		</div>
 		<div id="content">
-			<p style="font-size:22px; text-align:left;">
-				Karl-Erik Grevendahl, Telnummer, <a class="email" href="mailto:john.doe@example.com">E-mail</a>, osv TODO
-			</p>
+      <?php
+        $query = mysqli_query($dbc, "SELECT RealName, Email, Telephone FROM users WHERE Admin = '1'");
+        $admin = mysqli_fetch_array($query);
+  			echo '<p style="font-size:22px; text-align:left;">';
+  			echo $admin['RealName'];
+  			echo '</p>';
+        echo '<p style="font-size:22px; text-align:left;">';
+        echo $admin['Email'];
+        echo '</p>';
+        echo '<p style="font-size:22px; text-align:left;">';
+        echo $admin['Telephone'];
+        echo '</p>';
+      ?>
 		</div>
 	</div>
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
