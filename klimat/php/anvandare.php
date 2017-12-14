@@ -18,16 +18,15 @@
 </head>
 <body>
 	<div id="user">
-		<a id="username">
+    		<p id="username">
 			User: <?php echo $login_session; ?>
-		</a>
-		<form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
-			<label>
-				<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-			</label>
-		</form>
-
-    </div>
+			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+	</div>
     <div id="wrapper">
         <div id="logo">
         </div>
