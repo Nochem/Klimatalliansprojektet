@@ -180,7 +180,7 @@ include('session.php');
 				<p>Andel %
 					<input name="bioTranspAmount" type="text" class="inputbox"/></p>
 					<br>
-		
+
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo2" value="1"> Ja
 						<input class="radiobutton" type="radio" name="YesOrNo2" value="0" style="margin-bottom: 20px"> Nej
@@ -378,7 +378,7 @@ include('session.php');
 				<input type = "button" id="addrow" value = "Ny resa"/>
 
 				<div id="flygresor_comments">
-					<h3>Ã–vriga kommentarer</h3>
+					<h3>Övriga kommentarer</h3>
 					<textarea name="OtherComment" class="comments" rows="8" cols="50"></textarea>
 					<br>
 					<input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
@@ -388,7 +388,7 @@ include('session.php');
 			</div>
 		</div>';
             if (isset($_GET['Spara'])) {
-                // KOD FÃ–R ATT SKAPA NY RAPPORT
+                // KOD FöR ATT SKAPA NY RAPPORT
                 $yearinput = $_GET['theYear'];
                 $name = $_GET['personName'];
                 $repname = $_GET['reportName'];
@@ -407,7 +407,7 @@ include('session.php');
                     $id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
                     $createReportSql->close();
                 }
-                //SLUT PÃ… KOD FÃ–R ATT SKAPA EN NY RAPPORT
+                //SLUT PÃ… KOD FöR ATT SKAPA EN NY RAPPORT
                 if($id != null){
                     // Transport insert
                     for ($i = 0; $i < $transportcount; $i++) {
@@ -428,7 +428,7 @@ include('session.php');
                     }
                     $lokalerstart = $transportcount;
                     $lokalerlength = $transportcount + $lokalcount;
-                    //Ã–vrigt Transport insert
+                    //övrigt Transport insert
                     $envReq = $_GET['YesOrNo'];
                     $envReqDesc = $_GET['comment1'];
                     $bioTranspAmount = $_GET['bioTranspAmount'];
@@ -465,7 +465,7 @@ include('session.php');
                             }
                         }
                     }
-                    //Ã–vrig lokaler och processer insert
+                    //övrig lokaler och processer insert
                     $producedSolarHeat = $_GET['producedSolarHeat'];
                     $producedSolarElectr = $_GET['producedSolarElectricity'];
                     $placesOwned = $_GET['placesOwned'];
