@@ -100,9 +100,7 @@ $(document).ready(function(){
             alert("Du har inte sparat rapporten! Spara rapporten med sparaknappen eller rensa rapporten med rensaknappen om du inte vill spara")
             return false;
         }
-    })
-
-
+    });
     $("#addrow").click(function(){
         var table = document.getElementById("reportTable");
         var nbr = document.getElementById("nbrofRowsFlight").value;
@@ -121,11 +119,4 @@ $(document).ready(function(){
         cell4.innerHTML = "<input name='kgCO2[]' type='text' class='inputbox'/>";
         window.scrollBy(0,50);
     });
-
-
-
-
-
-
-
 });
