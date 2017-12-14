@@ -192,11 +192,11 @@ include('session.php');
 				<h3>
 					Andra miljökrav på transporttjänster (t.ex. sparsamkörning eller energieffektivitet)
 				</h3>
-
+                <!--
 				<p>
 					Krav Ja/Nej
 				</p>
-
+                -->
 				<p>
 					<input class="radiobutton" type="radio" name="YesOrNo3" value="1"> Ja
 					<input class="radiobutton" type="radio" name="YesOrNo3" value="0" style="margin-bottom: 20px"> Nej
