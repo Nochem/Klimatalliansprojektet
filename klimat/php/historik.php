@@ -75,7 +75,7 @@ include('session.php');
                 $selectedYear = -1;
 				
 
-                if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
+                if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ? ORDER BY YEAR DESC")) {
                     $yearSQL->bind_param("s", $login_session);
                     /* execute query */
                     $yearSQL->execute();
@@ -217,12 +217,12 @@ include('session.php');
                 if($selectedYear != -1){
                     echo '<form name = "historik" method = "get" id ="historik" >';
                     
-                    echo '<table align = "right">';
+                   echo '<table align = "right">';
                     echo '<td>';
-                    echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; 
+                    echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
                     echo '</td>';
                     echo '<td>';
-                    echo '<input name="Delete" type = "submit" form ="historik"  value = "Ta bort" id = "DeleteButton" />';
+                    echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"/>';
                     echo '</td>';
                     echo '</table>';
 					echo '<br><br>';
@@ -480,7 +480,11 @@ include('session.php');
                     }
 					echo '<br>';
 
-                    echo '<table align = "right">';
+                   
+
+
+                    echo '</form>';
+			echo '<table align = "right">';
                     echo '<td>';
                     echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
                     echo '</td>';
@@ -488,9 +492,6 @@ include('session.php');
                     echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"/>';
                     echo '</td>';
                     echo '</table>';
-
-
-                    echo '</form>';
 
 
 
@@ -520,9 +521,12 @@ include('session.php');
 
                 }
             }
-            if (isset($_GET['Edit'])){
-                //Ska skicka id till redigera sida
-            }
+            if(isset($_GET['Edit'])){
+           
+				header('Location: rapport_redigera.php');
+				exit();
+
+			}
 
 
 
