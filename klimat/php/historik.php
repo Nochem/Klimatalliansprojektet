@@ -18,11 +18,11 @@ include('session.php');
 <div id="user">
     		<p id="username">
 			User: <?php echo $login_session; ?>
-			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
+		<!--	<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
 				</label>
-			</form>
+			</form>-->
 		</p>
 	</div>
 <div id="wrapper">
@@ -56,8 +56,15 @@ include('session.php');
                     Kontakt
                 </li>
             </a>
-
         </ul>
+
+        <label id="username" for="submit2">
+            User: <?php echo $login_session; ?></label>
+            <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
+                <input class="menuitem logout" name="submit2" type="submit" id="submit2" value="Log out">
+            </form>
+
+
     </div>
     <div id="sidebar">
 
@@ -73,7 +80,7 @@ include('session.php');
 
                 <?php
                 $selectedYear = -1;
-				
+
 
                 if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
                     $yearSQL->bind_param("s", $login_session);
@@ -130,7 +137,7 @@ include('session.php');
 
 
             if (isset($_GET['yeardrop'])){
-				
+
 				if($selectedYear != -1){
 					$_SESSION['Id'] = null;
 				}
@@ -216,10 +223,10 @@ include('session.php');
 
                 if($selectedYear != -1){
                     echo '<form name = "historik" method = "get" id ="historik" >';
-                    
+
                     echo '<table align = "right">';
                     echo '<td>';
-                    echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; 
+                    echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />';
                     echo '</td>';
                     echo '<td>';
                     echo '<input name="Delete" type = "submit" form ="historik"  value = "Ta bort" id = "DeleteButton" />';
@@ -516,7 +523,7 @@ include('session.php');
 
 
 
-                    
+
 
                 }
             }
