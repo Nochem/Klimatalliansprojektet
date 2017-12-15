@@ -5,3 +5,55 @@
     width:500px;
     height: 40px;
 }
+#DeleteButton{
+    height:30px;
+    font-family: 'Barlow',sans-serif;
+    background-color: #5DBCFF;
+    border:1px solid white;
+    border-radius: 4px;
+    font-size: 20px;
+    color:white;
+    margin-bottom: 10px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+#DeleteButton:hover{
+    background-color: #ff383f;
+    border: 1px solid gray;
+}
+#EditButton{
+    height:30px;
+    font-family: 'Barlow',sans-serif;
+    background-color: #5DBCFF;
+    border:1px solid white;
+    border-radius: 4px;
+    font-size: 20px;
+    color:white;
+    margin-bottom: 10px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+#EditButton:hover{
+    background-color: #468DFF;
+    border: 1px solid gray;
+}
+table{
+    text-align: left;
+    margin-bottom: 1cm;
+    margin-top: 1cm;
+}
+#StatTable th{
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 3px;
+    text-align: left;
+    background-color: #1A6B9F;
+    color: white;
+
+}
+
+#StatTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#StatTable tr:hover {background-color: #ddd;}
+
+
