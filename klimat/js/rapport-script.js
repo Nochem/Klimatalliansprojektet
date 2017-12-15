@@ -75,7 +75,7 @@ $(document).ready(function(){
             edited = false;
             return true;
         }else{
-            confirm("kontrollera ÃƒÂ¥r");
+            confirm("Kontrollera året");
             return false;
 
         }
@@ -113,10 +113,22 @@ $(document).ready(function(){
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
         cell1.innerHTML = "<input name='Departure[]'type='text' class='inputbox'/>";
         cell2.innerHTML = "<input name='Destination[]' type='text' class='inputbox'/>";
         cell3.innerHTML = "<input name='lengthKM[]' type='text' class='inputbox'/>";
         cell4.innerHTML = "<input name='kgCO2[]' type='text' class='inputbox'/>";
+        cell5.innerHTML = "<input type='button' value='X' id='close-button'>";
         window.scrollBy(0,50);
     });
+    $("#reportTable").on('click', 'input[type="button"]', function(){
+
+        $(this).closest('tr').remove();
+        var nbr = document.getElementById("nbrofRowsFlight").value;
+        nbr = parseInt(nbr);
+        nbr = nbr - 1;
+        document.getElementById("nbrofRowsFlight").value = nbr;
+
+
+    })
 });
