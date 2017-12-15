@@ -1,6 +1,7 @@
 <?php
    include('mysqli_connect.php');
    session_start();
+   $_SESSION['Id'];
    
    $user_check = $_SESSION['login_user'];
    
