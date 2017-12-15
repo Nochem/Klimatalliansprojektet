@@ -49,6 +49,38 @@
     background-color: #468DFF;
     border: 1px solid gray;
 }
+#addrowPlaces{
+    height:30px;
+    font-family: 'Barlow',sans-serif;
+    background-color: #5DBCFF;
+    border:1px solid white;
+    border-radius: 4px;
+    font-size: 20px;
+    color:white;
+    margin-bottom: 10px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+#addrowPlaces:hover{
+    background-color: #468DFF;
+    border: 1px solid gray;
+}
+#addrowTransport{
+    height:30px;
+    font-family: 'Barlow',sans-serif;
+    background-color: #5DBCFF;
+    border:1px solid white;
+    border-radius: 4px;
+    font-size: 20px;
+    color:white;
+    margin-bottom: 10px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+#addrowTransport:hover{
+    background-color: #468DFF;
+    border: 1px solid gray;
+}
 .savebutton{
     background-color: #00ff00;
 
@@ -106,7 +138,8 @@
 #text{
     font-family: 'Barlow',sans-serif;
     font-size:18px;
-}.modal {
+}
+.modal {
      display: none; /* Hidden by default */
      position: fixed; /* Stay in place */
      z-index: 1; /* Sit on top */
