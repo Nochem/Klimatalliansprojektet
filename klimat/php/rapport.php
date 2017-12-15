@@ -168,7 +168,7 @@ include('session.php');
                     $arrayindex++;
                 }
             }
-            echo '<td> <input type = "button" id="addrowTransport" value = "Nytt Fält"/> </td>';
+            //echo '<td> <input type = "button" id="addrowTransport" value = "Nytt Fält"/> </td>';
             echo '<input type="hidden" name = "nbrOfRowsNewTransport" id="nbrofRowsTransport" value="0" >';
             echo '</table>';
             echo'<div id="m_krav">
