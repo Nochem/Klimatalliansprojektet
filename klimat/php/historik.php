@@ -10,8 +10,8 @@ $_SESSION['Id'] = null;
     <title>
         Klimat allians Lund - Historik
     </title>
-    <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
     <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
     <link rel="stylesheet" type="text/css" href="../css/historik-style.css">
     <link rel="icon" href="../res/icon.png">
 </head>
@@ -66,11 +66,12 @@ $_SESSION['Id'] = null;
         </ul>
     </div>
     <div id="sidebar">
-        <h1 name= "Rubrik" align= "Center"> Historik </h1>
+
     </div>
     <div id="content">
 
         <div id="stat">
+            <h1 name= "Rubrik" align= "Center"> Historik </h1>
 
 
 
@@ -118,7 +119,7 @@ $_SESSION['Id'] = null;
 
             </form>
 
-            <br>
+
 
 
 
@@ -220,13 +221,13 @@ $_SESSION['Id'] = null;
                     echo '<h1>  Rapport för år '.$selectedYear.' </h1>';
                     echo '<table align = "right">';
                     echo '<td>';
-                    echo '<button name="Ändra"  class = "menubutton flatbutton savebutton modalSave"> Ändra </button>'; // ändra css
+                    echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
                     echo '</td>';
                     echo '<td>';
-                    echo '<input name="Delete" type = "submit" form ="historik"  value = "Ta bort" />';
+                    echo '<input name="Delete" type = "submit" form ="historik"  value = "Ta bort" id = "DeleteButton" />';
                     echo '</td>';
                     echo '</table>';
-                    echo '<br>';
+
                     if(!mysqli_num_rows($ReportSqlres) == 0){
                         while ($myrow = $ReportSqlres->fetch_assoc()){
                             $_SESSION["Id"] = $myrow['Id'];
@@ -253,6 +254,7 @@ $_SESSION['Id'] = null;
                         }
                         mysqli_data_seek($ReportSqlres, 0);
                     }
+                    if(mysqli_num_rows($PlacesRes)> 0 || mysqli_num_rows($OtherPlacesRes) > 0 ){
                     if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes) == 0){
                         echo '<table>';
                         while ($myrow = $OtherPlacesRes->fetch_assoc()) {
@@ -273,10 +275,10 @@ $_SESSION['Id'] = null;
                         }
                         mysqli_data_seek($OtherPlacesRes, 0);
                         echo '</table>';
-                        echo '<br>';
+
                     }
                     if($selectedYear != -1 && !mysqli_num_rows($PlacesRes) == 0){
-                        echo '<table>';
+                        echo '<table id= "StatTable">';
                         echo '<tr>';
                         echo '<th> Utsläppskälla </th>';
                         echo '<th> Inköpt mängd</th>';
@@ -286,6 +288,8 @@ $_SESSION['Id'] = null;
                         echo '<th> Utsläpp i Mwh </th>';
                         echo '<th> TonCO22 </th>';
                         echo '</tr>';
+                    }else{
+                        echo "Inga utsläppskällor under Lokaler och Processer rapporterade";
                     }
                     while ($myrow = $PlacesRes->fetch_assoc()) {
                         if(!empty($myrow)){
@@ -298,7 +302,7 @@ $_SESSION['Id'] = null;
                         }
                     }
                     echo '</table>';
-                    echo '<br>';
+
                     if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes)==0){
                         echo '<table>';
                         while ($myrow = $OtherPlacesRes->fetch_assoc()) {
@@ -320,7 +324,7 @@ $_SESSION['Id'] = null;
                             echo '<td> MWh </td>';
                             echo '</tr>';
                             echo '</table>';
-                            echo '<br>';
+
                             /* echo '<h3> Övriga Kommentarer</h3>';
                             if(!empty($myrow['Comment'])){
                                 echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
@@ -331,12 +335,17 @@ $_SESSION['Id'] = null;
                             }
                              */
                         }
+                    }}else{
+                        echo "Inget rapporterat i Lokaler och Processer";
+
                     }
                     echo '</div>';
                     echo'<div name = "Transport">';
+                    echo '<h1> Transport </h1>';
+                    if(mysqli_num_rows($TransportRes)> 0 || mysqli_num_rows($OtherTransportRes) > 0 ){
                     if($selectedYear !=-1 && !mysqli_num_rows($TransportRes)==0){
-                        echo '<h1> Transport </h1>';
-                        echo '<table>';
+
+                        echo '<table id= "StatTable">';
                         echo '<tr>';
                         echo '<th> Utsläppskälla </th>';
                         echo '<th> Inköpt Mängd </th>';
@@ -346,6 +355,8 @@ $_SESSION['Id'] = null;
                         echo '<th> Utsläpp CO2 per Mwh </th>';
                         echo '<th> Ton CO2 </th>';
                         echo '</tr>';
+                    }else{
+                        echo "Inga utsläppskällor under transport rapporterade";
                     }
                     while ($myrow = $TransportRes->fetch_assoc()) {
                         if(!empty($myrow)){
@@ -403,15 +414,20 @@ $_SESSION['Id'] = null;
                             echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej";
                             echo '<h4> Tillämpas resepolicy </h4>';
                             echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej";
-                            /* BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforementTravelPolicy,
-                            EnviormentReqOtherTransport,EnviormentReqOtherTransportDescription,
-                            EnviormentReqPurchased,EnviormentReqPurchasedDescription,Comment */
+
                         }
+                    }}else{
+                        echo "Inget rapporterat i Transport";
                     }
-                    echo '<br>';
+
                     echo '<h1> Flygresor </h1>';
-                    $myrow = $OtherFlightRes->fetch_assoc();
                     echo '<table>';
+                    $myrow = $OtherFlightRes->fetch_assoc();
+
+                    if(mysqli_num_rows($FlightRes)> 0 || mysqli_num_rows($OtherFlightRes) > 0 ){
+
+
+
                     echo '<tr>';
                     echo '<th> Totala flygutsläpp </th>';
                     echo '</tr>';
@@ -426,7 +442,7 @@ $_SESSION['Id'] = null;
                     echo '</tr>';
                     echo '</table>';
                     if($selectedYear != -1 && !mysqli_num_rows($FlightRes)==0){
-                        echo '<table>';
+                        echo '<table id= "StatTable">';
                         echo '<tr>';
                         echo '<th> Från </th>';
                         echo '<th> Till </th>';
@@ -445,11 +461,14 @@ $_SESSION['Id'] = null;
                                 }
                             }
                             echo '</tr>';
-                            // use your $myrow array as you would with any other fetch
+
                         }
                     }
                     echo '</table>';
-                    echo '<br>';
+                    }else{
+                        echo "Inga flygresor angivna";
+                    }
+
                     $myrow = $ReportSqlres->fetch_assoc();
                     echo '<h3>Övriga Kommentarer </h3>';
                     if(!empty($myrow['Comment'])){
@@ -457,22 +476,18 @@ $_SESSION['Id'] = null;
                         echo $myrow['Comment'];
                         echo '</textarea>';
                     }else{
-                        echo "Ingen kommentar given";
+                        echo "Inga kommentarer givna";
                     }
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<br>';
+
                     echo '<table align = "right">';
                     echo '<td>';
-                    echo '<button name="Ändra"  class = "menubutton flatbutton savebutton modalSave"> Ändra </button>'; // ändra css
+                    echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
                     echo '</td>';
                     echo '<td>';
-                    echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" />';
+                    echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"/>';
                     echo '</td>';
                     echo '</table>';
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<br>';
+
 
                     echo '</form>';
 
@@ -501,6 +516,10 @@ $_SESSION['Id'] = null;
 
                 }
             }
+            if (isset($_GET['Edit'])){
+                //Ska skicka id till redigera sida
+            }
+
 
 
 
