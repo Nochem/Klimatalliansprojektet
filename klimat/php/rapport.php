@@ -27,14 +27,14 @@ include('session.php');
     </p>
 </div>
 <div id="wrapper">
-    <a href="rapport.php">
+    <a href="#">
         <div id="logo">
         </div>
     </a>
 
     <div id="menu">
         <ul>
-            <a href="rapport.php">
+            <a href="#" >
                 <li class="menuitem currentpage" >
                     Rapport
                 </li>
@@ -345,6 +345,9 @@ include('session.php');
 						Flygresor
 					</a>
 				</h1>
+				<p>
+					Använd <a href="http://www.atmosfair.de" target="blank" style="color: blue">länken</a> för att beräkna flygutsläppen (öppnas i nytt fönster). Fyll sedan i tabellen nedan. Har du redan en total mängd kan du fylla i totala flygutsläppet direkt.
+				</p>
 				<table id="reportTable">
 					<thead>
 						<tr>
@@ -511,7 +514,7 @@ include('session.php');
             </table>
             <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
             <script type="text/javascript" src="../js/rapport-script.js"></script>
-            <script type="text/javascript" src="../js/rapport-script2.js"></script>
-            <!--// <script type="text/javascript" src="../js/proto-script.js"></script>-->
+			<script type="text/javascript" src="../js/rapport-script2.js"></script>
+           <!--// <script type="text/javascript" src="../js/proto-script.js"></script>-->
 </body>
 </html>
