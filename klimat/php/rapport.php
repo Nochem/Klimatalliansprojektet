@@ -92,7 +92,7 @@ include('session.php');
             <p>
 
                 <input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
-                <input type = "button" class = "menubutton flatbutton rensa" value ="Rensa"/>
+                <input type = "button" class = "menubutton flatbutton rensa resetbutton" value ="Rensa"/>
             </p>
 
             <?php
@@ -151,7 +151,7 @@ include('session.php');
                     echo '</select>';
                     echo '</td>';
                     //skapar omräkningsfaktor
-                    echo '<td >';
+                    echo '<td class="colCenter">';
                     echo '<p name = "coFactor[]"> ' . $myrow['convFactor'] . '</p>';
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
@@ -159,7 +159,7 @@ include('session.php');
                     echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
-                    echo '<td name="tonCO[]">';
+                    echo '<td class="colCenter" name="tonCO[]">';
                     echo 0;
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]">';
@@ -291,7 +291,7 @@ include('session.php');
                     echo '</select>';
                     //skapar omräkningsfaktor
                     echo '</td>';
-                    echo '<td >';
+                    echo '<td class="colCenter" >';
                     echo '<p name = "coFactor[]"> ' . $myrow['convFactor'] . '</p>';
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
@@ -299,7 +299,7 @@ include('session.php');
                     echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
-                    echo '<td name="tonCO[]">';
+                    echo '<td class="colCenter" name="tonCO[]">';
                     echo 0;
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]" value="0">';
@@ -386,7 +386,7 @@ include('session.php');
 					<textarea name="OtherComment" class="comments" rows="8" cols="50"></textarea>
 					<br>
 					<input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
-					<input type = "button" class = "menubutton flatbutton rensa" value ="Rensa"/>
+					<input type = "button" class = "menubutton flatbutton rensa resetbutton" value ="Rensa"/>
 				</div>
 				</form>
 			</div>

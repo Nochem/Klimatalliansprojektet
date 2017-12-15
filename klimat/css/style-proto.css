@@ -79,19 +79,18 @@ a{
 	cursor: pointer;
 }
 .flatbutton:hover{
-	background-color: #5DBCFF;
+	background-color: ##2591d4;
 	border-color:#5DBCFF;
 }
 .menuitem {
 	position: relative;
-
-	background-color: #87CEFA;
-	color: black;
+	background-color: #1A6B9F;
+	color: white;
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
 }
 .menuitem:hover{
-	background-color: #5DBCFF;
+	background-color: #2591d4;
 	border-color: #5DBCFF;
 }
 #content{
@@ -108,7 +107,7 @@ a{
 .currentpage{
 	display: block;
 	padding:2px;
-	background-color: #5DBCFF;
+	background-color: #2591d4;
 	position: relative;
 	padding: 10px;
 	font-family: 'Barlow',sans-serif;

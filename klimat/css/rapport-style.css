@@ -22,12 +22,26 @@
 	text-align: left;
 	height:10px;
 }
+#content th{
+	padding-left:10px;
+	padding-right:10px;
+	background-color: #1A6B9F;
+	color:#FFF;
+}
+
+#content tr:nth-child(even){background-color: #f2f2f2;}
+
+#content tr:hover {background-color: #ddd;}
+
 #content p{
 	text-align: left;
 }
 #content h3{
 	font-size: 18px;
 	font-weight: normal;
+}
+#content .colCenter{
+	text-align: center;
 }
 .inputbox{
 	width:120px;
@@ -36,7 +50,7 @@
 #addrow{
 	height:50px;
 	font-family: 'Barlow',sans-serif;
-	background-color: #5DBCFF;
+	background-color: #1A6B9F;
 	border:1px solid white;
 	border-radius: 4px;
 	font-size: 20px;
@@ -50,7 +64,7 @@
 	border: 1px solid gray;
 }
 .savebutton{
-	background-color: #00ff00;
+	background-color: #1A6B9F;
 
 }
 .savebutton:hover{
@@ -61,7 +75,7 @@
 	background-color: #f40000;
 }
 .resetbutton:hover{
-	background-color: #f50000;
+	background-color: #da0018;
 	border-color: #de2c00;
 }
 .menubutton{
@@ -69,7 +83,7 @@
 	left: 430px;
 	font-family: 'Barlow',sans-serif;
 	font-size:18px;
-	background-color: #87CEFA;
+	background-color: #1A6B9F;
 	color: white;
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
