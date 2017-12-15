@@ -3,9 +3,10 @@
     height: 40px;
 }
 #DeleteButton{
-    height:30px;
+    width:120px;
+    height:40px;
     font-family: 'Barlow',sans-serif;
-    background-color: #5DBCFF;
+    background-color: #1A6B9F;
     border:1px solid white;
     border-radius: 4px;
     font-size: 20px;
@@ -19,9 +20,10 @@
     border: 1px solid gray;
 }
 #EditButton{
-    height:30px;
+    width:120px;
+	height:40px;
     font-family: 'Barlow',sans-serif;
-    background-color: #5DBCFF;
+    background-color: #1A6B9F;
     border:1px solid white;
     border-radius: 4px;
     font-size: 20px;
