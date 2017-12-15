@@ -16,16 +16,15 @@ include('session.php');
 <body>
 <body>
 <div id="user">
-    <p>	User: <?php
-        echo $login_session;
-        ?>
-    <form id="logout" align="right" style="float:right"name="form1" method="post" action="statistik.php">
-        <label>
-            <input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-        </label>
-    </form>
-    </p>
-</div>
+    		<p id="username">
+			User: <?php echo $login_session; ?>
+			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+	</div>
 <div id="wrapper">
     <a href="#">
         <div id="logo">
@@ -71,7 +70,7 @@ include('session.php');
                     <input id="modalInputReportName" name="reportName" required='' type='text'>
                     <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
                     <br>
-                    <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                   <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"oninput='yearCheck(this.value)'>
                     <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
@@ -423,8 +422,8 @@ include('session.php');
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
                         if (!empty($amount)) {
-                            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
-                                $insertTransportsql->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
+                                $insertTransportsql->bind_param("sdsdddi", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
                                 $insertTransportsql->execute();
                                 $transportqlresult = $insertTransportsql->get_result();
                                 $insertTransportsql->close();
@@ -463,8 +462,8 @@ include('session.php');
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
                         if (!empty($amount)) {
-                            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?)")) {
-                                $insertPlacesProcesses->bind_param("ssdddi", $emissionSource, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
+                                $insertPlacesProcesses->bind_param("sdsdddi", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
                                 $insertPlacesProcesses->execute();
                                 $placesProcessessqlresult = $insertPlacesProcesses->get_result();
                                 $insertPlacesProcesses->close();
