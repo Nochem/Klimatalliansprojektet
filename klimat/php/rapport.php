@@ -72,7 +72,7 @@ include('session.php');
                     <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
                     <br>
                     <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                    <label id = "modalYear" alt='Ã…r' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
+                    <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
                     <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
@@ -380,7 +380,7 @@ include('session.php');
 				<input type = "button" id="addrow" value = "Ny resa"/>
 
 				<div id="flygresor_comments">
-					<h3>Ã–vriga kommentarer</h3>
+					<h3>Övriga kommentarer</h3>
 					<textarea name="OtherComment" class="comments" rows="8" cols="50"></textarea>
 					<br>
 					<input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
@@ -390,7 +390,7 @@ include('session.php');
 			</div>
 		</div>';
             if (isset($_GET['Spara'])) {
-                // KOD FÃ–R ATT SKAPA NY RAPPORT
+                // KOD FöR ATT SKAPA NY RAPPORT
                 $yearinput = $_GET['theYear'];
                 $name = $_GET['personName'];
                 $repname = $_GET['reportName'];
@@ -409,7 +409,7 @@ include('session.php');
                     $id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
                     $createReportSql->close();
                 }
-                //SLUT PÃ… KOD FÃ–R ATT SKAPA EN NY RAPPORT
+                //SLUT PÃ… KOD FöR ATT SKAPA EN NY RAPPORT
                 if($id != null){
                     // Transport insert
                     for ($i = 0; $i < $transportcount; $i++) {
@@ -430,7 +430,7 @@ include('session.php');
                     }
                     $lokalerstart = $transportcount;
                     $lokalerlength = $transportcount + $lokalcount;
-                    //Ã–vrigt Transport insert
+                    //övrigt Transport insert
                     $envReq = $_GET['YesOrNo'];
                     $envReqDesc = $_GET['comment1'];
                     $bioTranspAmount = $_GET['bioTranspAmount'];
@@ -467,7 +467,7 @@ include('session.php');
                             }
                         }
                     }
-                    //Ã–vrig lokaler och processer insert
+                    //övrig lokaler och processer insert
                     $producedSolarHeat = $_GET['producedSolarHeat'];
                     $producedSolarElectr = $_GET['producedSolarElectricity'];
                     $placesOwned = $_GET['placesOwned'];

@@ -3,7 +3,7 @@ body{
 	background-repeat: repeat-x;
 	display: grid;
 }
-#user,li,p,h1,h2,h3,h4,td,th,select,option,form, .help{
+#user,li,p,h1,h2,h3,h4,td,th,select,option,form, textarea, .help{
 	font-family: 'Barlow',sans-serif;
 }
 .help{
