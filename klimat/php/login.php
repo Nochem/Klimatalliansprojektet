@@ -1,5 +1,4 @@
 <?php include "mysqli_connect.php";
-	session_start();
 	if(empty($_POST['username']) && empty($_POST['password'])){
 		$error = '';
 	} else {
@@ -12,6 +11,7 @@
 			$active = $row['Active'];
 			$count = mysqli_num_rows($result);
 			if($count == 1){
+				$_SESSION['Logintime'] = date('Y-m-d H:i:s');
 				$_SESSION['login_user'] = $myusername;
 				if($myusername == "testadmin"){
 	 					header("Location: anvandare.php");
