@@ -1,10 +1,9 @@
 <?php
    include('mysqli_connect.php');
-   session_start();
    
    $user_check = $_SESSION['login_user'];
    
-   $ses_sql = mysqli_query($dbc,"select Name, Password from Users where Name = '$user_check' ");
+   $ses_sql = mysqli_query($dbc,"select Name, Password, Admin from Users where Name = '$user_check' ");
    
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
    
