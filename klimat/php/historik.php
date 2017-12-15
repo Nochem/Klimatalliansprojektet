@@ -1,8 +1,5 @@
 <?php
 include('session.php');
-$_SESSION['Id'] = null;
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,19 +16,15 @@ $_SESSION['Id'] = null;
 <body>
 
 <div id="user">
-    <p id="username">
-
-        User: <?php
-        echo $login_session;
-        ?>
-
-    <form style="float:right" id="logout" align="right" name="form1" method="post" action="statistik.php">
-        <label>
-            <input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-        </label>
-    </form>
-    </p>
-</div>
+    		<p id="username">
+			User: <?php echo $login_session; ?>
+			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+	</div>
 <div id="wrapper">
     <a href="rapport.html"></a>
     <div id="logo">
@@ -80,7 +73,7 @@ $_SESSION['Id'] = null;
 
                 <?php
                 $selectedYear = -1;
-				$_SESSION['Id'] = null;
+				
 
                 if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
                     $yearSQL->bind_param("s", $login_session);
@@ -137,8 +130,10 @@ $_SESSION['Id'] = null;
 
 
             if (isset($_GET['yeardrop'])){
-				$_SESSION['Id'] = null;
-
+				
+				if($selectedYear != -1){
+					$_SESSION['Id'] = null;
+				}
 
                 $selectedYear = $_GET['yeardrop'];
                 if($selectedYear != -1){
@@ -178,7 +173,7 @@ $_SESSION['Id'] = null;
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
-                    if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforcementTravelPolicy,EnvironmentReqOtherTransport,EnvironmentReqOtherTransportDescription,EnvironmentReqPurchased,EnvironmentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
+                    if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforcementTravelPolicy,EnvironmentReqOtherTransport,EnvironmentReqOtherTransportDescription,EnvironmentReqPurchased,EnvironmentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
                         $OtherTransportSql->bind_param("ss", $selectedYear,$login_session);
                         /* execute query */
                         $OtherTransportSql->execute();
@@ -505,17 +500,20 @@ $_SESSION['Id'] = null;
 
                 if ($DeleteSql = mysqli_prepare($dbc, "Delete from Report where id = ? and user = ?")) {
                     $id = $_SESSION['Id'];
+					$message = $id;
+					echo "<script type='text/javascript'>alert('$message');</script>";
                     $DeleteSql ->bind_param("is",$id,$login_session);
                     /* execute query */
                     $DeleteSql ->execute();
                     /* instead of bind_result: */
                     $DeleteSqlres= $DeleteSql->get_result();
                     /* now you can fetch the results into an array - NICE */
+					 Header('Location: '.$_SERVER['PHP_SELF']);
+					Exit();
 
 
 
-                    Header('Location: '.$_SERVER['PHP_SELF']);
-                    Exit();
+                    
 
                 }
             }
