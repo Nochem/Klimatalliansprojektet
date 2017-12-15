@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <?php
 include('session.php');
@@ -11,7 +10,7 @@ include('session.php');
     </title>
     <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
-    <link rel="stylesheet" type="text/css" href="rapport-style.css">
+    <link rel="stylesheet" type="text/css" href="../css/rapport-style.css">
     <link rel="icon" href="../res/icon.png">
 </head>
 <body>
@@ -159,19 +158,16 @@ include('session.php');
                     echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
-                    echo '<td name=tonCO[]>';
+                    echo '<td name="tonCO[]">';
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]">';
                     echo '</tr>';
                     $arrayindex++;
                 }
-
             }
             echo '<td> <input type = "button" id="addrowTransport" value = "Nytt Fält"/> </td>';
             echo '<input type="hidden" name = "nbrOfRowsNewTransport" id="nbrofRowsTransport" value="0" >';
-
             echo '</table>';
-
             echo'<div id="m_krav">
 				<h3>Ställs miljökrav vid inköp av fordon</h3>
 					<p>
@@ -306,7 +302,7 @@ include('session.php');
                     echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
-                    echo '<td name=tonCO[]>';
+                    echo '<td name="tonCO[]">';
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]" value="0">';
                     echo '</tr>';
@@ -316,12 +312,8 @@ include('session.php');
             //Knappen nytt fält och hidden value
             echo '<td> <input type = "button" id="addrowPlaces" value = "Nytt Fält"/> </td>';
             echo '<input type="hidden" name = "nbrOfRowsNewPlaces" id="nbrofRowsPlaces" value="0" >';
-
             echo '</tbody>';
             echo'</table>';
-
-
-
             echo'<table>';
             echo '<thead>
 				<th>Produktion av förnybar energi</th>
