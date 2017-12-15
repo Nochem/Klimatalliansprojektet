@@ -75,7 +75,7 @@ include('session.php');
                 $selectedYear = -1;
 				
 
-                if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
+                if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ? ORDER BY YEAR DESC")) {
                     $yearSQL->bind_param("s", $login_session);
                     /* execute query */
                     $yearSQL->execute();
