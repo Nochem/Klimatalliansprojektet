@@ -2,6 +2,7 @@
 include('session.php');
 $_SESSION['Id'] = null;
 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -79,6 +80,7 @@ $_SESSION['Id'] = null;
 
                 <?php
                 $selectedYear = -1;
+				$_SESSION['Id'] = null;
 
                 if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
                     $yearSQL->bind_param("s", $login_session);
@@ -135,6 +137,7 @@ $_SESSION['Id'] = null;
 
 
             if (isset($_GET['yeardrop'])){
+				$_SESSION['Id'] = null;
 
 
                 $selectedYear = $_GET['yeardrop'];
