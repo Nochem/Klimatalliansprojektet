@@ -178,13 +178,7 @@ include('session.php');
 					Biodrivmedel i köpta transporttjänster
 				</h3>
 				<p>Andel %
-					<input name="bioTranspAmount" type="text" class="inputbox"/></p>
-					<br>
-
-					<p>
-						<input class="radiobutton" type="radio" name="YesOrNo2" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo2" value="0" style="margin-bottom: 20px"> Nej
-					</p>
+					<input name="bioTranspAmount" type="text" class="inputbox"/></p>				
 			</div>
 			<div id="etc_krav">
 				<h3>
@@ -432,17 +426,18 @@ include('session.php');
                     $envReq = $_GET['YesOrNo'];
                     $envReqDesc = $_GET['comment1'];
                     $bioTranspAmount = $_GET['bioTranspAmount'];
-                    $bioTransp = $_GET['YesOrNo2'];
+                    
+					
                     $otherEnvReq = $_GET['YesOrNo3'];
                     $otherEnvReqDesc = $_GET['comment2'];
                     $VehicPolicy = $_GET['YesOrNo4'];
                     $travelPolicy = $_GET['YesOrNo5'];
                     if ($insertOtherTransportsql = mysqli_prepare($dbc,
-                        "INSERT INTO OtherTransport(EnvironmentReqPurchased, EnvironmentReqPurchasedDescription,BioTransport, BioTransportAmount,
+                        "INSERT INTO OtherTransport(EnvironmentReqPurchased, EnvironmentReqPurchasedDescription, BioTransportAmount,
 	EnvironmentReqOtherTransportDescription, EnvironmentReqOtherTransport, EnforcementPurchasePolicyVehicle, EnforcementTravelPolicy, Id)
-	values (?,?,?,?,?,?,?,?,?)"))
+	values (?,?,?,?,?,?,?,?)"))
                     {
-                        $insertOtherTransportsql->bind_param("isidsiiii", $envReq , $envReqDesc , $bioTransp,
+                        $insertOtherTransportsql->bind_param("isdsiiii", $envReq , $envReqDesc ,
                             $bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $id);
                         $insertOtherTransportsql->execute();
                         $otherTransportqlresult = $insertOtherTransportsql->get_result();
