@@ -9,7 +9,6 @@
 		Klimat allians Lund - Kontakt
 	</title>
 	<style>
-
 	</style>
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -65,13 +64,14 @@
       <?php
         $query = mysqli_query($dbc, "SELECT RealName, Email, Telephone FROM Users WHERE Admin = '1'");
         $admin = mysqli_fetch_array($query);
-  			echo '<p style="font-size:22px; text-align:left;">';
+
+  			echo '<p style="font-size:22px; text-align:left;"> Administratör: ';
   			echo $admin['RealName'];
   			echo '</p>';
-        echo '<p style="font-size:22px; text-align:left;">';
+        echo '<p style="font-size:22px; text-align:left;"> E-post: ';
         echo $admin['Email'];
         echo '</p>';
-        echo '<p style="font-size:22px; text-align:left;">';
+        echo '<p style="font-size:22px; text-align:left;"> Telefonnummer: ';
         echo $admin['Telephone'];
         echo '</p>';
       ?>
