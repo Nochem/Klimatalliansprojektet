@@ -27,34 +27,34 @@ include('session.php');
     </p>
 </div>
 <div id="wrapper">
-    <a href="rapport.php">
+    <a href="#">
         <div id="logo">
         </div>
     </a>
 
     <div id="menu">
         <ul>
-            <a href="rapport.php">
+            <a href="#" >
                 <li class="menuitem currentpage" >
                     Rapport
                 </li>
             </a>
-            <a href="historik.php">
-                <li class="menuitem">
+            <a href="historik.php" class="changeSite">
+                <li class="menuitem" >
                     Historik
                 </li>
             </a>
-            <a href="statistik.php">
+            <a href="statistik.php" class="changeSite">
                 <li class="menuitem">
                     Statistik
                 </li>
             </a>
-            <a href="mina_sidor.php">
+            <a href="mina_sidor.php" class="changeSite">
                 <li class="menuitem">
                     Mina Sidor
                 </li>
             </a>
-            <a href="kontakt.php">
+            <a href="kontakt.php" class="changeSite">
                 <li class="menuitem">
                     Kontakt
                 </li>
@@ -339,7 +339,9 @@ include('session.php');
 						Flygresor
 					</a>
 				</h1>
-
+				<p>
+					Använd <a href="http://www.atmosfair.de" target="blank" style="color: blue">länken</a> för att beräkna flygutsläppen (öppnas i nytt fönster). Fyll sedan i tabellen nedan. Har du redan en total mängd kan du fylla i totala flygutsläppet direkt.
+				</p>
 				<table id="reportTable">
 					<thead>
 						<tr>
@@ -508,7 +510,7 @@ include('session.php');
             </table>
             <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
             <script type="text/javascript" src="../js/rapport-script.js"></script>
-            <script type="text/javascript" src="../js/rapport-script2.js"></script>
+			<script type="text/javascript" src="../js/rapport-script2.js"></script>
            <!--// <script type="text/javascript" src="../js/proto-script.js"></script>-->
 </body>
 </html>
