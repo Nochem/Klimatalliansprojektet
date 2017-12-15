@@ -159,6 +159,7 @@ include('session.php');
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
                     echo '<td name="tonCO[]">';
+                    echo 0;
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]">';
                     echo '</tr>';
@@ -303,6 +304,7 @@ include('session.php');
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
                     echo '<td name="tonCO[]">';
+                    echo 0;
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]" value="0">';
                     echo '</tr>';
