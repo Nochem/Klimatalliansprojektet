@@ -119,7 +119,7 @@ include('session.php');
 			// Hämtar id från session.php som sätts när man väljer en rapport på Historik-sidan och trycker på Ändra-knappen
 			$rapport_id = $_SESSION['Id'];
 			
-			if ($Transportsql = mysqli_prepare($dbc, "SELECT Transport.Unit, Transport.EmissionSource, Amount FROM ConversionFactors JOIN Transport ON ConversionFactors.EmissionSource = Transport.EmissionSource WHERE Id = ?")) {
+			if ($Transportsql = mysqli_prepare($dbc, "SELECT Transport.TonCO2, Transport.Unit, Transport.EmissionSource, Amount FROM ConversionFactors JOIN Transport ON ConversionFactors.EmissionSource = Transport.EmissionSource WHERE Id = ?")) {
                 $Transportsql->bind_param("i", $rapport_id);
                 $Transportsql->execute();
                 $Transportsqlresult = $Transportsql->get_result();
@@ -162,7 +162,7 @@ include('session.php');
                 $OtherFlightSql->execute();
                 $OtherFlightRes = $OtherFlightSql->get_result();
 			}
-			
+		
             echo '<h1>';
             echo '<a name="Transport">
 				Transport
@@ -177,7 +177,7 @@ include('session.php');
             echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
             echo '<th> Ton CO<sub>2</sub> </th>';
             while ($myrow = $emissionsqlresult->fetch_assoc()) {
-                if (!empty($myrow)) {
+                if (!empty($myrow)) {	
                     // transportcount används för att loopa igenom (i en for sats)  alla fält när man skickar in data till databasen
                     $transportcount++;
                     // Skapar innehåll i table
@@ -188,58 +188,90 @@ include('session.php');
                     echo '</td>';
                     $str = htmlspecialchars($myrow['EmissionSource']);
                     //skapar en hidden input som används av php när man skickar in data (alla hidden inputs används av php för att skicka in data till databasen)
-                    echo "<input type=\"hidden\" name=\"emissionSource[]\" value=\"$str\">";
-                    echo '<td>';
-				
-                    //skapar inputen för inköpta mängd, har en funktion oninput som uppdaterar tonCO2 kolumnen , arrayindex är en variabel som ökas varje gång en ny rad skapas i transport och lokaler och processer.
+                    echo "<input type=\"hidden\" name=\"emissionSource[]\" value=\"$str\">"; 
+					
+					echo '<td>';
+
+					mysqli_data_seek($Transportsqlresult , 0);
+					
+					$cmp = htmlspecialchars($myrow['EmissionSource']); // CMP är stringar man jämför med
+					//För varje unit i conversionfactors som tillhör transport
 					while($row = $Transportsqlresult->fetch_assoc()){
+		
 						if(!empty($row)){
+							 //skapar inputen för inköpta mängd, har en funktion oninput som uppdaterar tonCO2 kolumnen , arrayindex är en variabel som ökas varje gång en ny rad skapas i transport och lokaler och processer.
 							if($myrow['EmissionSource'] == $row['EmissionSource'] && !$hit){
-// ÄNDRA ONMOUSEMOVE ----------------------------------------------------vvvvvvvvvvv
-								echo '<input type="text" name="amount[]" onmousemove="tonCO2(' . $arrayindex . ')" 
-									onchange ="tonCO2(' . $arrayindex . ')" 
+								echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" 
+									oninput ="tonCO2(' . $arrayindex . ')" 
 									class="inputbox" value="' . $row['Amount'] . '"/>';
 								echo "Hit";
 								$hit = true;
+								$CO2value = $row['TonCO2'];
+							}	
+							
+							$cmp2 =  htmlspecialchars($row['EmissionSource']);
+							if( strcmp ($cmp ,$cmp2 ) == 0){
+								$cmp3 = htmlspecialchars($myrow['Unit']);
+								$cmp4 =  htmlspecialchars($row['Unit']);
+								
+								//Om valda unit är samma som standard i conversion factors.
+								if(strcmp($cmp3,$cmp4)==0){
+									echo '<td>';
+									echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
+		
+									echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
+									echo '<option value ="Ton"> Ton </option>';
+									echo '</select>';
+									echo '</td>';
+								}else{
+									echo '<td>';
+									echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
+									echo '<option value ="Ton"> Ton </option>';
+									echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
+									echo '</select>';
+									echo '</td>';
+								}
 							}
 						}
 					}
-
 					if(!$hit){
 						echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" 
 						onchange ="tonCO2(' . $arrayindex . ')" 
 						class="inputbox" />';
+						
 						echo "ej hit";
+						
+						echo '<td>';
+						// Skapar selectboxen för enhet
+						echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';	
+						echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
+						echo '<option value ="Ton"> Ton </option>';
+						echo '</select>';
+						echo '</td>'; 
 					}
 					$hit = false;
                     echo '</td>';
-                    echo '<td>';
-                    // Skapar selectboxen för enhet
-                    echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
 
-// Sätta rätt enhet här ------------------vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-				
-                    echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
-                    echo '<option value ="Ton"> Ton </option>';
-                    echo '</select>';
-                    echo '</td>';
                     //skapar omräkningsfaktor
-                    echo '<td >';
+                    echo '<td >'; 
                     echo '<p name = "coFactor[]"> ' . $myrow['convFactor'] . '</p>';
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
+					
                     //skapar utsläpp i mwh
                     echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
-                    echo '<td name="tonCO[]">';
-                    echo 0;
+					echo '<td name="tonCO[]">';
+                    echo $CO2value;
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]">';
                     echo '</tr>';
-                    $arrayindex++;
-                }
+                    $arrayindex++;	
+					$CO2value = 0;
+				}
             }
+								
             
             echo '</table>';
             echo'<div id="m_krav">
