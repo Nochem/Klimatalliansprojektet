@@ -27,14 +27,14 @@ include('session.php');
     </p>
 </div>
 <div id="wrapper">
-    <a href="rapport.php">
+    <a href="#">
         <div id="logo">
         </div>
     </a>
 
     <div id="menu">
         <ul>
-            <a href="rapport.php">
+            <a href="#">
                 <li class="menuitem currentpage" >
                     Rapport
                 </li>
@@ -343,7 +343,7 @@ include('session.php');
 				<table id="reportTable">
 					<thead>
 						<tr>
-							<th>Totala flygutsläpp</th>
+							<th>Totala flygutsläpp   <a class="help" href="../html/manual.html"onclick="window.open("glomt_losenord.html","newwindow","width=600,height=300");return false;"><img border="0" alt="Manual" src="../res/frågetecken.png" width="30" height="30"></a></th>
 						</tr>
 					</thead>
 					<tbody>
