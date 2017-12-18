@@ -342,7 +342,7 @@ include('session.php');
             echo '<h1>
 					<a name="flygresor">
 						Flygresor
-					</a>
+					</a>'
 					?>
 			<a href="../html/manual.html#flyg" onclick="window.open('../html/manual.html#flyg', 'newwindow', 'width=600,height=300');return false;">
 						<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30"> 
