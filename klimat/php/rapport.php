@@ -344,7 +344,7 @@ include('session.php');
 						Flygresor
 					</a>'
 					?>
-			<a href="../html/manual.html#flyg" onclick="window.open('../html/manual.html#flyg', 'newwindow', 'width=600,height=300');return false;">
+			<a href="../html/manual.html#flyg" onclick="window.open('../html/manual.html#flyg', 'newwindow', 'width=600,height=400');return false;">
 						<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30"> 
 						</a>
 			<?php
