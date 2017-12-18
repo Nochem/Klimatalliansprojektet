@@ -343,10 +343,15 @@ include('session.php');
 					<a name="flygresor">
 						Flygresor
 					</a>
+					?>
+			<a href="../html/manual.html#flyg" onclick="window.open('../html/manual.html#flyg', 'newwindow', 'width=600,height=300');return false;">
+						<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30"> 
+						</a>
+			<?php
+			echo '
+					
+					
 				</h1>
-				<p>
-					Använd <a href="http://www.atmosfair.de" target="blank" style="color: blue">länken</a> för att beräkna flygutsläppen (öppnas i nytt fönster). Fyll sedan i tabellen nedan. Har du redan en total mängd kan du fylla i totala flygutsläppet direkt.
-				</p>
 				<table id="reportTable">
 					<thead>
 						<tr>
