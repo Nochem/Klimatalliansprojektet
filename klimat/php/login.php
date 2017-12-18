@@ -66,10 +66,9 @@
 			</form><div style = "font-size:14px; color:#cc0000; maargin-top:10px">
 			<?php echo $error; ?>
 			<br/><br/>
-			<a class="help" href="../html/glomt_losenord.html"onclick="window.open(href,'newwindow','width=600,height=300');return false;">Glömt lösenord?</a>
-			<br>
-			<a class="help" href="../html/hjalp_inloggningssida.html" onclick="window.open(href, 'newwindow', 'width=600,height=300');return false;">Hjälp</a>
-			<br>
+			<a href="../html/manual.html#inloggning" onclick="window.open('../html/manual.html', 'newwindow', 'width=600,height=300');return false;">
+				<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30"> 
+			</a>
 
 		</div>
 		</div>
