@@ -119,3 +119,7 @@ a{
 .currentpage a{
 	color:white;
 }
+.helpLink{
+	color: blue;
+	text-decoration: underline;
+} 
