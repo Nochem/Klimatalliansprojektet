@@ -316,7 +316,7 @@ include('session.php');
 							<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1" checked /> Ja';
 						echo '<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej 
 							</p>
-						<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" placeholder="Beskriv krav..." > ' . $myrow['EnvironmentReqPurchasedDescription'] . '</textarea></td>
+						<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" placeholder="Beskriv krav..." >'. $myrow['EnvironmentReqPurchasedDescription'] . '</textarea></td>
 						</div>';
 					}else{
 						echo '<p> 
@@ -663,6 +663,7 @@ include('session.php');
 							<td><input name="kgCO2[]" class="inputbox"/></td>
 						</tr>';
 			}
+			$nbrFlights = 0;
 			mysqli_data_seek($FlightRes, 0);
 			while($FlightResRow = $FlightRes->fetch_assoc()){	
 				if(!empty($FlightResRow)){
@@ -674,6 +675,7 @@ include('session.php');
 								<td><input name="kgCO2[]" class="inputbox" value="'.$FlightResRow['KGCO2'].'" /></td>
 								<td><input type="button" value="X" id="close-button"></td>
 							</tr>';	
+							$nbrFlights++;
 					}else{
 						echo' <tr>
 							<td><input name="Departure[]"type="text" class="inputbox"/></td>
@@ -693,7 +695,7 @@ include('session.php');
 			}
 				echo' </tbody>
 				</table>
-				<input type="hidden" name = "nbrofRowsFlight" id="nbrofRowsFlight" value="1" >
+				<input type="hidden" name = "nbrofRowsFlight" id="nbrofRowsFlight" value="'.$nbrFlights.'" >
 				<input type = "button" id="addrow" value = "Ny resa"/>
 				<div id="flygresor_comments">
 					<h3>Övriga kommentarer</h3>
@@ -721,8 +723,9 @@ include('session.php');
                     $finsihed = 0;
                 }
                 $id = null;
-                if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (User,Year,NameofReport,NameofUser,finished, Comment) values (?,?,?,?,?,?)")){
-                    $createReportSql->bind_param("ssssis",$login_session,$yearinput,$repname,$name,$finished, $comment);
+                if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (ChangeDate, User,Year,NameofReport,NameofUser,finished, Comment) values (default,?,?,?,?,?,?) 
+					ON DUPLICATE KEY UPDATE ChangeDate = default, Year = ?, NameofReport = ? , finished = ?, Comment = ? , NameofUser = ?")){
+                    $createReportSql->bind_param("ssssisssiss",$login_session,$yearinput,$repname,$name,$finished, $comment, $yearinput , $repname, $finished, $comment, $name);
                     $createReportSql->execute();
                     $id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
                     $createReportSql->close();
@@ -738,8 +741,9 @@ include('session.php');
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
                         if (!empty($amount)) {
-                            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
-                                $insertTransportsql->bind_param("sdsdddi", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)
+								ON DUPLICATE KEY UPDATE Amount = ?, Unit = ?, TonCO2 = ? ")) {
+                                $insertTransportsql->bind_param("sdsdddidsd", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id, $amount, $unit, $Ton);
                                 $insertTransportsql->execute();
                                 $transportqlresult = $insertTransportsql->get_result();
                                 $insertTransportsql->close();
@@ -759,10 +763,13 @@ include('session.php');
                     if ($insertOtherTransportsql = mysqli_prepare($dbc,
                         "INSERT INTO OtherTransport(EnvironmentReqPurchased, EnvironmentReqPurchasedDescription, BioTransportAmount,
 	EnvironmentReqOtherTransportDescription, EnvironmentReqOtherTransport, EnforcementPurchasePolicyVehicle, EnforcementTravelPolicy, Id)
-	values (?,?,?,?,?,?,?,?)"))
+	values (?,?,?,?,?,?,?,?)
+	ON DUPLICATE KEY UPDATE EnvironmentReqPurchased = ?, EnvironmentReqPurchasedDescription = ?, BioTransportAmount = ?,
+	EnvironmentReqOtherTransportDescription = ?, EnvironmentReqOtherTransport = ?, EnforcementPurchasePolicyVehicle = ?, EnforcementTravelPolicy = ?"))
                     {
-                        $insertOtherTransportsql->bind_param("isdsiiii", $envReq , $envReqDesc ,
-                            $bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $id);
+                        $insertOtherTransportsql->bind_param("isdsiiiiisdsiii", $envReq , $envReqDesc ,
+                            $bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $id
+							, $envReq, $envReqDesc,  $bioTranspAmount , $otherEnvReqDesc, $otherEnvReq,  $VehicPolicy , $travelPolicy  );
                         $insertOtherTransportsql->execute();
                         $otherTransportqlresult = $insertOtherTransportsql->get_result();
                         $insertOtherTransportsql->close();
@@ -776,8 +783,9 @@ include('session.php');
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
                         if (!empty($amount)) {
-                            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
-                                $insertPlacesProcesses->bind_param("sdsdddi", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?) 
+								ON DUPLICATE KEY UPDATE Amount = ?, Unit = ?, TonCO2 = ?")) {
+                                $insertPlacesProcesses->bind_param("sdsdddidsd", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id, $amount, $unit, $Ton);
                                 $insertPlacesProcesses->execute();
                                 $placesProcessessqlresult = $insertPlacesProcesses->get_result();
                                 $insertPlacesProcesses->close();
@@ -790,12 +798,20 @@ include('session.php');
                     $placesOwned = $_GET['placesOwned'];
                     $placesRented = $_GET['placesRented'];
                     if ($insertOtherPlacesProcesses = mysqli_prepare($dbc,
-                        "INSERT INTO OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,Id) values (?,?,?,?,?)"))
+                        "INSERT INTO OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,Id) values (?,?,?,?,?) 
+						ON DUPLICATE KEY UPDATE PlacesOwned = ? ,PlacesRentedOut = ?, ProducedSolarHeat = ? , ProducedSolarElectricity = ?"))
                     {
-                        $insertOtherPlacesProcesses->bind_param("iiddi", $placesOwned, $placesRented, $producedSolarHeat, $producedSolarElectr, $id);
+                        $insertOtherPlacesProcesses->bind_param("iiddiiidd", $placesOwned, $placesRented, $producedSolarHeat, $producedSolarElectr, $id, $placesOwned, $placesRented, $producedSolarHeat, $producedSolarElectr);
                         $insertOtherPlacesProcesses->execute();
                         $otherPlacesProcessessqlresult = $insertOtherPlacesProcesses->get_result();
                         $insertOtherPlacesProcesses->close();
+                    }
+					
+					if ($deleteFlights = mysqli_prepare($dbc, "DELETE FROM Flights WHERE id = ?")) {
+                                $deleteFlights->bind_param("i", $id);
+                                $deleteFlights->execute();
+                                $deleteFlightsResult = $deleteFlights->get_result();
+                                $deleteFlights->close();
                     }
                     // Insert Flygresor
                     for ($i = 0; $i <$flygresorcount; $i++) {
@@ -804,6 +820,7 @@ include('session.php');
                         $lengthKM = $_GET['lengthKM'][$i];
                         $KgCO2 = $_GET['kgCO2'][$i];
                         if (!empty($departure) && !empty($destination)) {
+							
                             if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
                                 $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
                                 $insertFlightsql->execute();
@@ -814,8 +831,8 @@ include('session.php');
                     }
                     $flightTotKGCO2 = $_GET['totalFlightKGCO2'];
                     if(!empty($flightTotKGCO2)){
-                        if ($insertOtherFlightsql = mysqli_prepare($dbc, "INSERT INTO OtherFlight(TotalAmount, Id) values (?,?)")) {
-                            $insertOtherFlightsql->bind_param("di", $flightTotKGCO2, $id);
+                        if ($insertOtherFlightsql = mysqli_prepare($dbc, "INSERT INTO OtherFlight(TotalAmount, Id) values (?,?) ON DUPLICATE KEY UPDATE TotalAmount = ?")) {
+                            $insertOtherFlightsql->bind_param("did", $flightTotKGCO2, $id, $flightTotKGCO2 );
                             $insertOtherFlightsql->execute();
                             $transportqlresult = $insertOtherFlightsql->get_result();
                             $insertOtherFlightsql->close();
