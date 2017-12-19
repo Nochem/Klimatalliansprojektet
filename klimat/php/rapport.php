@@ -126,7 +126,7 @@ include('session.php');
             echo '<th> Mått </th>';
             echo '<th> Omräkningsfaktor </th>';
             echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
-            echo '<th> Ton CO<sub>2</sub> </th>';
+            echo '<th> Ton CO<sub>2</sub>e </th>';
             while ($myrow = $emissionsqlresult->fetch_assoc()) {
                 if (!empty($myrow)) {
                     // transportcount används för att loopa igenom (i en for sats)  alla fält när man skickar in data till databasen
@@ -263,7 +263,7 @@ include('session.php');
             echo '<th> Mått </th>';
             echo '<th> Omräkningsfaktor </th>';
             echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
-            echo '<th> Ton CO<sub>2</sub> </th>';
+            echo '<th> Ton CO<sub>2</sub>e </th>';
             echo '	</tr>
 		</thead>
 	<tbody id="stattableTransport">';
