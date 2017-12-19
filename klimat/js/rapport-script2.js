@@ -130,13 +130,11 @@ function removeRow(place){
      document.getElementById("reportTable").deleteRow(place);
 
 }
-	function checkYear(year){
-		year = year.replace(/[^0-9,.]/gi, '');
-		if(year.length>4){
-			year = setCharAt(year, str.length - 1, '');
-		}
-		
+function checkYear(year){
+	year = year.replace(/[^0-9]/gi, '');
+	if(year.length>4){
+		year = setCharAt(year, year.length - 1, '');
+		}		
 		document.getElementsByName("theYear")[0].value = year;
-		
-	}
+}
 	
