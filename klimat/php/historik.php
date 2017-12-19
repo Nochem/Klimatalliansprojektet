@@ -246,7 +246,7 @@ include('session.php');
                             echo '</td></tr>';
                             echo '<tr><th align = "left">Status:</th>';
                             echo '<td>' ;
-                            echo $myrow['finished'] ? "Färdig" : "Ej Färdig";
+                            echo $myrow['finished'] ? "<font color=\"green\" size = 12>Färdig</font>" : "<font color=\"red\" size = 12>Ej färdig</font>";
                             echo '</td></tr>';
                             echo '</table>';
                             echo'<div name = "Lokaler och Processer">';
