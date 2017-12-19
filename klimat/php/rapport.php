@@ -6,7 +6,7 @@ include('session.php');
 <head>
     <meta charset="UTF-8">
     <title>
-        Klimat allians Lund - Rapport
+        Klimatallians - Rapport
     </title>
     <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -86,9 +86,12 @@ include('session.php');
                 </div>
             </div>
 
-            <h1>
-                Inventering av CO<sub>2</sub> utsläpp
-            </h1>
+           <h1>
+                Välkommen <?php echo $login_session; ?>! till inrapportering av CO<sub>2</sub>e
+           </h1>
+		<p>
+			För att börja rapportera in årets CO<sub>2</sub>e kan du fylla i fälten nedan.
+		</p>
             <p>
 
                 <input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
@@ -121,7 +124,7 @@ include('session.php');
             echo '<th> Utsläppskälla </th>';
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
-            echo '<th> Omräknings Faktor </th>';
+            echo '<th> Omräkningsfaktor </th>';
             echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
             echo '<th> Ton CO<sub>2</sub> </th>';
             while ($myrow = $emissionsqlresult->fetch_assoc()) {
@@ -170,7 +173,7 @@ include('session.php');
 
             echo '</table>';
             echo'<div id="m_krav">
-				<h3>Ställs miljökrav vid inköp av fordon</h3>
+				<h3>Ställs miljökrav vid inköp av fordon?</h3>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/> Ja
 						<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej
@@ -199,14 +202,14 @@ include('session.php');
 						Inköps- och resepolicy
 					</h3>
 					<p>
-						Tillämpas inköpspolicyn för fordon
+						Tillämpas inköpspolicyn för fordon?
 					</p>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo4" value="1"> Ja
 						<input class="radiobutton" type="radio" name="YesOrNo4" value="0" style="margin-bottom: 20px"> Nej
 					</p>
 					<p>
-						Tillämpas resepolicy
+						Tillämpas resepolicy?
 					</p>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo5" value="1"> Ja
@@ -258,7 +261,7 @@ include('session.php');
             echo '<th> Utsläppskälla </th>';
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
-            echo '<th> Omräknings Faktor </th>';
+            echo '<th> Omräkningsfaktor </th>';
             echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
             echo '<th> Ton CO<sub>2</sub> </th>';
             echo '	</tr>
