@@ -1,5 +1,4 @@
 <?php include "mysqli_connect.php";
-	session_start();
 	if(empty($_POST['username']) && empty($_POST['password'])){
 		$error = '';
 	} else {
@@ -12,6 +11,7 @@
 			$active = $row['Active'];
 			$count = mysqli_num_rows($result);
 			if($count == 1){
+				$_SESSION['Logintime'] = date('Y-m-d H:i:s');
 				$_SESSION['login_user'] = $myusername;
 				if($myusername == "testadmin"){
 	 					header("Location: anvandare.php");
@@ -66,10 +66,9 @@
 			</form><div style = "font-size:14px; color:#cc0000; maargin-top:10px">
 			<?php echo $error; ?>
 			<br/><br/>
-			<a class="help" href="../html/glomt_losenord.html"onclick="window.open(href,'newwindow','width=600,height=300');return false;">Glömt lösenord?</a>
-			<br>
-			<a class="help" href="../html/hjalp_inloggningssida.html" onclick="window.open(href, 'newwindow', 'width=600,height=300');return false;">Hjälp</a>
-			<br>
+			<a href="../html/manual.html#inloggning" onclick="window.open('../html/manual.html', 'newwindow', 'width=600,height=400');return false;">
+				<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30"> 
+			</a>
 
 		</div>
 		</div>

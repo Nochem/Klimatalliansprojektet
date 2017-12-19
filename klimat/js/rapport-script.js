@@ -68,11 +68,11 @@ $(document).ready(function(){
         var name = $("#modalInputName");
 
         if(year.val()<=n && year.val()>1999){
-            confirm("Rapport sparad");
+            alert("Rapport sparad");
             edited = false;
             return true;
         }else{
-            confirm("Kontrollera året");
+            alert("Kontrollera året");
             return false;
 
         }
