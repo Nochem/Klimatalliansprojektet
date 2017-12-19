@@ -141,9 +141,12 @@ include('session.php');
                         
             }
 			
-			// ändra queryn
-            if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransport,BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforcementTravelPolicy,EnvironmentReqOtherTransport,EnvironmentReqOtherTransportDescription,EnvironmentReqPurchased,EnvironmentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
-                $OtherTransportSql->bind_param("ss", $selectedYear,$login_session);
+			// Hämtar alla kolumner från OtherTransport 
+            if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforcementTravelPolicy,EnvironmentReqOtherTransport,EnvironmentReqOtherTransportDescription,EnvironmentReqPurchased,EnvironmentReqPurchasedDescription,Comment 
+															FROM OtherTransport, Report where OtherTransport.Id = Report.Id 
+															AND Report.Id = ?  
+															AND Report.user = ?")) {
+                $OtherTransportSql->bind_param("is", $rapport_id, $login_session);
                 $OtherTransportSql->execute();
                 $OtherTransportRes = $OtherTransportSql->get_result();
                       
@@ -204,7 +207,6 @@ include('session.php');
 								echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" 
 									oninput ="tonCO2(' . $arrayindex . ')" 
 									class="inputbox" value="' . $row['Amount'] . '"/>';
-								echo "Hit";
 								$hit = true;
 								$CO2value = $row['TonCO2'];
 							}	
@@ -238,9 +240,6 @@ include('session.php');
 						echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')" 
 						onchange ="tonCO2(' . $arrayindex . ')" 
 						class="inputbox" />';
-						
-						echo "ej hit";
-						
 						echo '<td>';
 						// Skapar selectboxen för enhet
 						echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';	
@@ -252,7 +251,9 @@ include('session.php');
 					$hit = false;
                     echo '</td>';
 
-                    //skapar omräkningsfaktor
+                    //skapar omräkningsfaktor 
+					
+			//Skrivs ut första gången sidan laddas in även om enheten är ton
                     echo '<td >'; 
                     echo '<p name = "coFactor[]"> ' . $myrow['convFactor'] . '</p>';
                     echo '</td>';
@@ -271,8 +272,19 @@ include('session.php');
 					$CO2value = 0;
 				}
             }
-								
-            
+			/*
+			while($myrow = $OtherTransportRes->fetch_assoc()){
+				if(!empty($myrow)){
+					if($myrow['EnvironmentReqPurchased']){
+						echo '<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/ checked > Ja';
+					}else{
+						echo '<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0"/ checked > Nej';
+					}
+				}else {
+					echo "hej";
+				}
+            }
+			*/
             echo '</table>';
             echo'<div id="m_krav">
 				<h3>Ställs miljökrav vid inköp av fordon</h3>
