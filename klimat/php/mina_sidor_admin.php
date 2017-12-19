@@ -65,7 +65,7 @@
 			<form action="changeAdminInfo.php" method="post">
         <?php
           ob_start();
-          $query = mysqli_query($dbc, "SELECT realName, Email, Telephone FROM users WHERE Admin = '1'");
+          $query = mysqli_query($dbc, "SELECT RealName, Email, Telephone FROM users WHERE Admin = '1'");
           $admin = mysqli_fetch_array($query);
   				echo 'Namn:';
   				echo '<input type="text" name="RealName" value="'.$admin['RealName'].'">';
