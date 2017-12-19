@@ -60,8 +60,12 @@
 				</a>
 			</ul>
 		</div>
-		<div id="content">
-			<canvas id="myChart" width="100" height="100"></canvas>
+		<div class="chart-container">
+			
+			<div id="chart">
+
+				<canvas id="myChart" styles="width=100px height=100px"></canvas>
+			</div>
 		</div>
 	</div>
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
