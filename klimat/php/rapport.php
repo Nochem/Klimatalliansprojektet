@@ -17,7 +17,7 @@ include('session.php');
 <body>
 <div id="user">
     		<p id="username">
-			User: <?php echo $login_session; ?>
+			Inloggad som: <?php echo $login_session; ?>
 			<form id="logout" name="form1" action="logout.php" method="post">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
