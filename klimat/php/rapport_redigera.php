@@ -152,16 +152,16 @@ include('session.php');
                       
             }
 			
-			// ändra queryn
-            if ($FlightSql = mysqli_prepare($dbc, "SELECT Departure,Destination,LengthKM,KGCO2 FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
-                $FlightSql->bind_param("ss", $selectedYear,$login_session);
+			// Hämtar alla kolumner från Flights 
+            if ($FlightSql = mysqli_prepare($dbc, "SELECT Departure,Destination,LengthKM,KGCO2 FROM Flights, Report where Flights.Id = Report.Id AND Report.Id = ? AND Report.user = ?")) {
+                $FlightSql->bind_param("is", $rapport_id, $login_session);
                 $FlightSql->execute();
                 $FlightRes = $FlightSql->get_result();
             }
 			
-			// ändra queryn
-            if ($OtherFlightSql = mysqli_prepare($dbc, "SELECT TotalAmount FROM OtherFlight, Report where OtherFlight.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
-                $OtherFlightSql->bind_param("ss", $selectedYear,$login_session);
+			// Hämtar ut totala kg CO2 utsläpp för flygresor
+            if ($OtherFlightSql = mysqli_prepare($dbc, "SELECT TotalAmount FROM OtherFlight, Report where OtherFlight.Id = Report.Id AND Report.id = ? AND Report.user = ? ")) {
+                $OtherFlightSql->bind_param("is", $rapport_id, $login_session);
                 $OtherFlightSql->execute();
                 $OtherFlightRes = $OtherFlightSql->get_result();
 			}
@@ -252,9 +252,10 @@ include('session.php');
                     echo '</td>';
 
                     //skapar omräkningsfaktor 
-					
 			//Skrivs ut första gången sidan laddas in även om enheten är ton
                     echo '<td >'; 
+										
+// SKRIV UT OMRÄKNINGSFAKTORN SOM FINNS I RAPPORTEN , INTE DEN FRÅN ConversionFactors!
                     echo '<p name = "coFactor[]"> ' . $myrow['convFactor'] . '</p>';
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
@@ -272,64 +273,119 @@ include('session.php');
 					$CO2value = 0;
 				}
             }
-			/*
-			while($myrow = $OtherTransportRes->fetch_assoc()){
-				if(!empty($myrow)){
-					if($myrow['EnvironmentReqPurchased']){
-						echo '<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/ checked > Ja';
-					}else{
-						echo '<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0"/ checked > Nej';
-					}
-				}else {
-					echo "hej";
-				}
-            }
-			*/
+			
             echo '</table>';
             echo'<div id="m_krav">
-				<h3>Ställs miljökrav vid inköp av fordon</h3>
-					<p>
-						<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej
-					</p>
-					<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea></td>
-			</div>
-			<div id="bio_krav">
-				<h3>
-					Biodrivmedel i köpta transporttjänster
-				</h3>
-				<p>Andel %
-					<input name="bioTranspAmount" type="text" class="inputbox"/></p>
-			</div>
-			<div id="etc_krav">
-				<h3>
-					Andra miljökrav på transporttjänster (t.ex. sparsamkörning eller energieffektivitet)?
-				</h3>
-				<p>
-					<input class="radiobutton" type="radio" name="YesOrNo3" onclick="showElemC2()" value="1"> Ja
-					<input class="radiobutton" type="radio" name="YesOrNo3" value="0" onclick="hideElemC2()" style="margin-bottom: 20px"> Nej
-				</p>
-					<textarea class="comments" rows="4" cols="50" name="comment2" id="comment2" form="form" style="display: none" style="margin-bottom:20px" placeholder="Beskriv krav..."></textarea>
-				</div>
-				<div id="inkops_rese">
-					<h3>
-						Inköps- och resepolicy
-					</h3>
-					<p>
-						Tillämpas inköpspolicyn för fordon
-					</p>
-					<p>
-						<input class="radiobutton" type="radio" name="YesOrNo4" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo4" value="0" style="margin-bottom: 20px"> Nej
-					</p>
-					<p>
-						Tillämpas resepolicy
-					</p>
-					<p>
-						<input class="radiobutton" type="radio" name="YesOrNo5" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo5" value="0" style="margin-bottom: 20px"> Nej
-					</p>
-				</div>';
+				<h3>Ställs miljökrav vid inköp av fordon</h3>';
+			
+			while($myrow = $OtherTransportRes->fetch_assoc()){
+				if(!empty($myrow)){
+					//Skapar Ja/Nej knapparna under rubriken "Ställs miljökrav vid inköp av fordon" 
+					if($myrow['EnvironmentReqPurchased']){
+						echo '<p> 
+							<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1" checked /> Ja';
+						echo '<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej 
+							</p>
+						<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" placeholder="Beskriv krav..." > ' . $myrow['EnvironmentReqPurchasedDescription'] . '</textarea></td>
+						</div>';
+					}else{
+						echo '<p> 
+						<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/> Ja';
+						echo '<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" checked> Nej 
+						</p>
+						<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea></td>
+						</div>';
+					}
+					//Skapar textboxen och fyller i den, under rubriken "Biodrivmedel i köpta transsporttjänster" 
+					if($myrow['BioTransportAmount']){
+						echo '<div id="bio_krav">
+									<h3> Biodrivmedel i köpta transporttjänster </h3>
+						<p>Andel %
+							<input name="bioTranspAmount" type="text" class="inputbox" value="' . $myrow['BioTransportAmount'] . '"/></p>
+						</div>';
+					}else{
+						echo'<div id="bio_krav">
+									<h3> Biodrivmedel i köpta transporttjänster </h3>
+								<p> Andel %
+									<input name="bioTranspAmount" type="text" class="inputbox"/>
+								</p>
+							</div>';
+					}	
+					//Skapar Ja/Nej knapparna och textfältet under rubriken "Andra miljökrav på transporttjänster"
+					if($myrow['EnvironmentReqOtherTransport']){
+						echo '<div id="etc_krav">
+							<h3>
+								Andra miljökrav på transporttjänster (t.ex. sparsamkörning eller energieffektivitet)?
+							</h3>
+							<p>
+								<input class="radiobutton" type="radio" name="YesOrNo3" onclick="showElemC2()" value="1" checked/> Ja
+								<input class="radiobutton" type="radio" name="YesOrNo3" value="0" onclick="hideElemC2()" style="margin-bottom: 20px"> Nej
+							</p>
+								<textarea class="comments" rows="4" cols="50" name="comment2" id="comment2" form="form" style="margin-bottom:20px" >'.$myrow['EnvironmentReqOtherTransportDescription'].'</textarea>
+							</div>';
+					}else{
+						echo '<div id="etc_krav">
+							<h3>
+								Andra miljökrav på transporttjänster (t.ex. sparsamkörning eller energieffektivitet)?
+							</h3>
+							<p>
+								<input class="radiobutton" type="radio" name="YesOrNo3" onclick="showElemC2()" value="1"> Ja
+								<input class="radiobutton" type="radio" name="YesOrNo3" value="0" onclick="hideElemC2()" style="margin-bottom: 20px" checked> Nej
+							</p>
+							<textarea class="comments" rows="4" cols="50" name="comment2" id="comment2" form="form" style="display: none" style="margin-bottom:20px" placeholder="Beskriv krav..."></textarea>
+						</div>';
+					}
+					//Skapar Ja/Nej knapparna under rubriken "Inköps- och resepolicy"
+					if($myrow['EnforcementPurchasePolicyVehicle']){
+						echo '<div id="inkops_rese">
+							<h3>
+								Inköps- och resepolicy
+							</h3>
+							<p>
+								Tillämpas inköpspolicyn för fordon
+							</p>
+							<p>
+								<input class="radiobutton" type="radio" name="YesOrNo4" value="1" checked> Ja
+								<input class="radiobutton" type="radio" name="YesOrNo4" value="0" style="margin-bottom: 20px"> Nej
+							</p>';
+					}else{
+						echo '<div id="inkops_rese">
+							<h3>
+								Inköps- och resepolicy
+							</h3>
+							<p>
+								Tillämpas inköpspolicyn för fordon
+							</p>
+							<p>
+								<input class="radiobutton" type="radio" name="YesOrNo4" value="1"> Ja
+								<input class="radiobutton" type="radio" name="YesOrNo4" value="0" style="margin-bottom: 20px" checked> Nej
+							</p>';
+					}
+					//Skapar Ja/Nej knapparna under rubriken "Tillämpas resepolicy"
+					if($myrow['EnforcementTravelPolicy']){
+						echo'<p>
+								Tillämpas resepolicy
+							</p>
+							<p>
+								<input class="radiobutton" type="radio" name="YesOrNo5" value="1" checked> Ja
+								<input class="radiobutton" type="radio" name="YesOrNo5" value="0" style="margin-bottom: 20px"> Nej
+							</p>
+						</div>';
+					}else{
+						echo'<p>
+								Tillämpas resepolicy
+							</p>
+							<p>
+								<input class="radiobutton" type="radio" name="YesOrNo5" value="1"> Ja
+								<input class="radiobutton" type="radio" name="YesOrNo5" value="0" style="margin-bottom: 20px" checked> Nej
+							</p>
+						</div>';
+					}
+				}else {
+					echo "INGA RADER HITTADES";
+				}
+            }
+			
             // ----------- Lokaler och processer ---------------
             if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
                 $emissionsql->bind_param("s", $categoryLokalerProcesser);
@@ -460,13 +516,15 @@ include('session.php');
 				<p>
 					Använd <a href="http://www.atmosfair.de" target="blank" style="color: blue">länken</a> för att beräkna flygutsläppen (öppnas i nytt fönster). Fyll sedan i tabellen nedan. Har du redan en total mängd kan du fylla i totala flygutsläppet direkt.
 				</p>
-				<table id="reportTable">
-					<thead>
-						<tr>
+				<table>
+					<thead>';
+			if(!$myrow = $OtherFlightRes->fetch_assoc()){
+				echo'	<tr>
 							<th>Totala flygutsläpp</th>
 						</tr>
 					</thead>
 					<tbody>
+					
 						<tr>
 							<td><input name="totalFlightKGCO2" type="text" class="inputbox"/>
 							</td>
@@ -474,24 +532,93 @@ include('session.php');
 								<p style="margin-left: 2em;"> kg CO<sub>2</sub></p>
 							</td>
 						</tr>
-					</tbody>
-					<thead>
-						<tr>
-							<th>Från</th>
-							<th>Till</th>
-							<th>Längd km</th>
-							<th>kg C02</th>
+					</tbody>';
+			}
+			mysqli_data_seek($OtherFlightRes,0);
+			while($myrow = $OtherFlightRes->fetch_assoc()){
+				if($myrow['TotalAmount']){
+					echo'	<tr>
+							<th>Totala flygutsläpp</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
+							<td><input name="totalFlightKGCO2" type="text" class="inputbox" value="' . $myrow['TotalAmount'] . '"/>
+							</td>
+							<td>
+								<p style="margin-left: 2em;"> kg CO<sub>2</sub></p>
+							</td>
+						</tr>
+					</tbody>';
+				}else{
+					echo'	<tr>
+							<th>Totala flygutsläpp</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td><input name="totalFlightKGCO2" type="text" class="inputbox"/>
+							</td>
+							<td>
+								<p style="margin-left: 2em;"> kg CO<sub>2</sub></p>
+							</td>
+						</tr>
+					</tbody>';
+					
+				}		
+			}
+			echo'</table>';	
+			
+			echo '<table id="reportTable">
+					<thead>
+					<tr>
+						<th>Från</th>
+						<th>Till</th>
+						<th>Längd km</th>
+						<th>kg C02</th>
+					</tr>
+					</thead>
+					<tbody>';
+			if(!$FlightResRow = $FlightRes->fetch_assoc()){
+				echo' <tr>
 							<td><input name="Departure[]"type="text" class="inputbox"/></td>
 							<td><input name="Destination[]" class="inputbox"/></td>
 							<td><input name="lengthKM[]" class="inputbox"/></td>
 							<td><input name="kgCO2[]" class="inputbox"/></td>
-						</tr>
-					</tbody>
+						</tr>';
+			}
+			mysqli_data_seek($FlightRes, 0);
+			while($FlightResRow = $FlightRes->fetch_assoc()){	
+				if(!empty($FlightResRow)){
+					if($FlightResRow['Departure']){
+						echo' <tr>
+								<td><input name="Departure[]" type="text" class="inputbox" value="'.$FlightResRow['Departure'].'"/> </td>
+								<td><input name="Destination[]" class="inputbox" value="'.$FlightResRow['Destination'].'" /></td>
+								<td><input name="lengthKM[]" class="inputbox" value="'.$FlightResRow['LengthKM'].'" /></td>
+								<td><input name="kgCO2[]" class="inputbox" value="'.$FlightResRow['KGCO2'].'" /></td>
+								<td><input type="button" value="X" id="close-button"></td>
+							</tr>';	
+					}else{
+						echo' <tr>
+							<td><input name="Departure[]"type="text" class="inputbox"/></td>
+							<td><input name="Destination[]" class="inputbox"/></td>
+							<td><input name="lengthKM[]" class="inputbox"/></td>
+							<td><input name="kgCO2[]" class="inputbox"/></td>
+						</tr>';
+					}
+				}else{
+					echo'<tr>
+							<td><input name="Departure[]"type="text" class="inputbox"/></td>
+							<td><input name="Destination[]" class="inputbox"/></td>
+							<td><input name="lengthKM[]" class="inputbox"/></td>
+							<td><input name="kgCO2[]" class="inputbox"/></td>
+						</tr>';
+				}
+			}
+				echo' </tbody>
 				</table>
+				
 				<input type="hidden" name = "nbrofRowsFlight" id="nbrofRowsFlight" value="1" >
 				<input type = "button" id="addrow" value = "Ny resa"/>
 				<div id="flygresor_comments">
@@ -504,6 +631,7 @@ include('session.php');
 				</form>
 			</div>
 		</div>';
+		
             if (isset($_GET['Spara'])) {
                 // KOD FöR ATT SKAPA NY RAPPORT
                 $yearinput = $_GET['theYear'];
