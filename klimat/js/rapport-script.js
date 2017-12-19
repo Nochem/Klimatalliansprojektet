@@ -66,14 +66,17 @@ $(document).ready(function(){
         var year = $("#modalInputYear");
         var reportName = $("#modalInputReportName");
         var name = $("#modalInputName");
-
-        if(year.val()<=n && year.val()>1999){
-            alert("Rapport sparad");
+		
+		if(name.val() == "" || reportName.val() == "" || year.val() == ""){
+            alert("Kontrollera tomma fält");
             edited = false;
-            return true;
-        }else{
-            alert("Kontrollera året");
-            return false;
+			return false;
+        }else if(year.val()> n || year.val()<1999){
+			alert("Kontrollera år");
+			return false;
+		}else{
+			alert("Rapporten är sparad");
+			return true;
 
         }
 
