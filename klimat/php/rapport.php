@@ -70,7 +70,7 @@ include('session.php');
                     <input id="modalInputReportName" name="reportName" required='' type='text'>
                     <label alt='Rapportens namn*' placeholder='Rapportens namn*'></label>
                     <br>
- 		    <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"oninput='yearCheck(this.value)'>
+		    <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4" oninput='checkYear(this.value)'>
                     <label id = 'modalYear' alt='År (åååå)*' placeholder='År (åååå)*'></label>
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
