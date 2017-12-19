@@ -68,13 +68,13 @@ include('session.php');
                     <span class="close">&times;</span>
 
                     <input id="modalInputReportName" name="reportName" required='' type='text'>
-                    <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
+                    <label alt='Rapportens namn*' placeholder='Rapportens namn*'></label>
                     <br>
                    <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"oninput='yearCheck(this.value)'>
-                    <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
+                    <label id = 'År (åååå)*' alt='År' placeholder='År (åååå)*'></label>
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
-                    <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
+                    <label alt='Ditt namn*' placeholder='Ditt namn*'></label>
                     <label for="finCheck">Färdig rapport</label>
                     <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" unchecked>
 
@@ -167,8 +167,7 @@ include('session.php');
                     $arrayindex++;
                 }
             }
-            //echo '<td> <input type = "button" id="addrowTransport" value = "Nytt Fält"/> </td>';
-            echo '<input type="hidden" name = "nbrOfRowsNewTransport" id="nbrofRowsTransport" value="0" >';
+
             echo '</table>';
             echo'<div id="m_krav">
 				<h3>Ställs miljökrav vid inköp av fordon</h3>
@@ -307,9 +306,7 @@ include('session.php');
                     $arrayindex++;
                 }
             }
-            //Knappen nytt fält och hidden value
-            echo '<td> <input type = "button" id="addrowPlaces" value = "Nytt Fält"/> </td>';
-            echo '<input type="hidden" name = "nbrOfRowsNewPlaces" id="nbrofRowsPlaces" value="0" >';
+
             echo '</tbody>';
             echo'</table>';
             echo'<table>';
