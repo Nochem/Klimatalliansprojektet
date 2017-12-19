@@ -14,6 +14,7 @@
 	</title>
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
+    <link rel="stylesheet" type="text/css" href="../css/redigera-style.css">
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>

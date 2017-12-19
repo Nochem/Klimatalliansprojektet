@@ -149,7 +149,7 @@
                   echo "<td>".$row['LastLogIn']."</td>";
                   echo "<td>".$row['IpAddress']."</td>";
                   echo "<td>".$row['RegisterDate']."</td>";
-                  echo "<td style='text-align:left'>
+                  echo "<td style='text-align:left' class='editbtn'>
                         <button id=change-".$row['Name']."
                         class='flatbutton'
                         type='editMemberButton'
