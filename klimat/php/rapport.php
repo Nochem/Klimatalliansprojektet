@@ -87,7 +87,7 @@ include('session.php');
             </div>
 
            <h1>
-                Välkommen <?php echo $login_session; ?>! till inrapportering av CO<sub>2</sub>e
+                Välkommen <?php echo $login_session; ?>!
            </h1>
 		<p>
 			För att börja rapportera in årets CO<sub>2</sub>e kan du fylla i fälten nedan.
