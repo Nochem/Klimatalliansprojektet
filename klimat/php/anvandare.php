@@ -123,14 +123,14 @@
 						<th style="text-align:left">Lösenord</th>
             <th style="text-align:left">Mejl</th>
             <th style="text-align:left">Telefon</th>
-            <th style="text-align:left">Senast inloggad</th>
-            <th style="text-align:left">IP adress</th>
+            <th style="text-align:left">Senast inloggad tid och datum</th>
+            <th style="text-align:left">Senast inloggad IP adress</th>
             <th style="text-align:left">Registrerad</th>
 					</tr>
           <?php
               ob_start();
               $a = 0;
-              $query = mysqli_query($dbc, "SELECT * FROM users ORDER by Name");
+              $query = mysqli_query($dbc, "SELECT * FROM Users ORDER by Name");
               while($row = mysqli_fetch_array($query)){
                 $a++;
                 if(!$row['Admin']){
