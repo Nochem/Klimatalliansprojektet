@@ -92,10 +92,15 @@ $(document).ready(function(){
             return false;
         }
     })
-    $(".changeSite").click(function(){
+  $(".changeSite").click(function(){
         if(edited){
-            alert("Du har inte sparat rapporten! Spara rapporten med sparaknappen eller rensa rapporten med rensaknappen om du inte vill spara")
-            return false;
+            var c = confirm("Du har inte sparat rapporten! Är du säker på att du vill lämna sidan utan att spara?")
+            if(c){
+				return true;
+			}else{
+				return false;
+				
+            }
         }
     });
     $("#addrow").click(function(){
