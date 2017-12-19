@@ -6,7 +6,7 @@ include "session.php";
 
 $sql = "select a.User, a.Year, sum(b.TonCO2) as TonCO2 from Report as a left join Transport as b on a.id = b.id where a.user = '{$row['Name']}' group by a.User, a.year";
 $sql1 = "select a.User, a.Year, sum(b.TonCO2) as TonCO2 from Report as a left join PlacesAndProcesses as b on a.id = b.id where a.user = '{$row['Name']}' group by a.User, a.year";
-$sql2 = "select a.Year, a.User, sum(b.KgCO2)/1000 as TonCO2 from Report as a left join Flights as b on a.id = b.id where a.user = '{$row['Name']}' group by a.user, a.year";
+$sql2 = "select a.Year, a.User, (ifnull(sum(TotalAmount),0) + ifnull(sum(b.KgCO2)/1000,0)) as TonCO2 from Report as a left join Flights as b on a.id = b.id left join OtherFlight as c on a.id = c.id where a.user = '{$row['Name']}' group by a.user, a.year ";
 
 
 $resultTransport = $dbc->query($sql);
