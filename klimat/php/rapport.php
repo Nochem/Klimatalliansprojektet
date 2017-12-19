@@ -6,7 +6,7 @@ include('session.php');
 <head>
     <meta charset="UTF-8">
     <title>
-        Klimat allians Lund - Rapport
+        Klimatallians - Rapport
     </title>
     <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -17,7 +17,7 @@ include('session.php');
 <body>
 <div id="user">
     		<p id="username">
-			User: <?php echo $login_session; ?>
+			Inloggad som: <?php echo $login_session; ?>
 			<form id="logout" name="form1" action="logout.php" method="post">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
@@ -68,13 +68,13 @@ include('session.php');
                     <span class="close">&times;</span>
 
                     <input id="modalInputReportName" name="reportName" required='' type='text'>
-                    <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
+                    <label alt='Rapportens namn*' placeholder='Rapportens namn*'></label>
                     <br>
                    <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"oninput='yearCheck(this.value)'>
-                    <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
+                    <label id = 'År (åååå)*' alt='År' placeholder='År (åååå)*'></label>
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
-                    <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
+                    <label alt='Ditt namn*' placeholder='Ditt namn*'></label>
                     <label for="finCheck">Färdig rapport</label>
                     <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" unchecked>
 
@@ -86,9 +86,12 @@ include('session.php');
                 </div>
             </div>
 
-            <h1>
-                Inventering av CO<sub>2</sub> utsläpp
-            </h1>
+           <h1>
+                Välkommen <?php echo $login_session; ?>! till inrapportering av CO<sub>2</sub>e
+           </h1>
+		<p>
+			För att börja rapportera in årets CO<sub>2</sub>e kan du fylla i fälten nedan.
+		</p>
             <p>
 
                 <input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
@@ -121,9 +124,9 @@ include('session.php');
             echo '<th> Utsläppskälla </th>';
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
-            echo '<th> Omräknings Faktor </th>';
+            echo '<th> Omräkningsfaktor </th>';
             echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
-            echo '<th> Ton CO<sub>2</sub> </th>';
+            echo '<th> Ton CO<sub>2</sub>e </th>';
             while ($myrow = $emissionsqlresult->fetch_assoc()) {
                 if (!empty($myrow)) {
                     // transportcount används för att loopa igenom (i en for sats)  alla fält när man skickar in data till databasen
@@ -167,18 +170,17 @@ include('session.php');
                     $arrayindex++;
                 }
             }
-            //echo '<td> <input type = "button" id="addrowTransport" value = "Nytt Fält"/> </td>';
-            echo '<input type="hidden" name = "nbrOfRowsNewTransport" id="nbrofRowsTransport" value="0" >';
+
             echo '</table>';
             echo'<div id="m_krav">
-				<h3>Ställs miljökrav vid inköp av fordon</h3>
+				<h3>Ställs miljökrav vid inköp av fordon?</h3>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/> Ja
 						<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej
 					</p>
-					<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea>
-                    <p></p>
-			</div>
+					<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea></td>
+
+            </div>
 			<div id="bio_krav">
 				<h3>
 					Biodrivmedel i köpta transporttjänster
@@ -201,14 +203,14 @@ include('session.php');
 						Inköps- och resepolicy
 					</h3>
 					<p>
-						Tillämpas inköpspolicyn för fordon
+						Tillämpas inköpspolicyn för fordon?
 					</p>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo4" value="1"> Ja
 						<input class="radiobutton" type="radio" name="YesOrNo4" value="0" style="margin-bottom: 20px"> Nej
 					</p>
 					<p>
-						Tillämpas resepolicy
+						Tillämpas resepolicy?
 					</p>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo5" value="1"> Ja
@@ -260,9 +262,9 @@ include('session.php');
             echo '<th> Utsläppskälla </th>';
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
-            echo '<th> Omräknings Faktor </th>';
+            echo '<th> Omräkningsfaktor </th>';
             echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
-            echo '<th> Ton CO<sub>2</sub> </th>';
+            echo '<th> Ton CO<sub>2</sub>e </th>';
             echo '	</tr>
 		</thead>
 	<tbody id="stattableTransport">';
@@ -308,9 +310,7 @@ include('session.php');
                     $arrayindex++;
                 }
             }
-            //Knappen nytt fält och hidden value
-            echo '<td> <input type = "button" id="addrowPlaces" value = "Nytt Fält"/> </td>';
-            echo '<input type="hidden" name = "nbrOfRowsNewPlaces" id="nbrofRowsPlaces" value="0" >';
+
             echo '</tbody>';
             echo'</table>';
             echo'<table>';
@@ -390,6 +390,7 @@ include('session.php');
 				<div id="flygresor_comments">
 					<h3>Övriga kommentarer</h3>
 					<textarea name="OtherComment" class="comments" rows="8" cols="50"></textarea>
+
 					<br>
 					<input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
 					<input type = "button" class = "menubutton flatbutton rensa resetbutton" value ="Rensa"/>

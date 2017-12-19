@@ -162,3 +162,26 @@ kod till popup-rutan för sparanappen.
   background-repeat: no-repeat;
   background-position: center;
 }
+#content th,td{
+	padding-top:10px;
+	margin-left:0;
+	text-align: left;
+	height:10px;
+}
+#content th{
+	padding-left:10px;
+	padding-right:10px;
+	background-color: #1A6B9F;
+	color:#FFF;
+}
+
+#content tr:nth-child(even){background-color: #f2f2f2;}
+
+#content tr:hover {background-color: #ddd;}
+#content .editbtn{
+    background-color: white;
+}
+#content .editbtn button:hover{
+    background-color: #1A6B9F;
+    color:white;
+}
