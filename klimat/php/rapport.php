@@ -176,7 +176,8 @@ include('session.php');
 						<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/> Ja
 						<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej
 					</p>
-					<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea></td>
+					<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea>
+                    <p></p>
 			</div>
 			<div id="bio_krav">
 				<h3>
@@ -345,12 +346,12 @@ include('session.php');
 					</a>'
 					?>
 			<a href="../html/manual.html#flyg" onclick="window.open('../html/manual.html#flyg', 'newwindow', 'width=600,height=400');return false;">
-						<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30"> 
+						<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30">
 						</a>
 			<?php
 			echo '
-					
-					
+
+
 				</h1>
 				<table id="reportTable">
 					<thead>
