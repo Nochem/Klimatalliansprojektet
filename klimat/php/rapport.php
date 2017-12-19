@@ -179,7 +179,8 @@ include('session.php');
 						<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej
 					</p>
 					<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea></td>
-			</div>
+                    
+            </div>
 			<div id="bio_krav">
 				<h3>
 					Biodrivmedel i köpta transporttjänster
@@ -345,12 +346,12 @@ include('session.php');
 					</a>'
 					?>
 			<a href="../html/manual.html#flyg" onclick="window.open('../html/manual.html#flyg', 'newwindow', 'width=600,height=400');return false;">
-						<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30"> 
+						<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30">
 						</a>
 			<?php
 			echo '
-					
-					
+
+
 				</h1>
 				<table id="reportTable">
 					<thead>
@@ -389,6 +390,7 @@ include('session.php');
 				<div id="flygresor_comments">
 					<h3>Övriga kommentarer</h3>
 					<textarea name="OtherComment" class="comments" rows="8" cols="50"></textarea>
+
 					<br>
 					<input type = "button" name="Spara2"  class = "menubutton flatbutton savebutton modalSave" value ="Spara"/>
 					<input type = "button" class = "menubutton flatbutton rensa resetbutton" value ="Rensa"/>

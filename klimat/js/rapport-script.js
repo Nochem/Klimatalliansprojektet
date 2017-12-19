@@ -66,17 +66,14 @@ $(document).ready(function(){
         var year = $("#modalInputYear");
         var reportName = $("#modalInputReportName");
         var name = $("#modalInputName");
-		
-		if(name.val() == "" || reportName.val() == "" || year.val() == ""){
-            alert("Kontrollera tomma fält");
+
+        if(year.val()<=n && year.val()>1999){
+            alert("Rapport sparad");
             edited = false;
-			return false;
-        }else if(year.val()> n || year.val()<1999){
-			alert("Kontrollera år");
-			return false;
-		}else{
-			alert("Rapporten är sparad");
-			return true;
+            return true;
+        }else{
+            alert("Kontrollera året");
+            return false;
 
         }
 
@@ -130,5 +127,5 @@ $(document).ready(function(){
         document.getElementById("nbrofRowsFlight").value = nbr;
 
 
-    })
+    });
 });
