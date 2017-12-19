@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimat allians Lund - Mina Sidor
+		Klimatallians - Mina Sidor
 	</title>
 
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
@@ -75,7 +75,7 @@
           </p>
 					<form action="changePassword.php" id="passwchange" method="post">
 						<p>
-							Befintligt Lösenord:
+							Befintligt lösenord:
 						</p>
             <p>
               <?php
@@ -91,7 +91,7 @@
             </p>
 						<input id="oldpass" type="password" name="oldPass" value="">
 						<p>
-							Nytt Lösenord:
+							Nytt lösenord:
 						</p>
             <p>
               <?php
@@ -124,7 +124,7 @@
 						<p id="nomatch">
 						</p>
 						<br>
-						<input class="flatbutton"id="change" type="submit"value="Ändra Lösenord">
+						<input class="flatbutton"id="change" type="submit"value="Ändra lösenord">
 						<br>
 						<br>
 						<p>
