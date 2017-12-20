@@ -258,6 +258,7 @@ include('session.php');
 									echo '<option value ="Ton"> Ton </option>';
 									echo '</select>';
 									echo '</td>';
+
 								}else{
 									echo '<td>';
 									echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
@@ -300,9 +301,17 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]">';
                     echo '</tr>';
-                    $arrayindex++;	
+					
+					
+		/* Verkar inte fungera 	:( */
+					/*echo '<script type="text/javascript">';
+					echo 'tonCO2(' . $arrayindex . ')';
+					echo '</script>';
+                    */
+					$arrayindex++;	
 					$CO2value = 0;
 				}
+								
             }
 			
             echo '</table>';
@@ -730,7 +739,7 @@ include('session.php');
                     $id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
                     $createReportSql->close();
                 }
-                //SLUT PÃ… KOD FöR ATT SKAPA EN NY RAPPORT
+                //SLUT PÅ… KOD FöR ATT SKAPA EN NY RAPPORT
                 if($id != null){
                     // Transport insert
                     for ($i = 0; $i < $transportcount; $i++) {
@@ -740,7 +749,7 @@ include('session.php');
                         $convFactor = $_GET['convFactor'][$i];
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
-                        if (!empty($amount)) {
+                        if (!empty($amount) && !empty($Ton)){
                             if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)
 								ON DUPLICATE KEY UPDATE Amount = ?, Unit = ?, TonCO2 = ? ")) {
                                 $insertTransportsql->bind_param("sdsdddidsd", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id, $amount, $unit, $Ton);
@@ -782,7 +791,7 @@ include('session.php');
                         $convFactor = $_GET['convFactor'][$i];
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
-                        if (!empty($amount)) {
+                        if (!empty($amount) && !empty($Ton)) {
                             if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?) 
 								ON DUPLICATE KEY UPDATE Amount = ?, Unit = ?, TonCO2 = ?")) {
                                 $insertPlacesProcesses->bind_param("sdsdddidsd", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id, $amount, $unit, $Ton);
