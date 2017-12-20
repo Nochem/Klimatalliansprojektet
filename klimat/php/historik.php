@@ -15,19 +15,15 @@ include('session.php');
 </head>
 <body>
 
-<div id="user">
-    		<p id="username">
-			Inloggad som: <b><?php echo $login_session; ?></b>
-			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
-				<label>
-					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-				</label>
-			</form>-->
-		</p>
-	</div>
 <div id="wrapper">
     <a href="rapport.html"></a>
     <div id="logo">
+
+        <div id="user">
+            		<p id="username">
+        			Inloggad som: <b><?php echo $login_session; ?></b>
+        		</p>
+        	</div>
     </div>
     <div id="menu">
         <ul>
@@ -56,15 +52,13 @@ include('session.php');
                     Kontakt
                 </li>
             </a>
+
+            <li style="padding:0em">
+                <form id="logout" name="form1" action="logout.php" method="post">
+    				<input name="submit2" type="submit" id="submit2" value="Log out">
+    			</form>
+            </li>
         </ul>
-
-        <label id="username" for="submit2">
-            User: <?php echo $login_session; ?></label>
-            <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
-                <input class="menuitem logout" name="submit2" type="submit" id="submit2" value="Log out">
-            </form>
-
-
     </div>
     <div id="sidebar">
 

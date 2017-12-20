@@ -13,13 +13,10 @@ body{
 	color: #87CEFA;
 }
 #user{
-	position: absolute;
-    top: 5px;
-    right: 5px;
     text-align: right;
+	margin:0em 6em;
 }
 #username{
-	margin-right: 10px;
 	font-size: 28px;
 }
 a{
@@ -126,4 +123,20 @@ a{
 .helpLink{
 	color: blue;
 	text-decoration: underline;
-} 
+}
+#submit2{
+	font-family: 'Barlow',sans-serif;
+	border:0px;
+	background-color: #1A6B9F;
+	color: white;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+	height:50px;
+	width:120px;
+	margin:0em 4em;
+}
+#submit2:hover{
+		background-color: #950020;
+		color: #FFF;
+}

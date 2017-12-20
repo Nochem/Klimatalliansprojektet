@@ -15,17 +15,14 @@ include('session.php');
 </head>
 <body>
 <body>
-<div id="user">
-    		<p id="username">
-			Inloggad som: <b><?php echo $login_session; ?></b>
-			<form id="logout" name="form1" action="logout.php" method="post">
-				<input class="menuitem flatbutton" style="width=100%;" name="submit2" type="submit" id="submit2" value="Log out">
-			</form>
-		</p>
-	</div>
 <div id="wrapper">
     <a href="#">
         <div id="logo">
+            <div id="user">
+                <p id="username">
+                    Inloggad som: <b><?php echo $login_session; ?></b>
+                </p>
+            </div>
         </div>
     </a>
 
@@ -56,6 +53,11 @@ include('session.php');
                     Kontakt
                 </li>
             </a>
+            <li style="padding:0em">
+                <form id="logout" name="form1" action="logout.php" method="post">
+    				<input name="submit2" type="submit" id="submit2" value="Log out">
+    			</form>
+            </li>
         </ul>
     </div>
     <div id="content">

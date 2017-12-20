@@ -16,20 +16,17 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
-	<div id="user">
-    		<p id="username">
-			Inloggad som: <b><?php echo $login_session; ?></b>
-			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
-				<label>
-					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-				</label>
-			</form>
-		</p>
-	</div>
 	<div id="wrapper">
 		<a href="rapport.php">
 			<div id="logo">
-			</div>
+
+                	<div id="user">
+                    		<p id="username">
+                			Inloggad som: <b><?php echo $login_session; ?></b>
+
+                		</p>
+                	</div>
+            </div>
 		</a>
 		<div id="menu">
 			<ul>
@@ -58,6 +55,12 @@
 						Kontakt
 					</li>
 				</a>
+
+                <li style="padding:0em">
+                    <form id="logout" name="form1" action="logout.php" method="post">
+        				<input name="submit2" type="submit" id="submit2" value="Log out">
+        			</form>
+                </li>
 			</ul>
 		</div>
 		<div id="content">

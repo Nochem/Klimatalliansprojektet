@@ -17,18 +17,14 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
-	<div id="user">
-    		<p id="username">
-			User: <?php echo $login_session; ?>
-			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
-				<label>
-					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-				</label>
-			</form>
-		</p>
-	</div>
     <div id="wrapper">
         <div id="logo">
+
+            	<div id="user">
+                		<p id="username">
+            			User: <?php echo $login_session; ?>
+            		</p>
+            	</div>
         </div>
         <div id="menu">
             <ul>
@@ -53,6 +49,11 @@
                     </li>
                 </a>
 
+                <li style="padding:0em">
+                    <form id="logout" name="form1" action="logout.php" method="post">
+        				<input name="submit2" type="submit" id="submit2" value="Log out">
+        			</form>
+                </li>
 			</ul>
 		</div>
 		<div id="sidebar">
