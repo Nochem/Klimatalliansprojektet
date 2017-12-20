@@ -60,19 +60,19 @@ $x++;
 				datasets: [{
 								label:"Transport",
 					data: transporter, // data: transport,
-					backgroundColor: "rgba(180,50,50,1)",
-					hoverBackgroundColor: "rgba(150,50,50,1)"
+					backgroundColor: "rgba(130,131,134,1)",
+					hoverBackgroundColor: "rgba(130,131,164,1)"
 				},{
 								label:"Lokala processer",
 					data: lokala,//data:lokala,
-					backgroundColor: "rgba(50,180,50,1)",
-					hoverBackgroundColor: "rgba(50,150,50,1)"
+					backgroundColor: "rgba(58,122,165,1)",
+					hoverBackgroundColor: "rgba(58,122,195,1)"
 				},{
 
 								label:"Flygresor",
 					data: flygresor,//data:flygresor,
-					backgroundColor: "rgba(50,50,180,1)",
-					hoverBackgroundColor: "rgba(50,50,150,1)"
+					backgroundColor: "rgba(129,168,193,1)",
+					hoverBackgroundColor: "rgba(129,168,213,1)"
 				}]
 			},
 			options: {
