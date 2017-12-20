@@ -60,49 +60,17 @@
 				</a>
 			</ul>
 		</div>
-		<div id="content">
-			<canvas id="myChart" width="100" height="100"></canvas>
+		<div class="chart-container">
+			
+			<div id="chart">
+
+				<canvas id="myChart" styles="width=100px height=100px"></canvas>
+			</div>
 		</div>
 	</div>
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
 	<script type="text/javascript" src="../js/proto-script.js"></script>
 	<script type="text/javascript" src="../js/chartjs_min.js"></script>
-	<script>
-	var ctx = document.getElementById("myChart").getContext('2d');
-	var myChart = new Chart(ctx, {
-		type: 'bar',
-		data: {
-			labels: ["2014", "2013", "2012", "2011"],
-
-			datasets: [{
-				data: [727, 589, 537, 543, 574],
-				backgroundColor: "rgba(63,103,126,1)",
-				hoverBackgroundColor: "rgba(50,90,100,1)"
-			},{
-				data: [238, 553, 746, 884, 903],
-				backgroundColor: "rgba(163,103,126,1)",
-				hoverBackgroundColor: "rgba(140,85,100,1)"
-			},{
-				data: [1238, 553, 746, 884, 903],
-				backgroundColor: "rgba(63,203,226,1)",
-				hoverBackgroundColor: "rgba(46,185,235,1)"
-			}]
-		},
-		options: {
-			scales: {
-				xAxes: [{
-					barThickness:30,
-					stacked:true
-				}],
-				yAxes: [{
-
-					barThickness:30,
-					stacked:true
-				}]
-			},
-			responsive:true
-		}
-	});
-	</script>
+	<script type="text/javascript" src="../php/statistikscript_admin.php"></script>
 </body>
 </html>

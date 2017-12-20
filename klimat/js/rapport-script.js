@@ -66,14 +66,17 @@ $(document).ready(function(){
         var year = $("#modalInputYear");
         var reportName = $("#modalInputReportName");
         var name = $("#modalInputName");
-
-        if(year.val()<=n && year.val()>1999){
-            alert("Rapport sparad");
+		
+		if(name.val() == "" || reportName.val() == "" || year.val() == ""){
+            alert("Kontrollera tomma fält");
             edited = false;
-            return true;
-        }else{
-            alert("Kontrollera året");
-            return false;
+			return false;
+        }else if(year.val()> n || year.val()<1999){
+			alert("Kontrollera år");
+			return false;
+		}else{
+			alert("Rapporten är sparad");
+			return true;
 
         }
 
@@ -92,10 +95,15 @@ $(document).ready(function(){
             return false;
         }
     })
-    $(".changeSite").click(function(){
+  $(".changeSite").click(function(){
         if(edited){
-            alert("Du har inte sparat rapporten! Spara rapporten med sparaknappen eller rensa rapporten med rensaknappen om du inte vill spara")
-            return false;
+            var c = confirm("Du har inte sparat rapporten! Är du säker på att du vill lämna sidan utan att spara?")
+            if(c){
+				return true;
+			}else{
+				return false;
+				
+            }
         }
     });
     $("#addrow").click(function(){

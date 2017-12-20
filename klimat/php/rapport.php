@@ -17,7 +17,7 @@ include('session.php');
 <body>
 <div id="user">
     		<p id="username">
-			Inloggad som: <?php echo $login_session; ?>
+			Inloggad som: <b><?php echo $login_session; ?></b>
 			<form id="logout" name="form1" action="logout.php" method="post">
 				<input class="menuitem flatbutton" style="width=100%;" name="submit2" type="submit" id="submit2" value="Log out">
 			</form>
@@ -68,8 +68,8 @@ include('session.php');
                     <input id="modalInputReportName" name="reportName" required='' type='text'>
                     <label alt='Rapportens namn*' placeholder='Rapportens namn*'></label>
                     <br>
-                   <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"oninput='yearCheck(this.value)'>
-                    <label id = 'År (åååå)*' alt='År' placeholder='År (åååå)*'></label>
+		    <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4" oninput='checkYear(this.value)'>
+                    <label id = 'modalYear' alt='År (åååå)*' placeholder='År (åååå)*'></label>
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
                     <label alt='Ditt namn*' placeholder='Ditt namn*'></label>
@@ -85,7 +85,7 @@ include('session.php');
             </div>
 
            <h1>
-                Välkommen <?php echo $login_session; ?>! till inrapportering av CO<sub>2</sub>e
+                Välkommen <?php echo $login_session; ?>!
            </h1>
 		<p>
 			För att börja rapportera in årets CO<sub>2</sub>e kan du fylla i fälten nedan.

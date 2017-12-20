@@ -17,7 +17,7 @@ include('session.php');
 
 <div id="user">
     		<p id="username">
-			Inloggad som: <?php echo $login_session; ?>
+			Inloggad som: <b><?php echo $login_session; ?></b>
 			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
@@ -253,7 +253,7 @@ include('session.php');
                             echo '</td></tr>';
                             echo '<tr><th align = "left">Status:</th>';
                             echo '<td>' ;
-                            echo $myrow['finished'] ? "Färdig" : "Ej Färdig";
+                            echo $myrow['finished'] ? "<font color=\"green\" size = 12>Färdig</font>" : "<font color=\"red\" size = 12>Ej färdig</font>";
                             echo '</td></tr>';
                             echo '</table>';
                             echo'<div name = "Lokaler och Processer">';
