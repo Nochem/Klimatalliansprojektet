@@ -106,118 +106,7 @@ include('session.php');
             $arrayindex = 0;
             $categoryTransport = "Transport";
             $categoryLokalerProcesser = "Lokaler och processer";
-            // -------------- Transport ------------
-            if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
-                $emissionsql->bind_param("s", $categoryTransport);
-                $emissionsql->execute();
-                $emissionsqlresult = $emissionsql->get_result();
-            }
-            echo '<h1>';
-            echo '<a name="Transport">
-				Transport
-			</a>';
-            echo "<a href='../html/manual.html#transport' onclick='window.open(\"../html/manual.html#transport\", \"newwindow\", \"width=600,height=400\");return false;'>
-            <img border='0' alt='manual' src='../res/fragetecken.png' width='30' height='30'>
-            </a>";
-            echo '</h1>';
-            echo '<table name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
-            // Skapar rubriker till table
-            echo '<th> Utsläppskälla </th>';
-            echo '<th> Inköpt mängd</th>';
-            echo '<th> Mått </th>';
-            echo '<th> Omräkningsfaktor </th>';
-            echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
-            echo '<th> Ton CO<sub>2</sub>e </th>';
-            while ($myrow = $emissionsqlresult->fetch_assoc()) {
-                if (!empty($myrow)) {
-                    // transportcount används för att loopa igenom (i en for sats)  alla fält när man skickar in data till databasen
-                    $transportcount++;
-                    // Skapar innehåll i table
-                    echo '<tr>';
-                    // här börjar man bygga upp raderna i rapporten
-                    echo '<td >';
-                    echo $myrow['EmissionSource'];
-                    echo '</td>';
-                    $str = htmlspecialchars($myrow['EmissionSource']);
-                    //skapar en hidden input som används av php när man skickar in data (alla hidden inputs används av php för att skicka in data till databasen)
-                    echo "<input type=\"hidden\" name=\"emissionSource[]\" value=\"$str\">";
-                    echo '<td>';
-                    //skapar inputen för inköpta mängd, har en funktion oninput som uppdaterar tonCO2 kolumnen , arrayindex är en variabel som ökas varje gång en ny rad skapas i transport och lokaler och processer.
-                    echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')"
-				onchange ="tonCO2(' . $arrayindex . ')"
-				class="inputbox"/>';
-                    echo '</td>';
-                    echo '<td>';
-                    // Skapar selectboxen för enhet
-                    echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
-                    echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
-                    echo '<option value ="Ton"> Ton </option>';
-                    echo '</select>';
-                    echo '</td>';
-                    //skapar omräkningsfaktor
-                    echo '<td class="colCenter">';
-                    echo '<p name = "coFactor[]"> ' . $myrow['convFactor'] . '</p>';
-                    echo '</td>';
-                    echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
-                    //skapar utsläpp i mwh
-                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
-                    echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
-                    //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
-                    echo '<td class="colCenter" name="tonCO[]">';
-                    echo 0;
-                    echo '</td>';
-                    echo '<input type="hidden" name="ton[]">';
-                    echo '</tr>';
-                    $arrayindex++;
-                }
-            }
 
-            echo '</table>';
-            echo'<div id="m_krav">
-				<h3>Ställs miljökrav vid inköp av fordon?</h3>
-					<p>
-						<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej
-					</p>
-					<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea></td>
-
-            </div>
-			<div id="bio_krav">
-				<h3>
-					Biodrivmedel i köpta transporttjänster
-				</h3>
-				<p>Andel %
-					<input name="bioTranspAmount" type="text" class="inputbox"/></p>
-			</div>
-			<div id="etc_krav">
-				<h3>
-					Andra miljökrav på transporttjänster (t.ex. sparsamkörning eller energieffektivitet)?
-				</h3>
-				<p>
-					<input class="radiobutton" type="radio" name="YesOrNo3" onclick="showElemC2()" value="1"> Ja
-					<input class="radiobutton" type="radio" name="YesOrNo3" value="0" onclick="hideElemC2()" style="margin-bottom: 20px"> Nej
-				</p>
-					<textarea class="comments" rows="4" cols="50" name="comment2" id="comment2" form="form" style="display: none" style="margin-bottom:20px" placeholder="Beskriv krav..."></textarea>
-				</div>
-				<div id="inkops_rese">
-					<h3>
-						Inköps- och resepolicy
-					</h3>
-					<p>
-						Tillämpas inköpspolicyn för fordon?
-					</p>
-					<p>
-						<input class="radiobutton" type="radio" name="YesOrNo4" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo4" value="0" style="margin-bottom: 20px"> Nej
-					</p>
-					<p>
-						Tillämpas resepolicy?
-					</p>
-					<p>
-						<input class="radiobutton" type="radio" name="YesOrNo5" value="1"> Ja
-						<input class="radiobutton" type="radio" name="YesOrNo5" value="0" style="margin-bottom: 20px"> Nej
-					</p>
-				</div>';
             // ----------- Lokaler och processer ---------------
             if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
                 $emissionsql->bind_param("s", $categoryLokalerProcesser);
@@ -342,6 +231,121 @@ include('session.php');
             echo '</tr>
 		</tbody>';
             echo '</table>';
+
+		// -------------- Transport ------------
+            if ($emissionsql = mysqli_prepare($dbc, "SELECT EmissionSource,Unit,convFactor,EmissionCO2perMWh from ConversionFactors where Category = ?")) {
+                $emissionsql->bind_param("s", $categoryTransport);
+                $emissionsql->execute();
+                $emissionsqlresult = $emissionsql->get_result();
+            }
+            echo '<h1>';
+            echo '<a name="Transport">
+				Transport
+			</a>';
+
+            echo "<a href='../html/manual.html#transport' onclick='window.open(\"../html/manual.html#transport\", \"newwindow\", \"width=600,height=400\");return false;'>
+                <img border='0' alt='manual' src='../res/fragetecken.png' width='30' height='30'>
+            </a>";
+            echo '</h1>';
+            echo '<table name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
+            // Skapar rubriker till table
+            echo '<th> Utsläppskälla </th>';
+            echo '<th> Inköpt mängd</th>';
+            echo '<th> Mått </th>';
+            echo '<th> Omräkningsfaktor </th>';
+            echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
+            echo '<th> Ton CO<sub>2</sub>e </th>';
+            while ($myrow = $emissionsqlresult->fetch_assoc()) {
+                if (!empty($myrow)) {
+                    // transportcount används för att loopa igenom (i en for sats)  alla fält när man skickar in data till databasen
+                    $transportcount++;
+                    // Skapar innehåll i table
+                    echo '<tr>';
+                    // här börjar man bygga upp raderna i rapporten
+                    echo '<td >';
+                    echo $myrow['EmissionSource'];
+                    echo '</td>';
+                    $str = htmlspecialchars($myrow['EmissionSource']);
+                    //skapar en hidden input som används av php när man skickar in data (alla hidden inputs används av php för att skicka in data till databasen)
+                    echo "<input type=\"hidden\" name=\"emissionSource[]\" value=\"$str\">";
+                    echo '<td>';
+                    //skapar inputen för inköpta mängd, har en funktion oninput som uppdaterar tonCO2 kolumnen , arrayindex är en variabel som ökas varje gång en ny rad skapas i transport och lokaler och processer.
+                    echo '<input type="text" name="amount[]" oninput="tonCO2(' . $arrayindex . ')"
+				onchange ="tonCO2(' . $arrayindex . ')"
+				class="inputbox"/>';
+                    echo '</td>';
+                    echo '<td>';
+                    // Skapar selectboxen för enhet
+                    echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
+                    echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
+                    echo '<option value ="Ton"> Ton </option>';
+                    echo '</select>';
+                    echo '</td>';
+                    //skapar omräkningsfaktor
+                    echo '<td class="colCenter">';
+                    echo '<p name = "coFactor[]"> ' . $myrow['convFactor'] . '</p>';
+                    echo '</td>';
+                    echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
+                    //skapar utsläpp i mwh
+                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
+                    echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
+                    //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
+                    echo '<td class="colCenter" name="tonCO[]">';
+                    echo 0;
+                    echo '</td>';
+                    echo '<input type="hidden" name="ton[]">';
+                    echo '</tr>';
+                    $arrayindex++;
+                }
+            }
+
+            echo '</table>';
+            echo'<div id="m_krav">
+				<h3>Ställs miljökrav vid inköp av fordon?</h3>
+					<p>
+						<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/> Ja
+						<input class="radiobutton" type="radio" name="YesOrNo" onclick="hideElemC1()" value="0" style="margin-bottom: 20px"/> Nej
+					</p>
+					<textarea class="comments" rows="4" cols="50" name="comment1" id="comment1" form="form" style="display: none" placeholder="Beskriv krav..."></textarea></td>
+
+            </div>
+			<div id="bio_krav">
+				<h3>
+					Biodrivmedel i köpta transporttjänster
+				</h3>
+				<p>Andel %
+					<input name="bioTranspAmount" type="text" class="inputbox"/></p>
+			</div>
+			<div id="etc_krav">
+				<h3>
+					Andra miljökrav på transporttjänster (t.ex. sparsamkörning eller energieffektivitet)?
+				</h3>
+				<p>
+					<input class="radiobutton" type="radio" name="YesOrNo3" onclick="showElemC2()" value="1"> Ja
+					<input class="radiobutton" type="radio" name="YesOrNo3" value="0" onclick="hideElemC2()" style="margin-bottom: 20px"> Nej
+				</p>
+					<textarea class="comments" rows="4" cols="50" name="comment2" id="comment2" form="form" style="display: none" style="margin-bottom:20px" placeholder="Beskriv krav..."></textarea>
+				</div>
+				<div id="inkops_rese">
+					<h3>
+						Inköps- och resepolicy
+					</h3>
+					<p>
+						Tillämpas inköpspolicyn för fordon?
+					</p>
+					<p>
+						<input class="radiobutton" type="radio" name="YesOrNo4" value="1"> Ja
+						<input class="radiobutton" type="radio" name="YesOrNo4" value="0" style="margin-bottom: 20px"> Nej
+					</p>
+					<p>
+						Tillämpas resepolicy?
+					</p>
+					<p>
+						<input class="radiobutton" type="radio" name="YesOrNo5" value="1"> Ja
+						<input class="radiobutton" type="radio" name="YesOrNo5" value="0" style="margin-bottom: 20px"> Nej
+					</p>
+				</div>';
+
             // ---------- Flygresor ----------
             $flygresorcount = 1;
             echo '<h1>

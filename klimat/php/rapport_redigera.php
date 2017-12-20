@@ -60,6 +60,30 @@ include('session.php');
             </a>
         </ul>
     </div>
+	<?php  
+					$rapport_id = $_SESSION['Id'];
+				  if ($ReportSql = mysqli_prepare($dbc, "SELECT Id,NameofReport,NameOfUser,DATE(ChangeDate) as ChangeDate,Year ,finished,Comment from Report where Id = ? and User = ?")) {
+					$ReportSql ->bind_param("is", $rapport_id,$login_session);
+					/* execute query */
+				   $ReportSql ->execute();
+					/* instead of bind_result: */
+					$ReportSqlres= $ReportSql->get_result();
+					/* now you can fetch the results into an array - NICE */
+				   }else{
+				   }	
+				    $reportRow = $ReportSqlres->fetch_assoc();
+					$reportYear = $reportRow['Year'];
+					$ReportName = $reportRow['NameofReport'];
+					$Reporter = $reportRow['NameOfUser'];
+					$lastChange = $reportRow['ChangeDate'];
+					$fin = $reportRow['finished'];
+					$Comment = $reportRow['Comment'];
+					$finished = $fin ? "Färdig" : "Ej Färdig";
+					
+	
+	
+	
+	?>
     <div id="content">
         <form method="get" name="form" id="form">
             <div id="myModal" class="modal">
@@ -67,16 +91,16 @@ include('session.php');
                 <div class="modal-content">
                     <span class="close">&times;</span>
 
-                    <input id="modalInputReportName" name="reportName" required='' type='text'>
+                    <input id="modalInputReportName" name="reportName" value = "<?php echo $ReportName;?>" required='' type='text'>
                     <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
                     <br>
-                   <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4"oninput='yearCheck(this.value)'>
+                   <input id="modalInputYear" name="theYear" required='' value = "<?php echo $reportYear;?>" type='text' maxlength="4"oninput='yearCheck(this.value)'>
                     <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
                     <br>
-                    <input id="modalInputName" name="personName" required='' type='text'>
+                    <input id="modalInputName" name="personName" value = "<?php echo $Reporter;?>" required='' type='text'>
                     <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
                     <label for="finCheck">Färdig rapport</label>
-                    <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" unchecked>
+                    <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" <?php echo ($fin ? 'checked' : ''); ?>>
 
                     <br>
                     <br>
@@ -86,45 +110,32 @@ include('session.php');
                 </div>
             </div>
 			<?php 
-				 $rapport_id = $_SESSION['Id'];
-				  if ($ReportSql = mysqli_prepare($dbc, "SELECT Id,NameofReport,NameOfUser,DATE(ChangeDate) as ChangeDate,Year ,finished,Comment from Report where Id = ? and User = ?")) {
-					$ReportSql ->bind_param("is", $rapport_id,$login_session);
-					/* execute query */
-				   $ReportSql ->execute();
-					/* instead of bind_result: */
-					$ReportSqlres= $ReportSql->get_result();
-					/* now you can fetch the results into an array - NICE */
-				   }else{
-				   }
-				   $reportRow = $ReportSqlres->fetch_assoc();
-				   $Comment = $reportRow['Comment'];
-				   if(!empty($reportRow)){
-					   $reportYear =  $reportRow['Year'];
+				 if(!empty($reportRow)){
+					  
 					   echo '<h1>';
 					   echo "Redigera rapport för år " .''. $reportYear;
 					   echo '</h1>';
 					   echo '<table name="info">';
-					echo '<tr><th align = "left">Namn på rapport:</th>';
+					echo '<tr><th align = "left">Rapportnamn:</th>';
 					echo '<td>';
-					echo $reportRow['NameofReport'];
+					echo $ReportName;
 					echo '</td></tr>';
 					echo '<tr><th align = "left">Rapporterad av:</th>';
 					echo '<td>' ;
-					echo $reportRow['NameOfUser'];
+					echo $Reporter;
 					echo '</td></tr>';
 					echo '<tr><th align = "left">Senast ändrad:</th>';
 					echo '<td>';
-					echo $reportRow['ChangeDate'];
+					echo $lastChange;
 					echo '</td></tr>';
 					echo '<tr><th align = "left">Status:</th>';
 					echo '<td>' ;
-					echo $reportRow['finished'] ? "Färdig" : "Ej Färdig";
+					echo $finished;
 					echo '</td></tr>';
 					echo '</table>';
 					   
 					   
 				   }
-
 				?>
             
             <p>
@@ -258,6 +269,7 @@ include('session.php');
 									echo '<option value ="Ton"> Ton </option>';
 									echo '</select>';
 									echo '</td>';
+
 								}else{
 									echo '<td>';
 									echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
@@ -300,9 +312,10 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]">';
                     echo '</tr>';
-                    $arrayindex++;	
+					$arrayindex++;	
 					$CO2value = 0;
 				}
+								
             }
 			
             echo '</table>';
@@ -730,7 +743,7 @@ include('session.php');
                     $id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
                     $createReportSql->close();
                 }
-                //SLUT PÃ… KOD FöR ATT SKAPA EN NY RAPPORT
+                //SLUT PÅ… KOD FöR ATT SKAPA EN NY RAPPORT
                 if($id != null){
                     // Transport insert
                     for ($i = 0; $i < $transportcount; $i++) {
@@ -740,7 +753,7 @@ include('session.php');
                         $convFactor = $_GET['convFactor'][$i];
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
-                        if (!empty($amount)) {
+                        if (!empty($amount) && !empty($Ton)){
                             if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)
 								ON DUPLICATE KEY UPDATE Amount = ?, Unit = ?, TonCO2 = ? ")) {
                                 $insertTransportsql->bind_param("sdsdddidsd", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id, $amount, $unit, $Ton);
@@ -782,7 +795,7 @@ include('session.php');
                         $convFactor = $_GET['convFactor'][$i];
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
-                        if (!empty($amount)) {
+                        if (!empty($amount) && !empty($Ton)) {
                             if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?) 
 								ON DUPLICATE KEY UPDATE Amount = ?, Unit = ?, TonCO2 = ?")) {
                                 $insertPlacesProcesses->bind_param("sdsdddidsd", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id, $amount, $unit, $Ton);
