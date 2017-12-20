@@ -116,6 +116,9 @@ include('session.php');
             echo '<a name="Transport">
 				Transport
 			</a>';
+            echo "<a href='../html/manual.html#transport' onclick='window.open(\"../html/manual.html#transport\", \"newwindow\", \"width=600,height=400\");return false;'>
+            <img border='0' alt='manual' src='../res/fragetecken.png' width='30' height='30'>
+            </a>";
             echo '</h1>';
             echo '<table name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
             // Skapar rubriker till table
@@ -225,6 +228,9 @@ include('session.php');
             echo '<a name="Lokaler och processer">
 				Lokaler och processer
 			</a>';
+            echo "<a href='../html/manual.html#lokaler' onclick='window.open(\"../html/manual.html#lokaler\", \"newwindow\", \"width=600,height=400\");return false;'>
+                <img border='0' alt='manual' src='../res/fragetecken.png' width='30' height='30'>
+            </a>";
             echo '</h1>';
             echo '<table name= ' . htmlspecialchars($categoryLokalerProcesser) . ' cellspacing="10">
 					<thead>
@@ -343,9 +349,9 @@ include('session.php');
 						Flygresor
 					</a>'
 					?>
-			<a href="../html/manual.html#flyg" onclick="window.open('../html/manual.html#flyg', 'newwindow', 'width=600,height=400');return false;">
-						<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30">
-						</a>
+                    <a href="../html/manual.html#flyg" onclick="window.open('../html/manual.html#flyg', 'newwindow', 'width=600,height=400');return false;">
+                        <img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30">
+                    </a>
 			<?php
 			echo '
 
