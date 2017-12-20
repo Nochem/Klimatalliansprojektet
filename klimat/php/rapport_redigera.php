@@ -301,13 +301,6 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]">';
                     echo '</tr>';
-					
-					
-		/* Verkar inte fungera 	:( */
-					/*echo '<script type="text/javascript">';
-					echo 'tonCO2(' . $arrayindex . ')';
-					echo '</script>';
-                    */
 					$arrayindex++;	
 					$CO2value = 0;
 				}
