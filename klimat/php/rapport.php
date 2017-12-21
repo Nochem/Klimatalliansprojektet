@@ -113,7 +113,7 @@
                         $destination = $_GET['Destination'][$i];
                         $lengthKM = $_GET['lengthKM'][$i];
                         $KgCO2 = $_GET['kgCO2'][$i];
-                        if (!empty($departure) && !empty($destination)) {
+                        if (!empty($KgCO2)) {
                             if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
                                 $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
                                 $insertFlightsql->execute();
