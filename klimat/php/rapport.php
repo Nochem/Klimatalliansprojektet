@@ -150,15 +150,15 @@ include('session.php');
 							</td>
 						</tr>
 					</tbody>';
-            echo '<table>';
+            echo '<table cellspacing="10">';
             // Skapar rubriker till table
             echo '<thead>
 			<tr>';
             echo '<th> Utsläppskälla </th>';
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
-            echo '<th> Omräkningsfaktor </th>';
-            echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
+            echo '<th> Omr. faktor till MWh </th>';
+            echo '<th> Omr. faktor från MWh till CO<sub>2</sub></th>';
             echo '<th> Ton CO<sub>2</sub>e </th>';
             echo '	</tr>
 		</thead>
@@ -185,7 +185,7 @@ include('session.php');
                     echo '<td>';
                     echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
                     echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
-                    echo '<option value ="Ton"> Ton </option>';
+                    echo '<option value ="Ton"> Ton CO<sub>2</sub>e </option>';
                     echo '</select>';
                     //skapar omräkningsfaktor
                     echo '</td>';
@@ -194,7 +194,9 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
                     //skapar utsläpp i mwh
-                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
+                    echo '<td class="colCenter">' ;
+		    echo '<p name="coFactorMWh[]"> ' . $myrow['EmissionCO2perMWh'] . '</p>';
+		    echo '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
                     echo '<td class="colCenter" name="tonCO[]">';
@@ -208,7 +210,7 @@ include('session.php');
 
             echo '</tbody>';
             echo'</table>';
-            echo'<table>';
+            echo'<table cellspacing="10">';
             echo '<thead>
 				<th>Produktion av förnybar energi</th>
 		  </thead>
@@ -254,8 +256,8 @@ include('session.php');
             echo '<th> Utsläppskälla </th>';
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
-            echo '<th> Omräkningsfaktor </th>';
-            echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
+            echo '<th> Omr. faktor till MWh </th>';
+            echo '<th> Omr. faktor från MWh till CO<sub>2</sub></th>';
             echo '<th> Ton CO<sub>2</sub>e </th>';
             while ($myrow = $emissionsqlresult->fetch_assoc()) {
                 if (!empty($myrow)) {
@@ -280,7 +282,7 @@ include('session.php');
                     // Skapar selectboxen för enhet
                     echo '<select name="unit[]" onchange="selectedUnit(' . $arrayindex . ')">';
                     echo '<option value =' . $myrow['Unit'] . '>' . $myrow['Unit'] .  '</option>';
-                    echo '<option value ="Ton"> Ton </option>';
+                    echo '<option value ="Ton"> Ton CO<sub>2</sub>e </option>';
                     echo '</select>';
                     echo '</td>';
                     //skapar omräkningsfaktor
@@ -289,7 +291,7 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
                     //skapar utsläpp i mwh
-                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
+                    echo '<td class="colCenter">' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
                     echo '<td class="colCenter" name="tonCO[]">';

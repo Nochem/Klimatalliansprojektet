@@ -82,14 +82,11 @@ function selectedUnit(arrayindex){
 
 
     if(unit =="Ton"){
-
         document.getElementsByName("coFactor[]")[arrayindex].style.visibility = "hidden";
+	document.getElementsByName("coFactorMWh[]")[arrayindex].style.visibility = "hidden";
     }else{
-
         document.getElementsByName("coFactor[]")[arrayindex].style.visibility = "inherit";
-    }
-    tonCO2(arrayindex);
-
+	document.getElementsByName("coFactorMWh[]")[arrayindex].style.visibility = "inherit";
 }
 
 function checkTwoDot(str) {
