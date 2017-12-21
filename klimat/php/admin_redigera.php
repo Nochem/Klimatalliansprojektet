@@ -17,22 +17,17 @@
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
-	<div id="user">
-    		<p id="username">
-			User: <?php echo $login_session; ?>
-			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
-				<label>
-					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Logga ut">
-				</label>
-			</form>
-		</p>
-	</div>
     <div id="wrapper">
         <div id="logo">
+            <div id="user">
+                <p id="username">
+                    User: <?php echo $login_session; ?>
+                </p>
+            </div>
         </div>
         <div id="menu">
             <ul>
-			     <a href="anvandare.php">
+                <a href="anvandare.php">
                     <li class="menuitem">
                         Användare
                     </li>
@@ -53,14 +48,20 @@
                     </li>
                 </a>
 
-			</ul>
-		</div>
+                <li style="padding:0em">
+                    <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?')">
+                        <input name="submit2" type="submit" id="submit2" value="Logga ut">
+                    </form>
+                </li>
+
+            </ul>
+        </div>
 		<div id="sidebar">
 		</div>
     <div id="addUserModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-              <form action="addUser.php" method="post">      
+              <form action="addUser.php" method="post">
 			   Utsläppskälla:
                 <input id="InputName" name="modalInputNewName" type="text">
                 <br>
@@ -86,7 +87,7 @@
         </div>
     </div>
     <div id="changeUserModal" class="modal">
-      
+
         <div class="modal-content">
           <span class="close">&times;</span>
             <form action="admin_redigera.php" name="form" method="post">
@@ -113,18 +114,18 @@
 				  <option value="Transport">Transport</option>
 				  <option value="Lokaler och Processer">Lokaler och Processer</option>
 				</select>
-                
+
                 <br>
                 <br>
-               <button class="savebutton" name="confirmEdit" id="confirmEdit" onclick="" style="margin-bottom: 10px;">Spara</button> 
-			   
+               <button class="savebutton" name="confirmEdit" id="confirmEdit" onclick="" style="margin-bottom: 10px;">Spara</button>
+
 			   <form action="admin_redigera.php" method="post" onsubmit="return confirm('Är du säker du vill ta bort detta fält?');">
                 <button name="delete" id="submitDelete" class="deletebutton">Ta bort</button>
-            </form>				
-              	
+            </form>
+
                 <br>
             </form>
-            
+
         </div>
     </div>
 		<div id="content">
@@ -133,7 +134,7 @@
 					Transporter
 				</h1>
 				<button class="flatbutton" onclick='addUser()'>Lägg till fält</button>
-				
+
 				<table>
 					<tr style="font-size:21px;">
 						<th style="text-align:left">Utsläppskälla</th>
@@ -142,17 +143,17 @@
 						<th style="text-align:left">Utsläpp i CO2 per MWh</th>
 						<th style="text-align:left">Senast ändrad</th>
 						<th style="text-align:left">Senast inloggad tid och datum</th>
-			
-            
+
+
 					</tr>
-					
+
           <?php
               ob_start();
               $a = 0;
-			  
+
               $query = mysqli_query($dbc, "SELECT * FROM ConversionFactors Where Category = 'Transport'");
               while($row = mysqli_fetch_array($query)){
-				 
+
                 $a++;
                 if(!$row['Admin']){
                   $_SESSION['name'][$a] = $row['Name'];
@@ -203,16 +204,16 @@
 						<th style="text-align:left">Utsläpp i CO2 per MWh</th>
 						<th style="text-align:left">Senast ändrad</th>
 						<th style="text-align:left">Senast inloggad tid och datum</th>
-			
-            
+
+
 					</tr>
 			<?php
               ob_start();
               $a = 0;
-			  
+
               $query = mysqli_query($dbc, "SELECT * FROM ConversionFactors Where Category = 'Lokaler och Processer'");
               while($row = mysqli_fetch_array($query)){
-				 
+
                 $a++;
                 if(!$row['Admin']){
                   $_SESSION['name'][$a] = $row['Name'];
@@ -256,7 +257,7 @@
 		</div>
 		<?php
 		  ob_start();
-			
+
 		   if(isset($_POST['delete']) ){
 			   $name = mysqli_real_escape_string($dbc, $_POST['modalInputChangeName']);
 				if ($deleteEmissionSourceSQL = mysqli_prepare($dbc, "DELETE FROM ConversionFactors WHERE EmissionSource=?")) {
