@@ -1,7 +1,7 @@
 $(document).ready(function() {});
 
 function addEmissionSource() {
-  var modal = document.getElementById('addUserModal');
+  var modal = document.getElementById('addFieldModal');
   var btn = document.getElementById("myBtn");
   var span = document.getElementsByClassName("close")[0];
 
@@ -9,7 +9,7 @@ function addEmissionSource() {
   $(".close").click(function() {
     modal.style.display = "none";
   });
-  $("#confirmEdit").click(function() {
+  $("#confirmNew").click(function() {
     modal.style.display = "none";
   });
   $("#window").click(function(event) {
@@ -44,3 +44,10 @@ function changeEmissionSource(EmissionSource, ConvFactor, EmissionCO2perMWh, Uni
   });
   
 }
+
+function refreshPage(){
+	return confirm("hss");
+	
+}
+	
+
