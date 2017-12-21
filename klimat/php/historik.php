@@ -47,9 +47,9 @@ $sentID = $_SESSION['SentId'];
 <body>
 
 <div id="wrapper">
-    <a href="rapport.html"></a>
+    <a href="rapport.php">
     <div id="logo">
-
+	</a>
         <div id="user">
             		<p id="username">
         			Inloggad som: <b><?php echo $login_session; ?></b>
