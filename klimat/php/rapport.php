@@ -194,7 +194,7 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
                     //skapar utsläpp i mwh
-                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
+                    echo '<td>' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
                     echo '<td class="colCenter" name="tonCO[]">';
@@ -289,7 +289,7 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
                     //skapar utsläpp i mwh
-                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
+                    echo '<td>' . $myrow['EmissionCO2perMWh'] . '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
                     echo '<td class="colCenter" name="tonCO[]">';
