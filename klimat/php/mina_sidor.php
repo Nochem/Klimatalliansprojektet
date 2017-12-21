@@ -16,9 +16,9 @@ include('session.php');
 </head>
 <body>
     <div id="wrapper">
-        <a href="rapport.php"></a>
-        <div id="logo">
-
+        <a href="rapport.php">
+            <div id="logo">
+        </a>
             <div id="user">
                 <p id="username">
                     Inloggad som: <b><?php echo $login_session; ?></b>
