@@ -1,9 +1,40 @@
 <?php
 include('session.php');
+$_SESSION['createdReport'] = 0;
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+	<?php
+$sentID = $_SESSION['SentId'];
+
+				if($sentID !=null){
+					 
+					if ($yearSQL = mysqli_prepare($dbc, "SELECT  Year from Report where id = ? and user = ?")) {
+					
+                    $yearSQL->bind_param("is",$sentID,$login_session);
+                    /* execute query */
+                    $yearSQL->execute();
+                    /* instead of bind_result: */
+                    $yearSQLresult2 = $yearSQL->get_result();
+                    /* now you can fetch the results into an array - NICE */
+                }	
+				
+					if(true){
+					
+					$myrowyear = $yearSQLresult2->fetch_assoc();
+					$host  = $_SERVER['HTTP_HOST'];
+					$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+					$extra = 'historik.php?yeardrop=';
+					$selectedYear = $myrowyear['Year'];
+					$_SESSION['SentId'] = null;
+					header("Location: http://$host$uri/$extra$selectedYear");
+					exit;
+					
+					
+					}
+					}
+					?>
     <meta charset="UTF-8">
     <title>
         Klimatallians - Historik
@@ -73,7 +104,7 @@ include('session.php');
             <form action="#" method="get" name="histDrop">
 
                 <?php
-		    $sentID = $_SESSION['SentId'];
+		   
                 $selectedYear = -1;
 
 
@@ -110,33 +141,8 @@ include('session.php');
                     echo '<a href="rapport.php">Skapa ny rapport</a>';
 
                 }
-		    if($sentID !=null){
-					
-					if ($yearSQL = mysqli_prepare($dbc, "SELECT  Year from Report where id = ? and user = ?")) {
-					
-                    $yearSQL->bind_param("is",$sentID,$login_session);
-                    /* execute query */
-                    $yearSQL->execute();
-                    /* instead of bind_result: */
-                    $yearSQLresult2 = $yearSQL->get_result();
-                    /* now you can fetch the results into an array - NICE */
-                }	
-				
-					if(true){
-					
-					$myrowyear = $yearSQLresult2->fetch_assoc();
-					$host  = $_SERVER['HTTP_HOST'];
-					$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-					$extra = 'historik.php?yeardrop=';
-					$selectedYear = $myrowyear['Year'];
-					$_SESSION['SentId'] = null;
-					header("Location: http://$host$uri/$extra$selectedYear");
-					exit;
-					
-					
-					}
-					}
-                ?>
+							 
+		   ?> 
 
 
 
