@@ -66,21 +66,22 @@ $(document).ready(function(){
         var year = $("#modalInputYear");
         var reportName = $("#modalInputReportName");
         var name = $("#modalInputName");
+	var oldYears = $("#reportedYears");
 		
-		if(name.val() == "" || reportName.val() == "" || year.val() == ""){
-            alert("Kontrollera tomma fält");
-            edited = false;
-			return false;
+	if(name.val() == "" || reportName.val() == "" || year.val() == ""){
+		alert("Kontrollera tomma fält");
+        	edited = false;
+		return false;
         }else if(year.val()> n || year.val()<1999){
-			alert("Kontrollera år");
-			return false;
-		}else{
-			alert("Rapporten är sparad");
-			return true;
-
+		alert("Kontrollera året");
+		return false;
+	}else if(oldYears.val().includes(year.val())){
+  		alert("Detta år är redan inrapporterat");
+  		return false;
+	}else{
+		alert("Rapporten är sparad");
+		return true;
         }
-
-
     })
 
     $("#logout").click(function(){
