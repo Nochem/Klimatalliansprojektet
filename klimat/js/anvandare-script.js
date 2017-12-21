@@ -58,3 +58,9 @@ function addUser() {
     }
   });
 }
+$(document).ready(function() {
+    var finished=$("#fin").html();
+    if(finished!="1"){
+        finis
+    }
+});

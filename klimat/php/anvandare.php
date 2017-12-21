@@ -127,12 +127,15 @@
                         <th style="text-align:left">Senast inloggad tid och datum</th>
                         <th style="text-align:left">Senast inloggad IP adress</th>
                         <th style="text-align:left">Registrerad</th>
+                        <th style="text-align:left">Avslutad</th>
                         <th style="text-align:left">Senast rapporterat</th>
                     </tr>
           <?php
               ob_start();
               $a = 0;
-              $query = mysqli_query($dbc, "SELECT Users.*, DATE(Report.ChangeDate) FROM Users JOIN Report ON Report.User = Users.Name ORDER by Name");
+              $query = mysqli_query($dbc, "SELECT Active, Name, Password, Email,
+                  Telephone, LastLogin, IpAddress, DATE(RegisterDate), max(Year), finished
+                  FROM Users JOIN Report on Report.User = Users.Name GROUP BY User");
               while($row = mysqli_fetch_array($query)){
                 $a++;
                 if(!$row['Admin']){
@@ -148,11 +151,11 @@
                   echo "<td id=".$a."-password>".$row['Password']."</td>";
                   echo "<td id=".$a."-email>".$row['Email']."</td>";
                   echo "<td id=".$a."-telephone>".$row['Telephone']."</td>";
-                  echo "<td>".$row['LastLogIn']."</td>";
+                  echo "<td>".$row['LastLogin']."</td>";
                   echo "<td>".$row['IpAddress']."</td>";
-                  echo "<td>".$row['RegisterDate']."</td>";
-
-                  echo "<td>".$row['DATE(Report.ChangeDate)']."</td>";
+                  echo "<td>".$row['DATE(RegisterDate)']."</td>";
+                  echo "<td id='fin'>".$row['finished']."</td>";
+                  echo "<td>".$row['max(Year)']."</td>";
                   echo "<td style='text-align:left' class='editbtn'>
                         <button id=change-".$row['Name']."
                         class='flatbutton'
