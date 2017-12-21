@@ -75,8 +75,6 @@
             <form action="#" method="get" name="userDrop">
 
                 <?php
-				
-
                 if ($userSQL = mysqli_prepare($dbc, "SELECT Name from Users")) {
                     /* execute query */
                     $userSQL->execute();
@@ -87,13 +85,44 @@
 		if(mysqli_num_rows($userSQLresult) > 0){
                 	if(isset($userSQLresult)){
 
-		                echo '<select id="userdrop" name="userdrop" onchange="this.form.submit()">';
+		                echo '<select id="userdrop" name="userdrop" >';//
 		                echo '&nbsp';
 		                echo "<option value = '-1'> Välj en användare </option>";
 				// mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
                       		while( $myrow = $userSQLresult->fetch_assoc()){
 
                             		echo '<option value =' .$myrow['Name'] . '>' .$myrow['Name'].'</option>';
+                        	}
+                        	echo '</select>';
+			} else {
+			}
+		}else{
+                    echo '<h2> Inga rapporter</h2>';
+
+                    echo 'Företaget ???';
+                    echo'<br><br>';
+
+               
+
+                }		
+		if ($yearSQL = mysqli_prepare($dbc, "SELECT distinct Year from Report")) {
+ 		//$yearSQL->bind_param("s", $_SESSION['uname']);
+                    /* execute query */
+                    $yearSQL->execute();
+                    /* instead of bind_result: */
+                    $yearSQLresult = $yearSQL->get_result();
+                    /* now you can fetch the results into an array - NICE */
+                }
+		if(mysqli_num_rows($yearSQLresult) > 0){
+                	if(isset($yearSQLresult)){
+
+		                echo '<select id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
+		                echo '&nbsp';
+		                echo "<option value = '-1'> Välj ett år </option>";
+				// mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
+                      		while( $myrow = $yearSQLresult->fetch_assoc()){
+
+                            		echo '<option value =' .$myrow['Year'] . '>' .$myrow['Year'].'</option>';
                         	}
                         	echo '</select>';
 			} else {
@@ -113,13 +142,20 @@
 
             </form>
 
-
+<!-- /*
             <form action="#" method="get" name="histDrop">
 
                 <?php
-                $selectedYear = -1;
-		$selectedUser = $_GET['userdrop'];
+		if($_SESSION['userName'] == -1){
+			$_SESSION['userName']=$_GET['userdrop'];
+		$message = $_SESSION['userName'];
+echo "<script type='text/javascript'>alert('$message');</script>";
+				}
 
+		$selectedYear = -1;
+		$selectedUser = $_SESSION['userName'];
+
+		
                 if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ? ORDER BY YEAR DESC")) {
                     $yearSQL->bind_param("s", $selectedUser);
                     /* execute query */
@@ -128,7 +164,7 @@
                     $yearSQLresult = $yearSQL->get_result();
                     /* now you can fetch the results into an array - NICE */
                 }
-                if(mysqli_num_rows($yearSQLresult) > 0){
+              if(mysqli_num_rows($yearSQLresult) > 0){
                     if(isset($yearSQLresult)){
 
                         echo '<select id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
@@ -158,7 +194,7 @@
 
 
             </form>
-
+*/ -->
 
 
 
@@ -176,11 +212,12 @@
 
             if (isset($_GET['yeardrop'])){
 				
+
 				if($selectedYear != -1){
 					$_SESSION['Id'] = null;
 				}
-
-                $selectedYear = $_GET['yeardrop'];
+		$selectedUser=$_GET['userdrop'];
+		$selectedYear=$_GET['yeardrop'];
                 if($selectedYear != -1){
                     if ($ReportSql = mysqli_prepare($dbc, "SELECT Id,NameofReport,NameOfUser,DATE(ChangeDate) as ChangeDate ,finished,Comment from Report where Year = ? and User = ?")) {
                         $ReportSql ->bind_param("ss", $selectedYear,$selectedUser);
@@ -544,29 +581,7 @@
 
             }
 
-            if (isset($_GET['Delete'])){
-                //något som confirmar
-
-                if ($DeleteSql = mysqli_prepare($dbc, "Delete from Report where id = ? and user = ?")) {
-                    $id = $_SESSION['Id'];
-					$message = $id;
-					echo "<script type='text/javascript'>alert('$message');</script>";
-                    $DeleteSql ->bind_param("is",$id,$selectedUser);
-                    /* execute query */
-                    $DeleteSql ->execute();
-                    /* instead of bind_result: */
-                    $DeleteSqlres= $DeleteSql->get_result();
-                    /* now you can fetch the results into an array - NICE */
-					 Header('Location: '.$_SERVER['PHP_SELF']);
-					Exit();
-
-
-
-                    
-
-                }
-            }
-            if(isset($_GET['Edit'])){
+                        if(isset($_GET['Edit'])){
            
 				header('Location: rapport_redigera.php');
 				exit();
