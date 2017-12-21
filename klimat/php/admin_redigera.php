@@ -60,7 +60,7 @@
     <div id="addFieldModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-              <form action="admin_redigera.php" name="form" method="post"> 
+              <form action="add_field.php" name="form" method="post">
 			   Utsläppskälla:
                 <input id="addInputEmission" name="modalInputNewEmission" type="text">
                 <br>
@@ -84,7 +84,7 @@
 				  <option value="Lokaler och Processer">Lokaler och Processer</option>
 				</select>
 				<br>
-				
+
 				Info:
 				<input id="addInfo" name="modalInputAddInfo" type="text">
 				<br>
@@ -92,22 +92,20 @@
             </form>
         </div>
     </div>
-    <div id="changeUserModal" class="modal">
-      
+    <div id="changeFieldModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-            <form action="admin_redigera.php" name="form" method="post">
-                <input id="userNbr" name="userNbr" type="hidden">
+            <form action="edit_field.php" name="form" method="post">
                 Utsläppskälla:
-                <input id="mInputName" name="modalInputChangeName" type="text" readonly>
+                <input id="mInputName" name="modalInputEmissionSource" type="text" readonly>
                 <br>
                 Enhet:
                 <select id="editFieldOptionBoxUnit" name="editFieldOptionBox">
-				  <option value="m3">m3</option>
-				  <option value="kg">kg</option>
-				  <option value="MWh">MWh</option>
-				  <option value="mil">mil</option>
-				</select>
+				              <option value="m3">m3</option>
+				              <option value="kg">kg</option>
+				              <option value="MWh">MWh</option>
+				              <option value="mil">mil</option>
+				        </select>
                 <br>
                 Omräkningsfaktor:
                 <input id="mInputConvFactor" name="modalInputChangeFactor" type="text">
@@ -116,26 +114,20 @@
                 <input id="mInputCO2perMWh" name="modalInputChangeCO2perMWh" type="text">
                 <br>
                 Kategori:
-				<select id="editFieldOptionBoxCategory" name="editFieldOptionBoxCategory">
-				  <option value="Transport">Transport</option>
-				  <option value="Lokaler och Processer">Lokaler och Processer</option>
-				</select>
-				<br>
-				Info:
-				<input id="addInputCO2perMWh" name="modalInfo" type="text">
-				<br>
-                
+				        <select id="editFieldOptionBoxCategory" name="editFieldOptionBoxCategory">
+				              <option value="Transport">Transport</option>
+				              <option value="Lokaler och Processer">Lokaler och Processer</option>
+				        </select>
                 <br>
                 <br>
-               <button class="savebutton" name="confirmEdit" id="confirmEdit" onclick="refreshPage();" style="margin-bottom: 10px;">Spara</button> 
-			   
-			   <form action="admin_redigera.php" onsubmit="return confirm('Är du säker du vill ta bort detta fält?');">
-                <input type="submit" value="Ta bort" name="delete" id="submitDelete" class="deletebutton">
-				</form>				
-              	
+                <button class="savebutton" name="confirmEdit" id="confirmEdit" onclick="" style="margin-bottom: 10px;">Spara</button>
                 <br>
             </form>
-            
+            <form action="delete_field.php" method="post" onsubmit="return confirm('Är du säker du vill ta bort detta fält?');">
+                <input type="hidden" id="mInputDeleteThis" name="modalInputDeleteThis" type="text" readonly>
+                <input type="submit" name="delete" id="submitDelete" class="deletebutton" value="Ta bort">
+            </form>
+
         </div>
     </div>
 		<div id="content">
@@ -144,7 +136,7 @@
 					Transporter
 				</h1>
 				<button class="flatbutton" onclick='addEmissionSource()'>Lägg till fält</button>
-				
+
 				<table>
 					<tr style="font-size:21px;">
 						<th style="text-align:left">Utsläppskälla</th>
@@ -153,59 +145,47 @@
 						<th style="text-align:left">Utsläpp i CO2 per MWh</th>
 						<th style="text-align:left">Senast ändrad</th>
 						<th style="text-align:left">Senast inloggad tid och datum</th>
-			
-            
+
+
 					</tr>
-					
+
           <?php
-              
-              $a = 0;
-			  
-              $query = mysqli_query($dbc, "SELECT * FROM ConversionFactors Where Category = 'Transport'");
+              ob_start();
+              $query = mysqli_query($dbc, "SELECT * FROM conversionfactors Where Category = 'Transport'");
               while($row = mysqli_fetch_array($query)){
-				 
-                $a++;
-                if(!$row['Admin']){
-                  $_SESSION['name'][$a] = $row['Name'];
-                  if($row['Active']){
-                    $active = 'Ja';
-                  } else {
-                    $active = 'Nej';
-                  }
-					echo '<tr>';
-					echo '<td>';
-					echo $row['EmissionSource'];
-					echo '</td>';
-					echo '<td>';
-					echo $row['Unit'];
-					echo '</td>';
-					echo '<td>';
-					echo $row['ConvFactor'];
-					echo '</td>';
-					echo '<td>';
-					echo $row['EmissionCO2perMWh'];
-					echo '</td>';
-					echo '<td>';
-					echo $row['DateChanged'];
-					echo '</td>';
-					echo '<td>';
-					echo $row['Category'];
-					echo '</td>';
-					  echo "<td style='text-align:left' class='editbtn'>
-                        <button id=change-".$row['EmissionSource']."
-                        class='flatbutton'
-                        type='editMemberButton'
-                        onclick='changeEmissionSource(\"".$row['EmissionSource']."\",\"".$row['ConvFactor']."\",\"".$row['EmissionCO2perMWh']."\", \"".$row['Unit']."\", \"".$row['Category']."\")'>Redigera
-                        </button></td>";
-                  echo "</tr>";
-                }
+      					echo '<tr>';
+      					echo '<td>';
+      					echo $row['EmissionSource'];
+      					echo '</td>';
+      					echo '<td>';
+      					echo $row['Unit'];
+      					echo '</td>';
+      					echo '<td>';
+      					echo $row['ConvFactor'];
+      					echo '</td>';
+      					echo '<td>';
+      					echo $row['EmissionCO2perMWh'];
+      					echo '</td>';
+      					echo '<td>';
+      					echo $row['DateChanged'];
+      					echo '</td>';
+      					echo '<td>';
+      					echo $row['Category'];
+      					echo '</td>';
+    					  echo "<td style='text-align:left' class='editbtn'>
+                            <button id=change-".$row['EmissionSource']."
+                            class='flatbutton'
+                            type='editMemberButton'
+                            onclick='changeEmissionSource(\"".$row['EmissionSource']."\",\"".$row['ConvFactor']."\",\"".$row['EmissionCO2perMWh']."\", \"".$row['Unit']."\", \"".$row['Category']."\")'>Redigera
+                            </button></td>";
+                echo "</tr>";
               }
             ?>
 			</table>
 			<h1>
 			Lokaler och Processer
 			</h1>
-			<button class="flatbutton" onclick='addEmissionSource()'>Lägg till fält</button>
+			<button class="flatbutton" onclick='addField()'>Lägg till fält</button>
 			<table>
 			<tr style="font-size:21px;">
 						<th style="text-align:left">Utsläppskälla</th>
@@ -214,106 +194,46 @@
 						<th style="text-align:left">Utsläpp i CO2 per MWh</th>
 						<th style="text-align:left">Senast ändrad</th>
 						<th style="text-align:left">Senast inloggad tid och datum</th>
-			
-            
+
+
 					</tr>
 			<?php
-              
-              $a = 0;
-			  
-              $query = mysqli_query($dbc, "SELECT * FROM ConversionFactors Where Category = 'Lokaler och Processer'");
-              while($row = mysqli_fetch_array($query)){
-				 
-                $a++;
-                if(!$row['Admin']){
-                  $_SESSION['name'][$a] = $row['Name'];
-                  if($row['Active']){
-                    $active = 'Ja';
-                  } else {
-                    $active = 'Nej';
-                  }
-					echo '<tr>';
-					echo '<td>';
-					echo $row['EmissionSource'];
-					echo '</td>';
-					echo '<td id="unit">';
-					echo $row['Unit'];
-					echo '</td>';
-					echo '<td>';
-					echo $row['ConvFactor'];
-					echo '</td>';
-					echo '<td>';
-					echo $row['EmissionCO2perMWh'];
-					echo '</td>';
-					echo '<td>';
-					echo $row['DateChanged'];
-					echo '</td>';
-					echo '<td>';
-					echo $row['Category'];
-					echo '</td>';
+          ob_start();
+          $query = mysqli_query($dbc, "SELECT * FROM ConversionFactors Where Category = 'Lokaler och Processer'");
+          while($row = mysqli_fetch_array($query)){
+  					echo '<tr>';
+  					echo '<td>';
+  					echo $row['EmissionSource'];
+  					echo '</td>';
+  					echo '<td id="unit">';
+  					echo $row['Unit'];
+  					echo '</td>';
+  					echo '<td>';
+  					echo $row['ConvFactor'];
+  					echo '</td>';
+  					echo '<td>';
+  					echo $row['EmissionCO2perMWh'];
+  					echo '</td>';
+  					echo '<td>';
+  					echo $row['DateChanged'];
+  					echo '</td>';
+  					echo '<td>';
+  					echo $row['Category'];
+  					echo '</td>';
 					  echo "<td style='text-align:left' class='editbtn'>
                         <button id=change-".$row['EmissionSource']."
                         class='flatbutton'
                         type='editMemberButton'
                         onclick='changeEmissionSource(\"".$row['EmissionSource']."\",\"".$row['ConvFactor']."\",\"".$row['EmissionCO2perMWh']."\", \"".$row['Unit']."\", \"".$row['Category']."\")'>Redigera
                         </button></td>";
-                  echo "</tr>";
-                }
-              }
-            ?>
+            echo "</tr>";
+          }
+        ?>
 			</table>
 				</div>
 			</div>
 		</div>
-		<?php
-		 if(isset($_POST['create'])){
-					$name = mysqli_real_escape_string($dbc, $_POST['modalInputNewEmission']);
-					$unit = mysqli_real_escape_string($dbc, $_POST['addFieldOptionBox']);
-					$factor = mysqli_real_escape_string($dbc, $_POST['modalInputNewConvFac']);
-					$CO2perMWh = mysqli_real_escape_string($dbc, $_POST['addModalInputChangeCO2perMWh']);
-					$Category = mysqli_real_escape_string($dbc, $_POST['addEditFieldOptionBoxCategory']);
-					$info = mysqli_real_escape_string($dbc, $_POST['modalInputAddInfo']);
-					echo'<script type="text/javascript"> confirm($name); </script>';
-				if ($addEmissionSource = mysqli_prepare($dbc, "INSERT INTO ConversionFactors (EmissionSource, Unit, ConvFactor , EmissionCO2perMWh, DateChanged, Category, Info) VALUES (?, ?, ?, ?, DEFAULT, ?, ?);")) {
-					$addEmissionSource->bind_param("ssddss", $name,$unit,$factor,$CO2perMWh,$Category,$info);
-                    $addEmissionSource->execute();
-                    $result = $addEmissionSource->get_result();
-                    $addEmissionSource->close();
-				}
-		   }
-		  
-			
-		   if(isset($_POST['delete'])){
-			   $name = mysqli_real_escape_string($dbc, $_POST['modalInputChangeName']);
-				if ($deleteEmissionSourceSQL = mysqli_prepare($dbc, "DELETE FROM ConversionFactors WHERE EmissionSource=?")) {
-					$deleteEmissionSourceSQL->bind_param("s", $name);
-                    $deleteEmissionSourceSQL->execute();
-                    $deleteEmissionSourceResult = $deleteEmissionSourceSQL->get_result();
-                    $deleteEmissionSourceSQL->close();
-				}
-		   }
-		 
-		  if(isset($_POST['confirmEdit'])){
-		
-			$name = mysqli_real_escape_string($dbc, $_POST['modalInputChangeName']);
-			$unit = mysqli_real_escape_string($dbc, $_POST['editFieldOptionBox']);
-			$factor = mysqli_real_escape_string($dbc, $_POST['modalInputChangeFactor']);
-			$CO2perMWh = mysqli_real_escape_string($dbc, $_POST['modalInputChangeCO2perMWh']);
-			$Category = mysqli_real_escape_string($dbc, $_POST['editFieldOptionBoxCategory']);
 
-			if ($changeEmissionSourceSQL = mysqli_prepare($dbc, "UPDATE ConversionFactors SET Unit=?, ConvFactor=?, EmissionCO2perMWh=?, DateChanged=Default, Category=? WHERE EmissionSource=?")) {
-				$changeEmissionSourceSQL->bind_param("sddss", $unit, $factor, $CO2perMWh, $Category, $name);
-                $changeEmissionSourceSQL->execute();
-                $changeEmissionSourceResult = $changeEmissionSourceSQL->get_result();
-                $changeEmissionSourceSQL->close();
-			}
-			
-			
-			
-		  }
-		?> 
-	
-				
 		<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
 		<script type="text/javascript" src="../js/proto-script.js"></script>
     <script type="text/javascript" src="../js/admin_redigera_script.js"></script>
