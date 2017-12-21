@@ -57,8 +57,8 @@
 				</a>
 
                 <li style="padding:0em">
-                    <form id="logout" name="form1" action="logout.php" method="post">
-        				<input name="submit2" type="submit" id="submit2" value="Log out">
+                    <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?')>
+        				<input name="submit2" type="submit" id="submit2" value="Logga ut">
         			</form>
                 </li>
 			</ul>
