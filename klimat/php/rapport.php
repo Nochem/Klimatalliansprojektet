@@ -506,7 +506,7 @@
 
 
 				</h1>
-				<table id="reportTable">
+				<table>
 					<thead>
 						<tr>
 							<th>Totala flygutsläpp</th>
@@ -521,6 +521,8 @@
 							</td>
 						</tr>
 					</tbody>
+				</table>
+				 <table id="reportTable">
 					<thead>
 						<tr>
 							<th>Från</th>
