@@ -197,3 +197,8 @@ kod till popup-rutan för sparanappen.
   background-repeat: no-repeat;
   background-position: center;
 }
+.advice{
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+}

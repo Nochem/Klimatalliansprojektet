@@ -522,6 +522,10 @@
 						</tr>
 					</tbody>
 				</table>
+                <h3 class="advice">
+                Fyll antingen i totala mängden CO<sub>2</sub> ovan,
+                eller varje individuell flygresa nedan.
+                </h3>
 				 <table id="reportTable">
 					<thead>
 						<tr>
