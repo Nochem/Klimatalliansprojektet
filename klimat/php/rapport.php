@@ -13,6 +13,9 @@
 <head>
 	<?php
 	 if (isset($_GET['Spara'])) {
+		 $lokalcount = $_GET['nbrofRowslokal'];
+		$transportstart = $lokalcount;
+		$transportcount = $_GET['nbrofRowsTransport'];
                 // KOD FöR ATT SKAPA NY RAPPORT
                 $yearinput = $_GET['theYear'];
                 $name = $_GET['personName'];
@@ -345,6 +348,7 @@
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]" value="0">';
                     echo '</tr>';
+		echo '<input type="hidden" name = "nbrofRowslokal" id="nbrofRowslokal" value="'.$lokalcount. '" >';
                     $arrayindex++;
                 }
             }
@@ -440,6 +444,7 @@
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]">';
                     echo '</tr>';
+			echo '<input type="hidden" name = "nbrofRowsTransport" id="nbrofRowsTransport" value="'.$transportcount. '">';
                     $arrayindex++;
                 }
             }
