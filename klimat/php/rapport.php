@@ -11,6 +11,140 @@
 ?>
 <html>
 <head>
+	<?php
+	 if (isset($_GET['Spara'])) {
+                // KOD FöR ATT SKAPA NY RAPPORT
+                $yearinput = $_GET['theYear'];
+                $name = $_GET['personName'];
+                $repname = $_GET['reportName'];
+                $finished = $_GET['finished'];
+                $comment = $_GET['OtherComment'];
+                $flygresorcount = $_GET['nbrofRowsFlight'];
+		
+		$transportstart = $lokalcount;
+		$transportlength = $lokalcount + $transportcount;
+		
+                if($finished){
+                    $finished = 1;
+                }else{
+                    $finsihed = 0;
+                }
+                $id = null;
+                if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (User,Year,NameofReport,NameofUser,finished, Comment) values (?,?,?,?,?,?)")){
+                    $createReportSql->bind_param("ssssis",$login_session,$yearinput,$repname,$name,$finished, $comment);
+                    $createReportSql->execute();
+                    $id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
+		$_SESSION['createdReport'] = $createReportSql->affected_rows; // om > 0 så har rapport skapats, används för check om rapport har sparats
+                    $createReportSql->close();
+			$_SESSION['SentId'] = $id;
+                }
+                //SLUT PÃ… KOD FöR ATT SKAPA EN NY RAPPORT
+                if($id != null){
+                    // Transport insert
+                    for ($i = $lokalcount; $i < $transportlength; $i++) {
+                        $emissionSource = $_GET['emissionSource'][$i];
+                        $amount = $_GET['amount'][$i];
+                        $unit = $_GET['unit'][$i];
+                        $convFactor = $_GET['convFactor'][$i];
+                        $emissionCO2 = $_GET['emissionCO2'][$i];
+                        $Ton = $_GET['ton'][$i];
+                        if (!empty($amount)) {
+                            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
+                                $insertTransportsql->bind_param("sdsdddi", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                                $insertTransportsql->execute();
+                                $transportqlresult = $insertTransportsql->get_result();
+                                $insertTransportsql->close();
+                            }
+                        }
+                    }
+                    //övrigt Transport insert
+                    $envReq = $_GET['YesOrNo'];
+                    $envReqDesc = $_GET['comment1'];
+                    $bioTranspAmount = $_GET['bioTranspAmount'];
+
+                    $otherEnvReq = $_GET['YesOrNo3'];
+                    $otherEnvReqDesc = $_GET['comment2'];
+                    $VehicPolicy = $_GET['YesOrNo4'];
+                    $travelPolicy = $_GET['YesOrNo5'];
+                    if ($insertOtherTransportsql = mysqli_prepare($dbc,
+                        "INSERT INTO OtherTransport(EnvironmentReqPurchased, EnvironmentReqPurchasedDescription, BioTransportAmount,
+	EnvironmentReqOtherTransportDescription, EnvironmentReqOtherTransport, EnforcementPurchasePolicyVehicle, EnforcementTravelPolicy, Id)
+	values (?,?,?,?,?,?,?,?)"))
+                    {
+                        $insertOtherTransportsql->bind_param("isdsiiii", $envReq , $envReqDesc ,
+                            $bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $id);
+                        $insertOtherTransportsql->execute();
+                        $otherTransportqlresult = $insertOtherTransportsql->get_result();
+                        $insertOtherTransportsql->close();
+                    }
+                    // Lokaler och Processer insert
+                    for ($i = 0; $i < $lokalcount; $i++) {
+                        $emissionSource = $_GET['emissionSource'][$i];
+                        $amount = $_GET['amount'][$i];
+                        $unit = $_GET['unit'][$i];
+                        $convFactor = $_GET['convFactor'][$i];
+                        $emissionCO2 = $_GET['emissionCO2'][$i];
+                        $Ton = $_GET['ton'][$i];
+                        if (!empty($amount)) {
+                            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
+                                $insertPlacesProcesses->bind_param("sdsdddi", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
+                                $insertPlacesProcesses->execute();
+                                $placesProcessessqlresult = $insertPlacesProcesses->get_result();
+                                $insertPlacesProcesses->close();
+                            }
+                        }
+                    }
+                    //övrig lokaler och processer insert
+                    $producedSolarHeat = $_GET['producedSolarHeat'];
+                    $producedSolarElectr = $_GET['producedSolarElectrity'];
+                    $placesOwned = $_GET['placesOwned'];
+                    $placesRented = $_GET['placesRented'];
+                    if ($insertOtherPlacesProcesses = mysqli_prepare($dbc,
+                        "INSERT INTO OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,Id) values (?,?,?,?,?)"))
+                    {
+                        $insertOtherPlacesProcesses->bind_param("iiddi", $placesOwned, $placesRented, $producedSolarHeat, $producedSolarElectr, $id);
+                        $insertOtherPlacesProcesses->execute();
+                        $otherPlacesProcessessqlresult = $insertOtherPlacesProcesses->get_result();
+                        $insertOtherPlacesProcesses->close();
+                    }
+                    // Insert Flygresor
+                    for ($i = 0; $i <$flygresorcount; $i++) {
+                        $departure = $_GET['Departure'][$i];
+                        $destination = $_GET['Destination'][$i];
+                        $lengthKM = $_GET['lengthKM'][$i];
+                        $KgCO2 = $_GET['kgCO2'][$i];
+                        if (!empty($departure) && !empty($destination)) {
+                            if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
+                                $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
+                                $insertFlightsql->execute();
+                                $transportqlresult = $insertFlightsql->get_result();
+                                $insertFlightsql->close();
+                            }
+                        }
+                    }
+                    $flightTotKGCO2 = $_GET['totalFlightKGCO2'];
+                    if(!empty($flightTotKGCO2)){
+                        if ($insertOtherFlightsql = mysqli_prepare($dbc, "INSERT INTO OtherFlight(TotalAmount, Id) values (?,?)")) {
+                            $insertOtherFlightsql->bind_param("di", $flightTotKGCO2, $id);
+                            $insertOtherFlightsql->execute();
+                            $transportqlresult = $insertOtherFlightsql->get_result();
+                            $insertOtherFlightsql->close();
+                        }
+                    }
+                }
+            }
+	if($_SESSION['createdReport'] > 0){
+					
+					$host  = $_SERVER['HTTP_HOST'];
+					$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+					$extra = 'historik.php';
+					
+					header("Location: http://$host$uri/$extra");
+					
+					exit;
+					
+					}
+	?>
     <meta charset="UTF-8">
     <title>
         Klimatallians - Rapport
@@ -417,125 +551,7 @@
 				</form>
 			</div>
 		</div>';
-            if (isset($_GET['Spara'])) {
-                // KOD FöR ATT SKAPA NY RAPPORT
-                $yearinput = $_GET['theYear'];
-                $name = $_GET['personName'];
-                $repname = $_GET['reportName'];
-                $finished = $_GET['finished'];
-                $comment = $_GET['OtherComment'];
-                $flygresorcount = $_GET['nbrofRowsFlight'];
-		
-		$transportstart = $lokalcount;
-		$transportlength = $lokalcount + $transportcount;
-		
-                if($finished){
-                    $finished = 1;
-                }else{
-                    $finsihed = 0;
-                }
-                $id = null;
-                if ($createReportSql = mysqli_prepare($dbc,"INSERT INTO Report (User,Year,NameofReport,NameofUser,finished, Comment) values (?,?,?,?,?,?)")){
-                    $createReportSql->bind_param("ssssis",$login_session,$yearinput,$repname,$name,$finished, $comment);
-                    $createReportSql->execute();
-                    $id = $createReportSql->insert_id; //Får senaste auto id som gjorts med denna sql sats
-                    $createReportSql->close();
-                }
-                //SLUT PÃ… KOD FöR ATT SKAPA EN NY RAPPORT
-                if($id != null){
-                    // Transport insert
-                    for ($i = $lokalcount; $i < $transportlength; $i++) {
-                        $emissionSource = $_GET['emissionSource'][$i];
-                        $amount = $_GET['amount'][$i];
-                        $unit = $_GET['unit'][$i];
-                        $convFactor = $_GET['convFactor'][$i];
-                        $emissionCO2 = $_GET['emissionCO2'][$i];
-                        $Ton = $_GET['ton'][$i];
-                        if (!empty($amount)) {
-                            if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
-                                $insertTransportsql->bind_param("sdsdddi", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
-                                $insertTransportsql->execute();
-                                $transportqlresult = $insertTransportsql->get_result();
-                                $insertTransportsql->close();
-                            }
-                        }
-                    }
-                    //övrigt Transport insert
-                    $envReq = $_GET['YesOrNo'];
-                    $envReqDesc = $_GET['comment1'];
-                    $bioTranspAmount = $_GET['bioTranspAmount'];
-
-                    $otherEnvReq = $_GET['YesOrNo3'];
-                    $otherEnvReqDesc = $_GET['comment2'];
-                    $VehicPolicy = $_GET['YesOrNo4'];
-                    $travelPolicy = $_GET['YesOrNo5'];
-                    if ($insertOtherTransportsql = mysqli_prepare($dbc,
-                        "INSERT INTO OtherTransport(EnvironmentReqPurchased, EnvironmentReqPurchasedDescription, BioTransportAmount,
-	EnvironmentReqOtherTransportDescription, EnvironmentReqOtherTransport, EnforcementPurchasePolicyVehicle, EnforcementTravelPolicy, Id)
-	values (?,?,?,?,?,?,?,?)"))
-                    {
-                        $insertOtherTransportsql->bind_param("isdsiiii", $envReq , $envReqDesc ,
-                            $bioTranspAmount , $otherEnvReqDesc , $otherEnvReq, $VehicPolicy , 	$travelPolicy , $id);
-                        $insertOtherTransportsql->execute();
-                        $otherTransportqlresult = $insertOtherTransportsql->get_result();
-                        $insertOtherTransportsql->close();
-                    }
-                    // Lokaler och Processer insert
-                    for ($i = 0; $i < $lokalcount; $i++) {
-                        $emissionSource = $_GET['emissionSource'][$i];
-                        $amount = $_GET['amount'][$i];
-                        $unit = $_GET['unit'][$i];
-                        $convFactor = $_GET['convFactor'][$i];
-                        $emissionCO2 = $_GET['emissionCO2'][$i];
-                        $Ton = $_GET['ton'][$i];
-                        if (!empty($amount)) {
-                            if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)")) {
-                                $insertPlacesProcesses->bind_param("sdsdddi", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id);
-                                $insertPlacesProcesses->execute();
-                                $placesProcessessqlresult = $insertPlacesProcesses->get_result();
-                                $insertPlacesProcesses->close();
-                            }
-                        }
-                    }
-                    //övrig lokaler och processer insert
-                    $producedSolarHeat = $_GET['producedSolarHeat'];
-                    $producedSolarElectr = $_GET['producedSolarElectrity'];
-                    $placesOwned = $_GET['placesOwned'];
-                    $placesRented = $_GET['placesRented'];
-                    if ($insertOtherPlacesProcesses = mysqli_prepare($dbc,
-                        "INSERT INTO OtherPlacesAndProcesses(PlacesOwned,PlacesRentedOut,ProducedSolarHeat,ProducedSolarElectricity,Id) values (?,?,?,?,?)"))
-                    {
-                        $insertOtherPlacesProcesses->bind_param("iiddi", $placesOwned, $placesRented, $producedSolarHeat, $producedSolarElectr, $id);
-                        $insertOtherPlacesProcesses->execute();
-                        $otherPlacesProcessessqlresult = $insertOtherPlacesProcesses->get_result();
-                        $insertOtherPlacesProcesses->close();
-                    }
-                    // Insert Flygresor
-                    for ($i = 0; $i <$flygresorcount; $i++) {
-                        $departure = $_GET['Departure'][$i];
-                        $destination = $_GET['Destination'][$i];
-                        $lengthKM = $_GET['lengthKM'][$i];
-                        $KgCO2 = $_GET['kgCO2'][$i];
-                        if (!empty($departure) && !empty($destination)) {
-                            if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
-                                $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
-                                $insertFlightsql->execute();
-                                $transportqlresult = $insertFlightsql->get_result();
-                                $insertFlightsql->close();
-                            }
-                        }
-                    }
-                    $flightTotKGCO2 = $_GET['totalFlightKGCO2'];
-                    if(!empty($flightTotKGCO2)){
-                        if ($insertOtherFlightsql = mysqli_prepare($dbc, "INSERT INTO OtherFlight(TotalAmount, Id) values (?,?)")) {
-                            $insertOtherFlightsql->bind_param("di", $flightTotKGCO2, $id);
-                            $insertOtherFlightsql->execute();
-                            $transportqlresult = $insertOtherFlightsql->get_result();
-                            $insertOtherFlightsql->close();
-                        }
-                    }
-                }
-            }
+           
             ?>
             </table>
             <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
