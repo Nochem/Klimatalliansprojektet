@@ -1,14 +1,168 @@
-.unitbox{
-    width:45px;
-    size:5;
+#stat{
+    padding:0px 0% 0px;
 }
-#content p{
-	margin-left:3em;
+.inputbox{
+	float: left;
+	width:120px;
+	height:30px;
 }
-#content input{
-    height:30px;
-    width:120px;
-}#content th,td{
+#addrow{
+	height:50px;
+	font-family: 'Barlow',sans-serif;
+	background-color: #5DBCFF;
+	border:1px solid white;
+	border-radius: 4px;
+	font-size: 20px;
+	color:white;
+	margin-bottom: 10px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+}
+.savebutton, .deletebutton{
+	border: 0px solid white;
+	border-radius: 5px;
+	font-family: 'Barlow',sans-serif;
+	text-align:center;
+	text-decoration: none;
+	font-size: 18px;
+	display: inline-block;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+}
+.savebutton:hover{
+  background-color: #00ff00;
+	border-color: #00ff00;
+}
+.deletebutton:hover{
+	background-color: #ff2020;
+	border-color: #ff2020;
+}
+.resetbutton{
+	background-color: #f40000;
+}
+.resetbutton:hover{
+	background-color: #f50000;
+	border-color: #de2c00;
+}
+.menubutton{
+	position: relative;
+	left: 430px;
+	color: white;
+}
+.comments{
+	text-align: left;
+	padding:10px;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+#comment{
+		display: -webkit-box;
+		margin-top: 5px;
+}
+#text{
+	font-family: 'Barlow',sans-serif;
+	font-size:18px;
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+/*
+kod till popup-rutan för sparanappen.
+*/
+#changeUserModal input[type="text"],
+#addFieldModal input[type="text"] {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(4em + 1px);
+  margin: 0 0 1em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  background: #fff;
+  resize: none;
+  outline: none;
+}
+
+#changeUserModal input[type="text"][required]:focus,
+#addFieldModal input[type="text"][required]:focus {
+  border-color: #00bafa;
+}
+#changeUserModal input[type="text"][required]:focus + label[placeholder]:before,
+#addFieldModal input[type="text"][required]:focus + label[placeholder]:before {
+  color: #00bafa;
+}
+#changeUserModal input[type="text"][required]:focus + label[placeholder]:before,
+#changeUserModal input[type="text"][required]:valid + label[placeholder]:before,
+#addFieldModal input[type="text"][required]:focus + label[placeholder]:before,
+#addFieldModal input[type="text"][required]:valid + label[placeholder]:before  {
+  transition-duration: .2s;
+  transform: translate(0, -1.5em) scale(0.9, 0.9);
+}
+
+#changeUserModal input[type="text"][required]:invalid + label[placeholder][alt]:before,
+#addFieldModal input[type="text"][required]:invalid + label[placeholder][alt]:before {
+  content: attr(alt);
+}
+
+#changeUserModal input[type="text"][required] + label[placeholder],
+#addFieldModal input[type="text"][required] + label[placeholder] {
+  display: block;
+  pointer-events: none;
+  line-height: 1em;
+  margin-top: calc(-3em - 2px);
+  margin-bottom: calc((3em - 1em) + 2px);
+}
+
+#changeUserModal input[type="text"][required] + label[placeholder]:before,
+#addFieldModal input[type="text"][required] + label[placeholder]:before {
+  content: attr(placeholder);
+  display: inline-block;
+  margin: 0 calc(1em + 2px);
+  padding: 0 2px;
+  color: #898989;
+  white-space: nowrap;
+  transition: 0.3s ease-in-out;
+  background-image: linear-gradient(to bottom, #fff, #fff);
+  background-size: 100% 5px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#content th,td{
 	padding-top:10px;
 	margin-left:0;
 	text-align: left;
@@ -30,20 +184,4 @@
 #content .editbtn button:hover{
     background-color: #1A6B9F;
     color:white;
-}
-
-#addrow{
-	padding:10px;
-	font-family: 'Barlow',sans-serif;
-	background-color: white;
-	border:1px solid #5DBCFF;
-	border-radius: 4px;
-	font-size: 16px;
-	margin-bottom: 10px;
-	-webkit-transition-duration: 0.4s; /* Safari */
-	transition-duration: 0.4s;
-}
-#addrow:hover{
-	background-color: #5DBCFF;
-	border: 1px solid gray;
 }
