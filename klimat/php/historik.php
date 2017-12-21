@@ -1,12 +1,44 @@
 <?php
 include('session.php');
+$_SESSION['createdReport'] = 0;
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+	<?php
+$sentID = $_SESSION['SentId'];
+$selectedYear = $_GET['yeardrop'];
+
+				if($sentID !=null){
+
+					if ($yearSQL = mysqli_prepare($dbc, "SELECT  Year from Report where id = ? and user = ?")) {
+
+                    $yearSQL->bind_param("is",$sentID,$login_session);
+                    /* execute query */
+                    $yearSQL->execute();
+                    /* instead of bind_result: */
+                    $yearSQLresult2 = $yearSQL->get_result();
+                    /* now you can fetch the results into an array - NICE */
+                }
+
+					if(mysqli_num_rows($yearSQLresult2)>0){
+
+					$myrowyear = $yearSQLresult2->fetch_assoc();
+					$host  = $_SERVER['HTTP_HOST'];
+					$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+					$extra = 'historik.php?yeardrop=';
+					$selectedYear = $myrowyear['Year'];
+					$_SESSION['SentId'] = null;
+					header("Location: http://$host$uri/$extra$selectedYear");
+					exit;
+
+
+					}
+					}
+					?>
     <meta charset="UTF-8">
     <title>
-        Klimat allians Lund - Historik
+        Klimatallians - Historik
     </title>
     <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -15,19 +47,15 @@ include('session.php');
 </head>
 <body>
 
-<div id="user">
-    		<p id="username">
-			User: <?php echo $login_session; ?>
-			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
-				<label>
-					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
-				</label>
-			</form>
-		</p>
-	</div>
 <div id="wrapper">
-    <a href="rapport.html"></a>
+    <a href="rapport.php">
     <div id="logo">
+	</a>
+        <div id="user">
+            		<p id="username">
+        			Inloggad som: <b><?php echo $login_session; ?></b>
+        		</p>
+        	</div>
     </div>
     <div id="menu">
         <ul>
@@ -57,6 +85,11 @@ include('session.php');
                 </li>
             </a>
 
+            <li style="padding:0em">
+                <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?'")>
+    				<input name="submit2" type="submit" id="submit2" value="Logga ut">
+    			</form>
+            </li>
         </ul>
     </div>
     <div id="sidebar">
@@ -72,9 +105,11 @@ include('session.php');
             <form action="#" method="get" name="histDrop">
 
                 <?php
-                $selectedYear = -1;
-				
-                if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ?")) {
+
+                //$selectedYear = -1;
+
+
+                if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ? ORDER BY YEAR DESC")) {
                     $yearSQL->bind_param("s", $login_session);
                     /* execute query */
                     $yearSQL->execute();
@@ -84,25 +119,34 @@ include('session.php');
                 }
                 if(mysqli_num_rows($yearSQLresult) > 0){
                     if(isset($yearSQLresult)){
-                        echo '<select id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
-                        echo '&nbsp';
+                        echo '<div align="center">';
+
+                        echo '<select  id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
+
                         echo "<option value = '-1'> Välj ett år </option>";
 // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
                         while( $myrow = $yearSQLresult->fetch_assoc()){
-                            echo '<option
-	value =' .$myrow['Year'] . '>' .$myrow['Year'].
-                                '</option>';
+                            if(strcmp($selectedYear,$myrow['Year']) == 0){
+                            echo '<option selected value =' .$myrow['Year'] . '>' .$myrow['Year']. '</option>';
+                        }else{
+                                echo '<option value =' .$myrow['Year'] . '>' .$myrow['Year']. '</option>';
+                            }
                         }
                         echo '</select>';
+                        echo '</div>';
 //echo '<input type="submit" name="submit" value="Välj" />';
                     } else {
                     }}else{
                     echo '<h2> Inga rapporter</h2>';
+
                     echo 'Företaget har inga rapporter om du vill skapa en ny rapport klicka länken nedan eller Rapport högst upp';
                     echo'<br><br>';
-                    echo '<a href="rapport.php">Skapa ny rapport</a>';
+
+                    echo '<a name = "linkReport" href="rapport.php">Skapa ny rapport</a>';
+
                 }
-                ?>
+
+		   ?>
 
 
 
@@ -121,12 +165,16 @@ include('session.php');
 
 
             <?php
+
+
             if (isset($_GET['yeardrop'])){
-				
+
 				if($selectedYear != -1){
 					$_SESSION['Id'] = null;
 				}
+
                 $selectedYear = $_GET['yeardrop'];
+				$_SESSION['SelectedYear'] = $selectedYear;
                 if($selectedYear != -1){
                     if ($ReportSql = mysqli_prepare($dbc, "SELECT Id,NameofReport,NameOfUser,DATE(ChangeDate) as ChangeDate ,finished,Comment from Report where Year = ? and User = ?")) {
                         $ReportSql ->bind_param("ss", $selectedYear,$login_session);
@@ -193,6 +241,7 @@ include('session.php');
                     }
                 }else{
                     echo '<h2> Inget år valt</h2>';
+
                 }
             }
             ?>
@@ -203,9 +252,10 @@ include('session.php');
 
             <?php
             if(isset($_GET['yeardrop'])){
+
                 if($selectedYear != -1){
                     echo '<form name = "historik" method = "get" id ="historik" >';
-                    
+
                    echo '<table align = "right">';
                     echo '<td>';
                     echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
@@ -216,6 +266,7 @@ include('session.php');
                     echo '</table>';
 					echo '<br><br>';
 					echo '<h1>  Rapport för år '.$selectedYear.' </h1>';
+
                     if(!mysqli_num_rows($ReportSqlres) == 0){
                         while ($myrow = $ReportSqlres->fetch_assoc()){
                             $_SESSION["Id"] = $myrow['Id'];
@@ -234,7 +285,8 @@ include('session.php');
                             echo '</td></tr>';
                             echo '<tr><th align = "left">Status:</th>';
                             echo '<td>' ;
-                            echo $myrow['finished'] ? "Färdig" : "Ej Färdig";
+                            echo $myrow['finished'] ? "Klar  " : "Ej Klar    ";
+                            echo $myrow['finished'] ? "<img class='klar' src=\"../res/klar.png\" >" : "<img class='ejklar' src=\"../res/inte_klar.png\" >";
                             echo '</td></tr>';
                             echo '</table>';
                             echo'<div name = "Lokaler och Processer">';
@@ -263,6 +315,7 @@ include('session.php');
                         }
                         mysqli_data_seek($OtherPlacesRes, 0);
                         echo '</table>';
+
                     }
                     if($selectedYear != -1 && !mysqli_num_rows($PlacesRes) == 0){
                         echo '<table id= "StatTable">';
@@ -289,6 +342,7 @@ include('session.php');
                         }
                     }
                     echo '</table>';
+
                     if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes)==0){
                         echo '<table>';
                         while ($myrow = $OtherPlacesRes->fetch_assoc()) {
@@ -310,6 +364,7 @@ include('session.php');
                             echo '<td> MWh </td>';
                             echo '</tr>';
                             echo '</table>';
+
                             /* echo '<h3> Övriga Kommentarer</h3>';
                             if(!empty($myrow['Comment'])){
                                 echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
@@ -322,12 +377,14 @@ include('session.php');
                         }
                     }}else{
                         echo "Inget rapporterat i Lokaler och Processer";
+
                     }
                     echo '</div>';
                     echo'<div name = "Transport">';
                     echo '<h1> Transport </h1>';
                     if(mysqli_num_rows($TransportRes)> 0 || mysqli_num_rows($OtherTransportRes) > 0 ){
                     if($selectedYear !=-1 && !mysqli_num_rows($TransportRes)==0){
+
                         echo '<table id= "StatTable">';
                         echo '<tr>';
                         echo '<th> Utsläppskälla </th>';
@@ -397,14 +454,20 @@ include('session.php');
                             echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej";
                             echo '<h4> Tillämpas resepolicy </h4>';
                             echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej";
+
                         }
                     }}else{
                         echo "Inget rapporterat i Transport";
                     }
+
                     echo '<h1> Flygresor </h1>';
                     echo '<table>';
                     $myrow = $OtherFlightRes->fetch_assoc();
+
                     if(mysqli_num_rows($FlightRes)> 0 || mysqli_num_rows($OtherFlightRes) > 0 ){
+
+
+
                     echo '<tr>';
                     echo '<th> Totala flygutsläpp </th>';
                     echo '</tr>';
@@ -438,12 +501,14 @@ include('session.php');
                                 }
                             }
                             echo '</tr>';
+
                         }
                     }
                     echo '</table>';
                     }else{
                         echo "Inga flygresor angivna";
                     }
+
                     $myrow = $ReportSqlres->fetch_assoc();
                     echo '<h3>Övriga Kommentarer </h3>';
                     if(!empty($myrow['Comment'])){
@@ -454,7 +519,10 @@ include('session.php');
                         echo "Inga kommentarer givna";
                     }
 					echo '<br>';
-                   
+
+
+
+
                     echo '</form>';
 			echo '<table align = "right">';
                     echo '<td>';
@@ -464,10 +532,16 @@ include('session.php');
                     echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"/>';
                     echo '</td>';
                     echo '</table>';
+
+
+
                 }
+
             }
+
             if (isset($_GET['Delete'])){
                 //något som confirmar
+
                 if ($DeleteSql = mysqli_prepare($dbc, "Delete from Report where id = ? and user = ?")) {
                     $id = $_SESSION['Id'];
 					$message = $id;
@@ -480,14 +554,27 @@ include('session.php');
                     /* now you can fetch the results into an array - NICE */
 					 Header('Location: '.$_SERVER['PHP_SELF']);
 					Exit();
-                    
+
+
+
+
+
                 }
             }
             if(isset($_GET['Edit'])){
-           
+
 				header('Location: rapport_redigera.php');
 				exit();
+
 			}
+
+
+
+
+
+
+
+
             ?>
         </div>
     </div>
