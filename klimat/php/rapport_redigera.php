@@ -19,10 +19,10 @@ include('session.php');
                 $finished = $_GET['finished'];
                 $comment = $_GET['OtherComment'];
                 $flygresorcount = $_GET['nbrofRowsFlight'];
-		    
+
 		$transportstart = $lokalcount;
 		$transportlength = $lokalcount + $transportcount;
-		    
+
                 if($finished){
                     $finished = 1;
                 }else{
@@ -210,7 +210,7 @@ include('session.php');
             </a>
 
             <li style="padding:0em">
-                <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?')>
+                <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?'")>
     				<input name="submit2" type="submit" id="submit2" value="Logga ut">
     			</form>
             </li>
@@ -882,7 +882,7 @@ include('session.php');
 				</form>
 			</div>
 		</div>';
-            
+
             ?>
             </table>
             <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>

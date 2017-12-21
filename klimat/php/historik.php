@@ -9,19 +9,19 @@ $_SESSION['createdReport'] = 0;
 $sentID = $_SESSION['SentId'];
 
 				if($sentID !=null){
-					 
+
 					if ($yearSQL = mysqli_prepare($dbc, "SELECT  Year from Report where id = ? and user = ?")) {
-					
+
                     $yearSQL->bind_param("is",$sentID,$login_session);
                     /* execute query */
                     $yearSQL->execute();
                     /* instead of bind_result: */
                     $yearSQLresult2 = $yearSQL->get_result();
                     /* now you can fetch the results into an array - NICE */
-                }	
-				
+                }
+
 					if(true){
-					
+
 					$myrowyear = $yearSQLresult2->fetch_assoc();
 					$host  = $_SERVER['HTTP_HOST'];
 					$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -30,8 +30,8 @@ $sentID = $_SESSION['SentId'];
 					$_SESSION['SentId'] = null;
 					header("Location: http://$host$uri/$extra$selectedYear");
 					exit;
-					
-					
+
+
 					}
 					}
 					?>
@@ -85,7 +85,7 @@ $sentID = $_SESSION['SentId'];
             </a>
 
             <li style="padding:0em">
-                <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?')>
+                <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?'")>
     				<input name="submit2" type="submit" id="submit2" value="Logga ut">
     			</form>
             </li>
@@ -104,7 +104,7 @@ $sentID = $_SESSION['SentId'];
             <form action="#" method="get" name="histDrop">
 
                 <?php
-		   
+
                 $selectedYear = -1;
 
 
@@ -141,8 +141,8 @@ $sentID = $_SESSION['SentId'];
                     echo '<a href="rapport.php">Skapa ny rapport</a>';
 
                 }
-							 
-		   ?> 
+
+		   ?>
 
 
 
