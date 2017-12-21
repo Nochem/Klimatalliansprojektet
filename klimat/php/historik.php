@@ -1,5 +1,6 @@
 <?php
 include('session.php');
+$_SESSION['createdReport'] = 0;
 ?>
 <!DOCTYPE html>
 <html>
