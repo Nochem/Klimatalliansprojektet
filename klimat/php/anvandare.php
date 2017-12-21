@@ -151,7 +151,7 @@
                   echo "<td>".$row['LastLogIn']."</td>";
                   echo "<td>".$row['IpAddress']."</td>";
                   echo "<td>".$row['RegisterDate']."</td>";
-		  $lfyMySQL = mysqli_query($dbc, "SELECT max(Year) FROM Report WHERE User = \"".$row['Name']."\" AND finished = 1");
+		          $lfyMySQL = mysqli_query($dbc, "SELECT max(Year) FROM Report WHERE User = \"".$row['Name']."\" AND finished = 1");
                   $lfy = mysqli_fetch_array($lfyMySQL);
                   if($lfy['max(Year)'] == ''){
                     echo "<td>Ingen färdig rapport</td>";
