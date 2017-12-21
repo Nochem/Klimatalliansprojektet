@@ -118,20 +118,21 @@
 				</h1>
 				<button class="flatbutton" onclick='addUser()'>Lägg till medlem</button>
 				<table>
-					<tr style="font-size:21px;">
-            <th style="text-align:left">Aktiv</th>
-						<th style="text-align:left">Namn</th>
-						<th style="text-align:left">Lösenord</th>
-            <th style="text-align:left">Mejl</th>
-            <th style="text-align:left">Telefon</th>
-            <th style="text-align:left">Senast inloggad tid och datum</th>
-            <th style="text-align:left">Senast inloggad IP adress</th>
-            <th style="text-align:left">Registrerad</th>
-					</tr>
+                    <tr style="font-size:21px;">
+                        <th style="text-align:left">Aktiv</th>
+                        <th style="text-align:left">Namn</th>
+                        <th style="text-align:left">Lösenord</th>
+                        <th style="text-align:left">Mejl</th>
+                        <th style="text-align:left">Telefon</th>
+                        <th style="text-align:left">Senast inloggad tid och datum</th>
+                        <th style="text-align:left">Senast inloggad IP adress</th>
+                        <th style="text-align:left">Registrerad</th>
+                        <th style="text-align:left">Senast rapporterat</th>
+                    </tr>
           <?php
               ob_start();
               $a = 0;
-              $query = mysqli_query($dbc, "SELECT * FROM Users ORDER by Name");
+              $query = mysqli_query($dbc, "SELECT Users.*, DATE(Report.ChangeDate) FROM Users JOIN Report ON Report.User = Users.Name ORDER by Name");
               while($row = mysqli_fetch_array($query)){
                 $a++;
                 if(!$row['Admin']){
@@ -150,6 +151,8 @@
                   echo "<td>".$row['LastLogIn']."</td>";
                   echo "<td>".$row['IpAddress']."</td>";
                   echo "<td>".$row['RegisterDate']."</td>";
+
+                  echo "<td>".$row['DATE(Report.ChangeDate)']."</td>";
                   echo "<td style='text-align:left' class='editbtn'>
                         <button id=change-".$row['Name']."
                         class='flatbutton'
