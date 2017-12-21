@@ -1,14 +1,23 @@
-#stat{
-    margin-left:20%;
-}
-#yeardrop{
-    width:500px;
+
+select{
+    margin-bottom: 1cm;
+    margin-top: 1cm;
+    width:250px;
     height: 40px;
+    alignment: center;
+
+}
+.linkReport{
+    color: #1A6B9F;
+}
+.linkReport:hover{
+    color: #2591D4;
 }
 #DeleteButton{
-    height:30px;
+    width:120px;
+    height:40px;
     font-family: 'Barlow',sans-serif;
-    background-color: #5DBCFF;
+    background-color: #1A6B9F;
     border:1px solid white;
     border-radius: 4px;
     font-size: 20px;
@@ -22,9 +31,10 @@
     border: 1px solid gray;
 }
 #EditButton{
-    height:30px;
+    width:120px;
+	height:40px;
     font-family: 'Barlow',sans-serif;
-    background-color: #5DBCFF;
+    background-color: #1A6B9F;
     border:1px solid white;
     border-radius: 4px;
     font-size: 20px;
@@ -41,19 +51,28 @@ table{
     text-align: left;
     margin-bottom: 1cm;
     margin-top: 1cm;
+
+
+    border-spacing: 5px;
 }
-#StatTable th{
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-left: 3px;
+td{
+    alignment: center;
+    padding:1px 1px;
+
     text-align: left;
-    background-color: #1A6B9F;
-    color: white;
 
 }
+#StatTable th{
+    padding:10px 6px;
+    border-spacing: 20px;
+    horiz-align: left;
+    background-color: #1A6B9F;
+    color: white;
+    vertical-align: middle;
+
+}
+
 
 #StatTable tr:nth-child(even){background-color: #f2f2f2;}
 
 #StatTable tr:hover {background-color: #ddd;}
-
-
