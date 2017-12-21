@@ -20,10 +20,10 @@
                 $finished = $_GET['finished'];
                 $comment = $_GET['OtherComment'];
                 $flygresorcount = $_GET['nbrofRowsFlight'];
-		
+
 		$transportstart = $lokalcount;
 		$transportlength = $lokalcount + $transportcount;
-		
+
                 if($finished){
                     $finished = 1;
                 }else{
@@ -113,7 +113,7 @@
                         $destination = $_GET['Destination'][$i];
                         $lengthKM = $_GET['lengthKM'][$i];
                         $KgCO2 = $_GET['kgCO2'][$i];
-                        if (!empty($departure) && !empty($destination)) {
+                        if (!empty($KgCO2)) {
                             if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
                                 $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
                                 $insertFlightsql->execute();
@@ -134,15 +134,15 @@
                 }
             }
 	if($_SESSION['createdReport'] > 0){
-					
+
 					$host  = $_SERVER['HTTP_HOST'];
 					$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 					$extra = 'historik.php';
-					
+
 					header("Location: http://$host$uri/$extra");
-					
+
 					exit;
-					
+
 					}
 	?>
     <meta charset="UTF-8">
@@ -216,7 +216,7 @@
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
                     <label alt='Ditt namn*' placeholder='Ditt namn*'></label>
-                    <label for="finCheck">Färdig rapport</label>
+                    <label for="finCheck">Klar/Ej Klar</label>
                     <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" unchecked>
 
                     <br>
@@ -506,7 +506,7 @@
 
 
 				</h1>
-				<table id="reportTable">
+				<table>
 					<thead>
 						<tr>
 							<th>Totala flygutsläpp</th>
@@ -521,6 +521,8 @@
 							</td>
 						</tr>
 					</tbody>
+				</table>
+				 <table id="reportTable">
 					<thead>
 						<tr>
 							<th>Från</th>
@@ -551,7 +553,7 @@
 				</form>
 			</div>
 		</div>';
-           
+
             ?>
             </table>
             <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>

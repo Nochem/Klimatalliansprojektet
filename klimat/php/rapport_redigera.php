@@ -761,7 +761,7 @@ include('session.php');
                         $convFactor = $_GET['convFactor'][$i];
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
-                        if (!empty($amount) && !empty($Ton)){
+                        if (!empty($amount) && !is_null($Ton)){
                             if ($insertTransportsql = mysqli_prepare($dbc, "INSERT INTO Transport(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)
 								ON DUPLICATE KEY UPDATE Amount = ?, Unit = ?, TonCO2 = ? ")) {
                                 $insertTransportsql->bind_param("sdsdddidsd", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id, $amount, $unit, $Ton);
@@ -803,7 +803,7 @@ include('session.php');
                         $convFactor = $_GET['convFactor'][$i];
                         $emissionCO2 = $_GET['emissionCO2'][$i];
                         $Ton = $_GET['ton'][$i];
-                        if (!empty($amount) && !empty($Ton)) {
+                        if (!empty($amount) && !is_null($Ton)) {
                             if ($insertPlacesProcesses = mysqli_prepare($dbc, "INSERT INTO PlacesAndProcesses(EmissionSource,Amount,Unit,ConvFactor,EmissionMwh,TonCO2,Id) values (?,?,?,?,?,?,?)
 								ON DUPLICATE KEY UPDATE Amount = ?, Unit = ?, TonCO2 = ?")) {
                                 $insertPlacesProcesses->bind_param("sdsdddidsd", $emissionSource, $amount, $unit, $convFactor, $emissionCO2, $Ton, $id, $amount, $unit, $Ton);
@@ -840,7 +840,7 @@ include('session.php');
                         $destination = $_GET['Destination'][$i];
                         $lengthKM = $_GET['lengthKM'][$i];
                         $KgCO2 = $_GET['kgCO2'][$i];
-                        if (!empty($departure) && !empty($destination)) {
+                        if (!empty($KgCO2)) {
 
                             if ($insertFlightsql = mysqli_prepare($dbc, "INSERT INTO Flights(Departure,Destination,LengthKM,KgCO2,Id) values (?,?,?,?,?)")) {
                                 $insertFlightsql->bind_param("ssddi", $departure, $destination, $lengthKM, $KgCO2,$id);
