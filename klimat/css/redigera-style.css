@@ -105,7 +105,7 @@
 /*
 kod till popup-rutan för sparanappen.
 */
-#changeUserModal input[type="text"],
+#changeFieldModal input[type="text"],
 #addFieldModal input[type="text"] {
   box-sizing: border-box;
   width: 100%;
@@ -118,28 +118,28 @@ kod till popup-rutan för sparanappen.
   outline: none;
 }
 
-#changeUserModal input[type="text"][required]:focus,
+#changeFieldModal input[type="text"][required]:focus,
 #addFieldModal input[type="text"][required]:focus {
   border-color: #00bafa;
 }
-#changeUserModal input[type="text"][required]:focus + label[placeholder]:before,
+#changeFieldModal input[type="text"][required]:focus + label[placeholder]:before,
 #addFieldModal input[type="text"][required]:focus + label[placeholder]:before {
   color: #00bafa;
 }
-#changeUserModal input[type="text"][required]:focus + label[placeholder]:before,
-#changeUserModal input[type="text"][required]:valid + label[placeholder]:before,
+#changeFieldModal input[type="text"][required]:focus + label[placeholder]:before,
+#changeFieldModal input[type="text"][required]:valid + label[placeholder]:before,
 #addFieldModal input[type="text"][required]:focus + label[placeholder]:before,
 #addFieldModal input[type="text"][required]:valid + label[placeholder]:before  {
   transition-duration: .2s;
   transform: translate(0, -1.5em) scale(0.9, 0.9);
 }
 
-#changeUserModal input[type="text"][required]:invalid + label[placeholder][alt]:before,
+#changeFieldModal input[type="text"][required]:invalid + label[placeholder][alt]:before,
 #addFieldModal input[type="text"][required]:invalid + label[placeholder][alt]:before {
   content: attr(alt);
 }
 
-#changeUserModal input[type="text"][required] + label[placeholder],
+#changeFieldModal input[type="text"][required] + label[placeholder],
 #addFieldModal input[type="text"][required] + label[placeholder] {
   display: block;
   pointer-events: none;
@@ -148,7 +148,7 @@ kod till popup-rutan för sparanappen.
   margin-bottom: calc((3em - 1em) + 2px);
 }
 
-#changeUserModal input[type="text"][required] + label[placeholder]:before,
+#changeFieldModal input[type="text"][required] + label[placeholder]:before,
 #addFieldModal input[type="text"][required] + label[placeholder]:before {
   content: attr(placeholder);
   display: inline-block;
