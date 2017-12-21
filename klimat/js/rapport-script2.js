@@ -76,17 +76,18 @@ function noPeriodFirst(str) {
 function selectedUnit(arrayindex){
 
 
-
-
     var unit = document.getElementsByName("unit[]")[arrayindex].value;
 
 
     if(unit =="Ton"){
         document.getElementsByName("coFactor[]")[arrayindex].style.visibility = "hidden";
-	document.getElementsByName("coFactorMWh[]")[arrayindex].style.visibility = "hidden";
+		document.getElementsByName("coFactorMWh[]")[arrayindex].style.visibility = "hidden";
     }else{
         document.getElementsByName("coFactor[]")[arrayindex].style.visibility = "inherit";
-	document.getElementsByName("coFactorMWh[]")[arrayindex].style.visibility = "inherit";
+		document.getElementsByName("coFactorMWh[]")[arrayindex].style.visibility = "inherit";
+    }
+    tonCO2(arrayindex);
+
 }
 
 function checkTwoDot(str) {
