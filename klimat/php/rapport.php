@@ -20,10 +20,10 @@
                 $finished = $_GET['finished'];
                 $comment = $_GET['OtherComment'];
                 $flygresorcount = $_GET['nbrofRowsFlight'];
-		
+
 		$transportstart = $lokalcount;
 		$transportlength = $lokalcount + $transportcount;
-		
+
                 if($finished){
                     $finished = 1;
                 }else{
@@ -134,15 +134,15 @@
                 }
             }
 	if($_SESSION['createdReport'] > 0){
-					
+
 					$host  = $_SERVER['HTTP_HOST'];
 					$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 					$extra = 'historik.php';
-					
+
 					header("Location: http://$host$uri/$extra");
-					
+
 					exit;
-					
+
 					}
 	?>
     <meta charset="UTF-8">
@@ -216,7 +216,7 @@
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
                     <label alt='Ditt namn*' placeholder='Ditt namn*'></label>
-                    <label for="finCheck">Färdig rapport</label>
+                    <label for="finCheck">Klar/Ej Klar</label>
                     <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" unchecked>
 
                     <br>
@@ -553,7 +553,7 @@
 				</form>
 			</div>
 		</div>';
-           
+
             ?>
             </table>
             <script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
