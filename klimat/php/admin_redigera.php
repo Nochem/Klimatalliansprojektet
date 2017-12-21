@@ -151,7 +151,7 @@
 
           <?php
               ob_start();
-              $query = mysqli_query($dbc, "SELECT * FROM conversionfactors Where Category = 'Transport'");
+              $query = mysqli_query($dbc, "SELECT * FROM ConversionFactors Where Category = 'Transport'");
               while($row = mysqli_fetch_array($query)){
       					echo '<tr>';
       					echo '<td>';
