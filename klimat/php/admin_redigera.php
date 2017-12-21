@@ -11,23 +11,28 @@
 	<title>
 		Klimat allians Lund - Användare
 	</title>
-	<link rel="stylesheet" type="text/css" href="../css/anvandare-style.css">
+	<link rel="stylesheet" type="text/css" href="../css/redigera-style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
 	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
 	<link rel="icon" href="../res/icon.png">
 </head>
 <body>
+	<div id="user">
+    		<p id="username">
+			User: <?php echo $login_session; ?>
+			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
+				<label>
+					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
+				</label>
+			</form>
+		</p>
+	</div>
     <div id="wrapper">
         <div id="logo">
-            <div id="user">
-                <p id="username">
-                    User: <?php echo $login_session; ?>
-                </p>
-            </div>
         </div>
         <div id="menu">
             <ul>
-                <a href="anvandare.php">
+			     <a href="anvandare.php">
                     <li class="menuitem">
                         Användare
                     </li>
@@ -48,25 +53,19 @@
                     </li>
                 </a>
 
-                <li style="padding:0em">
-                    <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?')">
-                        <input name="submit2" type="submit" id="submit2" value="Logga ut">
-                    </form>
-                </li>
-
-            </ul>
-        </div>
+			</ul>
+		</div>
 		<div id="sidebar">
 		</div>
-    <div id="addUserModal" class="modal">
+    <div id="addFieldModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-              <form action="addUser.php" method="post">
+              <form action="admin_redigera.php" name="form" method="post"> 
 			   Utsläppskälla:
-                <input id="InputName" name="modalInputNewName" type="text">
+                <input id="addInputEmission" name="modalInputNewEmission" type="text">
                 <br>
                 Enhet:
-                <select id="addFieldOptionBox">
+                <select id="addFieldOptionBox" name="addFieldOptionBox">
 				  <option value="m3">m3</option>
 				  <option value="kg">kg</option>
 				  <option value="MWh">MWh</option>
@@ -74,20 +73,27 @@
 				</select>
                 <br>
                 Omräkningsfaktor:
-                <input id="InputEmail" name="modalInputNewEmail" type="text">
+                <input id="addInputConvFac" name="modalInputNewConvFac" type="text">
                 <br>
                 Utsläpp i CO2 per MWh:
-                <input id="InputTelephone" name="modalInputNewTelephone" type="text">
+                <input id="addInputCO2perMWh" name="addModalInputChangeCO2perMWh" type="text">
                 <br>
 				Kategori:
-				<input id="mInputTelephone" name="modalInputChangeTelephone" type="text">
-                <br>
-                <Button class="flatbutton" name="submitNew" id="submitNew">Lägg till fält</button>
+				<select id="addEditFieldOptionBoxCategory" name="addEditFieldOptionBoxCategory">
+				  <option value="Transport">Transport</option>
+				  <option value="Lokaler och Processer">Lokaler och Processer</option>
+				</select>
+				<br>
+				
+				Info:
+				<input id="addInfo" name="modalInputAddInfo" type="text">
+				<br>
+                <Button class="flatbutton" name="create" id="create">Lägg till fält</button>
             </form>
         </div>
     </div>
     <div id="changeUserModal" class="modal">
-
+      
         <div class="modal-content">
           <span class="close">&times;</span>
             <form action="admin_redigera.php" name="form" method="post">
@@ -114,18 +120,22 @@
 				  <option value="Transport">Transport</option>
 				  <option value="Lokaler och Processer">Lokaler och Processer</option>
 				</select>
-
+				<br>
+				Info:
+				<input id="addInputCO2perMWh" name="modalInfo" type="text">
+				<br>
+                
                 <br>
                 <br>
-               <button class="savebutton" name="confirmEdit" id="confirmEdit" onclick="" style="margin-bottom: 10px;">Spara</button>
-
-			   <form action="admin_redigera.php" method="post" onsubmit="return confirm('Är du säker du vill ta bort detta fält?');">
-                <button name="delete" id="submitDelete" class="deletebutton">Ta bort</button>
+               <button class="savebutton" name="confirmEdit" id="confirmEdit" onclick="refreshPage();" style="margin-bottom: 10px;">Spara</button> 
+			   
+			   <form action="admin_redigera.php" onsubmit="return confirm('Är du säker du vill ta bort detta fält?');">
+                <input type="submit" value="Ta bort" name="delete" id="submitDelete" class="deletebutton">
+				</form>				
+              	
+                <br>
             </form>
-
-                <br>
-            </form>
-
+            
         </div>
     </div>
 		<div id="content">
@@ -133,8 +143,8 @@
 				<h1>
 					Transporter
 				</h1>
-				<button class="flatbutton" onclick='addUser()'>Lägg till fält</button>
-
+				<button class="flatbutton" onclick='addEmissionSource()'>Lägg till fält</button>
+				
 				<table>
 					<tr style="font-size:21px;">
 						<th style="text-align:left">Utsläppskälla</th>
@@ -143,17 +153,17 @@
 						<th style="text-align:left">Utsläpp i CO2 per MWh</th>
 						<th style="text-align:left">Senast ändrad</th>
 						<th style="text-align:left">Senast inloggad tid och datum</th>
-
-
+			
+            
 					</tr>
-
+					
           <?php
-              ob_start();
+              
               $a = 0;
-
+			  
               $query = mysqli_query($dbc, "SELECT * FROM ConversionFactors Where Category = 'Transport'");
               while($row = mysqli_fetch_array($query)){
-
+				 
                 $a++;
                 if(!$row['Admin']){
                   $_SESSION['name'][$a] = $row['Name'];
@@ -195,7 +205,7 @@
 			<h1>
 			Lokaler och Processer
 			</h1>
-			<button class="flatbutton" onclick='addUser()'>Lägg till fält</button>
+			<button class="flatbutton" onclick='addEmissionSource()'>Lägg till fält</button>
 			<table>
 			<tr style="font-size:21px;">
 						<th style="text-align:left">Utsläppskälla</th>
@@ -204,16 +214,16 @@
 						<th style="text-align:left">Utsläpp i CO2 per MWh</th>
 						<th style="text-align:left">Senast ändrad</th>
 						<th style="text-align:left">Senast inloggad tid och datum</th>
-
-
+			
+            
 					</tr>
 			<?php
-              ob_start();
+              
               $a = 0;
-
+			  
               $query = mysqli_query($dbc, "SELECT * FROM ConversionFactors Where Category = 'Lokaler och Processer'");
               while($row = mysqli_fetch_array($query)){
-
+				 
                 $a++;
                 if(!$row['Admin']){
                   $_SESSION['name'][$a] = $row['Name'];
@@ -256,9 +266,24 @@
 			</div>
 		</div>
 		<?php
-		  ob_start();
-
-		   if(isset($_POST['delete']) ){
+		 if(isset($_POST['create'])){
+					$name = mysqli_real_escape_string($dbc, $_POST['modalInputNewEmission']);
+					$unit = mysqli_real_escape_string($dbc, $_POST['addFieldOptionBox']);
+					$factor = mysqli_real_escape_string($dbc, $_POST['modalInputNewConvFac']);
+					$CO2perMWh = mysqli_real_escape_string($dbc, $_POST['addModalInputChangeCO2perMWh']);
+					$Category = mysqli_real_escape_string($dbc, $_POST['addEditFieldOptionBoxCategory']);
+					$info = mysqli_real_escape_string($dbc, $_POST['modalInputAddInfo']);
+					echo'<script type="text/javascript"> confirm($name); </script>';
+				if ($addEmissionSource = mysqli_prepare($dbc, "INSERT INTO ConversionFactors (EmissionSource, Unit, ConvFactor , EmissionCO2perMWh, DateChanged, Category, Info) VALUES (?, ?, ?, ?, DEFAULT, ?, ?);")) {
+					$addEmissionSource->bind_param("ssddss", $name,$unit,$factor,$CO2perMWh,$Category,$info);
+                    $addEmissionSource->execute();
+                    $result = $addEmissionSource->get_result();
+                    $addEmissionSource->close();
+				}
+		   }
+		  
+			
+		   if(isset($_POST['delete'])){
 			   $name = mysqli_real_escape_string($dbc, $_POST['modalInputChangeName']);
 				if ($deleteEmissionSourceSQL = mysqli_prepare($dbc, "DELETE FROM ConversionFactors WHERE EmissionSource=?")) {
 					$deleteEmissionSourceSQL->bind_param("s", $name);
@@ -267,11 +292,9 @@
                     $deleteEmissionSourceSQL->close();
 				}
 		   }
-		   $removeField = false;
+		 
 		  if(isset($_POST['confirmEdit'])){
-			$removeField = '<script type="text/javascript">confirm("Säker på att du vill ta bort fältet");</script>';
-			echo $removeField;
-			  if($removeField){
+		
 			$name = mysqli_real_escape_string($dbc, $_POST['modalInputChangeName']);
 			$unit = mysqli_real_escape_string($dbc, $_POST['editFieldOptionBox']);
 			$factor = mysqli_real_escape_string($dbc, $_POST['modalInputChangeFactor']);
@@ -284,13 +307,13 @@
                 $changeEmissionSourceResult = $changeEmissionSourceSQL->get_result();
                 $changeEmissionSourceSQL->close();
 			}
-			}
-			sleep(2);
-			header("Refresh:0");
-			//header('Location: admin_redigera.php');
+			
+			
+			
 		  }
-		?>
-
+		?> 
+	
+				
 		<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
 		<script type="text/javascript" src="../js/proto-script.js"></script>
     <script type="text/javascript" src="../js/admin_redigera_script.js"></script>
