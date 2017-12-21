@@ -28,7 +28,8 @@ $selectedYear = $_GET['yeardrop'];
 					$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 					$extra = 'historik.php?yeardrop=';
 					$selectedYear = $myrowyear['Year'];
-					$_SESSION['SentId'] = null;
+                        $_SESSION['SentId'] = null;
+
 					header("Location: http://$host$uri/$extra$selectedYear");
 					exit;
 
@@ -414,46 +415,66 @@ $selectedYear = $_GET['yeardrop'];
                     }
                     echo '</table>';
                     echo '</div>';
-                    echo '<h1>Övrigt Transport</h1>';
+                    echo '<h2>Övrigt Transport</h2>';
                     if(!mysqli_num_rows($OtherTransportRes)==0){
                         while($myrow = $OtherTransportRes->fetch_assoc()){
-                            echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
-                            echo '<h4> Krav Ja/Nej </h4>';
+
+                            echo '<table name = "otherTransport">';
+                            echo '<tr><th>  Miljökrav vid inköp av fordon: </th>';
+                            echo '<td>';
                             echo $myrow['EnvironmentReqPurchased'] ? "Ja" : "Nej";
-                            echo '<h4> Om ja beskriv krav: </h4>';
-                            if(!empty($myrow['EnvironmentReqPurchasedDescription'])){
-                                echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
-                                echo $myrow['EnvironmentReqPurchasedDescription'];
-                                echo '</textarea>';
-                            }else{
-                                echo "Ingen beskrivning given";
+                            echo '</td></tr>';
+                            if($myrow['EnvironmentReqPurchased']) {
+                              //  echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
+                                echo '<tr><th> Beskrivning av miljökrav </th><tr>';
+                                if (!empty($myrow['EnvironmentReqPurchasedDescription'])) {
+                                    echo '<tr><td>';
+                                    echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
+                                    echo $myrow['EnvironmentReqPurchasedDescription'];
+                                    echo '</textarea>';
+                                } else {
+                                    echo "Ingen beskrivning given";
+                                }
+                                echo '</td></tr>';
                             }
+                            echo '</table>';
                             echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
-                            echo '<table>';
-                            echo '<tr>';
-                            echo '<th>';
-                            echo "Andel i procent:" ;
-                            echo '</th>';
-                            echo '</tr>';
+                            echo '<table name = "otherTransport">';
+                            echo '<tr><th>Andel i procent: </th>';
                             echo '<td>';
                             echo $myrow['BioTransportAmount'].' '.  '%';
-                            echo '</td>';
-                            echo '</table>';
-                            echo '<h4> Krav Ja/Nej </h4>';
+                            echo '</td></tr>';
+
+
+                            echo '<tr><th> Andra miljökrav på transporttjänster: </th>';
+                            echo '<td>';
                             echo $myrow['EnvironmentReqOtherTransport'] ? "Ja" : "Nej";
-                            echo '<h4> Om ja beskriv krav: </h4>';
+                            echo '</td>';
+                            if($myrow['EnvironmentReqOtherTransport']) {
+                               // echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
+                            echo '<tr><th> Beskrivning av andra miljökrav </th><tr>';
                             if(!empty($myrow['EnvironmentReqOtherTransportDescription'])){
+                                echo '<tr><td>';
                                 echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
                                 echo $myrow['EnvironmentReqOtherTransportDescription'];
                                 echo '</textarea>';
                             }else{
                                 echo "Ingen beskrivning given";
-                            }
+                            }}
+                            echo '</td></tr>';
+                            echo '</table>';
                             echo '<h3> Inköps- och resepolicy  </h3>';
-                            echo '<h4> Tillämpas inköpspolicyn för fordon  </h4>';
+                            echo '<table name = "otherTransport">';
+                            echo '<tr><th> Tillämpas inköpspolicyn för fordon: </th>';
+                            echo '<td>';
                             echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej";
-                            echo '<h4> Tillämpas resepolicy </h4>';
+                            echo '</td></tr>';
+
+                            echo '<tr><th> Tillämpas resepolicy: </th>';
+                            echo '<td>';
                             echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej";
+                            echo '</td></tr>';
+                            echo '</table>';
 
                         }
                     }}else{
