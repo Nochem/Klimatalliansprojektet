@@ -425,6 +425,10 @@
                 $finished = $_GET['finished'];
                 $comment = $_GET['OtherComment'];
                 $flygresorcount = $_GET['nbrofRowsFlight'];
+		
+		$transportstart = $lokalcount;
+		$transportlength = $lokalcount + $transportcount;
+		
                 if($finished){
                     $finished = 1;
                 }else{
@@ -440,7 +444,7 @@
                 //SLUT PÃ… KOD FöR ATT SKAPA EN NY RAPPORT
                 if($id != null){
                     // Transport insert
-                    for ($i = 0; $i < $transportcount; $i++) {
+                    for ($i = $lokalcount; $i < $transportlength; $i++) {
                         $emissionSource = $_GET['emissionSource'][$i];
                         $amount = $_GET['amount'][$i];
                         $unit = $_GET['unit'][$i];
@@ -456,13 +460,10 @@
                             }
                         }
                     }
-                    $lokalerstart = $transportcount;
-                    $lokalerlength = $transportcount + $lokalcount;
                     //övrigt Transport insert
                     $envReq = $_GET['YesOrNo'];
                     $envReqDesc = $_GET['comment1'];
                     $bioTranspAmount = $_GET['bioTranspAmount'];
-
 
                     $otherEnvReq = $_GET['YesOrNo3'];
                     $otherEnvReqDesc = $_GET['comment2'];
@@ -480,7 +481,7 @@
                         $insertOtherTransportsql->close();
                     }
                     // Lokaler och Processer insert
-                    for ($i = $lokalerstart; $i < $lokalerlength; $i++) {
+                    for ($i = 0; $i < $lokalcount; $i++) {
                         $emissionSource = $_GET['emissionSource'][$i];
                         $amount = $_GET['amount'][$i];
                         $unit = $_GET['unit'][$i];
