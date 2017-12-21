@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <?php
-include('session.php');
+  include('session.php');
+  ob_start();
+  $query = mysqli_query($dbc, "SELECT Year FROM Report WHERE User = '$login_session'");
+  $oldYears = '';
+  while($year = mysqli_fetch_array($query)){
+    $oldYears .= $year['Year'];
+  }
+  echo "<input id=\"reportedYears\" type=\"hidden\" value=".$oldYears.">";
 ?>
 <html>
 <head>
