@@ -127,6 +127,7 @@
             <th style="text-align:left">Senast inloggad tid och datum</th>
             <th style="text-align:left">Senast inloggad IP adress</th>
             <th style="text-align:left">Registrerad</th>
+	    <th style="text-align:left">Senaste år färdigrapporterad</th>
 					</tr>
           <?php
               ob_start();
@@ -150,6 +151,13 @@
                   echo "<td>".$row['LastLogIn']."</td>";
                   echo "<td>".$row['IpAddress']."</td>";
                   echo "<td>".$row['RegisterDate']."</td>";
+		  $lfyMySQL = mysqli_query($dbc, "SELECT max(Year) FROM Report WHERE User = \"".$row['Name']."\" AND finished = 1");
+                  $lfy = mysqli_fetch_array($lfyMySQL);
+                  if($lfy['max(Year)'] == ''){
+                    echo "<td>Ingen färdig rapport</td>";
+                  } else {
+                    echo "<td>".$lfy['max(Year)']."</td>";
+                  }
                   echo "<td style='text-align:left' class='editbtn'>
                         <button id=change-".$row['Name']."
                         class='flatbutton'
