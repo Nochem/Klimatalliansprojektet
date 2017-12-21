@@ -734,6 +734,10 @@ include('session.php');
                 $finished = $_GET['finished'];
                 $comment = $_GET['OtherComment'];
                 $flygresorcount = $_GET['nbrofRowsFlight'];
+		    
+		$transportstart = $lokalcount;
+		$transportlength = $lokalcount + $transportcount;
+		    
                 if($finished){
                     $finished = 1;
                 }else{
@@ -750,7 +754,7 @@ include('session.php');
                 //SLUT PÅ… KOD FöR ATT SKAPA EN NY RAPPORT
                 if($id != null){
                     // Transport insert
-                    for ($i = 0; $i < $transportcount; $i++) {
+                    for ($i = $lokalcount; $i < $transportlength; $i++) {
                         $emissionSource = $_GET['emissionSource'][$i];
                         $amount = $_GET['amount'][$i];
                         $unit = $_GET['unit'][$i];
@@ -792,7 +796,7 @@ include('session.php');
                         $insertOtherTransportsql->close();
                     }
                     // Lokaler och Processer insert
-                    for ($i = $lokalerstart; $i < $lokalerlength; $i++) {
+                    for ($i = 0; $i < $lokalcount; $i++) {
                         $emissionSource = $_GET['emissionSource'][$i];
                         $amount = $_GET['amount'][$i];
                         $unit = $_GET['unit'][$i];
