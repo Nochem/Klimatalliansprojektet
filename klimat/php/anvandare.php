@@ -80,7 +80,7 @@
                 <input id="InputTelephone" name="modalInputNewTelephone" type="text">
                 <br>
                 <br>
-                <Button class="flatbutton" name="submitNew" id="submitNew">Lägg till medlem</button>
+                <Button class="flatbutton" name="submitNew" id="submitNew">Lägg till användare</button>
               </form>
         </div>
     </div>
