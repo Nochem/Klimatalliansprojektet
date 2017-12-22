@@ -14,6 +14,9 @@
     if(empty($oldPassword)){
         $_SESSION['message']['fillOldPass'] = 'Fyll i fältet.';
     }
+    if(!ctype_alnum($passwordNew)){
+        $_SESSION['message']['newPassNotAlpha'] = 'Nya Lösenordet är har fel karaktärer, använd A-Z.';
+    }
     if (($passwordNew != $passwordNewC)){
         $_SESSION['message']['passDontMatch'] = 'Nya lösenordet matchar inte.';
     }
