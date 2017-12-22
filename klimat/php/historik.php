@@ -262,7 +262,7 @@ $selectedYear = $_GET['yeardrop'];
                     echo '</td>';
                     echo '<td>';
 		    echo '<form method="post">';
-		    echo '<input type="submit" name="Delete" form = "historik" value = "Ta bort" id = "DeleteButton" onclick="return confirm(\'Är du säker?\')"/>';
+		    echo '<input type="submit" name="Delete" form = "historik" value = "Ta bort" id = "DeleteButton" onclick="return confirm(\'Är du säker på att du vill ta bort rapporten?\')"/>';
 		    echo '</form>';
                  // echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"  />';                    echo '</td>';
                     echo '</table>';
