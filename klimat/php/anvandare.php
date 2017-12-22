@@ -9,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimatallians - Användare
+		Klimatallians - Användare (Admin)
 	</title>
 	<link rel="stylesheet" type="text/css" href="../css/anvandare-style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
