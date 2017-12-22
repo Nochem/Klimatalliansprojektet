@@ -73,7 +73,7 @@
                 Lösenord:
                 <input id="InputPassword" name="modalInputNewPassword" type="text">
                 <br>
-                Email:
+                E-post:
                 <input id="InputEmail" name="modalInputNewEmail" type="text">
                 <br>
                 Telefon:
@@ -112,7 +112,7 @@
             </form>
             <form action="deleteUser.php" method="post" onsubmit="return confirm('Är du säker du vill ta bort denna medlem?');">
                 <input id="userNbrD" name="userNbrD" type="hidden">
-                <button id="submitDelete" class="deletebutton">tabort</button>
+                <button id="submitDelete" class="deletebutton">Ta bort</button>
             </form>
         </div>
     </div>
