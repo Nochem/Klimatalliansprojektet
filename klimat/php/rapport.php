@@ -235,6 +235,7 @@
            </h1>
 		<p>
 			För att börja rapportera in årets CO<sub>2</sub>e kan du fylla i fälten nedan.
+			Vill du fortsätta med en tidigare påbörjad rapport finns dessa under Historik.
 		</p>
             <p>
 
