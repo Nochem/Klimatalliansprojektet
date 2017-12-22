@@ -121,18 +121,18 @@
 				<h1>
 					Användare
 				</h1>
-				<button class="flatbutton" onclick='addUser()'>Lägg till medlem</button>
+				<button class="flatbutton" onclick='addUser()'>Lägg till användare</button>
 				<table>
 					<tr style="font-size:21px;">
             <th style="text-align:left">Aktiv</th>
-						<th style="text-align:left">Namn</th>
+						<th style="text-align:left">Användarnamn</th>
 						<th style="text-align:left">Lösenord</th>
-            <th style="text-align:left">Mejl</th>
+            <th style="text-align:left">E-post</th>
             <th style="text-align:left">Telefon</th>
-            <th style="text-align:left">Senast inloggad tid och datum</th>
-            <th style="text-align:left">Senast inloggad IP adress</th>
+            <th style="text-align:left">Senast inloggad</th>
+            <th style="text-align:left">Senaste IP-adress</th>
             <th style="text-align:left">Registrerad</th>
-	    <th style="text-align:left">Senaste år färdigrapporterad</th>
+	    <th style="text-align:left">Senast klarmarkerade rapport</th>
 					</tr>
           <?php
               ob_start();
@@ -169,7 +169,7 @@
                         <button id=change-".$row['Name']."
                         class='flatbutton'
                         type='editMemberButton'
-                        onclick='changeUser(\"".$a."\")'>Redigera medlem
+                        onclick='changeUser(\"".$a."\")'>Redigera användare
                         </button></td>";
                   echo "</tr>";
                 }
