@@ -7,9 +7,10 @@ if(!empty($_POST)){
   $factor = mysqli_real_escape_string($dbc, $_POST['modalInputChangeFactor']);
   $CO2perMWh = mysqli_real_escape_string($dbc, $_POST['modalInputChangeCO2perMWh']);
   $Category = mysqli_real_escape_string($dbc, $_POST['editFieldOptionBoxCategory']);
+  $Info = mysqli_real_escape_string($dbc, $_POST['inputEditInfo']);
 
-  if ($changeEmissionSourceSQL = mysqli_prepare($dbc, "UPDATE ConversionFactors SET Unit=?, ConvFactor=?, EmissionCO2perMWh=?, DateChanged=Default, Category=? WHERE EmissionSource=?")) {
-    $changeEmissionSourceSQL->bind_param("sddss", $unit, $factor, $CO2perMWh, $Category, $name);
+  if ($changeEmissionSourceSQL = mysqli_prepare($dbc, "UPDATE ConversionFactors SET Unit=?, ConvFactor=?, EmissionCO2perMWh=?, DateChanged=Default, Category=?, Info =? WHERE EmissionSource=?")) {
+    $changeEmissionSourceSQL->bind_param("sddsss", $unit, $factor, $CO2perMWh, $Category, $Info, $name);
     $changeEmissionSourceSQL->execute();
             $changeEmissionSourceResult = $changeEmissionSourceSQL->get_result();
             $changeEmissionSourceSQL->close();
