@@ -12,20 +12,17 @@ if($row['Admin'] == 0){
     $selectedUser=$_GET['userdrop'];
     if(isset($_GET['yeardrop'])){
         $selectedUser=$_GET['selectedUser'];
+		
     }
-    $selectedYear = $_GET['selectedyear'];
+    
     ?>
     <meta charset="UTF-8">
     <title>
         Klimatallians - Rapporter (Admin)
     </title>
     <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
-    <style>
-        #yeardrop{
-            width:500px;
-            height: 40px;
-        }
-    </style>
+	 <link rel="stylesheet" type="text/css" href="../css/historik-style.css">
+  
 
     <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
     <link rel="icon" href="../res/icon.png">
@@ -48,6 +45,11 @@ if($row['Admin'] == 0){
                     Användare
                 </li>
             </a>
+			<a href="rapporter_admin.php">
+                <li class="menuitem  currentpage">
+                    Rapporter
+                </li>
+            </a>
             <a href="statistik_admin.php">
                 <li class="menuitem">
                     Statistik
@@ -63,11 +65,7 @@ if($row['Admin'] == 0){
                     Mina Sidor
                 </li>
             </a>
-            <a href="rapporter_admin.php">
-                <li class="menuitem  currentpage">
-                    Rapporter
-                </li>
-            </a>
+            
 
             <li style="padding:0em">
                 <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?')">
@@ -100,8 +98,10 @@ if($row['Admin'] == 0){
                 }
                 if(mysqli_num_rows($userSQLresult) > 0){
                     if(isset($userSQLresult)){
+						 echo '<div align="center">';
                         echo '<select id="userdrop" name="userdrop" onchange="this.form.submit()">';
-                        echo '&nbsp';
+						
+                        
                         echo "<option value = '-1'> Välj en användare </option>";
                         // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
                         while( $myrow = $userSQLresult->fetch_assoc()){
@@ -113,26 +113,27 @@ if($row['Admin'] == 0){
                             }
                         }
                         echo '</select>';
+						echo '</div>';
                     } else {
                     }
                 }else{
-                    echo '<h2> Inga rapporter</h2>';
-                    echo 'Företaget ???';
+                    echo '<h2> Inga Företag</h2>';
+                    echo 'Det finns inga företag';
                     echo'<br><br>';
 
                 }
-                ?>
+               
 
 
 
-            </form>
+            
 
 
-            <form action="#" method="get" name="histDrop">
+           
 
-                <?php
+                
 
-
+				
                 echo '<input type="hidden" name = "selectedUser" id="selectedUser" value="'.$selectedUser. '" >';
 
 
@@ -146,12 +147,14 @@ if($row['Admin'] == 0){
                 }
                 if(mysqli_num_rows($yearSQLresult) > 0){
                     if(isset($yearSQLresult)){
+						 echo '<div align="center">';
                         echo '<select id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
-                        echo '&nbsp';
+                       
                         echo "<option value = '-1'> Välj ett år </option>";
 // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
                         while( $myrow = $yearSQLresult->fetch_assoc()){
                             if(strcmp($selectedYear,$myrow['Year']) == 0){
+							
 
                                 echo '<option selected value =' .$myrow['Year'] . '>' .$myrow['Year'].'</option>';
                             }else{
@@ -160,13 +163,13 @@ if($row['Admin'] == 0){
                             }
                         }
                         echo '</select>';
+						echo '</div>';
 //echo '<input type="submit" name="submit" value="Välj" />';
                     } else {
                     }}else{
                     echo '<h2> Inga rapporter</h2>';
-                    echo 'Företaget har inga rapporter om du vill skapa en ny rapport klicka länken nedan eller Rapport högst upp';
-                    echo'<br><br>';
-                    echo '<a href="rapport.php">Skapa ny rapport</a>';
+                    echo 'Företaget har inga rapporter';
+                    
                 }
                 ?>
 
@@ -191,9 +194,9 @@ if($row['Admin'] == 0){
 
                 $selectedUser=$_GET['selectedUser'];
                 $selectedYear = $_GET['yeardrop'];
+				
 
-                echo '<input type="hidden" name = "selectedUser2" id="selectedUser" value="'.$selectedUser. '" >';
-                echo '<input type="hidden" name = "selectedyear" id="selectedyear" value="'.$selectedYear. '" >';
+                
 
                 if($selectedYear != -1){
                     $_SESSION['Id'] = null;
@@ -267,23 +270,27 @@ if($row['Admin'] == 0){
                     echo '<h2> Inget år valt</h2>';
                 }
             }
-            ?>
+            
 
 
 
 
 
-            <?php
+           
             if(isset($_GET['yeardrop'])){
                 if($selectedYear != -1){
+				
                     echo '<form name = "historik" method = "get" id ="historik" >';
+						echo '<input type="hidden" name = "selectedUser2" id="selectedUser" value="'.$selectedUser. '" >';
+						echo '<input type="hidden" name = "selectedyear" id="selectedyear" value="'.$selectedYear. '" >';
+						
 
                     echo '<table align = "right">';
                     echo '<td>';
-                    echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
+                   
                     echo '</td>';
                     echo '<td>';
-                    echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"/>';
+                   
                     echo '</td>';
                     echo '</table>';
                     echo '<br><br>';
@@ -306,7 +313,8 @@ if($row['Admin'] == 0){
                             echo '</td></tr>';
                             echo '<tr><th align = "left">Status:</th>';
                             echo '<td>' ;
-                            echo $myrow['finished'] ? "<font color=\"green\" size = 12>Färdig</font>" : "<font color=\"red\" size = 12>Ej färdig</font>";
+                            echo $myrow['finished'] ? "Klar " : "Ej Klar ";
+                            echo $myrow['finished'] ? "<img class='klar' src=\"../res/klar.png\" >" : "<img class='ejklar' src=\"../res/inte_klar.png\" >";
                             echo '</td></tr>';
                             echo '</table>';
                             echo'<div name = "Lokaler och Processer">';
@@ -429,48 +437,69 @@ if($row['Admin'] == 0){
                         }
                         echo '</table>';
                         echo '</div>';
-                        echo '<h1>Övrigt Transport</h1>';
-                        if(!mysqli_num_rows($OtherTransportRes)==0){
-                            while($myrow = $OtherTransportRes->fetch_assoc()){
-                                echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
-                                echo '<h4> Krav Ja/Nej </h4>';
-                                echo $myrow['EnvironmentReqPurchased'] ? "Ja" : "Nej";
-                                echo '<h4> Om ja beskriv krav: </h4>';
-                                if(!empty($myrow['EnvironmentReqPurchasedDescription'])){
+                        echo '<h2>Övrigt Transport</h2>';
+                    if(!mysqli_num_rows($OtherTransportRes)==0){
+                        while($myrow = $OtherTransportRes->fetch_assoc()){
+
+                            echo '<table name = "otherTransport">';
+                            echo '<tr><th>  Miljökrav vid inköp av fordon: </th>';
+                            echo '<td>';
+                            echo $myrow['EnvironmentReqPurchased'] ? "Ja" : "Nej";
+                            echo '</td></tr>';
+                            if($myrow['EnvironmentReqPurchased']) {
+                              //  echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
+                                echo '<tr><th> Beskrivning av miljökrav </th><tr>';
+                                if (!empty($myrow['EnvironmentReqPurchasedDescription'])) {
+                                    echo '<tr><td>';
                                     echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
                                     echo $myrow['EnvironmentReqPurchasedDescription'];
                                     echo '</textarea>';
-                                }else{
+                                } else {
                                     echo "Ingen beskrivning given";
                                 }
-                                echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
-                                echo '<table>';
-                                echo '<tr>';
-                                echo '<th>';
-                                echo "Andel i procent:" ;
-                                echo '</th>';
-                                echo '</tr>';
-                                echo '<td>';
-                                echo $myrow['BioTransportAmount'].' '.  '%';
-                                echo '</td>';
-                                echo '</table>';
-                                echo '<h4> Krav Ja/Nej </h4>';
-                                echo $myrow['EnvironmentReqOtherTransport'] ? "Ja" : "Nej";
-                                echo '<h4> Om ja beskriv krav: </h4>';
-                                if(!empty($myrow['EnvironmentReqOtherTransportDescription'])){
-                                    echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
-                                    echo $myrow['EnvironmentReqOtherTransportDescription'];
-                                    echo '</textarea>';
-                                }else{
-                                    echo "Ingen beskrivning given";
-                                }
-                                echo '<h3> Inköps- och resepolicy  </h3>';
-                                echo '<h4> Tillämpas inköpspolicyn för fordon  </h4>';
-                                echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej";
-                                echo '<h4> Tillämpas resepolicy </h4>';
-                                echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej";
+                                echo '</td></tr>';
                             }
-                        }}else{
+                            echo '</table>';
+                            echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
+                            echo '<table name = "otherTransport">';
+                            echo '<tr><th>Andel i procent: </th>';
+                            echo '<td>';
+                            echo $myrow['BioTransportAmount'].' '.  '%';
+                            echo '</td></tr>';
+
+
+                            echo '<tr><th> Andra miljökrav på transporttjänster: </th>';
+                            echo '<td>';
+                            echo $myrow['EnvironmentReqOtherTransport'] ? "Ja" : "Nej";
+                            echo '</td>';
+                            if($myrow['EnvironmentReqOtherTransport']) {
+                               // echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
+                            echo '<tr><th> Beskrivning av andra miljökrav </th><tr>';
+                            if(!empty($myrow['EnvironmentReqOtherTransportDescription'])){
+                                echo '<tr><td>';
+                                echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
+                                echo $myrow['EnvironmentReqOtherTransportDescription'];
+                                echo '</textarea>';
+                            }else{
+                                echo "Ingen beskrivning given";
+                            }}
+                            echo '</td></tr>';
+                            echo '</table>';
+                            echo '<h3> Inköps- och resepolicy  </h3>';
+                            echo '<table name = "otherTransport">';
+                            echo '<tr><th> Tillämpas inköpspolicyn för fordon: </th>';
+                            echo '<td>';
+                            echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej";
+                            echo '</td></tr>';
+
+                            echo '<tr><th> Tillämpas resepolicy: </th>';
+                            echo '<td>';
+                            echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej";
+                            echo '</td></tr>';
+                            echo '</table>';
+
+                        }
+                    }}else{
                         echo "Inget rapporterat i Transport";
                     }
                     echo '<h1> Flygresor </h1>';
@@ -530,36 +559,15 @@ if($row['Admin'] == 0){
                     echo '</form>';
                     echo '<table align = "right">';
                     echo '<td>';
-                    echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
+                    
                     echo '</td>';
                     echo '<td>';
-                    echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"/>';
+                    
                     echo '</td>';
                     echo '</table>';
                 }
             }
-            if (isset($_GET['Delete'])){
-                //något som confirmar
-                if ($DeleteSql = mysqli_prepare($dbc, "Delete from Report where id = ? and user = ?")) {
-                    $id = $_SESSION['Id'];
-                    $message = $id;
-                    echo "<script type='text/javascript'>alert('$message');</script>";
-                    $DeleteSql ->bind_param("is",$id,$selectedUser);
-                    /* execute query */
-                    $DeleteSql ->execute();
-                    /* instead of bind_result: */
-                    $DeleteSqlres= $DeleteSql->get_result();
-                    /* now you can fetch the results into an array - NICE */
-                    Header('Location: '.$_SERVER['PHP_SELF']);
-                    Exit();
-
-                }
-            }
-            if(isset($_GET['Edit'])){
-
-                header('Location: rapport_redigera.php');
-                exit();
-            }
+            
             ?>
         </div>
     </div>
