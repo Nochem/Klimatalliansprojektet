@@ -261,8 +261,10 @@ $selectedYear = $_GET['yeardrop'];
                     echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
                     echo '</td>';
                     echo '<td>';
-                    echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"/>';
-                    echo '</td>';
+		    echo '<form method="post">';
+		    echo '<input type="submit" name="Delete" form = "historik" value = "DENNA" id = "DeleteButton" onclick="return confirm(\'Är du säker?\')"/>';
+		    echo '</form>';
+                 // echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"  />';                    echo '</td>';
                     echo '</table>';
 					echo '<br><br>';
 					echo '<h1>  Rapport för år '.$selectedYear.' </h1>';
@@ -548,8 +550,10 @@ $selectedYear = $_GET['yeardrop'];
                     echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
                     echo '</td>';
                     echo '<td>';
-                    echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"/>';
-                    echo '</td>';
+		    echo '<form method="post">';
+		    echo '<input type="submit" name="Delete" form = "historik" value = "DENNA" id = "DeleteButton" onclick="return confirm(\'Är du säker?\')"/>';
+		    echo '</form>';
+                 // echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"  />';                    echo '</td>';
                     echo '</table>';
 
 
