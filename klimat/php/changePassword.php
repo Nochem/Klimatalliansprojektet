@@ -6,25 +6,25 @@
     $oldPassword = mysqli_real_escape_string($dbc, $_POST['oldPass']);
 
     if(empty($passwordNew)){
-        $_SESSION['message']['fillNewPass'] = 'Fyll i nytt lösenord.';
+        $_SESSION['message']['fillNewPass'] = 'Fyll i fältet.';
     }
     if(empty($passwordNewC)){
-        $_SESSION['message']['fillConNewPass'] = 'Fyll i bekräfta nytt lösenord.';
+        $_SESSION['message']['fillConNewPass'] = 'Fyll i fältet.';
     }
     if(empty($oldPassword)){
-        $_SESSION['message']['fillOldPass'] = 'Fyll i befintligt Lösenord.';
+        $_SESSION['message']['fillOldPass'] = 'Fyll i fältet.';
     }
     if (($passwordNew != $passwordNewC)){
         $_SESSION['message']['passDontMatch'] = 'Nya lösenordet matchar inte.';
     }
     if((strlen($passwordNew) < 6) && !empty($passwordNew)){
-        $_SESSION['message']['wrongSize'] = 'Nya lösenordet är mindre än 6.';
+        $_SESSION['message']['wrongSize'] = 'Lösenordet som angivits innehåller färre än 6 tecken.';
     }
     if((strlen($passwordNew) > 20) && !empty($passwordNew)){
-        $_SESSION['message']['wrongSize'] = 'Nya lösenordet är större än 20.';
+        $_SESSION['message']['wrongSize'] = 'Lösenordet som angivits innehåller fler än 20 tecken.';
     }
     if(($oldPassword != $row['Password']) && !empty($oldPassword)){
-        $_SESSION['message']['oldPassDontMatch'] = 'Befintligt Lösenord stämmer inte.';
+        $_SESSION['message']['oldPassDontMatch'] = 'Befintligt lösenord stämmer inte.';
     }
 
     if (!(empty($_SESSION['message']))){
