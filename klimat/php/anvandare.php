@@ -137,9 +137,7 @@
           <?php
               ob_start();
               $a = 0;
-              $query = mysqli_query($dbc, "SELECT Active, Name, Password, Email,
-                  Telephone, LastLogin, IpAddress, DATE(RegisterDate), max(Year), finished
-                  FROM Users JOIN Report on Report.User = Users.Name GROUP BY User");
+              $query = mysqli_query($dbc, "select a.*, max(b.Year), b.finished from Users as a left join Report as b on a.Name = b.User group by a.Name");
               while($row = mysqli_fetch_array($query)){
                 $a++;
                 if(!$row['Admin']){
