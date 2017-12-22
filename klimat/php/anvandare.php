@@ -110,7 +110,7 @@
                 <Button class="savebutton" id="submitChange" style="margin-bottom: 10px;">Spara</Button>
                 <br>
             </form>
-            <form action="deleteUser.php" method="post" onsubmit="return confirm('Är du säker du vill ta bort denna medlem?');">
+            <form action="deleteUser.php" method="post" onsubmit="return confirm('Är du säker du vill ta bort denna användare?');">
                 <input id="userNbrD" name="userNbrD" type="hidden">
                 <button id="submitDelete" class="deletebutton">Ta bort</button>
             </form>
