@@ -80,7 +80,7 @@
                 <input id="InputTelephone" name="modalInputNewTelephone" type="text">
                 <br>
                 <br>
-                <Button class="flatbutton" name="submitNew" id="submitNew">Lägg till medlem</button>
+                <Button class="flatbutton" name="submitNew" id="submitNew">Lägg till användare</button>
               </form>
         </div>
     </div>
@@ -110,7 +110,7 @@
                 <Button class="savebutton" id="submitChange" style="margin-bottom: 10px;">Spara</Button>
                 <br>
             </form>
-            <form action="deleteUser.php" method="post" onsubmit="return confirm('Är du säker du vill ta bort denna medlem?');">
+            <form action="deleteUser.php" method="post" onsubmit="return confirm('Är du säker du vill ta bort denna användare?');">
                 <input id="userNbrD" name="userNbrD" type="hidden">
                 <button id="submitDelete" class="deletebutton">Ta bort</button>
             </form>
@@ -137,9 +137,7 @@
           <?php
               ob_start();
               $a = 0;
-              $query = mysqli_query($dbc, "SELECT Active, Name, Password, Email,
-                  Telephone, LastLogin, IpAddress, DATE(RegisterDate), max(Year), finished
-                  FROM Users JOIN Report on Report.User = Users.Name GROUP BY User");
+              $query = mysqli_query($dbc, "select a.*, max(b.Year), b.finished from Users as a left join Report as b on a.Name = b.User group by a.Name");
               while($row = mysqli_fetch_array($query)){
                 $a++;
                 if(!$row['Admin']){
