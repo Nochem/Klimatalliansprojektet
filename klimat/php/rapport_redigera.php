@@ -411,12 +411,12 @@ include('session.php');
             echo '</h1>';
             echo '<table name= ' . htmlspecialchars($categoryLokalerProcesser) . ' cellspacing="10">';
             // Skapar rubriker till table
-            echo '<th> Utsläppskälla </th>';
-            echo '<th> Inköpt mängd</th>';
-            echo '<th> Mått </th>';
-            echo '<th> Omräknings Faktor </th>';
-            echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
-            echo '<th> Ton CO<sub>2</sub> </th>';
+		echo '<th> Utsläppskälla </th>'; 
+		echo '<th> Inköpt mängd</th>'; 
+		echo '<th> Mått </th>'; 
+		echo '<th> Omr. faktor till MWh </th>'; 
+		echo '<th> Omr. faktor från MWh till CO<sub>2</sub></th>'; 
+		echo '<th> Ton CO<sub>2</sub>e </th>';
             while ($myrow = $Placesemissionsqlresult->fetch_assoc()) {
                 if (!empty($myrow)) {
                     // transportcount används för att loopa igenom (i en for sats)  alla fält när man skickar in data till databasen
@@ -495,10 +495,12 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
 
-                    //skapar utsläpp i mwh
-                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
-                    echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
-                    //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
+                    //skapar utsläpp i mwh 
+			echo '<td class="colCenter">'; 
+			echo '<p name="coFactorMWh[]"> ' . $myrow['EmissionCO2perMWh'] . '</p>'; 
+			echo '</td>'; 
+			echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>'; 
+			//skapar kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
 					echo '<td name="tonCO[]">';
                     echo $CO2value;
                     echo '</td>';
@@ -543,13 +545,17 @@ include('session.php');
 			</a>';
             echo '</h1>';
             echo '<table name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
-            // Skapar rubriker till table
-            echo '<th> Utsläppskälla </th>';
-            echo '<th> Inköpt mängd</th>';
-            echo '<th> Mått </th>';
-            echo '<th> Omräknings Faktor </th>';
-            echo '<th style="display:none;"> Utsläpp CO<sub>2</sub> per MWh </th>';
-            echo '<th> Ton CO<sub>2</sub> </th>';
+           	
+		// Skapar rubriker till table
+		echo '<th> Utsläppskälla </th>'; 
+		echo '<th> Inköpt mängd</th>'; 
+		echo '<th> Mått </th>'; 
+		echo '<th> Omr. faktor till MWh </th>'; 
+		echo '<th> Omr. faktor från MWh till CO<sub>2</sub></th>'; 
+		echo '<th> Ton CO<sub>2</sub>e </th>';
+		
+		
+        
             while ($myrow = $emissionsqlresult->fetch_assoc()) {
                 if (!empty($myrow)) {
                     // transportcount används för att loopa igenom (i en for sats)  alla fält när man skickar in data till databasen
@@ -629,10 +635,12 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
 
-                    //skapar utsläpp i mwh
-                    echo '<td style="display:none;" id= >' . $myrow['EmissionCO2perMWh'] . '</td>';
-                    echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
-                    //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
+                     //skapar utsläpp i mwh 
+			echo '<td class="colCenter">'; 
+			echo '<p name="coFactorMWh[]"> ' . $myrow['EmissionCO2perMWh'] . '</p>'; 
+			echo '</td>'; 
+			echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>'; 
+			
 					echo '<td name="tonCO[]">';
                     echo $CO2value;
                     echo '</td>';
