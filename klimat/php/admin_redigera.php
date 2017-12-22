@@ -148,7 +148,7 @@
 						<th style="text-align:left">Omräkningsfaktor</th>
 						<th style="text-align:left">Utsläpp i CO2 per MWh</th>
 						<th style="text-align:left">Senast ändrad</th>
-						<th style="text-align:left">Senast inloggad tid och datum</th>
+						<th style="text-align:left">Info</th>
 
 
 					</tr>
@@ -174,13 +174,13 @@
       					echo $row['DateChanged'];
       					echo '</td>';
       					echo '<td>';
-      					echo $row['Category'];
+      					echo $row['Info'];
       					echo '</td>';
     					  echo "<td style='text-align:left' class='editbtn'>
                             <button id=change-".$row['EmissionSource']."
                             class='flatbutton'
                             type='editMemberButton'
-                            onclick='changeEmissionSource(\"".$row['EmissionSource']."\",\"".$row['ConvFactor']."\",\"".$row['EmissionCO2perMWh']."\", \"".$row['Unit']."\", \"".$row['Category']."\")'>Redigera
+                            onclick='changeEmissionSource(\"".$row['EmissionSource']."\",\"".$row['ConvFactor']."\",\"".$row['EmissionCO2perMWh']."\", \"".$row['Unit']."\", \"".$row['Category']."\", \"".$row['Info']."\")'>Redigera
                             </button></td>";
                 echo "</tr>";
               }
@@ -197,7 +197,7 @@
 						<th style="text-align:left">Omräkningsfaktor</th>
 						<th style="text-align:left">Utsläpp i CO2 per MWh</th>
 						<th style="text-align:left">Senast ändrad</th>
-						<th style="text-align:left">Senast inloggad tid och datum</th>
+						<th style="text-align:left">Info</th>
 
 
 					</tr>
@@ -222,13 +222,13 @@
   					echo $row['DateChanged'];
   					echo '</td>';
   					echo '<td>';
-  					echo $row['Category'];
+  					echo $row['Info'];
   					echo '</td>';
 					  echo "<td style='text-align:left' class='editbtn'>
                         <button id=change-".$row['EmissionSource']."
                         class='flatbutton'
                         type='editMemberButton'
-                        onclick='changeEmissionSource(\"".$row['EmissionSource']."\",\"".$row['ConvFactor']."\",\"".$row['EmissionCO2perMWh']."\", \"".$row['Unit']."\", \"".$row['Category']."\")'>Redigera
+                        onclick='changeEmissionSource(\"".$row['EmissionSource']."\",\"".$row['ConvFactor']."\",\"".$row['EmissionCO2perMWh']."\", \"".$row['Unit']."\", \"".$row['Category']."\", \"".$row['Info']."\")'>Redigera
                         </button></td>";
             echo "</tr>";
           }
