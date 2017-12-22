@@ -9,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimat allians Lund - Användare
+		Klimatallians - Användare
 	</title>
 	<link rel="stylesheet" type="text/css" href="../css/anvandare-style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -46,6 +46,11 @@
                 <a href="mina_sidor_admin.php">
                     <li class="menuitem">
                         Mina Sidor
+                    </li>
+                </a>
+		<a href="rapporter_admin.php">
+                    <li class="menuitem">
+                        Rapporter
                     </li>
                 </a>
 
