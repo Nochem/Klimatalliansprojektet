@@ -9,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimat allians Lund - Admin Statistik
+		Klimatallians - Statistik (Admin)
 	</title>
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
 	<style>
@@ -28,7 +28,7 @@
 
             	<div id="user">
                 		<p id="username">
-            			User: <?php echo $login_session; ?>
+            			Inloggad som: <b><?php echo $login_session; ?></b>
 
             		</p>
             	</div>
@@ -55,6 +55,11 @@
 						Mina Sidor
 					</li>
 				</a>
+				<a href="rapporter_admin.php">
+                   			<li class="menuitem">
+                      				 Rapporter
+                    			</li>
+               			</a>
 
                 <li style="padding:0em">
                     <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?'")>

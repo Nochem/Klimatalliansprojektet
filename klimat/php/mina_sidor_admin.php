@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimat allians Lund - Admin mina sidor
+		Klimatallians - Mina sidor (Admin)
 	</title>
 	<link rel="stylesheet" type="text/css" href="../css/minasidor-style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -23,7 +23,7 @@
 
             	<div id="user">
                 		<p id="username">
-            			User: <?php echo $login_session; ?>
+            			Inloggad som: <b><?php echo $login_session; ?></b>
 
             		</p>
             	</div>
@@ -50,6 +50,11 @@
 						Mina Sidor
 					</li>
 				</a>
+				<a href="rapporter_admin.php">
+                  		<li class="menuitem">
+                      			Rapporter
+                   		</li>
+                		</a>
 
                 <li style="padding:0em">
                     <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?'")>
@@ -69,15 +74,15 @@
           ob_start();
           $query = mysqli_query($dbc, "SELECT RealName, Email, Telephone FROM Users WHERE Admin = '1'");
           $admin = mysqli_fetch_array($query);
-  				echo 'Namn:';
+  				echo 'Namn: ';
   				echo '<input type="text" name="RealName" value="'.$admin['RealName'].'">';
   				echo '<br><br>';
-  				echo 'Epost:';
+  				echo 'E-post: ';
   				echo '<input type="text" name="email" value="'.$admin['Email'].'">';
   				echo '<br><br>';
-  				echo 'Telefon :';
+  				echo 'Telefon: ';
   				echo '<input type="text" name="telefon" value="'.$admin['Telephone'].'">';
-          echo '<br><br>';
+          			echo '<br><br>';
   				echo '<input class="flatbutton" type="submit" value="Spara">';
   				echo '<br><br>';
         ?>

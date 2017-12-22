@@ -9,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimat allians Lund - Användare
+		Klimatallians - Användare (Admin)
 	</title>
 	<link rel="stylesheet" type="text/css" href="../css/anvandare-style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -22,7 +22,7 @@
 
             	<div id="user">
                 		<p id="username">
-            			User: <?php echo $login_session; ?>
+            			Inloggad som: <b><?php echo $login_session; ?></b>
             		</p>
             	</div>
         </div>
@@ -48,6 +48,11 @@
                         Mina Sidor
                     </li>
                 </a>
+		<a href="rapporter_admin.php">
+                    <li class="menuitem">
+                        Rapporter
+                    </li>
+                </a>
 
                 <li style="padding:0em">
                     <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?')">
@@ -68,7 +73,7 @@
                 Lösenord:
                 <input id="InputPassword" name="modalInputNewPassword" type="text">
                 <br>
-                Email:
+                E-post:
                 <input id="InputEmail" name="modalInputNewEmail" type="text">
                 <br>
                 Telefon:
@@ -107,7 +112,7 @@
             </form>
             <form action="deleteUser.php" method="post" onsubmit="return confirm('Är du säker du vill ta bort denna medlem?');">
                 <input id="userNbrD" name="userNbrD" type="hidden">
-                <button id="submitDelete" class="deletebutton">tabort</button>
+                <button id="submitDelete" class="deletebutton">Ta bort</button>
             </form>
         </div>
     </div>
@@ -116,18 +121,18 @@
 				<h1>
 					Användare
 				</h1>
-				<button class="flatbutton" onclick='addUser()'>Lägg till medlem</button>
+				<button class="flatbutton" onclick='addUser()'>Lägg till användare</button>
 				<table>
 					<tr style="font-size:21px;">
             <th style="text-align:left">Aktiv</th>
-						<th style="text-align:left">Namn</th>
+						<th style="text-align:left">Användarnamn</th>
 						<th style="text-align:left">Lösenord</th>
-            <th style="text-align:left">Mejl</th>
+            <th style="text-align:left">E-post</th>
             <th style="text-align:left">Telefon</th>
-            <th style="text-align:left">Senast inloggad tid och datum</th>
-            <th style="text-align:left">Senast inloggad IP adress</th>
+            <th style="text-align:left">Senast inloggad</th>
+            <th style="text-align:left">Senaste IP-adress</th>
             <th style="text-align:left">Registrerad</th>
-	    <th style="text-align:left">Senaste år färdigrapporterad</th>
+	    <th style="text-align:left">Senast klarmarkerade rapport</th>
 					</tr>
           <?php
               ob_start();
@@ -164,7 +169,7 @@
                         <button id=change-".$row['Name']."
                         class='flatbutton'
                         type='editMemberButton'
-                        onclick='changeUser(\"".$a."\")'>Redigera medlem
+                        onclick='changeUser(\"".$a."\")'>Redigera användare
                         </button></td>";
                   echo "</tr>";
                 }
