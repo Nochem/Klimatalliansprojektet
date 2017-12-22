@@ -348,13 +348,14 @@
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]" value="0">';
                     echo '</tr>';
-		echo '<input type="hidden" name = "nbrofRowslokal" id="nbrofRowslokal" value="'.$lokalcount. '" >';
+
                     $arrayindex++;
                 }
             }
 
             echo '</tbody>';
             echo'</table>';
+            echo '<input type="hidden" name = "nbrofRowslokal" id="nbrofRowslokal" value="'.$lokalcount. '" >';
             echo'<table cellspacing="10">';
             echo '<thead>
 				<th>Produktion av förnybar energi</th>
@@ -444,12 +445,13 @@
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]">';
                     echo '</tr>';
-			echo '<input type="hidden" name = "nbrofRowsTransport" id="nbrofRowsTransport" value="'.$transportcount. '">';
                     $arrayindex++;
                 }
             }
 
             echo '</table>';
+
+    echo '<input type="hidden" name = "nbrofRowsTransport" id="nbrofRowsTransport" value="'.$transportcount. '">';
             echo'<div id="m_krav">
 				<h3>Ställs miljökrav vid inköp av fordon?</h3>
 					<p>
