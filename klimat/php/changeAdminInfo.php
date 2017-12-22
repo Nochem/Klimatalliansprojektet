@@ -11,7 +11,9 @@
     }
 
     $changeUserMySQL = "UPDATE Users SET RealName='$newRealName', Email='$newEmail', Telephone='$newTelephone' WHERE Name='$login_session'";
-    mysqli_query($dbc, $changeUserMySQL);
+    if(mysqli_query($dbc, $changeUserMySQL)){
+      $_SESSION['message']['AdminChanged'] = 'Kontaktinformation ändrad.';
+    }
     header('Location: mina_sidor_admin.php');
   }
 ?>
