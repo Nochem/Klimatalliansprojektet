@@ -106,7 +106,7 @@ $selectedYear = $_GET['yeardrop'];
 
                 <?php
 
-                $selectedYear = -1;
+                
 
 
                 if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ? ORDER BY YEAR DESC")) {
