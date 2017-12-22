@@ -17,7 +17,7 @@ if($row['Admin'] == 0){
     ?>
     <meta charset="UTF-8">
     <title>
-        Klimat allians Lund - Admin Rapporter
+        Klimatallians - Admin Rapporter
     </title>
     <link rel="stylesheet" type="text/css" href="../css/style-proto.css">
     <style>
