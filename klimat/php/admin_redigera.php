@@ -9,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimatallians - Användare
+		Klimatallians - Redigera fält (Admin)
 	</title>
 	<link rel="stylesheet" type="text/css" href="../css/redigera-style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -19,7 +19,7 @@
 <body>
 	<div id="user">
     		<p id="username">
-			User: <?php echo $login_session; ?>
+			Inloggad som: <b><?php echo $login_session; ?></b>
 			<form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?');">
 				<label>
 					<input class="menuitem flatbutton" name="submit2" type="submit" id="submit2" value="Log out">
@@ -32,7 +32,7 @@
         </div>
         <div id="menu">
             <ul>
-			     <a href="anvandare.php">
+		<a href="anvandare.php">
                     <li class="menuitem">
                         Användare
                     </li>
