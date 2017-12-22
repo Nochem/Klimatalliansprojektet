@@ -9,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimatallians - Admin Statistik
+		Klimatallians - Statistik (admin)
 	</title>
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
 	<style>
