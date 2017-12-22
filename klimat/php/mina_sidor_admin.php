@@ -74,13 +74,13 @@
           ob_start();
           $query = mysqli_query($dbc, "SELECT RealName, Email, Telephone FROM Users WHERE Admin = '1'");
           $admin = mysqli_fetch_array($query);
-  				echo 'Namn:';
+  				echo 'Namn: ';
   				echo '<input type="text" name="RealName" value="'.$admin['RealName'].'">';
   				echo '<br><br>';
-  				echo 'Epost:';
+  				echo 'E-post: ';
   				echo '<input type="text" name="email" value="'.$admin['Email'].'">';
   				echo '<br><br>';
-  				echo 'Telefon :';
+  				echo 'Telefon: ';
   				echo '<input type="text" name="telefon" value="'.$admin['Telephone'].'">';
           			echo '<br><br>';
   				echo '<input class="flatbutton" type="submit" value="Spara">';
