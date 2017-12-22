@@ -62,13 +62,24 @@
 			</ul>
 
 		</div>
+		<a href="../html/manual.html#statistik" target="_blank">
+                        <img border="0" alt="manual" align="middle" src="../res/fragetecken.png" widht="30" height="30">
+                    </a>
+                    <br>
+                    <br>
+                    <br>
 
 		<div class="chart-container">
+			
+			 Ton CO2
 
 			<div id="chart">
 
 				<canvas id="myChart" styles="width=100px height=100px"></canvas>
 			</div>
+			<p align="right">
+				År
+			</p>
 		</div>
 	</div>
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
