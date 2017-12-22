@@ -22,7 +22,7 @@
 
             	<div id="user">
                 		<p id="username">
-            			User: <?php echo $login_session; ?>
+            			Inloggad som: <b><?php echo $login_session; ?></b>
             		</p>
             	</div>
         </div>
