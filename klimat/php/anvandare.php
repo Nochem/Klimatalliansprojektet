@@ -153,15 +153,13 @@
                   echo "<td id=".$a."-password>".$row['Password']."</td>";
                   echo "<td id=".$a."-email>".$row['Email']."</td>";
                   echo "<td id=".$a."-telephone>".$row['Telephone']."</td>";
-                  echo "<td>".$row['LastLogin']."</td>";
+                  echo "<td>".$row['LastLogIn']."</td>";
                   echo "<td>".$row['IpAddress']."</td>";
                   echo "<td>".$row['RegisterDate']."</td>";
-		          $lfyMySQL = mysqli_query($dbc, "SELECT max(Year) FROM Report WHERE User = \"".$row['Name']."\" AND finished = 1");
-                  $lfy = mysqli_fetch_array($lfyMySQL);
-                  if($lfy['max(Year)'] == ''){
+		  if($row['max(b.Year)'] == ''){
                     echo "<td>Ingen färdig rapport</td>";
                   } else {
-                    echo "<td>".$lfy['max(Year)']."</td>";
+                    echo "<td>".$row['max(b.Year)']."</td>";
                   }
                   echo "<td style='text-align:left' class='editbtn'>
                         <button id=change-".$row['Name']."
