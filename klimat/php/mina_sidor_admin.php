@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimat allians Lund - Admin mina sidor
+		Klimatallians - Admin mina sidor
 	</title>
 	<link rel="stylesheet" type="text/css" href="../css/minasidor-style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -50,6 +50,11 @@
 						Mina Sidor
 					</li>
 				</a>
+				<a href="rapporter_admin.php">
+                  		<li class="menuitem">
+                      			Rapporter
+                   		</li>
+                		</a>
 
                 <li style="padding:0em">
                     <form id="logout" name="form1" action="logout.php" method="post" onsubmit="return confirm('Är du säker du vill logga ut?'")>
