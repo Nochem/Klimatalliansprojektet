@@ -128,6 +128,9 @@
             } else if(!empty($_SESSION['message']['wrongSize'])){
               echo '<font color="red" size="2" style="margin-left:10px">'.$_SESSION['message']['wrongSize'].'</font>';
               unset($_SESSION['message']['wrongSize']);
+            } else if(!empty($_SESSION['message']['newPassNotAlpha'])){
+              echo '<font color="red" size="2" style="margin-left:10px">'.$_SESSION['message']['newPassNotAlpha'].'</font>';
+              unset($_SESSION['message']['newPassNotAlpha']);
             }
           ?>
         </p>
