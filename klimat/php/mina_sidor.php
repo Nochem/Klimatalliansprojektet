@@ -63,7 +63,7 @@ include('session.php');
         </div>
         <div id="content">
             <h2>
-                Ändra Lösenord
+                Ändra lösenord
             </h2>
             <p>
                 <?php
