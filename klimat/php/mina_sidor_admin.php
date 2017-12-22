@@ -67,6 +67,12 @@
 		<div id="content">
 			<h2>
 				Kontaktinformation
+				<?php
+         			  if(!empty($_SESSION['message']['AdminChanged'])){
+          	 		    echo '<br><font color="green" size="2" style="margin-left:10px">'.$_SESSION['message']['AdminChanged'].'</font>';
+          			    unset($_SESSION['message']['AdminChanged']);
+          			  }
+        			?>
 				<br>
 			</h2>
 			<form action="changeAdminInfo.php" method="post">
