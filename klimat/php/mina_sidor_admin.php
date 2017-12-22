@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		Klimatallians - Admin mina sidor
+		Klimatallians - Mina sidor (Admin)
 	</title>
 	<link rel="stylesheet" type="text/css" href="../css/minasidor-style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style-proto.css">
@@ -82,7 +82,7 @@
   				echo '<br><br>';
   				echo 'Telefon :';
   				echo '<input type="text" name="telefon" value="'.$admin['Telephone'].'">';
-          echo '<br><br>';
+          			echo '<br><br>';
   				echo '<input class="flatbutton" type="submit" value="Spara">';
   				echo '<br><br>';
         ?>
