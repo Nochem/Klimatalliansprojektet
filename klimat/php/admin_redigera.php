@@ -122,7 +122,9 @@
 				              <option value="Transport">Transport</option>
 				              <option value="Lokaler och Processer">Lokaler och Processer</option>
 				        </select>
-                <br>
+                 <br>
+				Info:
+				<input id="editInfo" name="inputEditInfo" type="text">
                 <br>
                 <button class="savebutton" name="confirmEdit" id="confirmEdit" onclick="" style="margin-bottom: 10px;">Spara</button>
                 <br>
