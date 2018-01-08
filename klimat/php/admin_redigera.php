@@ -138,10 +138,11 @@
     </div>
 		<div id="content">
 			<div id="stat">
+				<button class="flatbutton" onclick='addEmissionSource()'>Lägg till fält</button>
 				<h1>
 					Transporter
 				</h1>
-				<button class="flatbutton" onclick='addEmissionSource()'>Lägg till fält</button>
+				
 
 				<table>
 					<tr style="font-size:21px;">
@@ -191,7 +192,6 @@
 			<h1>
 			Lokaler och Processer
 			</h1>
-			<button class="flatbutton" onclick='addField()'>Lägg till fält</button>
 			<table>
 			<tr style="font-size:21px;">
 						<th style="text-align:left">Utsläppskälla</th>
