@@ -15,10 +15,10 @@
         $_SESSION['message']['fillOldPass'] = 'Fyll i fältet.';
     }
     if(!ctype_alnum($passwordNew)){
-        $_SESSION['message']['newPassNotAlpha'] = 'Nya Lösenordet är har fel karaktärer, använd A-Z.';
+        $_SESSION['message']['newPassNotAlpha'] = 'Det nya Lösenordet har ogiltiga karaktärer.';
     }
     if (($passwordNew != $passwordNewC)){
-        $_SESSION['message']['passDontMatch'] = 'Nya lösenordet matchar inte.';
+        $_SESSION['message']['passDontMatch'] = 'Lösenorden matchar inte.';
     }
     if((strlen($passwordNew) < 6) && !empty($passwordNew)){
         $_SESSION['message']['wrongSize'] = 'Lösenordet som angivits innehåller färre än 6 tecken.';
