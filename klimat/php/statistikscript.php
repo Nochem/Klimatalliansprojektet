@@ -66,7 +66,7 @@ $x++;
 								label:"Lokala processer",
 					data: lokala,//data:lokala,
 					backgroundColor: "rgba(58,122,165,1)",
-					hoverBackgroundColor: "rgba(58,1122,195,1)"
+					hoverBackgroundColor: "rgba(58,122,195,1)"
 				},{
 
 								label:"Flygresor",
