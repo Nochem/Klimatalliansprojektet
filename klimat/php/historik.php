@@ -428,8 +428,9 @@ $selectedYear = $_GET['yeardrop'];
                             if($myrow['EnvironmentReqPurchased']) {
                               //  echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
                                 echo '<tr><th> Beskrivning av miljökrav </th><tr>';
+				    echo '<tr><td>';
                                 if (!empty($myrow['EnvironmentReqPurchasedDescription'])) {
-                                    echo '<tr><td>';
+                                    
                                     echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
                                     echo $myrow['EnvironmentReqPurchasedDescription'];
                                     echo '</textarea>';
@@ -454,8 +455,9 @@ $selectedYear = $_GET['yeardrop'];
                             if($myrow['EnvironmentReqOtherTransport']) {
                                // echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
                             echo '<tr><th> Beskrivning av andra miljökrav </th><tr>';
+			    echo '<tr><td>';
                             if(!empty($myrow['EnvironmentReqOtherTransportDescription'])){
-                                echo '<tr><td>';
+                                
                                 echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
                                 echo $myrow['EnvironmentReqOtherTransportDescription'];
                                 echo '</textarea>';
