@@ -45,11 +45,7 @@ if($row['Admin'] == 0){
                     Användare
                 </li>
             </a>
-			<a href="rapporter_admin.php">
-                <li class="menuitem  currentpage">
-                    Rapporter
-                </li>
-            </a>
+			
             <a href="statistik_admin.php">
                 <li class="menuitem">
                     Statistik
@@ -63,6 +59,11 @@ if($row['Admin'] == 0){
             <a href="mina_sidor_admin.php">
                 <li class="menuitem">
                     Mina Sidor
+                </li>
+            </a>
+		<a href="rapporter_admin.php">
+                <li class="menuitem  currentpage">
+                    Rapporter
                 </li>
             </a>
             
