@@ -5,15 +5,16 @@
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$myusername = mysqli_real_escape_string($dbc,$_POST['username']);
 			$mypassword = mysqli_real_escape_string($dbc,$_POST['password']);
-			$sql = "SELECT Name, Password, Active FROM Users WHERE Name = '$myusername' and password = '$mypassword' and Active = '1'";
+			$sql = "SELECT Name, Password,Admin, Active FROM Users WHERE Name = '$myusername' and password = '$mypassword' and Active = '1'";
 			$result = mysqli_query($dbc,$sql);
 			$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 			$active = $row['Active'];
 			$count = mysqli_num_rows($result);
+			$admin = $row['Admin'];
 			if($count == 1){
 				$_SESSION['Logintime'] = date('Y-m-d H:i:s');
 				$_SESSION['login_user'] = $myusername;
-				if($myusername == "testadmin"){
+				if($admin == 1){
 	 					header("Location: anvandare.php");
 	 			}else{
 	 					header("location: rapport.php");
