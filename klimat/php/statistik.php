@@ -62,9 +62,9 @@
 			</ul>
 
 		</div>
-		<a href="../html/manual.html#statistik" target="_blank">
-                        <img border="0" alt="manual" align="middle" src="../res/fragetecken.png" widht="30" height="30">
-                    </a>
+		<a href="../html/manual.html#statistik" onclick="window.open('../html/manual.html', 'newwindow', 'width=600,height=400');return false;">
+				<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30"> 
+		</a>
                     <br>
                     <br>
                     <br>
