@@ -15,7 +15,7 @@
         $_SESSION['message']['fillOldPass'] = 'Fyll i fältet.';
     }
     if(!ctype_alnum($passwordNew)){
-        $_SESSION['message']['newPassNotAlpha'] = 'Det nya Lösenordet har ogiltiga karaktärer.';
+        $_SESSION['message']['newPassNotAlpha'] = 'Det nya lösenordet har ogiltiga karaktärer.';
     }
     if (($passwordNew != $passwordNewC)){
         $_SESSION['message']['passDontMatch'] = 'Lösenorden matchar inte.';
