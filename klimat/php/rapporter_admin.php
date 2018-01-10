@@ -9,12 +9,9 @@ if($row['Admin'] == 0){
 <html>
 <head>
     <?php
-    $selectedUser=$_GET['userdrop'];
-    if(isset($_GET['yeardrop'])){
-        $selectedUser=$_GET['selectedUser'];
-		
-    }
-    
+	
+    $selectedUser= $_GET['userdrop'];
+	
     ?>
     <meta charset="UTF-8">
     <title>
@@ -85,10 +82,7 @@ if($row['Admin'] == 0){
             <form action="#" method="get" name="userDrop">
 
                 <?php
-
-
-
-
+				
 
                 if ($userSQL = mysqli_prepare($dbc, "SELECT Name from Users")) {
                     /* execute query */
@@ -107,17 +101,19 @@ if($row['Admin'] == 0){
                         // mysqli_fetch_array returnerar en rad av data från queryn och fortsätter tills ingen mer data är tillgänglig
                         while( $myrow = $userSQLresult->fetch_assoc()){
                             if(strcmp($selectedUser,$myrow['Name']) == 0){
-                                echo '<option selected value =' .$myrow['Name'] . '>' .$myrow['Name'].'</option>';
+                                echo '<option selected value ="' .$myrow['Name'] . '">' .$myrow['Name'].'</option>';
                             }else{
-                                echo '<option  value =' .$myrow['Name'] . '>' .$myrow['Name'].'</option>';
+                                echo '<option  value ="' .$myrow['Name'] . '">' .$myrow['Name'].'</option>';
 
                             }
                         }
                         echo '</select>';
 						echo '</div>';
+						
                     } else {
                     }
                 }else{
+					
                     echo '<h2> Inga Företag</h2>';
                     echo 'Det finns inga företag';
                     echo'<br><br>';
@@ -125,19 +121,7 @@ if($row['Admin'] == 0){
                 }
                
 
-
-
-            
-
-
-           
-
-                
-
 				
-                echo '<input type="hidden" name = "selectedUser" id="selectedUser" value="'.$selectedUser. '" >';
-
-
                 if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ? ORDER BY YEAR DESC")) {
                     $yearSQL->bind_param("s", $selectedUser);
                     /* execute query */
@@ -167,16 +151,23 @@ if($row['Admin'] == 0){
 						echo '</div>';
 //echo '<input type="submit" name="submit" value="Välj" />';
                     } else {
-                    }}else{
-                    echo '<h2> Inga rapporter</h2>';
-                    echo 'Företaget har inga rapporter';
+						
+                    }
+					}else{
+					if(!empty($selectedUser) && $selectedUser !=-1){
+					echo '<div align="center">';
                     
+                    echo $selectedUser .  " har inga rapporter";
+					echo '</div>';
+                    }
                 }
+				
                 ?>
 
 
 
             </form>
+			
 
 
 
@@ -191,17 +182,16 @@ if($row['Admin'] == 0){
 
 
             <?php
+			
             if (isset($_GET['yeardrop'])){
 
-                $selectedUser=$_GET['selectedUser'];
+                $selectedUser = $_GET['userdrop'];
                 $selectedYear = $_GET['yeardrop'];
 				
 
                 
 
-                if($selectedYear != -1){
-                    $_SESSION['Id'] = null;
-                }
+                
 
                 if($selectedYear != -1){
                     if ($ReportSql = mysqli_prepare($dbc, "SELECT Id,NameofReport,NameOfUser,DATE(ChangeDate) as ChangeDate ,finished,Comment from Report where Year = ? and User = ?")) {
@@ -268,7 +258,7 @@ if($row['Admin'] == 0){
                     }else{
                     }
                 }else{
-                    echo '<h2> Inget år valt</h2>';
+					
                 }
             }
             
@@ -279,11 +269,12 @@ if($row['Admin'] == 0){
 
            
             if(isset($_GET['yeardrop'])){
+				
                 if($selectedYear != -1){
 				
                     echo '<form name = "historik" method = "get" id ="historik" >';
-						echo '<input type="hidden" name = "selectedUser2" id="selectedUser" value="'.$selectedUser. '" >';
-						echo '<input type="hidden" name = "selectedyear" id="selectedyear" value="'.$selectedYear. '" >';
+						
+						
 						
 
                     echo '<table align = "right">';
@@ -447,6 +438,7 @@ if($row['Admin'] == 0){
                             echo '<td>';
                             echo $myrow['EnvironmentReqPurchased'] ? "Ja" : "Nej";
                             echo '</td></tr>';
+							
                             if($myrow['EnvironmentReqPurchased']) {
                               //  echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
                                 echo '<tr><th> Beskrivning av miljökrav </th><tr>';
