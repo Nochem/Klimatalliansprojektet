@@ -165,7 +165,7 @@
                         <button id=change-".$row['Name']."
                         class='flatbutton'
                         type='editMemberButton'
-                        onclick='changeUser(\"".$a."\")'>Redigera användare
+                        onclick='changeUser(\"".$a."\")'>Redigera
                         </button></td>";
                   echo "</tr>";
                 }
