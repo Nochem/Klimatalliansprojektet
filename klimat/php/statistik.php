@@ -71,7 +71,7 @@
 
 		<div class="chart-container" style="font-family: 'Barlow',sans-serif;">
 			
-			 Ton CO2
+			 Ton CO<sub>2</sub>
 
 			<div id="chart">
 
