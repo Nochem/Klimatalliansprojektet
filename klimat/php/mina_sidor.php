@@ -127,7 +127,7 @@ include('session.php');
                 <p id="nomatch">
                 </p>
                 <br>
-                <input class="flatbutton"id="change" type="submit"value="Ändra lösenord">
+                <input name="change" type = "submit"  value = "Ändra lösenord" id = "ChangeButton"/>
                 <br>
                 <br>
                 <p>
