@@ -63,15 +63,15 @@
 
 		</div>
 		<a href="../html/manual.html#statistik" onclick="window.open('../html/manual.html#statistik', 'newwindow', 'width=600,height=400');return false;">
-				<img border="0" alt="manual" src="../res/fragetecken.png" widht="30" height="30"> 
+				<img border="0" style="float:right;" alt="manual" src="../res/fragetecken.png" width="30" height="30">
 		</a>
                     <br>
                     <br>
                     <br>
 
 		<div class="chart-container" style="font-family: 'Barlow',sans-serif;">
-			
-			 Ton CO<sub>2</sub>
+
+			 <p>Ton CO<sub>2</sub></p>
 
 			<div id="chart">
 
