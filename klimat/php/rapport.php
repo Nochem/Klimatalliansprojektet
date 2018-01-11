@@ -64,6 +64,9 @@
                     $envReq = $_GET['YesOrNo'];
                     $envReqDesc = $_GET['comment1'];
                     $bioTranspAmount = $_GET['bioTranspAmount'];
+					if($bioTranspAmount >100){
+						$bioTranspAmount = 100;
+					}
 
                     $otherEnvReq = $_GET['YesOrNo3'];
                     $otherEnvReqDesc = $_GET['comment2'];
@@ -438,7 +441,9 @@
                     echo '</td>';
                     echo '<input type="hidden" name="convFactor[]" value=' . $myrow['convFactor'] . '>';
                     //skapar utsläpp i mwh
-                    echo '<td class="colCenter">' . $myrow['EmissionCO2perMWh'] . '</td>';
+                     echo '<td class="colCenter">' ;
+		    echo '<p name="coFactorMWh[]"> ' . $myrow['EmissionCO2perMWh'] . '</p>';
+		    echo '</td>';
                     echo '<input type="hidden" name="emissionCO2[]" value=' . $myrow['EmissionCO2perMWh'] . '>';
                     //skapar  kolumnen för tonCO2 denna uppdateras av tonCO2 funktionen som triggas av amount fältet.
                     echo '<td class="colCenter" name="tonCO[]">';
@@ -453,7 +458,8 @@
             echo '</table>';
 
     echo '<input type="hidden" name = "nbrofRowsTransport" id="nbrofRowsTransport" value="'.$transportcount. '">';
-            echo'<div id="m_krav">
+           echo '<h2>Övrigt transport</h2>';
+		   echo'<div id="m_krav">
 				<h3>Ställs miljökrav vid inköp av fordon?</h3>
 					<p>
 						<input class="radiobutton" type="radio" name="YesOrNo" onclick="showElemC1()" value="1"/> Ja

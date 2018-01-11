@@ -64,6 +64,9 @@ include('session.php');
                     $envReq = $_GET['YesOrNo'];
                     $envReqDesc = $_GET['comment1'];
                     $bioTranspAmount = $_GET['bioTranspAmount'];
+					if($bioTranspAmount >100){
+						$bioTranspAmount = 100;
+					}
                     $otherEnvReq = $_GET['YesOrNo3'];
                     $otherEnvReqDesc = $_GET['comment2'];
                     $VehicPolicy = $_GET['YesOrNo4'];
