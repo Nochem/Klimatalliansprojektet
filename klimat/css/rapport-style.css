@@ -2,8 +2,9 @@
 	margin-left:3em;
 }
 #content table{
-	margin-top: 5px;
-	margin-bottom: 5em;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	
 }
 #content tr{
 	clear:right;
@@ -17,17 +18,21 @@
 	height:40px;
 }
 #content th,td{
-	padding-top:10px;
+	padding-top:2px;
+	padding-bottom:2px;
+	
 	margin-left:0;
 	text-align: left;
 	height:10px;
 }
-#content th{
+#reportTable th,
+#maintable th{
 	padding-left:10px;
 	padding-right:10px;
 	background-color: #1A6B9F;
 	color:#FFF;
 }
+
 
 #maintable tr:nth-child(even){background-color: #f2f2f2;}
 
@@ -204,4 +209,16 @@ kod till popup-rutan för sparanappen.
 	font-size: 20px;
 	font-weight: bold;
 	font-style: italic;
+}
+#close-button{
+    background-color: transparent;
+    border: none;
+    color: grey;
+}
+#close-button:hover{
+    background-color: transparent;
+    border: none;
+    color: rgba(255, 88, 88, 0.92);
+    font-weight:bold;
+	font-size: 14;
 }
