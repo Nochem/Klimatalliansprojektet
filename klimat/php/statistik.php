@@ -69,7 +69,7 @@
                     <br>
                     <br>
 
-		<div class="chart-container">
+		<div class="chart-container" style="font-family: 'Barlow',sans-serif;">
 			
 			 Ton CO2
 
