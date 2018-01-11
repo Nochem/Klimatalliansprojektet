@@ -157,7 +157,7 @@
                   echo "<td>".$row['IpAddress']."</td>";
                   echo "<td>".$row['RegisterDate']."</td>";
 		  if($row['max(b.Year)'] == ''){
-                    echo "<td>Ingen färdig rapport</td>";
+                    echo "<td>Ingen klarmarkerad rapport</td>";
                   } else {
                     echo "<td>".$row['max(b.Year)']."</td>";
                   }
