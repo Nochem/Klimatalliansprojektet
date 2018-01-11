@@ -3,7 +3,7 @@
 		include "mysqli_connect.php";
 		include "session.php";
 
-		$sqlSum = "select a.id, a.User, a.Year, (ifnull(sum(b.TonCO2),0) + ifnull(sum(c.TonCO2), 0) + ifnull(sum((d.KgCO2/1000)),0)) as TonCO2 from Report as a left join Transport as b on a.id = b.id left join PlacesAndProcesses as c on a.id = c.id left join Flights as d on a.id = d.id group by a.id order by a.year, a.user asc"; 
+		$sqlSum = "select a.id, a.User, a.Year, ( ifnull(sum(b.transport),0) + ifnull(sum(c.lokala), 0) + ifnull(sum(d.flyg),0) + ifnull(sum(e.flyg2),0) ) as TonCO2 from Report as a left join (select id, sum(TonCO2) as transport from Transport group by id) as b on a.id = b.id left join (select id, sum(TonCO2) as lokala from PlacesAndProcesses group by id) as c on a.id = c.id left join (select id, sum(KgCO2/1000) as flyg from Flights group by id) as d on a.id = d.id left join (select id, sum(TotalAmount/1000) as flyg2 from OtherFlight group by id) as e on a.id = e.id group by a.id order by a.year, a.user asc"; 
 		$sqlUsers = "select distinct User from Report order by User asc";
 		$sqlYears = "select distinct Year from Report order by Year asc";
 
