@@ -846,11 +846,11 @@ include('session.php');
 							<td><input name="kgCO2[]" class="inputbox"/></td>
 						</tr>';
 			}
-			$nbrFlights = 0;
+			$nbrFlights = 1;
 			mysqli_data_seek($FlightRes, 0);
 			while($FlightResRow = $FlightRes->fetch_assoc()){
 				if(!empty($FlightResRow)){
-					if($FlightResRow['Departure']){
+					if($FlightResRow['KGCO2']){
 						echo' <tr>
 								<td><input name="Departure[]" type="text" class="inputbox" value="'.$FlightResRow['Departure'].'"/> </td>
 								<td><input name="Destination[]" class="inputbox" value="'.$FlightResRow['Destination'].'" /></td>
