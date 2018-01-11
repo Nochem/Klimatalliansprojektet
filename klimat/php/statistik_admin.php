@@ -69,11 +69,17 @@
 			</ul>
 		</div>
 		<div class="chart-container">
+			
+			Ton CO<sub>2</sub>
 
 			<div id="chart">
 
-				<canvas id="myChart" styles="width=100px height=100px"></canvas>
+			<canvas id="myChart" styles="width=100px height=100px"></canvas>
 			</div>
+			<p align="right">
+				År
+			</p>
+			
 		</div>
 	</div>
 	<script type="text/javascript" src="../js/jquery-3.2.1.slim.min.js"></script>
