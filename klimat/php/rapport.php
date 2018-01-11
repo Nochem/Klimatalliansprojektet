@@ -295,7 +295,7 @@
 							</td>
 						</tr>
 					</tbody>';
-            echo '<table cellspacing="10">';
+            echo '<table id="maintable" cellspacing="10">';
             // Skapar rubriker till table
             echo '<thead>
 			<tr>';
@@ -398,7 +398,7 @@
                 <img border='0' alt='manual' src='../res/fragetecken.png' width='30' height='30'>
             </a>";
             echo '</h1>';
-            echo '<table name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
+            echo '<table id="maintable" name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
             // Skapar rubriker till table
             echo '<th> Utsläppskälla </th>';
             echo '<th> Inköpt mängd</th>';
