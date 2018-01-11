@@ -419,12 +419,15 @@ $selectedYear = $_GET['yeardrop'];
                     echo '<h2>Övrigt Transport</h2>';
                     if(!mysqli_num_rows($OtherTransportRes)==0){
                         while($myrow = $OtherTransportRes->fetch_assoc()){
-
-                            echo '<table name = "otherTransport">';
+				
+				echo '<table>';
                             echo '<tr><th>  Miljökrav vid inköp av fordon: </th>';
                             echo '<td>';
                             echo $myrow['EnvironmentReqPurchased'] ? "Ja" : "Nej";
                             echo '</td></tr>';
+				echo '</table>';
+				
+                            echo '<table name = "otherTransport">';  
                             if($myrow['EnvironmentReqPurchased']) {
                               //  echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
                                 echo '<tr><th> Beskrivning av miljökrav </th><tr>';
@@ -440,18 +443,22 @@ $selectedYear = $_GET['yeardrop'];
                                 echo '</td></tr>';
                             }
                             echo '</table>';
-                            echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
-                            echo '<table name = "otherTransport">';
+				
+			echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
+							echo '<table>';
                             echo '<tr><th>Andel i procent: </th>';
                             echo '<td>';
                             echo $myrow['BioTransportAmount'].' '.  '%';
                             echo '</td></tr>';
-
-
                             echo '<tr><th> Andra miljökrav på transporttjänster: </th>';
                             echo '<td>';
                             echo $myrow['EnvironmentReqOtherTransport'] ? "Ja" : "Nej";
                             echo '</td>';
+				echo '</table>';
+				
+                          
+                            echo '<table name = "otherTransport">';
+
                             if($myrow['EnvironmentReqOtherTransport']) {
                                // echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
                             echo '<tr><th> Beskrivning av andra miljökrav </th><tr>';
