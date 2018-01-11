@@ -274,7 +274,7 @@ include('session.php');
 					   echo '<h1>';
 					   echo "Redigera rapport för år " .''. $reportYear;
 					   echo '</h1>';
-					   echo '<table name="info">';
+					   echo '<table id = "maintable" name="info">';
 					echo '<tr><th align = "left">Rapportnamn:</th>';
 					echo '<td>';
 					echo $ReportName;
