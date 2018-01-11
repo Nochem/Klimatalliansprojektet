@@ -44,20 +44,43 @@
 }
 table{
     text-align: left;
-    margin-bottom: 1cm;
-    margin-top: 1cm;
+	border-spacing: 3px;
+    
 
-    border-spacing: 5px;
+    
+}
+#StatTable{
+	margin-bottom: 1cm;
+    margin-top: 1cm;
+	border-spacing: 5px;
 }
 #StatTable th{
-    padding:10px 6px;
+    
     border-spacing: 20px;
-    text-align: left;
+   
     background-color: #1A6B9F;
     color: white;
 
 }
-
+#statTH th{
+padding:10px 6px;
+ text-align: left;
+}
+#sumTH{
+	color: white;
+	background-color: #1A6B9F;
+	
+	padding: 0 2px 5px;
+}
+#createRapport{
+	color: #1A6B9F;
+	font-weight: bold;
+}
+#createRapport:hover{
+	color: #2591d4;
+	font-weight: bold;
+	
+}
 #StatTable tr:nth-child(even){background-color: #f2f2f2;}
 
 #StatTable tr:hover {background-color: #ddd;}
