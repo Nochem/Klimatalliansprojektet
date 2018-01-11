@@ -506,11 +506,12 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]" value='. $CO2value . '>';
                     echo '</tr>';
-		echo '<input type="hidden" name = "nbrofRowslokal" id="nbrofRowslokal" value="'.$lokalcount. '" >';
+		
                     $arrayindex++;
 					$CO2value = 0;
 				}
             }
+		echo '<input type="hidden" name = "nbrofRowslokal" id="nbrofRowslokal" value="'.$lokalcount. '" >';
 			echo '</table>';
 			   echo'<table id= "otherTable">';
             echo '<thead>
@@ -646,12 +647,13 @@ include('session.php');
                     echo '</td>';
                     echo '<input type="hidden" name="ton[]" value='. $CO2value . '>';
                     echo '</tr>';
-			echo '<input type="hidden" name = "nbrofRowsTransport" id="nbrofRowsTransport" value="'.$transportcount. '">';
+			
 					$arrayindex++;
 					$CO2value = 0;
 				}
 
             }
+		echo '<input type="hidden" name = "nbrofRowsTransport" id="nbrofRowsTransport" value="'.$transportcount. '">';
 
             echo '</table>';
             echo'<div id="m_krav">
