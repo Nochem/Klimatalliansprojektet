@@ -257,6 +257,33 @@ if($row['Admin'] == 0){
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
+					if ($LokalSqlSum = mysqli_prepare($dbc, "SELECT sum(TonCO2) as tonSum FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ? ")) {
+                        $LokalSqlSum->bind_param("ss", $selectedYear,$selectedUser);
+                        /* execute query */
+                        $LokalSqlSum->execute();
+                        /* instead of bind_result: */
+                        $PlacesResSum = $LokalSqlSum->get_result();
+                        /* now you can fetch the results into an array - NICE */
+                    }else{
+                    }
+					if ($TransportSqlSum = mysqli_prepare($dbc, "SELECT ifnull(round(sum(TonCO2),2),0) as tonSum FROM Transport,Report where Transport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ? ")) {
+                        $TransportSqlSum->bind_param("ss", $selectedYear,$selectedUser);
+                        /* execute query */
+                        $TransportSqlSum->execute();
+                        /* instead of bind_result: */
+                        $TransportResSum = $TransportSqlSum->get_result();
+                        /* now you can fetch the results into an array - NICE */
+                    }else{
+                    }
+					 if ($FlightSqlSum = mysqli_prepare($dbc, "SELECT ifnull(round(sum(KGCO2)/1000,2),0) as tonSum FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
+                        $FlightSqlSum->bind_param("ss", $selectedYear,$selectedUser);
+                        /* execute query */
+                        $FlightSqlSum->execute();
+                        /* instead of bind_result: */
+                        $FlightResSum = $FlightSqlSum->get_result();
+                        /* now you can fetch the results into an array - NICE */
+                    }else{
+                    }
                 }else{
 					
                 }
@@ -309,6 +336,48 @@ if($row['Admin'] == 0){
                             echo $myrow['finished'] ? "<img class='klar' src=\"../res/klar.png\" >" : "<img class='ejklar' src=\"../res/inte_klar.png\" >";
                             echo '</td></tr>';
                             echo '</table>';
+							echo '<br>';
+							$totalSum = 0;
+					
+					echo '<table id = "Sum">';
+					echo'<tr>';
+					echo '<th id = "sumTH"> Summa av utsläpp </th>';
+					echo '<th id = "sumTH"> Ton CO<sub>2</sub> </th>';
+					echo'</tr>';
+					echo'<tr>';
+					echo '<th> Lokaler och Proccesser: </th>';
+					while($sumrow = $PlacesResSum->fetch_assoc()){
+					echo '<td>' .$sumrow['tonSum'].'</td>';
+					$totalSum += $sumrow['tonSum'];
+					}
+					echo'</tr>';
+					
+					echo'<tr>';
+					echo '<th> Transport: </th>';
+					while($sumrow = $TransportResSum->fetch_assoc()){
+					echo '<td>' .$sumrow['tonSum'].'</td>';
+					$totalSum += $sumrow['tonSum'];
+					
+					}
+					echo'</tr>';
+					
+					echo'<tr>';
+					echo '<th> Flyg: </th>';
+					while($sumrow = $FlightResSum->fetch_assoc()){
+					echo '<td>' .$sumrow['tonSum'].'</td>';
+					$totalSum += $sumrow['tonSum'];
+					
+					}
+					echo'</tr>';
+					
+					echo'<tr>';
+					echo '<th> Totalt: </th>';
+					
+					echo '<td> '.$totalSum.'</td>';
+					
+					
+					echo'</tr>';
+					echo '</table>';
                             echo'<div name = "Lokaler och Processer">';
                             echo '<h1>  Lokaler och Proccesser </h1>';
                         }
@@ -433,18 +502,20 @@ if($row['Admin'] == 0){
                     if(!mysqli_num_rows($OtherTransportRes)==0){
                         while($myrow = $OtherTransportRes->fetch_assoc()){
 
-                            echo '<table name = "otherTransport">';
+                           echo '<table>';
                             echo '<tr><th>  Miljökrav vid inköp av fordon: </th>';
                             echo '<td>';
                             echo $myrow['EnvironmentReqPurchased'] ? "Ja" : "Nej";
                             echo '</td></tr>';
-							
+				echo '</table>';
+				
+                            echo '<table name = "otherTransport">';  
                             if($myrow['EnvironmentReqPurchased']) {
                               //  echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
                                 echo '<tr><th> Beskrivning av miljökrav </th><tr>';
-				     echo '<tr><td>';
+				    echo '<tr><td>';
                                 if (!empty($myrow['EnvironmentReqPurchasedDescription'])) {
-                                   
+                                    
                                     echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
                                     echo $myrow['EnvironmentReqPurchasedDescription'];
                                     echo '</textarea>';
@@ -454,22 +525,25 @@ if($row['Admin'] == 0){
                                 echo '</td></tr>';
                             }
                             echo '</table>';
-                            echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
-                            echo '<table name = "otherTransport">';
+				
+			echo '<h3>Biodrivmedel i köpta transporttjänster </h3>';
+							echo '<table>';
                             echo '<tr><th>Andel i procent: </th>';
                             echo '<td>';
                             echo $myrow['BioTransportAmount'].' '.  '%';
                             echo '</td></tr>';
-
-
                             echo '<tr><th> Andra miljökrav på transporttjänster: </th>';
                             echo '<td>';
                             echo $myrow['EnvironmentReqOtherTransport'] ? "Ja" : "Nej";
                             echo '</td>';
+				echo '</table>';
+				
+                          
+                            echo '<table name = "otherTransport">';
                             if($myrow['EnvironmentReqOtherTransport']) {
                                // echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
                             echo '<tr><th> Beskrivning av andra miljökrav </th><tr>';
-				    echo '<tr><td>';
+			    echo '<tr><td>';
                             if(!empty($myrow['EnvironmentReqOtherTransportDescription'])){
                                 
                                 echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
@@ -486,13 +560,11 @@ if($row['Admin'] == 0){
                             echo '<td>';
                             echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej";
                             echo '</td></tr>';
-
                             echo '<tr><th> Tillämpas resepolicy: </th>';
                             echo '<td>';
                             echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej";
                             echo '</td></tr>';
                             echo '</table>';
-
                         }
                     }}else{
                         echo "Inget rapporterat i Transport";
