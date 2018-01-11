@@ -409,7 +409,7 @@ include('session.php');
 
 			</a>';
             echo '</h1>';
-            echo '<table name= ' . htmlspecialchars($categoryLokalerProcesser) . ' cellspacing="10">';
+            echo '<table id = "maintable" name= ' . htmlspecialchars($categoryLokalerProcesser) . ' cellspacing="10">';
             // Skapar rubriker till table
 		echo '<th> Utsläppskälla </th>'; 
 		echo '<th> Inköpt mängd</th>'; 
@@ -544,7 +544,7 @@ include('session.php');
 				Transport
 			</a>';
             echo '</h1>';
-            echo '<table name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
+            echo '<table id = "maintable" name= ' . htmlspecialchars($categoryTransport) . ' cellspacing="10">';
            	
 		// Skapar rubriker till table
 		echo '<th> Utsläppskälla </th>'; 
