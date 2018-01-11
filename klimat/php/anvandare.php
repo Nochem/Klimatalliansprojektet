@@ -80,7 +80,10 @@
                 <input id="InputTelephone" name="modalInputNewTelephone" type="text">
                 <br>
                 <br>
+				
                 <Button class="flatbutton" name="submitNew" id="submitNew">Lägg till användare</button>
+				
+				
               </form>
         </div>
     </div>
@@ -118,11 +121,23 @@
     </div>
 		<div id="content">
 			<div id="stat">
-				<h1>
-					Användare
-				</h1>
-				<button class="flatbutton" onclick='addUser()'>Lägg till användare</button>
 				<table>
+				<tr>
+					<td>
+						<h1>
+							Användare
+						</h1>
+					</td>
+					</tr>
+					<tr>
+					<td>
+						<button id = "createUser"class="flatbutton" onclick='addUser()'>Lägg till användare</button>
+					</td>
+				</tr>
+			</table>
+			<br>
+			
+				<table id ="mainTable">
 					<tr style="font-size:21px;">
             <th style="text-align:left">Aktiv</th>
 						<th style="text-align:left">Användarnamn</th>
@@ -157,7 +172,7 @@
                   echo "<td>".$row['IpAddress']."</td>";
                   echo "<td>".$row['RegisterDate']."</td>";
 		  if($row['max(b.Year)'] == ''){
-                    echo "<td>Ingen klarmarkerad rapport</td>";
+                    echo "<td>Ingen färdig rapport</td>";
                   } else {
                     echo "<td>".$row['max(b.Year)']."</td>";
                   }
