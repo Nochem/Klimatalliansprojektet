@@ -68,7 +68,7 @@
                 </li>
 			</ul>
 		</div>
-		<div class="chart-container">
+		<div class="chart-container" style="font-family: 'Barlow',sans-serif;">
 			
 			Ton CO<sub>2</sub>
 
