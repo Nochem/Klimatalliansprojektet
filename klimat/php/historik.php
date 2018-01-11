@@ -8,11 +8,8 @@ $_SESSION['createdReport'] = 0;
 	<?php
 $sentID = $_SESSION['SentId'];
 $selectedYear = $_GET['yeardrop'];
-
 				if($sentID !=null){
-
 					if ($yearSQL = mysqli_prepare($dbc, "SELECT  Year from Report where id = ? and user = ?")) {
-
                     $yearSQL->bind_param("is",$sentID,$login_session);
                     /* execute query */
                     $yearSQL->execute();
@@ -20,9 +17,7 @@ $selectedYear = $_GET['yeardrop'];
                     $yearSQLresult2 = $yearSQL->get_result();
                     /* now you can fetch the results into an array - NICE */
                 }
-
 					if(mysqli_num_rows($yearSQLresult2)>0){
-
 					$myrowyear = $yearSQLresult2->fetch_assoc();
 					$host  = $_SERVER['HTTP_HOST'];
 					$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -31,8 +26,6 @@ $selectedYear = $_GET['yeardrop'];
 					$_SESSION['SentId'] = null;
 					header("Location: http://$host$uri/$extra$selectedYear");
 					exit;
-
-
 					}
 					}
 					?>
@@ -105,10 +98,7 @@ $selectedYear = $_GET['yeardrop'];
             <form action="#" method="get" name="histDrop">
 
                 <?php
-
                 
-
-
                 if ($yearSQL = mysqli_prepare($dbc, "SELECT Year from Report where User = ? ORDER BY YEAR DESC")) {
                     $yearSQL->bind_param("s", $login_session);
                     /* execute query */
@@ -120,7 +110,6 @@ $selectedYear = $_GET['yeardrop'];
                 if(mysqli_num_rows($yearSQLresult) > 0){
                     if(isset($yearSQLresult)){
 			    echo '<div align="center">';
-
                         echo '<select id="yeardrop" name="yeardrop" onchange="this.form.submit()">';
                         echo '&nbsp';
                         echo "<option value = '-1'> Välj ett år </option>";
@@ -131,22 +120,19 @@ $selectedYear = $_GET['yeardrop'];
                         }else{
                                 echo '<option value =' .$myrow['Year'] . '>' .$myrow['Year']. '</option>';
                             }
-
 			}
                         echo '</select>';
 			echo '</div>';
 //echo '<input type="submit" name="submit" value="Välj" />';
                     } else {
                     }}else{
+					echo '<div align = "center">';
                     echo '<h2> Inga rapporter</h2>';
-
                     echo 'Företaget har inga rapporter om du vill skapa en ny rapport klicka länken nedan eller Rapport högst upp';
                     echo'<br><br>';
-
-                    echo '<a href="rapport.php">Skapa ny rapport</a>';
-
+                    echo '<a id = "createRapport"href="rapport.php">Skapa ny rapport</a>';
+					echo '</div>';
                 }
-
 		   ?>
 
 
@@ -166,14 +152,10 @@ $selectedYear = $_GET['yeardrop'];
 
 
             <?php
-
-
             if (isset($_GET['yeardrop'])){
-
 				if($selectedYear != -1){
 					$_SESSION['Id'] = null;
 				}
-
                 $selectedYear = $_GET['yeardrop'];
                 if($selectedYear != -1){
                     if ($ReportSql = mysqli_prepare($dbc, "SELECT Id,NameofReport,NameOfUser,DATE(ChangeDate) as ChangeDate ,finished,Comment from Report where Year = ? and User = ?")) {
@@ -191,6 +173,15 @@ $selectedYear = $_GET['yeardrop'];
                         $LokalSql->execute();
                         /* instead of bind_result: */
                         $PlacesRes = $LokalSql->get_result();
+                        /* now you can fetch the results into an array - NICE */
+                    }else{
+                    }
+					 if ($LokalSqlSum = mysqli_prepare($dbc, "SELECT sum(TonCO2) as tonSum FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ? ")) {
+                        $LokalSqlSum->bind_param("ss", $selectedYear,$login_session);
+                        /* execute query */
+                        $LokalSqlSum->execute();
+                        /* instead of bind_result: */
+                        $PlacesResSum = $LokalSqlSum->get_result();
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
@@ -212,6 +203,15 @@ $selectedYear = $_GET['yeardrop'];
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
+					if ($TransportSqlSum = mysqli_prepare($dbc, "SELECT ifnull(round(sum(TonCO2),2),0) as tonSum FROM Transport,Report where Transport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ? ")) {
+                        $TransportSqlSum->bind_param("ss", $selectedYear,$login_session);
+                        /* execute query */
+                        $TransportSqlSum->execute();
+                        /* instead of bind_result: */
+                        $TransportResSum = $TransportSqlSum->get_result();
+                        /* now you can fetch the results into an array - NICE */
+                    }else{
+                    }
                     if ($OtherTransportSql = mysqli_prepare($dbc, "SELECT BioTransportAmount,EnforcementPurchasePolicyVehicle,EnforcementTravelPolicy,EnvironmentReqOtherTransport,EnvironmentReqOtherTransportDescription,EnvironmentReqPurchased,EnvironmentReqPurchasedDescription,Comment FROM OtherTransport, Report where OtherTransport.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
                         $OtherTransportSql->bind_param("ss", $selectedYear,$login_session);
                         /* execute query */
@@ -230,6 +230,15 @@ $selectedYear = $_GET['yeardrop'];
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
+					 if ($FlightSqlSum = mysqli_prepare($dbc, "SELECT ifnull(round(sum(KGCO2)/1000,2),0) as tonSum FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
+                        $FlightSqlSum->bind_param("ss", $selectedYear,$login_session);
+                        /* execute query */
+                        $FlightSqlSum->execute();
+                        /* instead of bind_result: */
+                        $FlightResSum = $FlightSqlSum->get_result();
+                        /* now you can fetch the results into an array - NICE */
+                    }else{
+                    }
                     if ($OtherFlightSql = mysqli_prepare($dbc, "SELECT TotalAmount FROM OtherFlight, Report where OtherFlight.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
                         $OtherFlightSql->bind_param("ss", $selectedYear,$login_session);
                         /* execute query */
@@ -239,11 +248,8 @@ $selectedYear = $_GET['yeardrop'];
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
-                }else{
-                    echo '<h2> Inget år valt</h2>';
-
-                }
-            }
+					
+            }}
             ?>
 
 
@@ -252,10 +258,8 @@ $selectedYear = $_GET['yeardrop'];
 
             <?php
             if(isset($_GET['yeardrop'])){
-
                 if($selectedYear != -1){
                     echo '<form name = "historik" method = "get" id ="historik" >';
-
                    echo '<table align = "right">';
                     echo '<td>';
                     echo '<input name="Edit" type = "submit" form ="historik"  value = "Ändra" id = "EditButton" />'; // ändra css
@@ -268,7 +272,6 @@ $selectedYear = $_GET['yeardrop'];
                     echo '</table>';
 					echo '<br><br>';
 					echo '<h1>  Rapport för år '.$selectedYear.' </h1>';
-
                     if(!mysqli_num_rows($ReportSqlres) == 0){
                         while ($myrow = $ReportSqlres->fetch_assoc()){
                             $_SESSION["Id"] = $myrow['Id'];
@@ -291,11 +294,58 @@ $selectedYear = $_GET['yeardrop'];
                             echo $myrow['finished'] ? "<img class='klar' src=\"../res/klar.png\" >" : "<img class='ejklar' src=\"../res/inte_klar.png\" >";
                             echo '</td></tr>';
                             echo '</table>';
+							echo '<br>';
+							$totalSum = 0;
+					
+					echo '<table id = "Sum">';
+					echo'<tr>';
+					echo '<th id = "sumTH"> Summa av utsläpp </th>';
+					echo '<th id = "sumTH"> Ton CO<sub>2</sub> </th>';
+					echo'</tr>';
+					echo'<tr>';
+					echo '<th> Lokaler och Proccesser: </th>';
+					while($sumrow = $PlacesResSum->fetch_assoc()){
+					echo '<td>' .$sumrow['tonSum'].'</td>';
+					$totalSum += $sumrow['tonSum'];
+					}
+					echo'</tr>';
+					
+					echo'<tr>';
+					echo '<th> Transport: </th>';
+					while($sumrow = $TransportResSum->fetch_assoc()){
+					echo '<td>' .$sumrow['tonSum'].'</td>';
+					$totalSum += $sumrow['tonSum'];
+					
+					}
+					echo'</tr>';
+					
+					echo'<tr>';
+					echo '<th> Flyg: </th>';
+					while($sumrow = $FlightResSum->fetch_assoc()){
+					echo '<td>' .$sumrow['tonSum'].'</td>';
+					$totalSum += $sumrow['tonSum'];
+					
+					}
+					echo'</tr>';
+					
+					echo'<tr>';
+					echo '<th> Totalt: </th>';
+					
+					echo '<td> '.$totalSum.'</td>';
+					
+					
+					echo'</tr>';
+					echo '</table>';
+					
                             echo'<div name = "Lokaler och Processer">';
                             echo '<h1>  Lokaler och Proccesser </h1>';
                         }
                         mysqli_data_seek($ReportSqlres, 0);
                     }
+					
+					
+					
+					
                     if(mysqli_num_rows($PlacesRes)> 0 || mysqli_num_rows($OtherPlacesRes) > 0 ){
                     if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes) == 0){
                         echo '<table>';
@@ -317,7 +367,6 @@ $selectedYear = $_GET['yeardrop'];
                         }
                         mysqli_data_seek($OtherPlacesRes, 0);
                         echo '</table>';
-
                     }
                     if($selectedYear != -1 && !mysqli_num_rows($PlacesRes) == 0){
                         echo '<table id= "StatTable">';
@@ -328,7 +377,7 @@ $selectedYear = $_GET['yeardrop'];
                         echo '<th> Omräkningsfaktor </th>';
                         echo '<th> Energi i MWh </th>';
                         echo '<th> Utsläpp i Mwh </th>';
-                        echo '<th> TonCO22 </th>';
+                        echo '<th> TonCO2 </th>';
                         echo '</tr>';
                     }else{
                         echo "Inga utsläppskällor under Lokaler och Processer rapporterade";
@@ -344,7 +393,6 @@ $selectedYear = $_GET['yeardrop'];
                         }
                     }
                     echo '</table>';
-
                     if($selectedYear != -1 && !mysqli_num_rows($OtherPlacesRes)==0){
                         echo '<table>';
                         while ($myrow = $OtherPlacesRes->fetch_assoc()) {
@@ -366,7 +414,6 @@ $selectedYear = $_GET['yeardrop'];
                             echo '<td> MWh </td>';
                             echo '</tr>';
                             echo '</table>';
-
                             /* echo '<h3> Övriga Kommentarer</h3>';
                             if(!empty($myrow['Comment'])){
                                 echo '<textarea style="width: 500px; height: 100px;" class="field left" readonly>';
@@ -379,14 +426,12 @@ $selectedYear = $_GET['yeardrop'];
                         }
                     }}else{
                         echo "Inget rapporterat i Lokaler och Processer";
-
                     }
                     echo '</div>';
                     echo'<div name = "Transport">';
                     echo '<h1> Transport </h1>';
                     if(mysqli_num_rows($TransportRes)> 0 || mysqli_num_rows($OtherTransportRes) > 0 ){
                     if($selectedYear !=-1 && !mysqli_num_rows($TransportRes)==0){
-
                         echo '<table id= "StatTable">';
                         echo '<tr>';
                         echo '<th> Utsläppskälla </th>';
@@ -458,7 +503,6 @@ $selectedYear = $_GET['yeardrop'];
 				
                           
                             echo '<table name = "otherTransport">';
-
                             if($myrow['EnvironmentReqOtherTransport']) {
                                // echo'<tr><th><br></th></tr>'; //kanske inte bästa sättet att göra detta
                             echo '<tr><th> Beskrivning av andra miljökrav </th><tr>';
@@ -479,26 +523,19 @@ $selectedYear = $_GET['yeardrop'];
                             echo '<td>';
                             echo $myrow['EnforcementPurchasePolicyVehicle'] ? "Ja" : "Nej";
                             echo '</td></tr>';
-
                             echo '<tr><th> Tillämpas resepolicy: </th>';
                             echo '<td>';
                             echo $myrow['EnforcementTravelPolicy'] ? "Ja" : "Nej";
                             echo '</td></tr>';
                             echo '</table>';
-
                         }
                     }}else{
                         echo "Inget rapporterat i Transport";
                     }
-
                     echo '<h1> Flygresor </h1>';
                     echo '<table>';
                     $myrow = $OtherFlightRes->fetch_assoc();
-
                     if(mysqli_num_rows($FlightRes)> 0 || mysqli_num_rows($OtherFlightRes) > 0 ){
-
-
-
                     echo '<tr>';
                     echo '<th> Totala flygutsläpp </th>';
                     echo '</tr>';
@@ -532,14 +569,12 @@ $selectedYear = $_GET['yeardrop'];
                                 }
                             }
                             echo '</tr>';
-
                         }
                     }
                     echo '</table>';
                     }else{
                         echo "Inga flygresor angivna";
                     }
-
                     $myrow = $ReportSqlres->fetch_assoc();
                     echo '<h3>Övriga Kommentarer </h3>';
                     if(!empty($myrow['Comment'])){
@@ -550,10 +585,6 @@ $selectedYear = $_GET['yeardrop'];
                         echo "Inga kommentarer givna";
                     }
 					echo '<br>';
-
-
-
-
                     echo '</form>';
 			echo '<table align = "right">';
                     echo '<td>';
@@ -565,16 +596,10 @@ $selectedYear = $_GET['yeardrop'];
 		    echo '</form>';
                  // echo '<input name="Delete" type = "submit" form = "historik"  value = "Ta bort" id = "DeleteButton"  />';                    echo '</td>';
                     echo '</table>';
-
-
-
                 }
-
             }
-
             if (isset($_GET['Delete'])){
                 //något som confirmar
-
                 if ($DeleteSql = mysqli_prepare($dbc, "Delete from Report where id = ? and user = ?")) {
                     $id = $_SESSION['Id'];
 					$message = $id;
@@ -587,27 +612,12 @@ $selectedYear = $_GET['yeardrop'];
                     /* now you can fetch the results into an array - NICE */
 					 Header('Location: '.$_SERVER['PHP_SELF']);
 					Exit();
-
-
-
-
-
                 }
             }
             if(isset($_GET['Edit'])){
-
 				header('Location: rapport_redigera.php');
 				exit();
-
 			}
-
-
-
-
-
-
-
-
             ?>
         </div>
     </div>
