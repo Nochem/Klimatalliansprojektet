@@ -6,3 +6,20 @@
 	margin-left:20%;
 	margin-right:20%;
 }
+
+#ChangeButton{
+	height:40px;
+    font-family: 'Barlow',sans-serif;
+    background-color: #1A6B9F;
+    border:1px solid white;
+    border-radius: 4px;
+    font-size: 20px;
+    color:white;
+    margin-bottom: 10px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+#ChangeButton:hover{
+    background-color: #468DFF;
+    border: 1px solid gray;
+}
