@@ -35,7 +35,7 @@ $(document).ready(function(){
 					backgroundColor: "rgba(180,50,50,1)",
 					hoverBackgroundColor: "rgba(150,50,50,1)"
 				},{
-								label:"Lokala processer",
+								label:"Lokaler och processer",
 					data: lokala,//data:lokala,
 					backgroundColor: "rgba(50,180,50,1)",
 					hoverBackgroundColor: "rgba(50,150,50,1)"
