@@ -407,7 +407,7 @@
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
             echo '<th> Omr. faktor till MWh </th>';
-            echo '<th> Omr. faktor från MWh till CO<sub>2</sub>2</th>';
+            echo '<th> Omr. faktor från MWh till CO<sub>2</sub>e</th>';
             echo '<th> Ton CO<sub>2</sub>e </th>';
             while ($myrow = $emissionsqlresult->fetch_assoc()) {
                 if (!empty($myrow)) {
