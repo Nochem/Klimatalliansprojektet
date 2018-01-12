@@ -28,7 +28,8 @@ a{
 	width: 1000px;
 	margin:auto;
 }
-#logo{
+#logolog{
+	
 	background-image: url("../res/logo.png");
 	background-repeat: no-repeat;
 	background-size: 440px 100px;
@@ -36,7 +37,20 @@ a{
 	margin-top:15px;
 	width:1000px;
 	height:100px;
+	background-position: center; 
 }
+#logo{
+	
+	background-image: url("../res/logo.png");
+	background-repeat: no-repeat;
+	background-size: 440px 100px;
+	margin-left:15px;
+	margin-top:15px;
+	width:1000px;
+	height:100px;
+	
+}
+
 .logout{
 	height:30px;
 	width:120px;
