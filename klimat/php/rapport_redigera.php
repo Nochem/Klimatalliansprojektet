@@ -258,7 +258,7 @@ include('session.php');
                     <br>
                     <input id="modalInputName" name="personName" value = "<?php echo $Reporter;?>" required='' type='text'>
                     <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
-                    <label for="finCheck">Färdig rapport</label>
+                    <label for="finCheck">Klar</label>
                     <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" <?php echo ($fin ? 'checked' : ''); ?>>
 
                     <br>
