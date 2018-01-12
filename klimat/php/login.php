@@ -38,7 +38,6 @@
 		<style>
 			#wrapperL{
 				text-align:center;
-				width:500px;
 				height:500px;
 			}
 			#contentT{
