@@ -257,7 +257,7 @@ if($row['Admin'] == 0){
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
-					if ($LokalSqlSum = mysqli_prepare($dbc, "SELECT sum(TonCO2) as tonSum FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ? ")) {
+					if ($LokalSqlSum = mysqli_prepare($dbc, "SELECT ROUND(IFNULL(sum(TonCO2),0),2) as tonSum FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ? ")) {
                         $LokalSqlSum->bind_param("ss", $selectedYear,$selectedUser);
                         /* execute query */
                         $LokalSqlSum->execute();
@@ -275,7 +275,7 @@ if($row['Admin'] == 0){
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
-					 if ($FlightSqlSum = mysqli_prepare($dbc, "SELECT ifnull(round(sum(KGCO2)/1000,2),0) as tonSum FROM Flights, Report where Flights.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ?")) {
+					 if ($FlightSqlSum = mysqli_prepare($dbc, "SELECT ROUND(IFNULL(TotalAmount,0),2) as TotalAmount FROM OtherFlight, Report where OtherFlight.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
                         $FlightSqlSum->bind_param("ss", $selectedYear,$selectedUser);
                         /* execute query */
                         $FlightSqlSum->execute();
@@ -337,12 +337,35 @@ if($row['Admin'] == 0){
                             echo '</td></tr>';
                             echo '</table>';
 							echo '<br>';
+						//SUM TABLE
 							$totalSum = 0;
+							$flightsum = 0;
+							
+							while($sumrow = $OtherFlightRes->fetch_assoc()){
+								$totalamountflight = $sumrow['TotalAmount'];
+								
+								
+								if($totalamountflight >0){
+									$flightsum = $totalamountflight;
+									$flightsum = $flightsum/1000;
+									$totalSum += $flightsum;
+								}else{
+									
+									while($sumrow = $FlightResSum->fetch_assoc()){
+									$flightsum +=  $sumrow['tonSum'];
+									$totalSum += $sumrow['tonSum'];
+									}
+									
+								}
+								
+							}
+							 mysqli_data_seek($OtherFlightRes, 0);
+							 mysqli_data_seek($FlightResSum, 0);
 					
 					echo '<table id = "Sum">';
 					echo'<tr>';
 					echo '<th id = "sumTH"> Summa av utsläpp </th>';
-					echo '<th id = "sumTH"> Ton CO<sub>2</sub> </th>';
+					echo '<th id = "sumTH"> Ton CO<sub>2</sub>e </th>';
 					echo'</tr>';
 					echo'<tr>';
 					echo '<th> Lokaler och Proccesser: </th>';
@@ -363,11 +386,11 @@ if($row['Admin'] == 0){
 					
 					echo'<tr>';
 					echo '<th> Flyg: </th>';
-					while($sumrow = $FlightResSum->fetch_assoc()){
-					echo '<td>' .$sumrow['tonSum'].'</td>';
-					$totalSum += $sumrow['tonSum'];
 					
-					}
+					echo '<td> '.$flightsum.' </td>';
+					
+					
+					
 					echo'</tr>';
 					
 					echo'<tr>';
@@ -414,10 +437,12 @@ if($row['Admin'] == 0){
                             echo '<th> Omräkningsfaktor </th>';
                             echo '<th> Energi i MWh </th>';
                             echo '<th> Utsläpp i Mwh </th>';
-                            echo '<th> TonCO22 </th>';
+                            echo '<th> TonCO<sub>2</sub>e </th>';
                             echo '</tr>';
                         }else{
-                            echo "Inga utsläppskällor under Lokaler och Processer rapporterade";
+							echo '<br>';
+                            echo '<p> Inga utsläppskällor under Lokaler och Processer rapporterade </p>';
+							echo '<br>';
                         }
                         while ($myrow = $PlacesRes->fetch_assoc()) {
                             if(!empty($myrow)){
@@ -462,6 +487,7 @@ if($row['Admin'] == 0){
                                  */
                             }
                         }}else{
+							
                         echo "Inget rapporterat i Lokaler och Processer";
                     }
                     echo '</div>';
