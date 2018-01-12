@@ -222,7 +222,7 @@
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
                     <label alt='Ditt namn*' placeholder='Ditt namn*'></label>
-                    <label for="finCheck">Klar</label>
+                    <label for="finCheck">Klar/Ej Klar</label>
                     <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" unchecked>
 
                     <br>
@@ -306,7 +306,7 @@
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
             echo '<th> Omr. faktor till MWh </th>';
-            echo '<th> Omr. faktor från MWh till CO<sub>2</sub></th>';
+            echo '<th> Omr. faktor från MWh till CO<sub>2</sub>e</th>';
             echo '<th> Ton CO<sub>2</sub>e </th>';
             echo '	</tr>
 		</thead>
@@ -407,7 +407,7 @@
             echo '<th> Inköpt mängd</th>';
             echo '<th> Mått </th>';
             echo '<th> Omr. faktor till MWh </th>';
-            echo '<th> Omr. faktor från MWh till CO<sub>2</sub></th>';
+            echo '<th> Omr. faktor från MWh till CO<sub>2</sub>e</th>';
             echo '<th> Ton CO<sub>2</sub>e </th>';
             while ($myrow = $emissionsqlresult->fetch_assoc()) {
                 if (!empty($myrow)) {
@@ -531,13 +531,13 @@
 							<td><input name="totalFlightKGCO2" type="text" class="inputbox"/>
 							</td>
 							<td>
-								<p style="margin-left: 2em;"> kg CO<sub>2</sub></p>
+								<p style="margin-left: 2em;"> kg CO<sub>2</sub>e</p>
 							</td>
 						</tr>
 					</tbody>
 				</table>
                 <h3 class="advice">
-                Fyll antingen i totala mängden CO<sub>2</sub> ovan,
+                Fyll antingen i totala mängden CO<sub>2</sub>e ovan,
                 eller varje individuell flygresa nedan.
                 </h3>
 				 <table id="reportTable">
@@ -546,7 +546,7 @@
 							<th>Från</th>
 							<th>Till</th>
 							<th>Längd km</th>
-							<th>kg C02</th>
+							<th>kg CO<sub>2</sub></th>
 						</tr>
 					</thead>
 					<tbody>
