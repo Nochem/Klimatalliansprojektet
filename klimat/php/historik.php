@@ -176,7 +176,7 @@ $selectedYear = $_GET['yeardrop'];
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
-					 if ($LokalSqlSum = mysqli_prepare($dbc, "SELECT sum(TonCO2) as tonSum FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ? ")) {
+					 if ($LokalSqlSum = mysqli_prepare($dbc, "SELECT ROUND(IFNULL(sum(TonCO2),0),2) as tonSum FROM PlacesAndProcesses, Report where PlacesAndProcesses.Id = Report.Id AND YEAR(Report.Year) = ? AND Report.user = ? ")) {
                         $LokalSqlSum->bind_param("ss", $selectedYear,$login_session);
                         /* execute query */
                         $LokalSqlSum->execute();
