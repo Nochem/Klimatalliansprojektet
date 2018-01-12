@@ -147,7 +147,7 @@
             <th style="text-align:left">Senast inloggad</th>
             <th style="text-align:left">Senaste IP-adress</th>
             <th style="text-align:left">Registrerad</th>
-	    <th style="text-align:left">Senast klarmarkerade rapport</th>
+	    <th style="text-align:left">Senast klarmarkerad rapport</th>
 					</tr>
           <?php
               ob_start();
