@@ -222,7 +222,7 @@
                     <br>
                     <input id="modalInputName" name="personName" required='' type='text'>
                     <label alt='Ditt namn*' placeholder='Ditt namn*'></label>
-                    <label for="finCheck">Klar/Ej Klar</label>
+                    <label for="finCheck">Klar</label>
                     <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" unchecked>
 
                     <br>
