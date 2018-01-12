@@ -418,7 +418,7 @@ include('session.php');
 		echo '<th> Inköpt mängd</th>'; 
 		echo '<th> Mått </th>'; 
 		echo '<th> Omr. faktor till MWh </th>'; 
-		echo '<th> Omr. faktor från MWh till CO<sub>2</sub></th>'; 
+		echo '<th> Omr. faktor från MWh till CO<sub>2</sub>e</th>'; 
 		echo '<th> Ton CO<sub>2</sub>e </th>';
             while ($myrow = $Placesemissionsqlresult->fetch_assoc()) {
                 if (!empty($myrow)) {
@@ -555,7 +555,7 @@ include('session.php');
 		echo '<th> Inköpt mängd</th>'; 
 		echo '<th> Mått </th>'; 
 		echo '<th> Omr. faktor till MWh </th>'; 
-		echo '<th> Omr. faktor från MWh till CO<sub>2</sub></th>'; 
+		echo '<th> Omr. faktor från MWh till CO<sub>2</sub>e</th>'; 
 		echo '<th> Ton CO<sub>2</sub>e </th>';
 		
 		
@@ -790,7 +790,7 @@ include('session.php');
 							<td><input name="totalFlightKGCO2" type="text" class="inputbox"/>
 							</td>
 							<td>
-								<p style="margin-left: 2em;"> kg CO<sub>2</sub></p>
+								<p style="margin-left: 2em;"> kg CO<sub>2</sub>e</p>
 							</td>
 						</tr>
 					</tbody>';
@@ -807,7 +807,7 @@ include('session.php');
 							<td><input name="totalFlightKGCO2" type="text" class="inputbox" value="' . $myrow['TotalAmount'] . '"/>
 							</td>
 							<td>
-								<p style="margin-left: 2em;"> kg CO<sub>2</sub></p>
+								<p style="margin-left: 2em;"> kg CO<sub>2</sub>e</p>
 							</td>
 						</tr>
 					</tbody>';
@@ -822,7 +822,7 @@ include('session.php');
 							<td><input name="totalFlightKGCO2" type="text" class="inputbox"/>
 							</td>
 							<td>
-								<p style="margin-left: 2em;"> kg CO<sub>2</sub></p>
+								<p style="margin-left: 2em;"> kg CO<sub>2</sub>e</p>
 							</td>
 						</tr>
 					</tbody>';
@@ -837,7 +837,7 @@ include('session.php');
 						<th>Från</th>
 						<th>Till</th>
 						<th>Längd km</th>
-						<th>kg C02</th>
+						<th>kg CO<sub>2</sub>e</th>
 					</tr>
 					</thead>
 					<tbody>';
