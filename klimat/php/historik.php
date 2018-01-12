@@ -300,7 +300,7 @@ $selectedYear = $_GET['yeardrop'];
 					echo '<table id = "Sum">';
 					echo'<tr>';
 					echo '<th id = "sumTH"> Summa av utsläpp </th>';
-					echo '<th id = "sumTH"> Ton CO<sub>2</sub> </th>';
+					echo '<th id = "sumTH"> Ton CO<sub>2</sub>e </th>';
 					echo'</tr>';
 					echo'<tr>';
 					echo '<th> Lokaler och Proccesser: </th>';
@@ -377,7 +377,7 @@ $selectedYear = $_GET['yeardrop'];
                         echo '<th> Omräkningsfaktor </th>';
                         echo '<th> Energi i MWh </th>';
                         echo '<th> Utsläpp i Mwh </th>';
-                        echo '<th> TonCO2 </th>';
+                        echo '<th> TonCO<sub>2<sub>e </th>';
                         echo '</tr>';
                     }else{
                         echo "Inga utsläppskällor under Lokaler och Processer rapporterade";
@@ -440,7 +440,7 @@ $selectedYear = $_GET['yeardrop'];
                         echo '<th> Omräkningsfaktor </th>';
                         echo '<th> Energi i Mwh </th>';
                         echo '<th> Utsläpp CO2 per Mwh </th>';
-                        echo '<th> Ton CO2 </th>';
+                        echo '<th> Ton CO2e </th>';
                         echo '</tr>';
                     }else{
                         echo "Inga utsläppskällor under transport rapporterade";
@@ -555,7 +555,7 @@ $selectedYear = $_GET['yeardrop'];
                         echo '<th> Från </th>';
                         echo '<th> Till </th>';
                         echo '<th> Längd i KM</th>';
-                        echo '<th> Kg CO2 </th>';
+                        echo '<th> Kg CO<sub>2</sub>e </th>';
                         echo '</tr>';
                     }
                     while ($myrow = $FlightRes->fetch_assoc()) {
