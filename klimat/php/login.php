@@ -51,8 +51,9 @@
 	</head>
 	<body>
 		<div id="wrapperL">
-			<div id="logo"></div>
+			<div id="logolog"></div>
 			<div id="content">
+			
 			<form action = "" method = "post">
 				<label>Användarnamn</label>
 				<br>
