@@ -215,7 +215,7 @@
                     <span class="close">&times;</span>
 
                     <input id="modalInputReportName" name="reportName" required='' type='text'>
-                    <label alt='Rapportens namn*' placeholder='Rapportens namn*'></label>
+                    <label alt='Rapportens namn*' placeholder='Rapportens titel*'></label>
                     <br>
 		    <input id="modalInputYear" name="theYear" required='' type='text' maxlength="4" oninput='checkYear(this.value)'>
                     <label id = 'modalYear' alt='År (åååå)*' placeholder='År (åååå)*'></label>
