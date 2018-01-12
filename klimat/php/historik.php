@@ -403,7 +403,9 @@ $selectedYear = $_GET['yeardrop'];
                         echo '<th> TonCO<sub>2</sub>e </th>';
                         echo '</tr>';
                     }else{
-                        echo "Inga utsläppskällor under Lokaler och Processer rapporterade";
+                        echo '<br>';
+                        echo '<p> Inga utsläppskällor under Lokaler och Processer rapporterade</p>';
+			echo '<br>';
                     }
                     while ($myrow = $PlacesRes->fetch_assoc()) {
                         if(!empty($myrow)){
@@ -466,7 +468,9 @@ $selectedYear = $_GET['yeardrop'];
                         echo '<th> Ton CO<sub>2</sub>e </th>';
                         echo '</tr>';
                     }else{
+			
                         echo "Inga utsläppskällor under transport rapporterade";
+			
                     }
                     while ($myrow = $TransportRes->fetch_assoc()) {
                         if(!empty($myrow)){
