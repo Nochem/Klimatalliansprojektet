@@ -251,13 +251,13 @@ include('session.php');
                     <span class="close">&times;</span>
 
                     <input id="modalInputReportName" name="reportName" value = "<?php echo $ReportName;?>" required='' type='text'>
-                    <label alt='Rapportnamn' placeholder='Skriv det namn du vill ha på rapporten'></label>
+                    <label alt='Rapportnamn' placeholder='Rapportens titel*'></label>
                     <br>
                    <input id="modalInputYear" name="theYear" required='' value = "<?php echo $reportYear;?>" type='text' maxlength="4"oninput='yearCheck(this.value)'>
-                    <label id = "modalYear" alt='År' placeholder='Skriv in för vilket pår rapporten gäller (åååå)'></label>
+                    <label id = "modalYear" alt='År' placeholder='År (åååå)*'></label>
                     <br>
                     <input id="modalInputName" name="personName" value = "<?php echo $Reporter;?>" required='' type='text'>
-                    <label alt='Ditt Namn' placeholder='Skriv ditt namn'></label>
+                    <label alt='Ditt Namn' placeholder='Ditt namn*'></label>
                     <label for="finCheck">Klar</label>
                     <input id="finCheck" type="checkbox" name="finished" value="FärdigRapport" <?php echo ($fin ? 'checked' : ''); ?>>
 
