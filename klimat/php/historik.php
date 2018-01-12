@@ -239,7 +239,7 @@ $selectedYear = $_GET['yeardrop'];
                         /* now you can fetch the results into an array - NICE */
                     }else{
                     }
-                    if ($OtherFlightSql = mysqli_prepare($dbc, "SELECT TotalAmount FROM OtherFlight, Report where OtherFlight.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
+                    if ($OtherFlightSql = mysqli_prepare($dbc, "SELECT ROUND(IFNULL(TotalAmount,0),2) as TotalAmount FROM OtherFlight, Report where OtherFlight.Id = Report.Id AND YEAR(Report.Year) =? AND Report.user = ?")) {
                         $OtherFlightSql->bind_param("ss", $selectedYear,$login_session);
                         /* execute query */
                         $OtherFlightSql->execute();
@@ -295,7 +295,30 @@ $selectedYear = $_GET['yeardrop'];
                             echo '</td></tr>';
                             echo '</table>';
 							echo '<br>';
+							//SUM TABLE
 							$totalSum = 0;
+							$flightsum = 0;
+							
+							while($sumrow = $OtherFlightRes->fetch_assoc()){
+								$totalamountflight = $sumrow['TotalAmount'];
+								
+								
+								if($totalamountflight >0){
+									$flightsum = $totalamountflight;
+									$flightsum = $flightsum/1000;
+									$totalSum += $flightsum;
+								}else{
+									
+									while($sumrow = $FlightResSum->fetch_assoc()){
+									$flightsum +=  $sumrow['tonSum'];
+									$totalSum += $sumrow['tonSum'];
+									}
+									
+								}
+								
+							}
+							 mysqli_data_seek($OtherFlightRes, 0);
+							 mysqli_data_seek($FlightResSum, 0);
 					
 					echo '<table id = "Sum">';
 					echo'<tr>';
@@ -321,11 +344,11 @@ $selectedYear = $_GET['yeardrop'];
 					
 					echo'<tr>';
 					echo '<th> Flyg: </th>';
-					while($sumrow = $FlightResSum->fetch_assoc()){
-					echo '<td>' .$sumrow['tonSum'].'</td>';
-					$totalSum += $sumrow['tonSum'];
 					
-					}
+					echo '<td> '.$flightsum.' </td>';
+					
+					
+					
 					echo'</tr>';
 					
 					echo'<tr>';
@@ -377,7 +400,7 @@ $selectedYear = $_GET['yeardrop'];
                         echo '<th> Omräkningsfaktor </th>';
                         echo '<th> Energi i MWh </th>';
                         echo '<th> Utsläpp i Mwh </th>';
-                        echo '<th> TonCO<sub>2<sub>e </th>';
+                        echo '<th> TonCO<sub>2</sub>e </th>';
                         echo '</tr>';
                     }else{
                         echo "Inga utsläppskällor under Lokaler och Processer rapporterade";
@@ -440,7 +463,7 @@ $selectedYear = $_GET['yeardrop'];
                         echo '<th> Omräkningsfaktor </th>';
                         echo '<th> Energi i Mwh </th>';
                         echo '<th> Utsläpp CO2 per Mwh </th>';
-                        echo '<th> Ton CO2e </th>';
+                        echo '<th> Ton CO<sub>2</sub>e </th>';
                         echo '</tr>';
                     }else{
                         echo "Inga utsläppskällor under transport rapporterade";
