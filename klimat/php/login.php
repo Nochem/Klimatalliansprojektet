@@ -38,7 +38,6 @@
 		<style>
 			#wrapperL{
 				text-align:center;
-				width:500px;
 				height:500px;
 			}
 			#contentT{
@@ -52,7 +51,7 @@
 	<body>
 		<div id="wrapperL">
 			<div id="logolog"></div>
-			<div id="content">
+			<div id="contentlog">
 			
 			<form action = "" method = "post">
 				<label>Användarnamn</label>
