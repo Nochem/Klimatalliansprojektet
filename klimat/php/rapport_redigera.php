@@ -139,14 +139,14 @@ include('session.php');
                         }
                     }
                     $flightTotKGCO2 = $_GET['totalFlightKGCO2'];
-                    if(!empty($flightTotKGCO2)){
+                    
                         if ($insertOtherFlightsql = mysqli_prepare($dbc, "INSERT INTO OtherFlight(TotalAmount, Id) values (?,?) ON DUPLICATE KEY UPDATE TotalAmount = ?")) {
                             $insertOtherFlightsql->bind_param("did", $flightTotKGCO2, $id, $flightTotKGCO2 );
                             $insertOtherFlightsql->execute();
                             $transportqlresult = $insertOtherFlightsql->get_result();
                             $insertOtherFlightsql->close();
                         }
-                    }
+                    
                 }
             }
 			if($_SESSION['createdReport'] > 0){
