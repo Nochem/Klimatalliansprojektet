@@ -537,29 +537,8 @@
 					</tbody>
 				</table>
                 <h3 class="advice">
-                Fyll antingen i totala mängden CO<sub>2</sub>2 ovan,
-                eller varje individuell flygresa nedan.
+                Fyll i den totala mängden CO<sub>2</sub>2 ovan.
                 </h3>
-				 <table id="reportTable">
-					<thead>
-						<tr>
-							<th>Från</th>
-							<th>Till</th>
-							<th>Längd km</th>
-							<th>kg CO<sub>2</sub>e</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><input name="Departure[]"type="text" class="inputbox"/></td>
-							<td><input name="Destination[]" class="inputbox"/></td>
-							<td><input name="lengthKM[]" class="inputbox"/></td>
-							<td><input name="kgCO2[]" class="inputbox"/></td>
-						</tr>
-					</tbody>
-				</table>
-				<input type="hidden" name = "nbrofRowsFlight" id="nbrofRowsFlight" value="1" >
-				<input type = "button" id="addrow" value = "Ny resa"/>
 				<div id="flygresor_comments">
 					<h3>Övriga kommentarer</h3>
 					<textarea name="OtherComment" class="comments" rows="8" cols="50"></textarea>
